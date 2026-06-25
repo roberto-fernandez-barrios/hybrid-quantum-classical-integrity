@@ -9,3 +9,5 @@ tqdm
 qiskit
 qiskit-aer
 qiskit-machine-learning
+
+tabulate

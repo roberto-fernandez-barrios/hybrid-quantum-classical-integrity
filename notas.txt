@@ -1,7 +1,0 @@
-python -m src.experiments.run_grid --protocol all --id-glob "data/prepared/id/*.csv" --ood-train-glob "data/prepared/ood/*train*.csv" --ood-test-glob "data/prepared/ood/*test*.csv" --run-both --resume --pass-signal-defaults --n-jobs 4 --allow-parallel-quantum --max-fails 5 --retries 1 --strict-ood-pairing --max-train 64 --max-test 64 --attack-suite v2
-
-python -m src.experiments.run_grid --protocol all --id-glob "data/prepared/id/*.csv" --ood-train-glob "data/prepared/ood/*train*.csv" --ood-test-glob "data/prepared/ood/*test*.csv" --run-both --resume --pass-signal-defaults --n-jobs 4 --allow-parallel-quantum --max-fails 5 --retries 1 --strict-ood-pairing --max-train 128 --max-test 128 --attack-suite v2
-
-python -m src.experiments.run_grid --protocol all --id-glob "data/prepared/id/*.csv" --ood-train-glob "data/prepared/ood/*train*.csv" --ood-test-glob "data/prepared/ood/*test*.csv" --run-both --resume --pass-signal-defaults --n-jobs 2 --allow-parallel-quantum --max-fails 5 --retries 1 --strict-ood-pairing --max-train 256 --max-test 256 --attack-suite v2
-
-python -m src.experiments.run_grid --protocol all --id-glob "data/prepared/id/*.csv" --ood-train-glob "data/prepared/ood/*train*.csv" --ood-test-glob "data/prepared/ood/*test*.csv" --run-both --resume --pass-signal-defaults --n-jobs 1 --allow-parallel-quantum --max-fails 5 --retries 1 --strict-ood-pairing --max-train 512 --max-test 512 --attack-suite v2

@@ -26,7 +26,8 @@
 #   - OOD pairing strict mode is truly strict: key collisions in tests become an error.
 #   - Tuple arity guard: assert job tuple length to avoid silent unpack drift.
 #   - Path-key normalization for dedupe (Windows case-insensitive, resolves).
-#   - NEW (2026-02-19): max-train/max-test passed to runner and embedded in prefix to match run_benchmark filenames.
+#   - max-train/max-test passed to runner and embedded in prefix to match run_benchmark filenames.
+#   - q_backend_method/q_max_iter propagated end-to-end (cfg, cmd, resume, logs, manifest).
 #
 from __future__ import annotations
 
@@ -60,6 +61,8 @@ DEFAULT_Q_FEATURE_MAPS = ["zz", "z", "pauli_xz", "pauli_xyz"]
 DEFAULT_CLASSICAL_SCALE = "standard"
 DEFAULT_QUANTUM_SCALE = "minmax2pi"
 DEFAULT_ATTACK_SUITE = "v2"
+DEFAULT_Q_BACKEND_METHOD = "statevector"
+DEFAULT_Q_MAX_ITER = 2000
 
 # Shared sample caps (must match run_benchmark defaults if you rely on defaults)
 DEFAULT_MAX_TRAIN = 512
@@ -84,9 +87,8 @@ DEFAULT_REQUIRED_CSV_COLS = [
     "svd_dim",
 ]
 
-# Job tuple arity guard (keep in sync with _append_job / _run_one / _job_to_manifest_entry)
-#  +2 for max_train/max_test
-_JOB_TUPLE_LEN = 28
+# Job tuple arity guard
+_JOB_TUPLE_LEN = 30
 
 
 # ----------------------------
@@ -112,8 +114,10 @@ class GridCfg:
     quantum_scale: str
     quantum_reps: int
     quantum_shots: int
+    quantum_backend_method: str
+    quantum_max_iter: int
 
-    # NEW: shared caps passed to run_benchmark
+    # shared caps passed to run_benchmark
     max_train: int
     max_test: int
 
@@ -185,7 +189,6 @@ def _parse_str_list(s: str) -> List[str]:
 def _set_runtime_env(base_env: dict, omp_threads: int) -> dict:
     """
     Force thread caps for BLAS/OpenMP to keep runs stable across machines.
-    (Do NOT use setdefault; user env may already define these.)
     """
     env = dict(base_env)
     if omp_threads and int(omp_threads) > 0:
@@ -194,7 +197,6 @@ def _set_runtime_env(base_env: dict, omp_threads: int) -> dict:
         env["MKL_NUM_THREADS"] = v
         env["OPENBLAS_NUM_THREADS"] = v
         env["NUMEXPR_NUM_THREADS"] = v
-        # align with src/utils/seed.py (extra runtimes)
         env["VECLIB_MAXIMUM_THREADS"] = v  # macOS Accelerate
         env["BLIS_NUM_THREADS"] = v
     return env
@@ -216,7 +218,7 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
 
 def sha256_file_cached(path: Path, chunk_size: int = 1024 * 1024) -> str:
     """
-    Cached sha256 by normalized path key (saves a lot of time on large CSVs).
+    Cached sha256 by normalized path key.
     """
     k = _norm_path_key(path)
     if k in _HASH_CACHE:
@@ -233,13 +235,32 @@ def _job_log_path(
     split_seed: int,
     model_seed: int,
     svd_dim: int,
+    attack_suite: str,
+    scale_classical: str,
+    scale_quantum: str,
+    max_train: int,
+    max_test: int,
     q_feature_map: str,
+    q_reps: int,
+    q_shots: int,
+    q_backend_method: str,
+    q_max_iter: int,
     run_quantum: bool,
     attempt: Optional[int] = None,
 ) -> Path:
+    """
+    Include the main run-shaping knobs to avoid log overwrites across different grids.
+    """
     log_dir.mkdir(parents=True, exist_ok=True)
-    qtag = q_feature_map if run_quantum else "qnone"
-    base = log_dir / f"grid__{protocol}{dtag}__split{split_seed}__model{model_seed}__d{svd_dim}__{qtag}"
+    if run_quantum:
+        qtag = f"{q_feature_map}__qr{int(q_reps)}__qb{q_backend_method}__qs{int(q_shots)}__qmi{int(q_max_iter)}"
+    else:
+        qtag = "qnone"
+    base = log_dir / (
+        f"grid__{protocol}{dtag}__split{split_seed}__model{model_seed}__d{svd_dim}"
+        f"__mt{int(max_train)}__me{int(max_test)}"
+        f"__c{scale_classical}__q{scale_quantum}__atk{attack_suite}__{qtag}"
+    )
     if attempt is None:
         return base.with_suffix(".log")
     return base.with_name(base.name + f"__attempt{attempt}.log")
@@ -247,10 +268,7 @@ def _job_log_path(
 
 def _looks_complete_csv(csv_path: Path, *, required_cols: Optional[List[str]] = None) -> bool:
     """
-    Conservative "complete" check:
-      - file exists and non-empty
-      - has at least one data row (header + second line)
-      - optionally validates header contains required columns
+    Conservative "complete" check.
     """
     if not csv_path.exists() or csv_path.stat().st_size <= 0:
         return False
@@ -284,7 +302,7 @@ def _looks_complete_json(json_path: Path) -> bool:
     """
     Stricter than "size>10":
       - must parse as JSON dict
-      - must have at least run_cfg + hashes keys (runner contract)
+      - must have at least run_cfg + hashes keys
     """
     if not json_path.exists() or json_path.stat().st_size <= 10:
         return False
@@ -369,21 +387,31 @@ def _run_prefix(
     q_feature_map: str,
     q_reps: int,
     q_shots: int,
+    q_backend_method: str,
+    q_max_iter: int,
     run_quantum: bool,
 ) -> str:
     """
-    MUST match run_benchmark output tag components, otherwise resume will fail.
+    Prefix aligned with src.experiments.run_benchmark output filenames.
 
-    run_benchmark (current in your chat) includes:
-      __mt{max_train}__me{max_test}
+    Must match run_benchmark.run_tag, excluding the final __cfg<fingerprint>.
+    Current run_benchmark tag shape:
+      proto{id|ood}__<dataset_tag>__seed...__cmodelssvc_rbf__cscale...__qscale...__atk...__qmaps...__cfg...
     """
     seed_packed = _packed_seed(split_seed, model_seed)
-    qtag = f"__qfm{q_feature_map}__qr{q_reps}__qs{q_shots}" if run_quantum else "__qnone"
+
+    qtag = (
+        f"__qmaps{q_feature_map}__qr{int(q_reps)}__qb{q_backend_method}__qs{int(q_shots)}__qmi{int(q_max_iter)}"
+        if run_quantum
+        else "__qnone"
+    )
+
     return (
         f"proto{protocol}{dtag}"
         f"__seed{seed_packed}__split{split_seed}__model{model_seed}__d{svd_dim}"
         f"__mt{int(max_train)}__me{int(max_test)}"
-        f"__c{scale_classical}__q{scale_quantum}"
+        f"__cmodelssvc_rbf"
+        f"__cscale{scale_classical}__qscale{scale_quantum}"
         f"__atk{attack_suite}{qtag}"
     )
 
@@ -403,6 +431,8 @@ def _json_matches_job(
     q_feature_map: str,
     q_reps: int,
     q_shots: int,
+    q_backend_method: str,
+    q_max_iter: int,
     run_quantum: bool,
     expected_hashes: Dict[str, Optional[str]],
     ignore_scale_quantum: bool = False,
@@ -412,7 +442,6 @@ def _json_matches_job(
     def _eq(a: Any, b: Any) -> bool:
         return str(a) == str(b)
 
-    # Core identity
     if not _eq(rcfg.get("protocol"), protocol):
         return False
     if int(rcfg.get("split_seed", -1)) != int(split_seed):
@@ -426,7 +455,6 @@ def _json_matches_job(
     if not _eq(rcfg.get("scale_classical"), scale_classical):
         return False
 
-    # NEW: caps must match
     if int(rcfg.get("max_train", -999999)) != int(max_train):
         return False
     if int(rcfg.get("max_test", -999999)) != int(max_test):
@@ -436,16 +464,33 @@ def _json_matches_job(
         if not _eq(rcfg.get("scale_quantum"), scale_quantum):
             return False
 
-    # Must match expected run_quantum flag always
     if bool(rcfg.get("run_quantum", False)) != bool(run_quantum):
         return False
 
     if run_quantum:
-        if not _eq(rcfg.get("q_feature_map"), q_feature_map):
+        raw_maps = rcfg.get("q_feature_maps", rcfg.get("q_feature_map", None))
+
+        if isinstance(raw_maps, (list, tuple)):
+            maps = [str(x) for x in raw_maps]
+        elif raw_maps is None:
+            maps = []
+        else:
+            maps = [
+                p.strip()
+                for p in str(raw_maps).replace(";", ",").split(",")
+                if p.strip()
+            ]
+
+        if maps != [str(q_feature_map)]:
             return False
+
         if int(rcfg.get("q_reps", -1)) != int(q_reps):
             return False
         if int(rcfg.get("q_shots", -1)) != int(q_shots):
+            return False
+        if not _eq(rcfg.get("q_backend_method"), q_backend_method):
+            return False
+        if int(rcfg.get("q_max_iter", -1)) != int(q_max_iter):
             return False
 
     hashes = (meta or {}).get("hashes", {}) or {}
@@ -460,14 +505,11 @@ def _json_matches_job(
 
 def _candidate_sidecar_jsons_for_csv(csv_path: Path) -> List[Path]:
     """
-    Tolerate runner naming variations:
-      - <stem>.json            (common)
-      - <csv>.json             (some tools write foo.csv.json)
-      - <with_suffix .json>    (safe)
+    Tolerate runner naming variations.
     """
     candidates = [
         csv_path.with_name(csv_path.stem + ".json"),
-        Path(str(csv_path) + ".json"),  # covers foo.csv.json
+        Path(str(csv_path) + ".json"),
         csv_path.with_suffix(".json"),
     ]
 
@@ -487,24 +529,18 @@ def _prefix_glob_pattern_for_resume(prefix: str, *, allow_q_wildcard: bool) -> s
     """
     Resume pattern for CSV discovery.
 
-    If allow_q_wildcard=True, replace "__q<...>" (up to "__atk") with "__q*"
-    so classic-only runs don't break resume when scale_quantum changes.
+    The current runner embeds both qscale and qtag explicitly. We keep exact prefix
+    matching by default because strict JSON validation already handles correctness
+    and exact matching avoids false skips across different quantum settings.
 
-    NOTE: Use a non-greedy match up to "__atk" to avoid assumptions about underscores.
+    `allow_q_wildcard` is kept for backward compatibility with older call sites,
+    but intentionally does not widen the pattern for current filenames.
     """
-    if not allow_q_wildcard:
-        return f"run__{prefix}__cfg*.csv"
-
-    # Replace "__q<...>" up to "__atk" with "__q*"
-    p2 = re.sub(r"__q.*?(?=__atk)", "__q*", prefix, count=1)
-    return f"run__{p2}__cfg*.csv"
+    _ = allow_q_wildcard
+    return f"run__{prefix}__cfg*.csv"
 
 
 def _json_run_quantum_flag(json_path: Path) -> Optional[bool]:
-    """
-    Fast-ish peek: parse JSON and return run_cfg.run_quantum if present.
-    Returns None if unreadable.
-    """
     meta = _read_json_safely(json_path)
     if not isinstance(meta, dict):
         return None
@@ -524,12 +560,7 @@ def _find_completed_run_by_prefix(
     required_csv_cols: Optional[List[str]] = None,
 ) -> Optional[Tuple[Path, Path]]:
     """
-    Robust resume:
-      - finds CSVs by prefix (classic-only allows __q* wildcard)
-      - discovers sidecar JSON with tolerant naming
-      - validates JSON structure + that it matches the job (incl hashes)
-      - IMPORTANT FIX: classic-only matches ignore_scale_quantum=True
-      - Extra: classic-only prioritizes candidates whose JSON declares run_quantum=false
+    Robust resume.
     """
     run_quantum = bool(job_params.get("run_quantum", False))
     allow_q_wildcard = (not run_quantum)
@@ -551,7 +582,6 @@ def _find_completed_run_by_prefix(
                 reverse=True,
             )
 
-        # Classic-only: prioritize JSONs whose run_quantum flag is False
         if not run_quantum and json_candidates:
             preferred: List[Path] = []
             other: List[Path] = []
@@ -574,7 +604,6 @@ def _find_completed_run_by_prefix(
                 if _json_matches_job(meta, **job_params, ignore_scale_quantum=False):
                     return csv_path, json_path
             else:
-                # Classic-only: accept any scale_quantum candidate used (everything else must match + hashes)
                 if _json_matches_job(meta, **job_params, ignore_scale_quantum=True):
                     return csv_path, json_path
 
@@ -599,6 +628,8 @@ def _build_cmd(
     q_feature_map: str,
     q_reps: int,
     q_shots: int,
+    q_backend_method: str,
+    q_max_iter: int,
     run_quantum: bool,
     pass_signal_defaults: bool,
 ) -> List[str]:
@@ -620,7 +651,6 @@ def _build_cmd(
         str(int(split_seed)),
         "--model-seed",
         str(int(model_seed)),
-        # NEW: shared caps (same for classical+quantum)
         "--max-train",
         str(int(max_train)),
         "--max-test",
@@ -653,12 +683,16 @@ def _build_cmd(
     if run_quantum:
         cmd += [
             "--run-quantum",
-            "--q-feature-map",
+            "--q-feature-maps",
             str(q_feature_map),
             "--q-reps",
             str(int(q_reps)),
             "--q-shots",
             str(int(q_shots)),
+            "--q-backend-method",
+            str(q_backend_method),
+            "--q-max-iter",
+            str(int(q_max_iter)),
         ]
 
     return cmd
@@ -671,8 +705,6 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
     """
     Returns:
       ok, message, fail_log_path (only for failures)
-
-    NOTE: job tuple contains only pickle-friendly primitives (mostly str/int/bool/dict/list).
     """
     if len(job) != _JOB_TUPLE_LEN:
         return False, f"[FAIL] internal: bad job tuple len={len(job)} expected={_JOB_TUPLE_LEN}", None
@@ -698,6 +730,8 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
         q_feature_map,
         q_reps,
         q_shots,
+        q_backend_method,
+        q_max_iter,
         run_quantum,
         resume,
         dry_run,
@@ -728,13 +762,16 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
         q_feature_map=q_feature_map,
         q_reps=q_reps,
         q_shots=q_shots,
+        q_backend_method=q_backend_method,
+        q_max_iter=q_max_iter,
         run_quantum=run_quantum,
     )
 
     tag = (
         f"proto={protocol}{dtag} split={split_seed} model={model_seed} dim={svd_dim} "
         f"mt={int(max_train)} me={int(max_test)} "
-        f"q={'on' if run_quantum else 'off'} fmap={q_feature_map if run_quantum else 'qnone'}"
+        f"q={'on' if run_quantum else 'off'} fmap={q_feature_map if run_quantum else 'qnone'} "
+        f"backend={q_backend_method if run_quantum else 'none'} qmi={q_max_iter if run_quantum else 'na'}"
     )
 
     job_params = {
@@ -750,6 +787,8 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
         "q_feature_map": q_feature_map,
         "q_reps": q_reps,
         "q_shots": q_shots,
+        "q_backend_method": q_backend_method,
+        "q_max_iter": q_max_iter,
         "run_quantum": run_quantum,
         "expected_hashes": expected_hashes,
     }
@@ -783,6 +822,8 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
         q_feature_map=q_feature_map,
         q_reps=q_reps,
         q_shots=q_shots,
+        q_backend_method=q_backend_method,
+        q_max_iter=q_max_iter,
         run_quantum=run_quantum,
         pass_signal_defaults=pass_signal_defaults,
     )
@@ -790,12 +831,8 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
     if dry_run:
         return True, f"[DRY]  {tag} -> {' '.join(cmd)}", None
 
-    # ----------------------------
-    # Subprocess environment hardening
-    # ----------------------------
     env = _set_runtime_env(os.environ, env_omp_threads)
 
-    # ensure the child resolves python/packages from *this* interpreter first
     try:
         py_dir = str(Path(python_exe).resolve().parent)
     except Exception:
@@ -803,12 +840,9 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
 
     env["PATH"] = py_dir + os.pathsep + env.get("PATH", "")
     env["PYTHONUNBUFFERED"] = "1"
-
-    # Avoid Qiskit internal parallelism fighting outer mp.Pool
     env["QISKIT_NUM_PROCS"] = "1"
     env["QISKIT_PARALLEL"] = "FALSE"
 
-    # Also force unbuffered mode at interpreter level (-u)
     cmd_u = list(cmd)
     if len(cmd_u) >= 1 and cmd_u[0] == python_exe and "-u" not in cmd_u[1:3]:
         cmd_u.insert(1, "-u")
@@ -824,7 +858,16 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
             split_seed=split_seed,
             model_seed=model_seed,
             svd_dim=svd_dim,
+            attack_suite=attack_suite,
+            scale_classical=scale_classical,
+            scale_quantum=scale_quantum,
+            max_train=int(max_train),
+            max_test=int(max_test),
             q_feature_map=q_feature_map,
+            q_reps=q_reps,
+            q_shots=q_shots,
+            q_backend_method=q_backend_method,
+            q_max_iter=q_max_iter,
             run_quantum=run_quantum,
             attempt=attempt if attempts > 1 else None,
         )
@@ -887,8 +930,7 @@ def _run_one(job: Tuple) -> Tuple[bool, str, Optional[str]]:
 # ----------------------------
 def _expand_globs(patterns: List[str], *, only_csv: bool = True) -> List[Path]:
     """
-    Expand glob patterns robustly (supports ** with recursive=True).
-    Tolerant to relative/absolute patterns. Optionally filter to .csv files.
+    Expand glob patterns robustly.
     """
     out: List[Path] = []
 
@@ -938,7 +980,6 @@ def _ood_key_from_name(p: Path) -> str:
 def _similarity(a: str, b: str) -> float:
     """
     Simple, dependency-free similarity in [0,1].
-    We use token Jaccard first; if too low, fall back to character overlap proxy.
     """
     ta = [t for t in a.split("_") if t]
     tb = [t for t in b.split("_") if t]
@@ -954,7 +995,6 @@ def _similarity(a: str, b: str) -> float:
     if jac >= 0.5:
         return jac
 
-    # Char overlap proxy (bounded)
     ca = set(a)
     cb = set(b)
     inter2 = len(ca & cb)
@@ -975,7 +1015,6 @@ def _pair_ood(
     for te in tests:
         test_map.setdefault(_ood_key_from_name(te), []).append(te)
 
-    # Strict mode hardening: key collisions are an error (avoid arbitrary pairing)
     collisions = [(k, v) for k, v in test_map.items() if len(v) > 1]
     if strict and collisions:
         lines = [f"Strict OOD pairing: {len(collisions)} test-key collision(s) detected."]
@@ -998,11 +1037,9 @@ def _pair_ood(
         k = _ood_key_from_name(tr)
         candidates = [p for p in test_map.get(k, []) if _norm_path_key(p) not in used_tests]
 
-        # Strict => exact key only
         if not candidates and strict:
             continue
 
-        # Non-strict => optional fuzzy match
         if not candidates and not strict:
             trk = _ood_key_from_name(tr)
             best: Optional[Path] = None
@@ -1070,7 +1107,7 @@ def _execute_jobs(
             return True
         return False
 
-    print(f"\n==============================")
+    print("\n==============================")
     print(f"PHASE: {phase_name}")
     print(f"Jobs:  {len(jobs)}")
     print(f"Workers: {n_jobs}")
@@ -1145,6 +1182,8 @@ def _job_to_manifest_entry(job: Tuple) -> Dict[str, Any]:
         q_feature_map,
         q_reps,
         q_shots,
+        q_backend_method,
+        q_max_iter,
         run_quantum,
         _resume,
         _dry_run,
@@ -1174,6 +1213,8 @@ def _job_to_manifest_entry(job: Tuple) -> Dict[str, Any]:
         q_feature_map=q_feature_map,
         q_reps=q_reps,
         q_shots=q_shots,
+        q_backend_method=q_backend_method,
+        q_max_iter=q_max_iter,
         run_quantum=run_quantum,
     )
 
@@ -1195,6 +1236,8 @@ def _job_to_manifest_entry(job: Tuple) -> Dict[str, Any]:
         q_feature_map=q_feature_map,
         q_reps=q_reps,
         q_shots=q_shots,
+        q_backend_method=q_backend_method,
+        q_max_iter=q_max_iter,
         run_quantum=run_quantum,
         pass_signal_defaults=pass_signal_defaults,
     )
@@ -1217,6 +1260,8 @@ def _job_to_manifest_entry(job: Tuple) -> Dict[str, Any]:
         "q_feature_map": q_feature_map if run_quantum else "qnone",
         "q_reps": int(q_reps),
         "q_shots": int(q_shots),
+        "q_backend_method": str(q_backend_method) if run_quantum else "none",
+        "q_max_iter": int(q_max_iter) if run_quantum else None,
         "expected_hashes": expected_hashes,
         "prefix": prefix,
         "out_csv_glob": str(outdir / csv_pattern),
@@ -1255,8 +1300,9 @@ def main():
 
     ap.add_argument("--q-reps", type=int, default=1)
     ap.add_argument("--q-shots", type=int, default=1024)
+    ap.add_argument("--q-backend-method", type=str, default=DEFAULT_Q_BACKEND_METHOD, choices=["statevector", "qasm"])
+    ap.add_argument("--q-max-iter", type=int, default=DEFAULT_Q_MAX_ITER)
 
-    # NEW: caps (shared classical+quantum)
     ap.add_argument("--max-train", type=int, default=DEFAULT_MAX_TRAIN, help="Max train samples passed to runner (0=all).")
     ap.add_argument("--max-test", type=int, default=DEFAULT_MAX_TEST, help="Max test samples passed to runner (0=all).")
 
@@ -1302,7 +1348,6 @@ def main():
         help="Print last N failure log paths at end of each phase (0 disables).",
     )
 
-    # Plan / manifest
     ap.add_argument("--plan", action="store_true", help="Do not execute; just print plan + optionally write manifest.")
     ap.add_argument(
         "--manifest-out",
@@ -1439,6 +1484,8 @@ def main():
         quantum_scale=str(args.scale_quantum),
         quantum_reps=int(args.q_reps),
         quantum_shots=int(args.q_shots),
+        quantum_backend_method=str(args.q_backend_method),
+        quantum_max_iter=int(args.q_max_iter),
         max_train=int(args.max_train),
         max_test=int(args.max_test),
         run_quantum=not bool(args.no_quantum),
@@ -1536,6 +1583,8 @@ def main():
             str(fmap if run_q else "qnone"),
             int(cfg.quantum_reps),
             int(cfg.quantum_shots),
+            str(cfg.quantum_backend_method),
+            int(cfg.quantum_max_iter),
             bool(run_q),
             bool(cfg.resume),
             bool(cfg.dry_run),
@@ -1626,6 +1675,7 @@ def main():
     if cfg.run_quantum:
         print(f"Q feature maps:     {cfg.q_feature_maps}")
         print(f"Q reps/shots:       {cfg.quantum_reps}/{cfg.quantum_shots}")
+        print(f"Q backend/max_iter: {cfg.quantum_backend_method}/{cfg.quantum_max_iter}")
         print(f"Scale quantum:      {cfg.quantum_scale}")
     print(f"Scale classical:    {cfg.classical_scale}")
     print(f"Python exe:         {cfg.python_exe}")
@@ -1652,7 +1702,6 @@ def main():
         print("[OK] Nothing to run (empty job list).")
         return
 
-    # PLAN / MANIFEST (no execution)
     if cfg.plan:
         manifest: Dict[str, Any] = {
             "config": {
@@ -1673,6 +1722,8 @@ def main():
                 "q_feature_maps": cfg.q_feature_maps,
                 "q_reps": cfg.quantum_reps,
                 "q_shots": cfg.quantum_shots,
+                "q_backend_method": cfg.quantum_backend_method,
+                "q_max_iter": cfg.quantum_max_iter,
                 "required_csv_cols": cfg.required_csv_cols,
                 "strict_ood_pairing": cfg.strict_ood_pairing,
             },
@@ -1713,7 +1764,6 @@ def main():
         print("\n[OK] Plan complete. (No execution)")
         return
 
-    # DRY RUN (prints commands)
     if cfg.dry_run:
         merged_preview = classic_jobs + quantum_jobs
         max_show = min(80, len(merged_preview))
@@ -1728,7 +1778,6 @@ def main():
         print("\n[OK] Dry run complete.")
         return
 
-    # EXECUTION
     ok_total = 0
     fail_total = 0
     all_fail_logs: List[str] = []
