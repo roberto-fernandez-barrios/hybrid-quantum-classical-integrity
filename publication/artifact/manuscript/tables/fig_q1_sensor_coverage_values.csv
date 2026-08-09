@@ -1,0 +1,19 @@
+attack_family,attack,Features,Features + prediction,Label marginal,Joint outcome
+corruption,feature_sign_flip_p_0.020,1.0,1.0,0.0,0.7933333333333333
+corruption,feature_sign_flip_p_0.050,1.0,1.0,0.0,0.8666666666666667
+corruption,feature_sign_flip_p_0.100,1.0,1.0,0.0,0.9066666666666666
+covariate_shift,mean_shift_pf_delta_0.020,1.0,1.0,0.0,0.3566666666666667
+covariate_shift,mean_shift_pf_delta_0.050,1.0,1.0,0.0,0.5
+covariate_shift,mean_shift_pf_delta_0.100,1.0,1.0,0.0,0.6183333333333333
+covariate_shift,scaling_drift_alpha_0.020,1.0,1.0,0.0,0.5366666666666666
+covariate_shift,scaling_drift_alpha_0.050,1.0,1.0,0.0,0.6083333333333333
+covariate_shift,scaling_drift_alpha_0.100,1.0,1.0,0.0,0.6683333333333333
+pipeline,feature_dropout_p_0.020,0.9933333333333333,0.9983333333333333,0.0,0.48833333333333334
+pipeline,feature_dropout_p_0.050,1.0,1.0,0.0,0.705
+pipeline,feature_dropout_p_0.100,1.0,1.0,0.0,0.7633333333333333
+target_shift,label_flip_prior_preserving_r_0.020,0.0,0.0,0.0,0.43666666666666665
+target_shift,label_flip_prior_preserving_r_0.050,0.0,0.0,0.0,0.615
+target_shift,label_flip_prior_preserving_r_0.100,0.0,0.0,0.0,0.7133333333333334
+target_shift,label_flip_r_0.020,0.0,0.0,0.79,0.965
+target_shift,label_flip_r_0.050,0.0,0.0,0.77,0.9233333333333333
+target_shift,label_flip_r_0.100,0.0,0.0,1.0,1.0

@@ -1,345 +1,112 @@
-## 1. Qué queremos demostrar
+# Information-set conditional integrity auditing
+
+Reproducibility artifact for Paper 1.5:
+*Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical
+Kernel Workflows*.
+
+The central claim is deliberately bounded: **integrity auditability is
+conditional on the evidence exposed at the audited workflow boundary**. An
+evaluation-label intervention can change a reported conclusion while features,
+scores and predictions remain exactly invariant; a prior-preserving exchange is
+also invisible to label-marginal sensors. Item-aligned trusted outcomes or
+provenance are required to close that blind region.
+
+The article's novelty is the integrated package of formalization, exact blind
+regions, sensor-coverage mapping, multi-dataset/fixed-OOD validation, a bounded
+quantum-kernel integrity layer and an executable fail-closed contract. The two
+elementary propositions, hash chaining, contracts and ZZ-versus-SVC comparison
+are not presented as standalone novelty.
+
+## Frozen evidence
+
+| Gate | Design | Evidence used in the manuscript |
+|---|---|---|
+| CICIDS Gate 1 | 7,980 raw rows; 4,560 unique observations; 5 split x 4 nested model seeds | exact label-path blind regions and secondary within-split ZZ-SVC profile |
+| Expansion | 360/360 jobs; 13,680 raw rows; 11,400 unique observations; 8 fixed environments | replication over CICIDS2017, UNSW-NB15, ToN-IoT, scale and temporal OOD |
+| Quantum integrity | 165/165 cells; 9/9 acceptance checks | semantic, provenance, algebraic, repeated-estimation and output coverage |
+| HSaaS contract | 6/6 scenarios; 8/8 acceptance checks | hash-chained four-contract `allow/hold/block` policy |
+
+The expansion contains 3,600 evaluation-label observations. All 3,600 leave
+feature/prediction evidence and predictions invariant; all 1,800
+prior-preserving observations also leave label marginals invariant. There are
+2,184 positive balanced-accuracy conclusion impacts, and all 2,184 have
+non-zero item-aligned joint-outcome evidence. A fail-closed verifier recomputes
+these counts from the released derived tables.
+
+## Manuscript and reviewer files
+
+- `manuscript/paper15_q1_manuscript_spine_v11.md` — final double-anonymized
+  manuscript source;
+- `manuscript/NOVELTY_REVIEW_2026-08-09.md` — claim-specific literature and
+  overlap audit through 9 August 2026;
+- `manuscript/ATHENA_DEUSTO_TRACEABILITY.md` — bounded project
+  requirement-to-evidence mapping;
+- `manuscript/THREAT_MODEL_CARD.md` — threat and trust assumptions;
+- `Q1_REPRODUCTION.md` — exact commands and evidence tiers;
+- `publication/` — submission files, compact evidence artifact, hashes and DOI
+  status.
+
+## Quick verification
+
+Python 3.10 is the reference interpreter.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe -m pip install -e . --no-deps
+.\.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
+.\.venv\Scripts\python.exe -m src.experiments.verify_publication_artifact `
+  --root publication\artifact
+```
+
+The final command validates four embedded evidence manifests, 22 manifested
+outputs, CSV row counts, SHA-256 hashes and the primary label-boundary counts.
+It exits non-zero on any mismatch.
+
+Linux/macOS users can replace `.\.venv\Scripts\python.exe` with
+`.venv/bin/python` and use `/` path separators.
+
+## Rebuilding the evidence
+
+The compact artifact supports result verification without recomputing quantum
+kernels. Full replay starts from the public benchmark datasets and follows
+`Q1_REPRODUCTION.md`:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.experiments.build_q1_gate1_evidence
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\run_paper15_q1_exact_queue.ps1
+.\.venv\Scripts\python.exe -m src.experiments.build_q1_expansion_evidence
+.\.venv\Scripts\python.exe -m src.experiments.run_quantum_integrity_gate
+.\.venv\Scripts\python.exe -m src.hsaas.demo
+```
+
+The exact-statevector engine is an ideal-simulation acceleration. The 256/1,024
+shot conditions are binomial fidelity-estimation emulators. Neither is evidence
+from a QPU or calibrated backend.
+
+## Scientific boundary
+
+This release studies data-to-evaluation integrity and selected simulated
+quantum-kernel boundaries. It does not study or claim:
+
+- physical QPU behaviour or device-calibrated noise;
+- malicious scheduling, multi-tenancy or provider-side security;
+- production authentication, non-repudiation or incident operations;
+- operational Fleet Management.
+
+Within ATHENA-AEGIS it supplies strong but bounded evidence for G3.2/G3.3,
+selected simulator evidence for G3.1, a local research prototype towards Result
+3.1, and a publication contribution to WP5 Task 5.2. It does not cover WP5 Task
+5.1 or Result 5.1.
+
+## Version, funding and citation
 
-Este proyecto **no** busca demostrar simplemente si un modelo cuántico es mejor o peor que uno clásico.
+Artifact version: `1.0.0` (release tag `paper15-q1-v1.0.0`).
 
-El objetivo real del paper es demostrar que:
+This work was supported by the Spanish State Research Agency (AEI) through
+ATHENA-AEGIS, project `PID2024-155693NB-C43`.
 
-> **Pueden existir perturbaciones que alteren de forma material las conclusiones experimentales, mientras los mecanismos habituales de integridad o detección de drift muestran poca o ninguna evidencia clara de lo ocurrido.**
-
-Dicho de otra forma:
-
-- no basta con medir **robustez**;
-- también hay que medir **auditabilidad**;
-- una perturbación preocupante no es solo la que degrada el rendimiento,
-- sino la que lo degrada **sin dejar un rastro claro**.
-
-El concepto central del trabajo es el **auditability gap**:
-
-> **alto impacto + baja observabilidad**
-
----
-
-## 2. Qué NO queremos hacer
-
-Este proyecto **no** debe plantearse como:
-
-- “cómo falsificar resultados cuánticos”;
-- “cómo manipular benchmarks sin dejar rastro”;
-- “cómo engañar sistemas financieros”;
-- “cómo atacar bancos con algoritmos cuánticos”.
-
-Ese no es el enfoque correcto.
-
-La formulación correcta es:
-
-- identificar **debilidades metodológicas reales**;
-- estudiar perturbaciones que pueden comprometer la **fiabilidad de la evaluación**;
-- analizar **qué señales detectan bien el problema y cuáles fallan**;
-- proponer una forma de **cerrar ese hueco**.
-
----
-
-## 3. Tesis del paper
-
-La tesis que queremos defender es la siguiente:
-
-> **La evaluación de modelos clásicos y cuánticos puede ser vulnerable a perturbaciones de alto impacto y baja observabilidad, lo que implica que un benchmark centrado solo en robustez puede inducir conclusiones incompletas o engañosas.**
-
-Esto es especialmente relevante para:
-
-- validación experimental de modelos;
-- auditoría de pipelines de ML;
-- evaluación de sistemas en contextos de alto impacto;
-- futuros escenarios donde modelos cuánticos puedan integrarse en dominios sensibles.
-
----
-
-## 4. Pregunta principal de investigación
-
-**¿Qué perturbaciones pueden alterar de forma material las conclusiones de un benchmark clásico/cuántico mientras las señales estándar de integridad muestran poca o ninguna evidencia clara de lo ocurrido?**
-
----
-
-## 5. Subpreguntas
-
-1. ¿Qué perturbaciones generan mayor degradación del rendimiento?
-2. ¿Qué perturbaciones son peor detectadas por las señales estándar?
-3. ¿Existen perturbaciones de alto impacto y baja observabilidad?
-4. ¿Ese patrón depende del modelo concreto y del feature map cuántico?
-5. ¿Qué señales adicionales hacen falta para mejorar la auditabilidad del benchmark?
-
----
-
-## 6. Hipótesis
-
-### H1
-No todas las perturbaciones con gran impacto generan una señal fuerte de integridad.
-
-### H2
-Las perturbaciones sobre etiquetas o sobre componentes no cubiertos por señales feature-centric presentan peor detectabilidad que muchas perturbaciones sobre features.
-
-### H3
-Los modelos cuánticos no forman un bloque homogéneo: distintos feature maps presentan perfiles diferentes de vulnerabilidad y detectabilidad.
-
-### H4
-Un benchmark centrado solo en robustez puede inducir conclusiones incompletas o engañosas si no incorpora una dimensión explícita de auditabilidad.
-
----
-
-## 7. Modelos del estudio
-
-### Baseline clásico
-- `svc_rbf`
-
-### Modelos cuánticos
-- `qsvc_zz_r1`
-- `qsvc_z_r1`
-- `qsvc_pauli_xz_r1`
-- `qsvc_pauli_xyz_r1`
-
-**Decisión importante:** el análisis principal debe hacerse **por modelo concreto**, no colapsando todo bajo “quantum”.
-
-Uno de los mensajes del paper es precisamente:
-
-> **“quantum” no es una categoría homogénea.**
-
----
-
-## 8. Datos y escenarios
-
-### Dataset base
-- CICIDS (subset preparado para benchmark clásico/cuántico)
-
-### Escenarios experimentales
-1. **ID controlado**
-   - sirve para demostrar el fenómeno de forma limpia y controlada.
-
-2. **OOD-by-files**
-   - sirve para validar que el fenómeno no es solo un artefacto de ataques sintéticos sobre un split aleatorio.
-
----
-
-## 9. Tipos de perturbaciones
-
-Las familias de perturbaciones que nos interesan son:
-
-- `corruption`
-- `covariate_shift`
-- `noise`
-- `pipeline`
-- `distortion`
-- `target_shift`
-
-Ejemplos concretos ya contemplados en el proyecto:
-
-- `label_flip`
-- `feature_sign_flip`
-- `scaling_drift`
-- `mean_shift_pf`
-- `feature_dropout`
-- `gaussian_noise`
-- `quantization`
-- `clipping`
-
-### Ataques prioritarios para el paper
-El núcleo experimental debe centrarse primero en:
-
-- `label_flip`
-- `feature_sign_flip`
-- `scaling_drift`
-- `mean_shift_pf`
-- `feature_dropout`
-
-El resto pueden quedar como apoyo.
-
----
-
-## 10. Qué vamos a medir
-
-## 10.1 Impacto
-La métrica principal del paper debe ser:
-
-- **balanced accuracy drop**
-
-Métricas secundarias:
-
-- ROC-AUC drop
-- F1 drop
-
----
-
-## 10.2 Detectabilidad
-Las señales actuales del proyecto son:
-
-- feature-distribution JSD
-- MMD
-- KS reject rate
-- score-drift JSD
-
-Estas señales son útiles, pero no suficientes.
-
----
-
-## 10.3 Señales nuevas necesarias
-Para que el paper sea fuerte, debemos añadir señales **label-aware**, como mínimo:
-
-- `label_prior_shift`
-- `predicted_positive_rate_shift`
-- `prediction_disagreement_rate`
-
-Opcionalmente:
-- `confusion_profile_shift`
-
----
-
-## 10.4 Concepto central: stealthiness / auditability gap
-Tenemos que definir una métrica que combine:
-
-- cuánto daño hace la perturbación;
-- cuánto se detecta.
-
-Idea conceptual:
-
-> una perturbación es especialmente peligrosa cuando **daña mucho** el resultado pero **se ve poco** en las señales de auditoría.
-
----
-
-## 11. Mensaje fuerte del paper
-
-El mensaje más importante **no** debe ser:
-
-- “el cuántico gana”;
-- “el clásico gana”;
-- “los modelos cuánticos son peores”.
-
-El mensaje correcto es:
-
-> **hay perturbaciones que pueden cambiar materialmente la lectura experimental sin generar una evidencia proporcional en las señales habituales de integridad.**
-
-Y además:
-
-- ese fenómeno depende del tipo de perturbación;
-- depende del modelo concreto;
-- depende del feature map;
-- y obliga a repensar la evaluación de robustez desde una perspectiva de auditabilidad.
-
----
-
-## 12. Aportaciones esperadas
-
-### C1. Benchmark reproducible de impacto + detectabilidad
-Un marco que no solo mida caída de rendimiento, sino también cuánto se detecta la perturbación.
-
-### C2. Evidencia de un auditability gap
-Identificación de perturbaciones de alto impacto y baja observabilidad.
-
-### C3. Análisis desagregado de QML
-Demostrar que distintos feature maps cuánticos presentan comportamientos diferentes, y que agruparlos todos como “quantum” oculta parte del resultado real.
-
-### C4. Propuesta metodológica defensiva
-Definir señales adicionales y una forma mejor de auditar benchmarks clásicos/cuánticos.
-
----
-
-## 13. Plan experimental correcto
-
-## Fase 1 — Refactor del análisis
-Antes de lanzar más runs:
-
-- analizar por `model`, no solo por `model_family`;
-- usar severidad explícita (`attack_strength_nominal`);
-- añadir señales label-aware;
-- introducir métrica de `stealthiness`.
-
-## Fase 2 — ID reducido y quirúrgico
-Ejecutar un experimento controlado con:
-
-- protocolo `id`
-- dimensiones SVD: `6` y `10`
-- seeds reducidas
-- baseline clásico + 4 QSVC
-- ataques núcleo
-
-Objetivo:
-- comprobar que la historia principal aparece de forma clara.
-
-## Fase 3 — ID completo
-Si la señal es buena:
-
-- ampliar a `4, 6, 8, 10, 12`
-- ampliar seeds
-- incluir suite más amplia de perturbaciones
-
-## Fase 4 — OOD serio
-Validar el fenómeno en varios pares OOD-by-files.
-
-## Fase 5 — Resultados finales
-Extraer:
-
-- clean performance por modelo
-- drop medio por familia de ataque
-- ranking de perturbaciones stealthy
-- comparación ID vs OOD
-- trade-off de coste computacional
-
----
-
-## 14. Figuras clave del paper
-
-1. **Impact vs detectability scatter**
-2. **Heatmap de stealthiness por ataque y modelo**
-3. **Clean performance by model and SVD**
-4. **Comparación ID vs OOD**
-5. **Time-cost by model and dimension**
-
----
-
-## 15. Tablas clave del paper
-
-1. rendimiento limpio por modelo y dimensión;
-2. drop medio por familia de ataque;
-3. top stealthiest perturbations;
-4. comparación entre señales antiguas y nuevas;
-5. ranking de feature maps cuánticos por:
-   - rendimiento limpio,
-   - impacto,
-   - detectabilidad,
-   - stealthiness.
-
----
-
-## 16. Claim principal del paper
-
-Una formulación buena sería:
-
-> **We identify high-impact, low-observability perturbations that can materially alter benchmark conclusions while remaining weakly reflected by standard integrity signals.**
-
-Y en español:
-
-> **Identificamos perturbaciones de alto impacto y baja observabilidad capaces de alterar materialmente las conclusiones de un benchmark mientras las señales estándar de integridad reflejan débilmente lo ocurrido.**
-
----
-
-## 17. Resumen ejecutivo
-
-Si en algún momento hay dudas, la idea base del proyecto es esta:
-
-> **Este paper trata sobre auditabilidad en evaluación clásica y cuántica.**
-> No buscamos demostrar “ventaja cuántica”, sino estudiar qué perturbaciones pueden cambiar una conclusión experimental sin dejar una constancia clara en los mecanismos habituales de control, y proponer cómo cerrar ese hueco metodológico.
-
----
-
-## 18. Regla para futuras conversaciones
-
-Si este proyecto se retoma más adelante, asumir siempre que:
-
-1. el foco principal es **auditability gap**, no “quantum advantage”;
-2. el análisis debe ir **por modelo concreto**;
-3. el objetivo es estudiar **impacto + detectabilidad**;
-4. el paper debe terminar con una **propuesta metodológica defensiva**, no solo con diagnóstico;
-5. la narrativa debe ser rigurosa y prudente: riesgo metodológico real hoy, con implicaciones potenciales para dominios de alto impacto en el futuro.
-"""
-
-out = Path("/mnt/data/README_AUDITABILITY_PAPER.md")
-out.write_text(readme, encoding="utf-8")
-print(out)
+Author metadata, CRediT roles, license choice and the version DOI require final
+author confirmation before public archival. The machine-readable templates are
+`CITATION.cff` and `.zenodo.json`; current archival status is recorded in
+`publication/DOI_STATUS.md`.

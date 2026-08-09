@@ -1,0 +1,35 @@
+name: reproducibility-tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install artifact and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-lock.txt
+          python -m pip install -e . --no-deps
+      - name: Compile auditable workflow modules
+        run: >-
+          python -m py_compile
+          src/qml/statevector_fidelity_kernel.py
+          src/experiments/build_q1_gate1_evidence.py
+          src/experiments/build_q1_expansion_evidence.py
+          src/experiments/run_quantum_integrity_gate.py
+          src/experiments/verify_publication_artifact.py
+          src/hsaas/contracts.py
+          src/hsaas/demo.py
+      - name: Run tests
+        run: python -m pytest -q
+      - name: Verify publication evidence and SHA-256 contracts
+        run: python -m src.experiments.verify_publication_artifact --root publication/artifact

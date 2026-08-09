@@ -1,0 +1,5 @@
+# Preserve byte-for-byte publication artifacts so SHA-256 manifests remain valid.
+publication/artifact/** -text
+*.pdf binary
+*.png binary
+*.zip binary

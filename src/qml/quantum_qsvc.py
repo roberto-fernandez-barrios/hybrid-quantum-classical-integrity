@@ -37,6 +37,7 @@ try:
     # Kernel + QSVC (qiskit-machine-learning)
     from qiskit_machine_learning.kernels import FidelityQuantumKernel
     from qiskit_machine_learning.algorithms import QSVC
+    from src.qml.statevector_fidelity_kernel import ExactStatevectorFidelityKernel
 
     QISKIT_OK = True
 
@@ -49,7 +50,7 @@ except Exception as e:
 # Types
 # ----------------------------
 FeatureMapName = Literal["zz", "z", "pauli_xz", "pauli_xyz"]
-BackendMethod = Literal["statevector", "qasm"]
+BackendMethod = Literal["statevector", "exact_statevector", "qasm"]
 
 
 # ----------------------------
@@ -62,11 +63,11 @@ class QuantumCfg:
 
     Notes (paper/reproducibility):
       - `seed` sets qiskit's algorithm_globals.random_seed.
-      - `backend_method` is stored for traceability; by default we keep kernel creation
-        version-stable (fidelity=None) because wiring sampling-based primitives varies by
-        qiskit/qiskit-ml versions.
-      - If later you want true qasm+shots fidelity, we can wire a specific fidelity primitive
-        for your installed stack.
+      - `statevector` uses Qiskit Machine Learning's reference fidelity kernel.
+      - `exact_statevector` prepares each ideal state once and evaluates the same
+        fidelity matrix by linear algebra; it is not a shot-based or hardware run.
+      - `qasm` remains a traceability-only legacy option because primitive wiring varies
+        across qiskit/qiskit-ml versions; do not interpret it as shot-noise evidence.
     """
 
     # Feature map
@@ -220,7 +221,7 @@ def _make_backend(cfg: QuantumCfg) -> Any:
       - We create the backend to validate config and keep it explicit, but we don't force-wire it
         into the kernel here (to avoid breaking your pipeline across environments).
     """
-    if cfg.backend_method == "statevector":
+    if cfg.backend_method in {"statevector", "exact_statevector"}:
         return AerSimulator(method="statevector")
 
     if cfg.backend_method == "qasm":
@@ -231,11 +232,15 @@ def _make_backend(cfg: QuantumCfg) -> Any:
     raise ValueError(f"Unknown backend_method={cfg.backend_method}")
 
 
-def _make_kernel(feature_map: Any, cfg: QuantumCfg) -> FidelityQuantumKernel:
+def _make_kernel(feature_map: Any, cfg: QuantumCfg) -> Any:
     """
-    Create FidelityQuantumKernel in a version-stable way.
+    Create the selected fidelity-kernel evaluator.
+
+    ``exact_statevector`` is mathematically equivalent to the ideal reference
+    kernel but avoids constructing one compute-uncompute circuit per pair.
     """
-    _ = cfg  # reserved for future kernel wiring
+    if cfg.backend_method == "exact_statevector":
+        return ExactStatevectorFidelityKernel(feature_map=feature_map)
     return FidelityQuantumKernel(feature_map=feature_map, fidelity=None)
 
 
@@ -294,14 +299,15 @@ def train_qsvc(
     print(
         f"[Q][FIT] start | X={X2.shape} y={y2.shape} "
         f"fmap={cfg.feature_map} reps={cfg.reps} "
-        f"backend={cfg.backend_method} shots={cfg.shots} "
+        f"backend={cfg.backend_method} kernel={type(qkernel).__name__} shots={cfg.shots} "
         f"C={cfg.C} tol={cfg.tol} max_iter={cfg.max_iter}",
         flush=True,
     )
     t0 = time.time()
     model.fit(X2, y2)
     dt = time.time() - t0
-    print(f"[Q][FIT] done  | {dt:.2f}s", flush=True)
+    cache_info = qkernel.cache_info() if hasattr(qkernel, "cache_info") else None
+    print(f"[Q][FIT] done  | {dt:.2f}s cache={cache_info}", flush=True)
 
     return model, fmap, qkernel
 

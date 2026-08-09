@@ -1,0 +1,54 @@
+{
+  "analysis": "paper15_hsaas_integrity_contract_demo",
+  "status": "complete",
+  "scope": "local research prototype over ideal-statevector and binomial-shot emulation; not an HTTP deployment, authenticated provider ledger, or QPU run",
+  "contract_version": "athena-aegis-contract/0.1",
+  "config": {
+    "data": "data\\cicids_subset.csv",
+    "out_dir": "results\\paper_digest\\paper15_hsaas_demo",
+    "split_seed": 42,
+    "dimension": 4,
+    "max_train": 32,
+    "max_test": 32,
+    "model_seed": 42,
+    "repeated_estimation_limit": 0.2
+  },
+  "environment": {
+    "python": "3.10.16",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.7.2",
+    "qiskit": "2.3.0",
+    "qiskit_machine_learning": "0.9.0"
+  },
+  "input": {
+    "path": "data\\cicids_subset.csv",
+    "bytes": 1056156,
+    "sha256": "8c8771f4e348bcbd6a58c8e215ba143d6f98a4a7a341d0e991bb8f3c211a9588"
+  },
+  "reference_metrics": {
+    "bal_acc": 0.6875,
+    "f1_pos": 0.6428571428571429,
+    "roc_auc": 0.734375
+  },
+  "acceptance_checks": {
+    "complete_design": true,
+    "all_hash_chains_verify": true,
+    "clean_allows": true,
+    "approved_transpilation_allows": true,
+    "circuit_mutation_blocks": true,
+    "psd_preserving_substitution_blocks_despite_valid_algebra": true,
+    "prior_preserving_label_corruption_blocks": true,
+    "approved_stochastic_execution_holds_for_review": true
+  },
+  "outputs": {
+    "hsaas_audit_envelopes.jsonl": {
+      "rows": 6,
+      "sha256": "9a27f93583c78300b22e40f7df36bb2b07581807064b0f2c877e543a155aa134"
+    },
+    "hsaas_contract_summary.csv": {
+      "rows": 6,
+      "sha256": "f2a39a3d8c2f3b9707fe142642fdbb88009aff572107aac578f19584824235f8"
+    }
+  }
+}

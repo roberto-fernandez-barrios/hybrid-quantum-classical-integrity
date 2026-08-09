@@ -1300,7 +1300,13 @@ def main():
 
     ap.add_argument("--q-reps", type=int, default=1)
     ap.add_argument("--q-shots", type=int, default=1024)
-    ap.add_argument("--q-backend-method", type=str, default=DEFAULT_Q_BACKEND_METHOD, choices=["statevector", "qasm"])
+    ap.add_argument(
+        "--q-backend-method",
+        type=str,
+        default=DEFAULT_Q_BACKEND_METHOD,
+        choices=["statevector", "exact_statevector", "qasm"],
+        help="Quantum evaluator; exact_statevector is the cached ideal-statevector engine.",
+    )
     ap.add_argument("--q-max-iter", type=int, default=DEFAULT_Q_MAX_ITER)
 
     ap.add_argument("--max-train", type=int, default=DEFAULT_MAX_TRAIN, help="Max train samples passed to runner (0=all).")

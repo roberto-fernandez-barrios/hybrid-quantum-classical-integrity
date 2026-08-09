@@ -1007,7 +1007,13 @@ def main() -> None:
     )
     ap.add_argument("--q-reps", type=int, default=1)
     ap.add_argument("--q-shots", type=int, default=1024)
-    ap.add_argument("--q-backend-method", type=str, default="statevector", choices=["statevector", "qasm"])
+    ap.add_argument(
+        "--q-backend-method",
+        type=str,
+        default="statevector",
+        choices=["statevector", "exact_statevector", "qasm"],
+        help="Quantum evaluator; exact_statevector is the cached ideal-statevector engine.",
+    )
     ap.add_argument("--q-max-iter", type=int, default=2000)
 
     # Shared caps

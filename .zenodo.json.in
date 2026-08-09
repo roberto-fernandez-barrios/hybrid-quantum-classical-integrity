@@ -1,0 +1,25 @@
+{
+  "title": "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows",
+  "description": "Version 1.0.0 reproducibility artifact: code, tests, compact derived evidence, figures, manifests and manuscript sources.",
+  "upload_type": "software",
+  "publication_date": "2026-08-09",
+  "version": "1.0.0",
+  "creators": [
+    {"name": "AUTHOR LIST REQUIRES JOINT CONFIRMATION"}
+  ],
+  "keywords": [
+    "integrity auditing",
+    "hybrid quantum-classical systems",
+    "quantum kernels",
+    "sensor coverage",
+    "cybersecurity"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.0.0",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "notes": "Funding: Spanish State Research Agency (AEI), ATHENA-AEGIS PID2024-155693NB-C43. LICENSE DECISION REQUIRED BEFORE PUBLICATION."
+}

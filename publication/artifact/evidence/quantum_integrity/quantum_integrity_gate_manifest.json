@@ -1,0 +1,63 @@
+{
+  "analysis": "paper15_q1_quantum_integrity_gate",
+  "status": "complete",
+  "scope": "ideal-statevector circuits plus binomial finite-shot estimator emulator; no QPU",
+  "config": {
+    "data": "data/cicids_subset.csv",
+    "out_dir": "results/paper_digest/paper15_q1_quantum_integrity_gate",
+    "split_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "dimensions": [
+      4,
+      6,
+      8
+    ],
+    "max_train": 64,
+    "max_test": 64,
+    "model_seed": 42,
+    "feature_map": "zz",
+    "reps": 1
+  },
+  "environment": {
+    "python": "3.10.16",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.7.2",
+    "qiskit": "2.3.0",
+    "qiskit_machine_learning": "0.9.0"
+  },
+  "input": {
+    "path": "data/cicids_subset.csv",
+    "bytes": 1056156,
+    "sha256": "8c8771f4e348bcbd6a58c8e215ba143d6f98a4a7a341d0e991bb8f3c211a9588"
+  },
+  "acceptance_checks": {
+    "complete_design": true,
+    "clean_contract": true,
+    "transpile_hash_changes_semantics_preserved": true,
+    "common_unitary_hash_changes_kernel_preserved": true,
+    "parameterized_mutations_change_kernel": true,
+    "asymmetry_sensor_detects": true,
+    "diagonal_sensor_detects": true,
+    "psd_preserving_attack_is_algebraically_blind": true,
+    "shot_repeats_disagree": true
+  },
+  "outputs": {
+    "quantum_integrity_gate_observations.csv": {
+      "rows": 165,
+      "sha256": "9cb933b1340750c97942f8a9463bb859b32fdcd8726de2e3a2d98e332a351880"
+    },
+    "quantum_integrity_gate_clustered_summary.csv": {
+      "rows": 165,
+      "sha256": "675cdbd808ec583afc5a722c1fcf57368d3d083b2292bce41cd1df351600a648"
+    },
+    "quantum_integrity_gate_sensor_coverage.csv": {
+      "rows": 11,
+      "sha256": "3fc021b0aa2ddb6f53f5a2581bfa79b5f6a898de8cb9ef0e46f0c6de9fd0f51e"
+    }
+  }
+}

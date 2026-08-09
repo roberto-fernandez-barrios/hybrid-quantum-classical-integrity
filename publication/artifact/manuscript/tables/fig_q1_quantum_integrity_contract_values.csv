@@ -1,0 +1,12 @@
+attack,attack_family,boundary,n_cells,circuit_provenance_detection_rate,kernel_provenance_detection_rate,semantic_kernel_detection_rate,algebraic_kernel_detection_rate,repeated_estimation_detection_rate,output_change_rate,mean_bal_acc_drop,max_bal_acc_drop
+clean,clean,none,15,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+benign_transpile_o1,semantic_control,transpilation,15,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+common_unitary_x,semantic_control,circuit,15,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+parameterized_rz_alpha_0.020,circuit_tamper,circuit,15,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0
+parameterized_rz_alpha_0.100,circuit_tamper,circuit,15,1.0,1.0,1.0,0.0,0.0,0.1333333333333333,-0.0010416666666666,0.015625
+feature_map_reps_2,circuit_tamper,circuit,15,1.0,1.0,1.0,0.0,0.0,0.7333333333333333,0.0052083333333333,0.046875
+kernel_asymmetric_delta_0.020,kernel_tamper,kernel,15,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+kernel_diagonal_erosion_0.020,kernel_tamper,kernel,15,0.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0
+kernel_psd_preserving_mix_0.050,kernel_tamper,kernel,15,0.0,1.0,1.0,0.0,0.0,0.0666666666666666,0.0010416666666666,0.015625
+shot_emulator_256,finite_shot_emulator,kernel_estimation,15,0.0,1.0,1.0,1.0,1.0,0.4666666666666667,0.0052083333333333,0.046875
+shot_emulator_1024,finite_shot_emulator,kernel_estimation,15,0.0,1.0,1.0,1.0,1.0,0.2,0.003125,0.046875
