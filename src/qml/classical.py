@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Dict, Literal, Tuple, Any
+from typing import Any, Dict, List, Literal, Optional, Sequence, Tuple, Union
 
 import numpy as np
 from sklearn.svm import SVC
@@ -193,3 +193,83 @@ def scores_classical_svc(model: SVC, X: np.ndarray) -> Optional[np.ndarray]:
             pass
 
     return None
+
+
+# ----------------------------
+# Prespecified cross-validated tuning (Paper 1.5 Gate T)
+# ----------------------------
+
+SVC_TUNE_C_GRID: Tuple[float, ...] = (0.1, 1.0, 10.0, 100.0)
+SVC_TUNE_GAMMA_GRID: Tuple[Union[str, float], ...] = ("scale", 0.01, 0.1, 1.0)
+
+
+def select_svc_params_cv(
+    X: np.ndarray,
+    y: np.ndarray,
+    cfg: ClassicalCfg,
+    *,
+    seed: int,
+    n_splits: int = 5,
+    C_grid: Sequence[float] = SVC_TUNE_C_GRID,
+    gamma_grid: Sequence[Union[str, float]] = SVC_TUNE_GAMMA_GRID,
+) -> Tuple[ClassicalCfg, Dict[str, Any]]:
+    """
+    Select (C, gamma) for the RBF SVC by stratified k-fold cross-validation on
+    training rows only, scoring balanced accuracy.
+
+    Tie rule (frozen in the preregistration): the grid is scanned with C
+    ascending and gamma in grid order; a candidate replaces the incumbent only
+    if its mean CV balanced accuracy is strictly greater, so ties resolve to the
+    smallest C and then to the earliest gamma.
+    """
+    import dataclasses
+
+    from sklearn.metrics import balanced_accuracy_score
+    from sklearn.model_selection import StratifiedKFold
+
+    X2, y2 = _validate_xy(X, y, cfg)
+    skf = StratifiedKFold(n_splits=int(n_splits), shuffle=True, random_state=int(seed))
+    folds = list(skf.split(X2, y2))
+
+    best: Optional[Tuple[float, float, Union[str, float]]] = None
+    table: List[Dict[str, Any]] = []
+
+    for C in C_grid:
+        for gamma in gamma_grid:
+            scores: List[float] = []
+            for tr, va in folds:
+                clf = SVC(
+                    kernel=cfg.kernel,
+                    C=float(C),
+                    gamma=gamma,
+                    degree=int(cfg.degree),
+                    coef0=float(cfg.coef0),
+                    tol=float(cfg.tol),
+                    shrinking=bool(cfg.shrinking),
+                    cache_size=float(cfg.cache_size),
+                    max_iter=int(cfg.max_iter),
+                    class_weight=cfg.class_weight,
+                    probability=False,
+                )
+                clf.fit(X2[tr], y2[tr])
+                scores.append(float(balanced_accuracy_score(y2[va], clf.predict(X2[va]))))
+            mean_score = float(np.mean(scores))
+            table.append({"C": float(C), "gamma": gamma, "cv_bal_acc": mean_score})
+            if best is None or mean_score > best[0] + 1e-12:
+                best = (mean_score, float(C), gamma)
+
+    assert best is not None
+    tuned = dataclasses.replace(cfg, C=float(best[1]), gamma=best[2])
+    info: Dict[str, Any] = {
+        "mode": f"cv{int(n_splits)}",
+        "selected_C": float(best[1]),
+        "selected_gamma": best[2] if isinstance(best[2], str) else float(best[2]),
+        "cv_bal_acc": float(best[0]),
+        "n_splits": int(n_splits),
+        "cv_seed": int(seed),
+        "scoring": "balanced_accuracy",
+        "C_grid": [float(c) for c in C_grid],
+        "gamma_grid": [g if isinstance(g, str) else float(g) for g in gamma_grid],
+        "grid_table": table,
+    }
+    return tuned, info

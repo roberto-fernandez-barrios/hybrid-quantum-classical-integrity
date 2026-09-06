@@ -1,0 +1,4 @@
+condition,label_rows,feature_prediction_blind_rows,prior_preserving_rows,label_marginal_blind_rows,positive_impact_rows,positive_impact_with_joint_response,negative_impact_rows
+P0_reference,360,360,180,180,320,320,0
+PA_standard_standard,360,360,180,180,319,319,0
+PB_minmax2pi_minmax2pi,360,360,180,180,315,315,0

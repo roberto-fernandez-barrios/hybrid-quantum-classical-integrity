@@ -20,6 +20,7 @@ import pandas as pd
 
 
 TOL = 1e-12
+EXPECTED_MANIFESTS = 5  # gate1, expansion, quantum_integrity, hsaas, reinforcement (1.1.0)
 
 
 def _sha256(path: Path) -> str:
@@ -37,8 +38,10 @@ def _csv_rows(path: Path) -> int:
 
 def verify_embedded_manifests(root: Path) -> dict[str, int]:
     manifests = sorted(root.rglob("*_manifest.json"))
-    if len(manifests) != 4:
-        raise ValueError(f"expected four evidence manifests under {root}, found {len(manifests)}")
+    if len(manifests) != EXPECTED_MANIFESTS:
+        raise ValueError(
+            f"expected {EXPECTED_MANIFESTS} evidence manifests under {root}, found {len(manifests)}"
+        )
 
     checked_outputs = 0
     for manifest_path in manifests:
@@ -127,6 +130,45 @@ def verify_claims(root: Path) -> dict[str, int]:
     }
 
 
+def verify_reinforcement_claims(root: Path) -> dict[str, int]:
+    """Recompute the calibrated label-path consistency claims of artifact 1.1.0.
+
+    The null-calibrated feature and feature-plus-prediction regimes must never
+    fire on an evaluation-label intervention (Propositions 1--2 survive
+    calibration), and the label-marginal regime must never fire on a
+    prior-preserving intervention. The false-alarm table must exist and report
+    the prespecified nominal level.
+    """
+    summary_path = next(root.rglob("calibrated_label_path_summary.csv"), None)
+    fpr_path = next(root.rglob("null_evaluation_false_alarm_overall.csv"), None)
+    thresholds_path = next(root.rglob("null_calibration_thresholds.csv"), None)
+    if summary_path is None or fpr_path is None or thresholds_path is None:
+        raise FileNotFoundError("reinforcement evidence tables required for claim verification")
+
+    summary = pd.read_csv(summary_path)
+    label_all = summary[summary["subset"] == "all_label_interventions"].set_index("regime")
+    prior = summary[summary["subset"] == "prior_preserving_label_interventions"].set_index("regime")
+    for regime in ("I_X", "I_XF"):
+        if int(label_all.loc[regime, "n_fire"]) != 0:
+            raise ValueError(f"calibrated {regime} regime fired on an evaluation-label intervention")
+    if int(prior.loc["I_Ym", "n_fire"]) != 0:
+        raise ValueError("calibrated label-marginal regime fired on a prior-preserving intervention")
+
+    thresholds = pd.read_csv(thresholds_path)
+    calibrated = thresholds[thresholds["order_statistic_rank"] > 0]
+    if not (calibrated["alpha"].astype(float) == 0.05).all():
+        raise ValueError("null-calibration nominal level changed from 0.05")
+    if not (calibrated["n_cal"].astype(int) == 200).all():
+        raise ValueError("null-calibration draw count changed from 200 per cell")
+
+    fpr = pd.read_csv(fpr_path)
+    return {
+        "reinforcement_label_rows": int(label_all.loc["I_XF", "n"]),
+        "reinforcement_calibrated_cells": int(len(calibrated) // calibrated["sensor"].nunique()),
+        "reinforcement_fpr_rows": int(len(fpr)),
+    }
+
+
 def verify_release_hashes(root: Path) -> int:
     manifest = root / "ARTIFACT_MANIFEST.sha256"
     if not manifest.exists():
@@ -147,6 +189,7 @@ def verify(root: Path) -> dict[str, int]:
     root = root.resolve()
     result = verify_embedded_manifests(root)
     result.update(verify_claims(root))
+    result.update(verify_reinforcement_claims(root))
     result["release_files"] = verify_release_hashes(root)
     return result
 

@@ -113,5 +113,8 @@ automatic proof of harmful semantics.
 2. Malicious transpiler/scheduler and physical-layout scenarios.
 3. Calibrated noisy-backend and QPU campaign with repeated jobs.
 4. Multi-tenant and side-channel tests.
-5. Threshold calibration, false-alarm budgets and detection-power analysis.
+5. Threshold calibration, false-alarm budgets and detection-power analysis
+   (partially addressed in artifact 1.1.0 within the frozen simulator design:
+   null-calibrated thresholds at alpha = 0.05 with disjoint clean pools;
+   context-conditioned operational calibration remains open).
 6. Network deployment, authentication, persistence and incident-response tests.

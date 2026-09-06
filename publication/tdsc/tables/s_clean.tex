@@ -1,0 +1,24 @@
+\begin{table*}[!t]
+\caption{Gates P and T: clean balanced accuracy (SVC / ZZ, mean over five split clusters) per configuration and dimension, and the distribution of cross-validated regularisation constants over the 30 cells of each tuned environment (SVC also selects $\gamma$; see the artifact table).}
+\label{tab:s-clean}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Condition & $d=8$ & $d=10$ & $d=12$ \\
+\midrule
+P0 reference (standard / minmax2$\pi$) & 0.753 / 0.734 & 0.747 / 0.728 & 0.778 / 0.747 \\
+PA standard / standard & 0.753 / 0.727 & 0.747 / 0.720 & 0.778 / 0.727 \\
+PB minmax2$\pi$ / minmax2$\pi$ & 0.751 / 0.734 & 0.750 / 0.728 & 0.756 / 0.747 \\
+CICIDS ID, both tuned (CV5) & 0.741 / 0.750 & 0.746 / 0.781 & 0.780 / 0.802 \\
+UNSW OOD, frozen defaults & 0.748 / 0.760 & 0.754 / 0.766 & 0.755 / 0.769 \\
+UNSW OOD, both tuned (CV5) & 0.739 / 0.759 & 0.723 / 0.757 & 0.736 / 0.770 \\
+\midrule
+Tuned environment & \multicolumn{2}{l}{QSVC $C$ selections} & SVC $C$ selections \\
+\midrule
+CICIDS ID & \multicolumn{2}{l}{$C=0.1$: 3, $C=1$: 4, $C=10$: 6, $C=100$: 17} & $C=0.1$: 1, $C=1$: 6, $C=10$: 15, $C=100$: 8 \\
+UNSW OOD & \multicolumn{2}{l}{$C=1$: 17, $C=10$: 13} & $C=0.1$: 1, $C=1$: 2, $C=10$: 15, $C=100$: 12 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -273,14 +273,15 @@ No enviar hasta que todos estos puntos estén cerrados:
 - [x] Título, abstract y contributions pasan una lectura TDSC de desk review.
 - [x] LaTeX compila desde cero sin warnings materiales ni referencias rotas.
 - [x] PDF en US Letter, dos columnas, `compsoc`, visualmente inspeccionado.
-- [x] La versión actual queda tres páginas por debajo del techo interno de 12;
-      no se activa coste de overlength en este build.
+- [x] La versión rc1 quedaba tres páginas por debajo del techo interno de 12;
+      rc2 compila limpio en 10 páginas de artículo y 6 de suplemento
+      (2026-09-06), dos por debajo del techo interno de 12.
 - [x] Todos los claims tienen tabla/figura o argumento formal trazable.
 - [x] Supplement, tests y verificador del repositorio pasan desde el entorno
       bloqueado; el full replay conserva sus instrucciones separadas.
 - [ ] Hashes, release, tag, Zenodo/DOI y versiones coinciden.
-- [ ] Funding, afiliaciones, ORCID, CRediT y corresponding author confirmados.
-- [ ] AI-use disclosure revisada por todos los autores.
+- [x] Afiliaciones, ORCID y corresponding author confirmados (2026-09-06); financiación verificada; CRediT propuesto pendiente de confirmación de todos los autores.
+- [ ] AI-use disclosure (actualizada 2026-09-06: Codex y Claude Code) revisada por todos los autores.
 - [x] El paquete de envío activo ya no apunta a la revista objetivo anterior.
 - [x] No se afirma QPU real, scheduling, multi-tenancy, provider security,
       confidentiality completa ni Fleet Management operacional.

@@ -1,0 +1,34 @@
+\begin{table*}[!t]
+\caption{Gate N: detection rate of each regime on the frozen \texttt{paper\_core} observations (all environments, dimensions and models pooled; 600 observations per intervention row) at the null-calibrated thresholds, and firing rate on the in-place near-null controls. Batch-level regimes use calibrated distributional sensors; item-aligned regimes use exact zero thresholds on item-wise deltas.}
+\label{tab:s-detection}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Intervention & $\mathcal I_X$ & $\mathcal I_{XF}$ & $\mathcal I_{Y_m}$ & $\mathcal I_{XFY}$ & $\mathcal I_{XF}$ item & $\mathcal I_{XFY}$ item \\
+\midrule
+Feature sign flip 0.02 & 0.118 & 0.192 & 0.000 & 0.200 & 0.793 & 0.793 \\
+Feature sign flip 0.05 & 0.532 & 0.640 & 0.000 & 0.643 & 0.867 & 0.867 \\
+Feature sign flip 0.10 & 0.757 & 0.877 & 0.000 & 0.878 & 0.907 & 0.907 \\
+Mean shift 0.02 & 1.000 & 1.000 & 0.000 & 1.000 & 0.357 & 0.357 \\
+Mean shift 0.05 & 1.000 & 1.000 & 0.000 & 1.000 & 0.500 & 0.500 \\
+Mean shift 0.10 & 1.000 & 1.000 & 0.000 & 1.000 & 0.618 & 0.618 \\
+Scaling drift 0.02 & 1.000 & 1.000 & 0.000 & 1.000 & 0.537 & 0.537 \\
+Scaling drift 0.05 & 1.000 & 1.000 & 0.000 & 1.000 & 0.608 & 0.608 \\
+Scaling drift 0.10 & 1.000 & 1.000 & 0.000 & 1.000 & 0.668 & 0.668 \\
+Feature dropout 0.02 & 0.000 & 0.000 & 0.000 & 0.000 & 0.488 & 0.488 \\
+Feature dropout 0.05 & 0.000 & 0.022 & 0.000 & 0.022 & 0.705 & 0.705 \\
+Feature dropout 0.10 & 0.000 & 0.062 & 0.000 & 0.062 & 0.763 & 0.763 \\
+Prior-preserving label flip 0.02 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1.000 \\
+Prior-preserving label flip 0.05 & 0.000 & 0.000 & 0.000 & 0.002 & 0.000 & 1.000 \\
+Prior-preserving label flip 0.10 & 0.000 & 0.000 & 0.000 & 0.033 & 0.000 & 1.000 \\
+Random label flip 0.02 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 1.000 \\
+Random label flip 0.05 & 0.000 & 0.000 & 0.000 & 0.003 & 0.000 & 1.000 \\
+Random label flip 0.10 & 0.000 & 0.000 & 0.000 & 0.033 & 0.000 & 1.000 \\
+\midrule
+Near-null Gaussian $\sigma=0.001$ & 0.713 & 0.713 & 0.000 & 0.713 & 0.042 & 0.042 \\
+Near-null scaling $\alpha=0.001$ & 0.879 & 0.882 & 0.000 & 0.882 & 0.099 & 0.099 \\
+\bottomrule
+\end{tabular}
+\end{table*}

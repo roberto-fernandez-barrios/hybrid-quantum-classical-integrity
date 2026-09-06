@@ -34,6 +34,7 @@ conserva esa numeración y se señala la aparente inconsistencia documental.
 | E10 | `manuscript/paper15_quantum_integrity_gate_summary.md` | Diseño, cobertura, efectos y límites del Gate D de simulador |
 | E11 | `src/hsaas/contracts.py`, `src/hsaas/demo.py` y su manifiesto | Cuatro contratos, hash chain, decisiones fail-closed y seis escenarios |
 | E12 | `pyproject.toml`, `.github/workflows/tests.yml` y `manuscript/HSaaS_DEMONSTRATOR.md` | CLI instalable, CI y documentación de Result 3.1 |
+| E13 | `manuscript/paper15_v11_reinforcement_prereg.md`, `src/experiments/build_q1_reinforcement_evidence.py` y su manifiesto | Gates de refuerzo preregistrados (1.1.0): calibración nula, ablación de preprocesado y baselines ajustados |
 
 Los resultados pesados viven bajo `results/` y están vinculados por manifiestos
 SHA-256. Las copias pequeñas destinadas a revisión viven en `manuscript/`.
@@ -52,7 +53,7 @@ SHA-256. Las copias pequeñas destinadas a revisión viven en `manuscript/`.
 | 3.2.2 — V&V en transpilation y scheduling | Diferencia de provenance con preservación semántica bajo transpilation benigna | E5, E10 | Parcial | Scheduling ausente; faltan layouts, hardware constraints y ataques de compiler pass |
 | 3.2.3 — V&V durante ejecución | Repetición estocástica controlada y comprobación de discrepancias | E5, E10 | Parcial | Ejecución en backend sampler/noisy calibrado y QPU |
 | 3.2.4 — validación end-to-end de integración híbrida | Cuatro contratos ejecutables, hash chain y política `allow/hold/block` sobre seis escenarios | E1, E4–E12 | Parcial alto | Endpoint desplegado, firma/autenticación, persistencia y flujo operacional QPU |
-| G3.3 — métricas, identificación de amenazas y enforcement | Auditabilidad condicional, matriz attack-to-sensor, blind regions y decisiones fail-closed ejecutables | E1, E3–E7, E11 | Cubierto como contribución metodológica | Calibrar thresholds/power/false alarms en operación y medir coste de enforcement |
+| G3.3 — métricas, identificación de amenazas y enforcement | Auditabilidad condicional, matriz attack-to-sensor, blind regions, decisiones fail-closed ejecutables y (1.1.0) calibración nula con pools disjuntos: FPR empírica y potencia a α=0.05 por sensor y régimen en diseño fijo | E1, E3–E7, E11, E13 | Cubierto como contribución metodológica | Calibración condicionada al contexto de ejecución, presupuesto de falsas alarmas operacional y coste de enforcement (Paper 2.5) |
 | 3.3.1 — métricas de calidad, fiabilidad y seguridad en diseño | Impact locus, semantic kernel delta, provenance, cobertura por familia y checks algebraicos | E1, E5, E6 | Cubierto en el caso de estudio | Validación externa en otras familias de algoritmos cuánticos |
 | 3.3.2 — criterios para transpilation, scheduling y post-processing | Política de transpilation aprobada, semantic probes, simetría/diagonal/PSD y repeated estimation | E1, E5, E10 | Parcial alto | Criterios de scheduling y calibración con umbrales operacionales |
 | 3.3.3 — métodos de security assessment para QPU | Ninguna medición física; los shots son un emulador binomial explícito | E1, E10 | No cubierto | Campaña QPU reproducible con calibración, incertidumbre y provenance |
@@ -75,7 +76,7 @@ SHA-256. Las copias pequeñas destinadas a revisión viven en `manuscript/`.
 - Cierre incremental: las 2.184 observaciones label-side con impacto positivo tienen evidencia conjunta no nula.
 - Gate D simulador: 165/165 celdas y 9/9 comprobaciones de aceptación superadas.
 - Demostrador HSaaS: 6/6 escenarios, 8/8 comprobaciones y todas las hash chains verificadas.
-- Artefacto: 15/15 tests superados y auditoría SHA-256 completa de inputs, outputs y copias publicables.
+- Artefacto: 17/17 tests superados y auditoría SHA-256 completa de inputs, outputs y copias publicables.
 
 Estas cifras describen el diseño ejecutado. No son repeticiones poblacionales ni
 evidencia de hardware cuántico.

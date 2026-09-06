@@ -1,0 +1,28 @@
+\begin{table}[!t]
+\caption{Gate N: empirical false-alarm rate of the null-calibrated sensors and batch-level regimes on 12,000 disjoint clean evaluation draws (all eight environments pooled; nominal $\alpha=0.05$ per sensor; Clopper--Pearson 95\% intervals). Regime rows are unions without correction.}
+\label{tab:s-fpr}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrl@{}}
+\toprule
+Sensor / regime & Fires & Rate & 95\% CI \\
+\midrule
+Feature JSD & 600 & 0.050 & [0.046, 0.054] \\
+Feature MMD & 822 & 0.069 & [0.064, 0.073] \\
+KS rejection rate & 342 & 0.029 & [0.026, 0.032] \\
+Score JSD & 668 & 0.056 & [0.052, 0.060] \\
+Prediction-rate shift & 520 & 0.043 & [0.040, 0.047] \\
+Prediction JSD & 586 & 0.049 & [0.045, 0.053] \\
+Label prior shift & 570 & 0.048 & [0.044, 0.051] \\
+Label JSD & 570 & 0.048 & [0.044, 0.051] \\
+Confusion profile $L_1$ & 517 & 0.043 & [0.040, 0.047] \\
+Confusion profile JSD & 638 & 0.053 & [0.049, 0.057] \\
+\midrule
+$\mathcal I_X$ (any sensor) & 1500 & 0.125 & [0.119, 0.131] \\
+$\mathcal I_{XF}$ (any sensor) & 2438 & 0.203 & [0.196, 0.210] \\
+$\mathcal I_{Y_m}$ (any sensor) & 570 & 0.048 & [0.044, 0.051] \\
+$\mathcal I_{XFY}$ (any sensor) & 3113 & 0.259 & [0.252, 0.267] \\
+\bottomrule
+\end{tabular}
+\end{table}

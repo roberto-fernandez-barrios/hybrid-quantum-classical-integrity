@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal, Optional, Tuple, Any, Dict
+from typing import Any, Dict, List, Literal, Optional, Sequence, Tuple
 import time
 
 import numpy as np
@@ -360,3 +360,86 @@ def scores_qsvc(model: Any, X: np.ndarray) -> Optional[np.ndarray]:
 
     print("[Q][SCORE] no continuous score available", flush=True)
     return None
+
+# ----------------------------
+# Prespecified cross-validated tuning (Paper 1.5 Gate T)
+# ----------------------------
+
+QSVC_TUNE_C_GRID: Tuple[float, ...] = (0.1, 1.0, 10.0, 100.0)
+
+
+def select_qsvc_C_cv(
+    X: np.ndarray,
+    y: np.ndarray,
+    cfg: QuantumCfg,
+    *,
+    seed: int,
+    n_splits: int = 5,
+    C_grid: Sequence[float] = QSVC_TUNE_C_GRID,
+) -> Tuple[QuantumCfg, Dict[str, Any]]:
+    """
+    Select the QSVC regularisation constant C by stratified k-fold
+    cross-validation on the precomputed training fidelity kernel, scoring
+    balanced accuracy. Training rows only; evaluation rows are never seen.
+
+    Tie rule (frozen in the preregistration): C ascending, strict improvement
+    required, so ties resolve to the smallest C.
+    """
+    import dataclasses
+
+    from sklearn.metrics import balanced_accuracy_score
+    from sklearn.model_selection import StratifiedKFold
+    from sklearn.svm import SVC
+
+    _require_qiskit()
+    X2, y2 = _validate_xy(X, y, cfg)
+    _seed_qiskit(cfg.seed)
+
+    dim = int(X2.shape[1])
+    fmap = _make_feature_map(dim, cfg)
+    qkernel = _make_kernel(fmap, cfg)
+    K = np.asarray(qkernel.evaluate(X2), dtype=np.float64)
+    if K.shape != (len(y2), len(y2)):
+        raise RuntimeError(f"Unexpected training kernel shape {K.shape}")
+
+    skf = StratifiedKFold(n_splits=int(n_splits), shuffle=True, random_state=int(seed))
+    folds = list(skf.split(X2, y2))
+
+    best: Optional[Tuple[float, float]] = None
+    table: List[Dict[str, Any]] = []
+
+    for C in C_grid:
+        scores: List[float] = []
+        for tr, va in folds:
+            clf = SVC(
+                kernel="precomputed",
+                C=float(C),
+                tol=float(cfg.tol),
+                max_iter=int(cfg.max_iter),
+                cache_size=float(cfg.cache_size),
+                class_weight=cfg.class_weight,
+                probability=False,
+            )
+            clf.fit(K[np.ix_(tr, tr)], y2[tr])
+            pred = clf.predict(K[np.ix_(va, tr)])
+            scores.append(float(balanced_accuracy_score(y2[va], pred)))
+        mean_score = float(np.mean(scores))
+        table.append({"C": float(C), "cv_bal_acc": mean_score})
+        if best is None or mean_score > best[0] + 1e-12:
+            best = (mean_score, float(C))
+
+    assert best is not None
+    tuned = dataclasses.replace(cfg, C=float(best[1]))
+    info: Dict[str, Any] = {
+        "mode": f"cv{int(n_splits)}",
+        "selected_C": float(best[1]),
+        "selected_gamma": "n/a",
+        "cv_bal_acc": float(best[0]),
+        "n_splits": int(n_splits),
+        "cv_seed": int(seed),
+        "scoring": "balanced_accuracy",
+        "C_grid": [float(c) for c in C_grid],
+        "kernel_source": "precomputed training fidelity kernel",
+        "grid_table": table,
+    }
+    return tuned, info

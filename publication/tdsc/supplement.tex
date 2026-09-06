@@ -10,7 +10,9 @@
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
 \title{Supplementary Material for ``Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows''}
-\author{Anonymous Author(s)}
+\author{Roberto~Fern\'andez-Barrios, Iker~Pastor-L\'opez, Amaia~Pikatza-Huerga,
+and~Pablo~Garc\'ia~Bringas\\ Faculty of Engineering, University of Deusto,
+Bilbao, Spain}
 
 \begin{document}
 \maketitle
@@ -253,6 +255,122 @@ The response lattice is deliberately fail-closed: all passes yield
 failure yields \texttt{block}. Six prespecified scenarios and all six chains
 pass eight strict acceptance checks in the frozen artifact.
 
+\section{Preregistered Reinforcement Gates (Artifact 1.1.0)}
+
+Three sensitivity gates were added after the 1.0.0 evidence was frozen. Their
+protocol, endpoints, and one implementation clarification (amendment A1) were
+recorded in \path{manuscript/paper15_v11_reinforcement_prereg.md} before
+execution; results are reported as executed. The gates reuse the exact-
+statevector engine, the frozen split and model seeds, and the frozen
+18-condition suite. They add no QPU, calibrated-noise, scheduling, provider,
+multi-tenancy, or Fleet Management evidence, and they do not change any 1.0.0
+count.
+
+\subsection{Gate N: Null Calibration with Disjoint Clean Pools}
+
+For each of the 240 expansion runs (eight environments, five split seeds, two
+model seeds, three dimensions), the clean pool is the set of evaluation-side
+rows not selected into the frozen evaluation batch (900\,$-$\,$n$ in ID
+protocols, 3{,}000\,$-$\,$n$ in OOD protocols), transformed with the same
+training-fitted projection and scaler as the frozen run. A permutation seeded
+by the split seed divides the pool into a calibration half and an evaluation
+half. Twenty clean batches of $n$ rows are drawn from each half by simple
+random sampling without replacement; the suite also includes an identity
+control and two near-null controls (Gaussian noise $\sigma=0.001$, scaling
+$\alpha=0.001$) applied in place.
+
+Ten distributional sensors are calibrated: feature JSD, MMD, and KS rejection
+rate against the clean batch; score JSD; prediction-rate shift and prediction
+JSD; label prior shift and label JSD; and the two confusion-profile statistics.
+For each (environment, dimension, model) cell the 200 calibration values are
+pooled and the threshold is the 191st order statistic
+($\lceil 201\times0.95\rceil$, $\alpha=0.05$); a sensor fires when its value
+strictly exceeds the threshold. Thresholds are frozen before any attacked row
+is examined. The empirical false-alarm rate is the firing fraction on the 200
+disjoint evaluation draws of the same cell. A regime fires when any of its
+sensors fires; regime-level false-alarm rates are therefore unions and are
+reported as such, without correction.
+
+Two auditors are distinguished (amendment A1). The \emph{batch-level auditor}
+receives a new batch without item correspondence and can use only the
+calibrated distributional sensors. The \emph{item-aligned auditor} compares
+the same items against trusted references, so prediction disagreement,
+confusion-profile deltas, and item-level label mismatch have an exactly zero
+null and any non-zero delta is a detection. Item-aligned sensors are undefined
+on clean draws, whose items differ from the reference batch, and are excluded
+from batch-level unions. Detection rates apply the frozen thresholds to the
+frozen \texttt{paper\_core} observations of the same cell.
+
+Two disclosed limitations are fixed in advance. In E1 ($n=256$) each pool half
+holds 322 rows, so successive draws overlap heavily and E1 calibrated rates
+are indicative only. Simple random draws let class counts vary, whereas the
+frozen batch is stratified, so the label-marginal null reflects natural batch
+variability.
+
+\textbf{Results.} All 240 runs completed (14/14 acceptance checks).
+Table~\ref{tab:s-fpr} reports the pooled false-alarm rates: every sensor lies
+between 0.029 and 0.069 against the nominal 0.05, and the per-cell rates have
+median 0.04 with 92.8\% of non-E1 cells inside $[0.01, 0.10]$.
+Table~\ref{tab:s-fpr-env} shows the environment dependence; E1 and E3 (ToN-IoT,
+25.7\% near-duplicate rows) have the highest regime unions.
+Table~\ref{tab:s-detection} gives the calibrated detection rates and the
+near-null control responses; Table~\ref{tab:s-labelpath} isolates the label
+path: the calibrated $\mathcal I_X$, $\mathcal I_{XF}$ and (prior-preserving)
+$\mathcal I_{Y_m}$ regimes fire on none of the 3,600 label observations, the
+batch-level $\mathcal I_{XFY}$ union fires on 43 (40 of the 2,184 positive
+impacts), and the item-aligned auditor detects all 3,600. Table~\ref{tab:s-mass}
+records the cluster structure that makes the KS sensor react to in-place
+perturbations of order $10^{-3}$ standard deviations while its between-batch
+null stays narrow; this fingerprint is legitimate for unmodified data but would
+be evaded by perturbations that preserve the clusters.
+
+\input{tables/s_fpr.tex}
+\input{tables/s_fpr_env.tex}
+\input{tables/s_detection.tex}
+\input{tables/s_labelpath.tex}
+\input{tables/s_mass.tex}
+
+\subsection{Gate P: Symmetric Preprocessing Ablation}
+
+The CICIDS ID design (128/128, \texttt{paper\_core}, ZZ and SVC, five splits,
+two model seeds, three dimensions) is re-executed under three scaler
+configurations: P0, the frozen reference (\texttt{standard} for SVC,
+\texttt{minmax2$\pi$} for QSVC); PA, \texttt{standard} for both; PB,
+\texttt{minmax2$\pi$} for both. The endpoint is the within-split ZZ-minus-SVC
+difference in suite-average balanced-accuracy conclusion impact with a
+95\% $t$ interval over the five split clusters; clean balanced accuracy and
+the exact label-path invariance counts are reported for every configuration.
+
+\subsection{Gate T: Cross-Validated Tuning of Both Learners}
+
+The same design is re-executed with both learners tuned on training rows only:
+SVC over $C\in\{0.1,1,10,100\}\times\gamma\in\{\text{scale},0.01,0.1,1\}$ and
+QSVC over $C\in\{0.1,1,10,100\}$ on the precomputed training fidelity kernel,
+with stratified five-fold cross-validation (shuffle, random state = model
+seed), balanced-accuracy scoring, and ties resolved toward the smallest $C$.
+Two environments were fixed before execution: CICIDS ID and the expansion OOD
+environment with the highest mean clean SVC balanced accuracy in the frozen
+1.0.0 tables, which is UNSW temporal OOD (E8, 0.753; the CICIDS temporal pairs
+lie between 0.485 and 0.493). Untuned references with identical seeds are P0
+for CICIDS ID and the frozen E8 rows for UNSW OOD.
+
+\textbf{Results of Gates P and T.} Table~\ref{tab:s-paired} reports the
+paired differences and Table~\ref{tab:s-clean} the clean balanced accuracies
+and selected regularisation constants. The direction of the secondary profile
+is stable (five of five positive split clusters in every configuration,
+dimension and environment), but its magnitude is conditional: standardizing
+the quantum branch (PA) reduces the difference to roughly a third of the
+reference, matched min--max scaling (PB) leaves it unchanged, tuning both
+learners widens it in CICIDS ID as ZZ gains clean headroom, and leaves UNSW
+temporal OOD unchanged while training-only tuning slightly lowers the OOD
+accuracy of SVC. Exact label-path invariance holds in every configuration
+(360/360 label rows blind to feature/prediction evidence, 180/180
+prior-preserving rows blind to label marginals, every positive impact with
+joint response, no negative impact).
+
+\input{tables/s_paired.tex}
+\input{tables/s_clean.tex}
+
 \section{Reproduction and Evidence Manifest}
 
 The recommended read-only verification is:
@@ -263,10 +381,15 @@ verify_publication_artifact `
 --root publication/artifact
 \end{verbatim}
 }
-It verifies the artifact-wide SHA-256 manifest, four embedded evidence
-manifests, 22 outputs, row counts, and primary-claim counts. In the frozen
-release it reports 96 files, 3,600 expansion label rows, 2,184 positive
-expansion impacts, 1,440 Gate-1 label rows, and 1,276 positive Gate-1 impacts.
+It verifies the artifact-wide SHA-256 manifest, five embedded evidence
+manifests, 44 outputs, row counts, primary-claim counts, and the calibrated
+label-path consistency checks of the reinforcement gate. In artifact 1.1.0 it
+reports 3,600 expansion label rows, 2,184 positive expansion impacts, 1,440
+Gate-1 label rows, 1,276 positive Gate-1 impacts, and 60 calibrated
+(environment, dimension, model) cells. The 26-test suite covers invariances,
+the exact kernel, the contracts, the null-control sampler, the frozen
+configuration fingerprint, the prespecified threshold rank, and the
+cross-validation tie rule.
 
 The complete test command is:
 {\scriptsize
@@ -292,7 +415,11 @@ the scientific results.
 Auditability is conditional on evidence exposed at a declared boundary;
 model-output and evaluation-conclusion impacts can have different causal loci;
 feature/prediction sensors are exactly blind to label-only changes, whereas
-label marginals are blind to prior-preserving relabeling; complementary
+label marginals are blind to prior-preserving relabeling; these blind regions
+persist under null calibration at $\alpha=0.05$ and are closed only by
+item-aligned evidence; non-invariant sensors reach nominal false-alarm rates on
+disjoint clean pools within the frozen design; the secondary ZZ-minus-SVC
+profile is direction-stable but scaler- and headroom-dependent; complementary
 quantum-workflow sensors close different simulator-gate blind regions; and the
 local prototype executes policy-aware, fail-closed
 \texttt{allow/hold/block} composition.

@@ -17,7 +17,11 @@
 - [x] Five IEEE Index Terms are supplied.
 - [x] In-text citations and reference keys are bidirectionally complete.
 - [x] Figures and tables are cited, captioned and reproducibly sourced.
-- [x] Four evidence manifests, 22 outputs and primary count claims verify.
+- [x] Five evidence manifests, 44 outputs, primary count claims and the
+      calibrated label-path checks verify (artifact 1.1.0).
+- [x] Reinforcement gates preregistered before execution
+      (`manuscript/paper15_v11_reinforcement_prereg.md`) and reported as executed.
+- [x] Related work rechecked on 2026-09-06 (QML-PipeGuard, evaluation blindness).
 - [x] Tests and CI include the publication-artifact verifier.
 - [x] TDSC `IEEEtran` Computer Society source and separate supplement compile.
 - [x] Main paper is below the 12-page final-paper planning ceiling.
@@ -28,23 +32,25 @@
 
 ## Administrative actions requiring the authors
 
-- [ ] Confirm author list/order, affiliations, corresponding author and ORCIDs.
-- [ ] Confirm CRediT roles and competing-interest wording.
+- [x] Confirm author list/order, affiliations, corresponding author and ORCIDs (2026-09-06; mirrored from the companion intrusion-detection study).
+- [ ] Confirm CRediT roles (proposed on the title page) and competing-interest wording.
 - [ ] Select a software/artifact license approved by all rights holders.
 - [ ] Confirm the executed-award co-funding formula, if any.
-- [ ] Decide when the private GitHub repository may become public.
-- [ ] Populate `CITATION.cff.in` and `.zenodo.json.in` with confirmed metadata.
+- [x] Repository visibility: public since 2026-09-06; `main` aligned with the
+      science branch. **A LICENSE file must be added before the DOI is minted.**
+- [x] Populate `CITATION.cff.in` and `.zenodo.json.in` with confirmed author
+      metadata (2026-09-06); license and DOI fields remain pending.
 - [ ] Upload/publish the archive in Zenodo and insert the reserved DOI.
 - [ ] Remove author-identifying funding/AI metadata if the journal requires it
       outside the anonymous manuscript file; retain it on the title page.
 - [ ] Confirm originality/not-under-review statement in the cover letter.
-- [ ] Disclose and attach closely related papers/preprints with a concise
-      difference statement if the IEEE Author Portal requests them.
-- [ ] Replace `Anonymous Author(s)` in both LaTeX sources; TDSC is normally
-      single-anonymous.
+- [x] Disclose closely related papers/preprints with a difference statement
+      (Section II-C, title page, cover letter); attach copies if the portal asks.
+- [x] Replace `Anonymous Author(s)` in both LaTeX sources (done 2026-09-06).
 - [ ] Recheck the TDSC portal on submission day for article type, page limit,
       biographies, template, supplement designation, and current special issues.
-- [ ] Obtain all-author approval of the generative-AI disclosure.
+- [ ] Obtain all-author approval of the generative-AI disclosure (updated
+      2026-09-06 to name OpenAI Codex and Anthropic Claude Code).
 
 These items are authorship, legal or external-account decisions. They do not
 require new scientific experiments.

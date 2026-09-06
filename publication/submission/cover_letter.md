@@ -32,6 +32,24 @@ multi-level architecture. Our narrower distinction is an operational and
 empirically validated rule for which integrity claims are supportable from the
 evidence exposed at a particular boundary.
 
+Three preregistered sensitivity gates, added after the evidence was frozen and
+without changing any primary count, address the two objections we consider most
+likely: a null-calibrated analysis with disjoint clean calibration and
+evaluation pools reports empirical false-alarm and detection rates of the
+non-invariant sensors at a fixed nominal level, and matched-preprocessing and
+cross-validated-tuning ablations test whether the secondary ZZ-versus-SVC
+profile depends on branch-specific scalers or untuned baselines. Their
+protocol was frozen before execution and their results are reported as
+executed.
+
+Three companion manuscripts by the authors are disclosed in the article
+(Section II-C) and listed on the title page: a target-domain certificate for
+quantum-kernel advantage under shift (EPJ Quantum Technology, submitted), an
+information-conditional auditor for collider classifiers (arXiv:2609.02781),
+and a promotion-validation study for adaptive intrusion detection. They share
+datasets, monitors or vocabulary with this article but none of its
+propositions, interventions, tables or experiments.
+
 We do not present the two elementary propositions, hash chains, contracts, or
 the ZZ-versus-SVC profile as standalone novelty. We make no claim of quantum
 advantage, complete lifecycle security, physical-QPU coverage, calibrated
@@ -39,17 +57,16 @@ device-noise coverage, provider authentication, scheduling security,
 multi-tenancy protection, or operational Fleet Management. Code, tests, derived
 evidence, vector figures, and SHA-256 manifests accompany the manuscript.
 
-Before upload, the corresponding author must confirm the following statements:
-**[The manuscript is original, is not under consideration elsewhere, has been
-approved by every author, and all related manuscripts/preprints have been
-disclosed.]** Author identities, affiliations, ORCIDs, CRediT roles, funding,
-competing interests, and artifact licensing are recorded on the separate title
-page once confirmed.
+The manuscript is original and is not under consideration elsewhere. **[ALL
+AUTHORS TO CONFIRM APPROVAL BEFORE UPLOAD.]** Author identities, affiliations,
+ORCIDs, proposed CRediT roles, funding and the related-manuscript disclosure
+are recorded on the title page; competing interests and artifact licensing
+remain to be confirmed.
 
 Sincerely,
 
-**[Corresponding author]**
+Roberto Fernández-Barrios (corresponding author)
 
-**[Affiliation]**
+Faculty of Engineering, University of Deusto, Bilbao, Spain
 
-**[Email]**
+roberto.fernandez.b@deusto.es

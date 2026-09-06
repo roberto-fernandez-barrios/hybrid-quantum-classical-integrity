@@ -229,3 +229,65 @@ Cuando el Paper 1.5 tenga preprint o DOI, propagar la cita a los otros tres.
 3. Licencia del artefacto y momento de hacer público el repo.
 4. Acceso QPU para el Paper 2.5 y fecha de arranque.
 5. Dónde vive `Proyecto/` (memoria confidencial) respecto al repo público.
+
+## 8. Ejecución del 2026-09-06 (tarde): decisiones y estado
+
+Decisiones del autor (con segunda opinión externa): ejecutar los tres
+refuerzos antes del envío; commit de checkpoint sin tag definitivo; autoría =
+equipo del paper *Candidate Comparability Before Promotion* (Fernández-Barrios,
+Pastor-López, Pikatza-Huerga, García Bringas); tag/release/Zenodo solo tras
+cerrar refuerzos y aprobación de todos los autores.
+
+Hecho:
+
+1. Checkpoint `9ad8b5d` en `paper15-q1-expansion`, subido; `origin/main`
+   alineado con la ciencia; `Proyecto/` y plantillas de terceros ignorados.
+2. Protocolo preregistrado en `paper15_v11_reinforcement_prereg.md` (rejillas,
+   α=0.05, particiones, regla del OOD → E8 UNSW temporal) con una enmienda A1
+   documentada (sensores item-alineados indefinidos en lotes nulos no alineados;
+   dos modos de auditor).
+3. Código: `CleanResample` (pool limpio disjunto), suite `paper_null`,
+   `--svc-tune/--qsvc-tune` con CV 5-fold en entrenamiento, fingerprint
+   retrocompatible (361/361 JSON congelados intactos; un job congelado se
+   regenera bit a bit con un hilo BLAS), cola `run_v11_reinforcement_queue`
+   (390 jobs), constructor fail-closed `build_q1_reinforcement_evidence`,
+   figura `make_q1_reinforcement_figures`, ensamblador
+   `assemble_publication_artifact`, verificador a cinco manifiestos, 9 tests
+   nuevos (26 en total).
+4. Manuscrito rc2: bloque de autores y financiación, PipeGuard y Evaluation
+   Blindness en §II y Tabla 1, §II-C *Relation to Companion Work*, disclosure de
+   IA (Codex + Claude Code), sección del suplemento con el diseño de los gates;
+   cover letter, title page, checklist, notas de release, trazabilidad de
+   claims, README, guía de reproducción y plantillas Zenodo/CITATION con autores.
+5. Hallazgo metodológico durante la prueba en seco: las features proyectadas
+   están dominadas por cúmulos estrechos (70–87 % de las filas dentro de 0.01
+   SD en alguna feature), por lo que el KS detecta cualquier perturbación in
+   situ ≥1e-3 aunque no reaccione a lotes limpios nuevos. Queda medido en
+   `null_mass_point_profile.csv` y debe explicarse en el suplemento.
+
+Cierre (misma tarde): cola 390/390 sin fallos en 42 min; constructor con
+14/14 checks de aceptación y 22 tablas; figura `fig_q1_calibrated_coverage`;
+7 tablas LaTeX generadas desde CSV (`publication/tdsc/tables/`); `main.tex` con
+§5.5 *Calibrated Coverage and Sensitivity Gates*, Fig. 4, abstract (214
+palabras), limitaciones y conclusión actualizadas; suplemento con §8 y tablas
+5–11; build limpio de 10 + 6 páginas; checksums regenerados; artefacto 1.1.0
+ensamblado (134 ficheros, 5 manifiestos, 44 salidas, 40 MB) y verificado; 26
+tests en verde. Resumen numérico en
+`manuscript/paper15_v11_reinforcement_result_summary.md`.
+
+Resultados en una línea cada uno:
+
+- FPR por sensor 0.029–0.069 (nominal 0.05) sobre 12.000 lotes limpios
+  disjuntos; uniones de régimen 0.125 / 0.203 / 0.048 / 0.259.
+- Regiones ciegas exactas intactas bajo calibración: 0 disparos de I_X, I_XF
+  e I_Ym en 3.600 filas de etiquetas; auditor item-alineado 2.184/2.184;
+  auditor batch-level I_XFY solo 1.8 %.
+- KS detecta mean shift y scaling drift al 100 % y también los shams de 0.001
+  (71–88 %) por los cúmulos de las features proyectadas; dropout casi
+  invisible a nivel de lote (0–6 %) pero cambia predicciones en 49–76 %.
+- Perfil ZZ−SVC: dirección estable (5/5 clusters en todo), magnitud
+  condicional: estandarizar la rama cuántica lo reduce a ~1/3; tuning lo
+  amplía en CICIDS ID (ZZ gana margen limpio) y no lo cambia en UNSW OOD.
+
+Sin tag, release ni Zenodo: quedan la aprobación de todos los autores (CRediT,
+conflictos, disclosure de IA), la licencia y el DOI.

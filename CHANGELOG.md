@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.1.0 — 2026-09-06
+
+- added three preregistered reinforcement gates without changing the frozen
+  1.0.0 evidence or claims: null calibration of the non-invariant sensors with
+  disjoint clean calibration/evaluation pools (`paper_null` suite,
+  `clean_resample` control, alpha = 0.05 per sensor), a symmetric
+  preprocessing ablation of the secondary ZZ-minus-SVC profile, and
+  cross-validated tuning of both learners on training rows only;
+- added `run_v11_reinforcement_queue`, `build_q1_reinforcement_evidence`,
+  `make_q1_reinforcement_figures` and `assemble_publication_artifact`;
+  extended the verifier to five manifests and the calibrated label-path checks;
+- kept historical run identifiers stable: new runner options are excluded from
+  the configuration fingerprint when at their defaults, and a frozen job
+  regenerates bit-identically under single-threaded BLAS;
+- retargeted the submission package to IEEE TDSC (rc2): confirmed author block,
+  funding footnote, updated related work (QML-PipeGuard, evaluation blindness),
+  companion-work disclosure, and generative-AI disclosure;
+- updated the novelty review with the 6 September 2026 recheck.
+
 ## 1.0.0 — 2026-08-09
 
 - froze the central claim as information-set conditional integrity auditing;

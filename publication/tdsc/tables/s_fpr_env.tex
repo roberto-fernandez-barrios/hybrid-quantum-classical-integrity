@@ -1,0 +1,21 @@
+\begin{table*}[!t]
+\caption{Gate N: per-environment false-alarm rates on 1,200 evaluation draws (three dimensions, two or four models, 200 draws per cell). Sensor range is the minimum and maximum per-sensor rate in the environment; regime columns are batch-level unions. E1 draws 256 rows from 322-row pool halves and is indicative only.}
+\label{tab:s-fpr-env}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lrrlrrrr@{}}
+\toprule
+Environment & $n$ & Pool half & Sensor range & $\mathcal I_X$ & $\mathcal I_{XF}$ & $\mathcal I_{Y_m}$ & $\mathcal I_{XFY}$ \\
+\midrule
+E1 CICIDS ID 256 & 256 & 322 & 0.023--0.130 & 0.203 & 0.245 & 0.045 & 0.331 \\
+E2 UNSW-NB15 ID & 128 & 386 & 0.008--0.070 & 0.063 & 0.135 & 0.070 & 0.210 \\
+E3 ToN-IoT ID & 128 & 386 & 0.025--0.172 & 0.215 & 0.280 & 0.070 & 0.358 \\
+E4 Tue$\to$Wed & 128 & 1436 & 0.025--0.082 & 0.150 & 0.230 & 0.025 & 0.254 \\
+E5 Tue$\to$Fri-PortScan & 128 & 1436 & 0.018--0.051 & 0.066 & 0.160 & 0.025 & 0.198 \\
+E6 Wed$\to$Thu-Web & 128 & 1436 & 0.013--0.057 & 0.070 & 0.163 & 0.025 & 0.181 \\
+E7 Wed$\to$Fri-AM & 128 & 1436 & 0.025--0.066 & 0.133 & 0.212 & 0.025 & 0.258 \\
+E8 UNSW temporal OOD & 128 & 1436 & 0.032--0.092 & 0.072 & 0.192 & 0.050 & 0.237 \\
+\bottomrule
+\end{tabular}
+\end{table*}

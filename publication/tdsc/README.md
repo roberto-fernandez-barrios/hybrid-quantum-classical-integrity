@@ -12,7 +12,8 @@ Kernel Workflows.” The manuscript is formatted with
 - `supplement.tex` — experimental design, intervention and sensor matrices,
   exact-statevector validation, contract detail, and reproduction mapping;
 - `references.bib` — bibliography cited by the main article;
-- `figures/` — the three vector figures used in the article;
+- `figures/` — the four vector figures used in the article (three frozen 1.0.0
+  figures plus `fig_q1_calibrated_coverage.pdf` from the reinforcement gates);
 - `SUPPLEMENT_README.md` — IEEE-oriented description and execution guide;
 - `CLAIMS_TRACEABILITY.md` — claim-to-evidence map;
 - `build.ps1` — clean, checked LaTeX build;
@@ -39,10 +40,10 @@ references and overfull boxes, checks the article page ceiling, and writes:
 - `output/pdf/paper15_tdsc_submission.pdf`
 - `output/pdf/paper15_tdsc_supplement.pdf`
 
-The current anonymous working build is nine main-paper pages plus three
-supplement pages on US Letter. Author metadata and any required biographies can
-change pagination, so the script must be rerun after the final author block is
-inserted.
+The rc1 anonymous build was nine main-paper pages plus three supplement pages
+on US Letter; rc2 adds the author block, Section II-C, the calibrated-coverage
+paragraph and figure, and a supplement section, and compiles to 10 main-paper pages plus
+6 supplement pages (2026-09-06). Any required biographies can change pagination.
 
 ## Scientific verification
 
@@ -72,14 +73,16 @@ profile is secondary evidence, not the headline result.
 
 ## Required author actions
 
-The scientific package is closed. Submission remains administratively blocked
-until the authors confirm and insert:
+The scientific package is closed (artifact 1.1.0). Author order, affiliations,
+ORCIDs and corresponding author were confirmed on 2026-09-06. Submission
+remains administratively blocked until the authors confirm and insert:
 
-1. author order, affiliations, ORCIDs, corresponding author, and CRediT roles;
+1. CRediT roles (proposed on the title page);
 2. competing interests and approval of the AI-use disclosure;
 3. the verbatim funding/co-funding formula from the executed award;
 4. artifact/software license and repository visibility;
 5. related-work disclosures required by the IEEE portal; and
 6. the public Zenodo version DOI.
 
-Do not publish a DOI or replace `Anonymous Author(s)` by inference.
+Do not publish a DOI by inference; the repository is public and needs a LICENSE
+file before archival.

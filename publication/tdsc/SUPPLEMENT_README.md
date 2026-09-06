@@ -7,7 +7,10 @@ Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows.” It records
 the prespecified experimental environments, 18-condition intervention suite,
 information-set coverage matrix, deduplication rules, statistical units,
 exact-statevector validation, 165-cell quantum integrity gate, executable
-contract checks, and the claims-supported/claims-excluded boundary.
+contract checks, the three preregistered reinforcement gates of artifact 1.1.0
+(null calibration with disjoint clean pools, symmetric preprocessing ablation,
+cross-validated tuning of both learners), and the
+claims-supported/claims-excluded boundary.
 
 The supplement adds audit and reproduction detail; it does not add evidence
 from a physical QPU, calibrated backend noise, scheduling, multi-tenancy,
@@ -16,8 +19,8 @@ provider security, side channels, or operational Fleet Management.
 ## Files and approximate size
 
 - `supplement.tex` — editable LaTeX source;
-- `paper15_tdsc_supplement.pdf` — rendered supplement, currently three US Letter
-  pages;
+- `paper15_tdsc_supplement.pdf` — rendered supplement (US Letter; page count
+  reported by `build.ps1`);
 - `CLAIMS_TRACEABILITY.md` — claim-to-artifact map;
 - `publication/artifact/` — compact verification artifact, including code,
   tests, locked dependencies, derived evidence, and SHA-256 manifests.

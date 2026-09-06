@@ -9,6 +9,9 @@ Copy-Item -LiteralPath (Join-Path $sourceDir 'main.tex') -Destination $stageDir
 Copy-Item -LiteralPath (Join-Path $sourceDir 'supplement.tex') -Destination $stageDir
 Copy-Item -LiteralPath (Join-Path $sourceDir 'references.bib') -Destination $stageDir
 Copy-Item -LiteralPath (Join-Path $sourceDir 'figures') -Destination $stageDir -Recurse
+if (Test-Path (Join-Path $sourceDir 'tables')) {
+    Copy-Item -LiteralPath (Join-Path $sourceDir 'tables') -Destination $stageDir -Recurse
+}
 
 function Invoke-Checked {
     param(

@@ -52,7 +52,15 @@ from src.attacks.label_flip_prior_preserving import (
 from src.attacks.mean_shift import MeanShift, MeanShiftCfg
 from src.attacks.quantization import Quantization, QuantizationCfg
 from src.attacks.scaling_drift import ScalingDrift, ScalingDriftCfg
-from src.attacks.sham import IdentityAttack, TinyGaussianNoise, TinyScalingDrift
+from src.attacks.sham import (
+    CleanResample,
+    CleanResampleCfg,
+    IdentityAttack,
+    TinyGaussianNoise,
+    TinyScalingDrift,
+)
+from src.qml.classical import select_svc_params_cv
+from src.qml.quantum_qsvc import select_qsvc_C_cv
 
 from src.integrity.signals import (
     MMDConfig,
@@ -415,22 +423,27 @@ def _apply_attack(
     X: np.ndarray,
     y: np.ndarray,
     seed: int,
+    pool: Optional[Dict[str, Any]] = None,
 ) -> Tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
     """
     Compatibility wrapper:
+      - Pool-aware null controls: apply(X, seed=seed, y=y, pool=pool)
       - Preferred: apply(X, seed=seed, y=y)
       - Backward: apply(X, y=y, seed=seed) or apply(X, seed=seed)
     """
     if atk is None:
         return np.asarray(X), np.asarray(y), {}
 
-    try:
-        out = atk.apply(X, seed=seed, y=y)
-    except TypeError:
+    if bool(getattr(atk, "needs_pool", False)):
+        out = atk.apply(X, seed=seed, y=y, pool=pool)
+    else:
         try:
-            out = atk.apply(X, y=y, seed=seed)
+            out = atk.apply(X, seed=seed, y=y)
         except TypeError:
-            out = atk.apply(X, seed=seed)
+            try:
+                out = atk.apply(X, y=y, seed=seed)
+            except TypeError:
+                out = atk.apply(X, seed=seed)
 
     X_att = getattr(out, "X_att", None)
     y_att = getattr(out, "y_att", None)
@@ -483,22 +496,22 @@ def _meta_strength_eff(meta: Dict[str, Any], fallback: float) -> float:
 # Subsampling
 # ============================================================
 
-def _stratified_subsample(
-    X: np.ndarray,
+def _stratified_subsample_indices(
     y: np.ndarray,
     n_max: int,
     *,
     seed: int,
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> np.ndarray:
     """
-    Stratified subsample to at most n_max rows.
-    Deterministic via seed.
+    Indices of a stratified subsample of at most n_max rows.
+
+    This is the exact random-number sequence used by the frozen 1.0.0 runs;
+    it must not change, otherwise the frozen evaluation batches would differ.
     """
-    X = np.asarray(X)
     y = np.asarray(y).astype(int)
 
     if n_max <= 0 or len(y) <= n_max:
-        return X, y
+        return np.arange(len(y))
 
     rng = np.random.default_rng(int(seed))
     idx_all = np.arange(len(y))
@@ -519,8 +532,27 @@ def _stratified_subsample(
     if len(idx) > n_max:
         idx = rng.choice(idx, size=n_max, replace=False)
 
-    idx = np.sort(idx)
+    return np.sort(idx)
 
+
+def _stratified_subsample(
+    X: np.ndarray,
+    y: np.ndarray,
+    n_max: int,
+    *,
+    seed: int,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Stratified subsample to at most n_max rows.
+    Deterministic via seed.
+    """
+    X = np.asarray(X)
+    y = np.asarray(y).astype(int)
+
+    if n_max <= 0 or len(y) <= n_max:
+        return X, y
+
+    idx = _stratified_subsample_indices(y, n_max, seed=seed)
     return X[idx], y[idx]
 
 
@@ -628,9 +660,22 @@ class RunCfg:
     max_train: int
     max_test: int
 
+    # Reinforcement gates (artifact 1.1.0). Defaults reproduce the frozen 1.0.0
+    # behaviour exactly and are excluded from the fingerprint when at default,
+    # so historical run identifiers and file names are unchanged.
+    svc_tune: str = "none"
+    qsvc_tune: str = "none"
+
+
+_FINGERPRINT_DEFAULT_EXCLUDED: Dict[str, Any] = {"svc_tune": "none", "qsvc_tune": "none"}
+
 
 def _cfg_fingerprint(cfg: RunCfg) -> str:
-    payload = json.dumps(asdict(cfg), sort_keys=True, default=str).encode("utf-8")
+    payload_dict = asdict(cfg)
+    for key, default in _FINGERPRINT_DEFAULT_EXCLUDED.items():
+        if payload_dict.get(key) == default:
+            payload_dict.pop(key, None)
+    payload = json.dumps(payload_dict, sort_keys=True, default=str).encode("utf-8")
     return hashlib.sha1(payload).hexdigest()[:10]
 
 
@@ -712,6 +757,29 @@ def _build_attacks(suite: str) -> List[AttackSpec]:
             "sham",
             TinyScalingDrift(),
         )
+        return specs
+
+    if suite in ("paper_null", "null"):
+        # Null-calibration gate (artifact 1.1.0): 20 independent clean draws from
+        # the calibration half of the held-out pool, 20 from the disjoint
+        # evaluation half, plus the three benign specificity controls.
+        for k in range(1, 21):
+            _add(
+                f"clean_resample_calib_{k:02d}",
+                "null_control",
+                0.0,
+                "null_calibration",
+                CleanResample(CleanResampleCfg(pool_half="calibration", draw_index=k)),
+            )
+        for k in range(1, 21):
+            _add(
+                f"clean_resample_eval_{k:02d}",
+                "null_control",
+                0.0,
+                "null_evaluation",
+                CleanResample(CleanResampleCfg(pool_half="evaluation", draw_index=k)),
+            )
+        specs.extend(_build_attacks("paper_sham")[1:])
         return specs
 
     if suite in ("paper_core", "core"):
@@ -1037,6 +1105,22 @@ def main() -> None:
     ap.add_argument("--attack-suite", type=str, default="v2")
     ap.add_argument("--atk-meta-keys", type=str, default="")
 
+    # Reinforcement gates (artifact 1.1.0). Defaults reproduce frozen behaviour.
+    ap.add_argument(
+        "--svc-tune",
+        type=str,
+        default="none",
+        choices=["none", "cv5"],
+        help="cv5 = prespecified 5-fold CV over C x gamma on training rows only (Gate T).",
+    )
+    ap.add_argument(
+        "--qsvc-tune",
+        type=str,
+        default="none",
+        choices=["none", "cv5"],
+        help="cv5 = prespecified 5-fold CV over C on the precomputed training kernel (Gate T).",
+    )
+
     args = ap.parse_args()
 
     strict = not bool(args.non_strict_seeds)
@@ -1103,6 +1187,9 @@ def main() -> None:
 
         max_train=int(args.max_train),
         max_test=int(args.max_test),
+
+        svc_tune=str(args.svc_tune),
+        qsvc_tune=str(args.qsvc_tune),
     )
 
     cfg_fp = _cfg_fingerprint(cfg)
@@ -1181,7 +1268,23 @@ def main() -> None:
     t_sub0 = time.time()
 
     X_tr, y_tr = _stratified_subsample(X_tr, y_tr, int(cfg.max_train), seed=subsample_seed)
-    X_te, y_te = _stratified_subsample(X_te, y_te, int(cfg.max_test), seed=subsample_seed + 1)
+
+    # Frozen evaluation batch plus the clean held-out pool: evaluation-side rows
+    # that were not selected into the batch. The pool feeds the null-calibration
+    # controls and is divided into disjoint calibration/evaluation halves by a
+    # permutation seeded with the split seed. The frozen batch itself is
+    # unchanged because the index selection uses the historical RNG sequence.
+    te_idx = _stratified_subsample_indices(y_te, int(cfg.max_test), seed=subsample_seed + 1)
+    pool_mask = np.ones(len(y_te), dtype=bool)
+    pool_mask[te_idx] = False
+    X_pool_raw = np.asarray(X_te)[pool_mask]
+    y_pool_raw = np.asarray(y_te).astype(int)[pool_mask]
+    X_te, y_te = np.asarray(X_te)[te_idx], np.asarray(y_te).astype(int)[te_idx]
+
+    pool_perm = np.random.default_rng(int(cfg.split_seed)).permutation(len(y_pool_raw))
+    pool_half_n = int(len(pool_perm) // 2)
+    pool_calibration_idx = np.sort(pool_perm[:pool_half_n])
+    pool_evaluation_idx = np.sort(pool_perm[pool_half_n:])
 
     print(
         f"[RUN] subsample done | {time.time() - t_sub0:.2f}s | "
@@ -1212,6 +1315,15 @@ def main() -> None:
         "max_train": int(cfg.max_train),
         "max_test": int(cfg.max_test),
         "n_features_pre_scale": int(X_tr.shape[1]),
+        "clean_pool": {
+            "source": "evaluation-side rows not selected into the frozen evaluation batch",
+            "n_pool": int(len(y_pool_raw)),
+            "n_calibration_half": int(len(pool_calibration_idx)),
+            "n_evaluation_half": int(len(pool_evaluation_idx)),
+            "partition_seed": int(cfg.split_seed),
+            "pos_rate_pool": float(np.mean(y_pool_raw)) if len(y_pool_raw) else float("nan"),
+            "null_draw_sampling": "simple random without replacement within one half",
+        },
         "data_paths": {
             "id": str(cfg.data) if cfg.protocol == "id" else None,
             "train": str(cfg.data_train) if cfg.protocol == "ood" else None,
@@ -1293,6 +1405,7 @@ def main() -> None:
         train_fn: Callable[[np.ndarray, np.ndarray], Any],
         predict_fn: Callable[[Any, np.ndarray], np.ndarray],
         get_scores_fn: Callable[[Any, np.ndarray], Optional[np.ndarray]],
+        pool_f: Optional[Dict[str, Any]] = None,
     ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
         X_ref = X_tr_f
         n_features = int(X_ref.shape[1])
@@ -1331,6 +1444,7 @@ def main() -> None:
         t0 = time.time()
         model = train_fn(X_tr_f, y_tr_f)
         train_time_s = float(time.time() - t0)
+        tuning_info: Dict[str, Any] = dict(getattr(model, "_paper15_tuning", None) or {})
 
         print(f"[RUN][{model_label}] train done | {train_time_s:.2f}s", flush=True)
 
@@ -1379,7 +1493,9 @@ def main() -> None:
             )
 
             t1 = time.time()
-            X_eval, y_eval, atk_meta = _apply_attack(spec.attack_obj, X_te_f, y_te_f, seed=atk_seed)
+            X_eval, y_eval, atk_meta = _apply_attack(
+                spec.attack_obj, X_te_f, y_te_f, seed=atk_seed, pool=pool_f
+            )
             attack_prep_time_s = float(time.time() - t1)
 
             print(
@@ -1543,6 +1659,10 @@ def main() -> None:
                 "model_family": str(model_family),
                 "model": str(model_label),
                 "scale": str(scale_label),
+                "model_tuning": str(tuning_info.get("mode", "none")),
+                "model_C": float(_as_float_or_nan(tuning_info.get("selected_C", float("nan")))),
+                "model_gamma": str(tuning_info.get("selected_gamma", "")),
+                "model_cv_bal_acc": float(_as_float_or_nan(tuning_info.get("cv_bal_acc", float("nan")))),
 
                 # Attack
                 "attack_suite": str(cfg.attack_suite),
@@ -1669,6 +1789,8 @@ def main() -> None:
             "ref_predict_time_s": float(ref_predict_time_s),
             "clean_ref_run_id": str(clean_ref_run_id),
             "clean_ref_attack_seed": int(clean_ref_attack_seed),
+            "tuning": {k: v for k, v in tuning_info.items() if k != "grid_table"},
+            "tuning_grid_table": list(tuning_info.get("grid_table", [])),
             "clean_metrics": {
                 "bal_acc": float(metrics_clean["bal_acc"]),
                 "f1_pos": float(metrics_clean["f1_pos"]),
@@ -1705,21 +1827,76 @@ def main() -> None:
         flush=True,
     )
 
+    def _pool_dict(scaler: Any) -> Dict[str, Any]:
+        if len(y_pool_raw) and scaler is not None:
+            X_pool_scaled = np.asarray(scaler.transform(X_pool_raw))
+        else:
+            X_pool_scaled = np.asarray(X_pool_raw)
+        return {
+            "X": X_pool_scaled,
+            "y": y_pool_raw,
+            "calibration_idx": pool_calibration_idx,
+            "evaluation_idx": pool_evaluation_idx,
+        }
+
+    pool_c = _pool_dict(scaler_c)
+
     scaler_q = None
     X_tr_q: Optional[np.ndarray] = None
     X_te_q: Optional[np.ndarray] = None
+    pool_q: Optional[Dict[str, Any]] = None
 
     if cfg.run_quantum and QISKIT_OK:
         print("[RUN] quantum scaling start", flush=True)
         scaler_q = build_scaler(cfg.scale_quantum)
         t_sq0 = time.time()
         X_tr_q, X_te_q = fit_transform_scaler(scaler_q, X_tr, X_te)
+        pool_q = _pool_dict(scaler_q)
 
         print(
             f"[RUN] quantum scaling done | {time.time() - t_sq0:.2f}s | "
             f"X_tr={X_tr_q.shape} X_te={X_te_q.shape}",
             flush=True,
         )
+
+    # --------------------------------------------------------
+    # Training policies (frozen defaults or prespecified CV tuning)
+    # --------------------------------------------------------
+    def _train_classical_with_policy(Xa: np.ndarray, ya: np.ndarray) -> Any:
+        ccfg = ClassicalCfg()
+        info: Dict[str, Any] = {
+            "mode": "none",
+            "selected_C": float(ccfg.C),
+            "selected_gamma": str(ccfg.gamma),
+        }
+        if cfg.svc_tune == "cv5":
+            ccfg, info = select_svc_params_cv(Xa, ya, ccfg, seed=int(cfg.model_seed), n_splits=5)
+        elif cfg.svc_tune != "none":
+            raise ValueError(f"Unknown --svc-tune '{cfg.svc_tune}' (use none|cv5)")
+        model = train_classical_svc(Xa, ya, ccfg)
+        try:
+            model._paper15_tuning = info  # type: ignore[attr-defined]
+        except Exception:
+            pass
+        return model
+
+    def _train_quantum_with_policy(Xa: np.ndarray, ya: np.ndarray, qcfg0: QuantumCfg) -> Any:
+        info: Dict[str, Any] = {
+            "mode": "none",
+            "selected_C": float(qcfg0.C),
+            "selected_gamma": "n/a",
+        }
+        qcfg1 = qcfg0
+        if cfg.qsvc_tune == "cv5":
+            qcfg1, info = select_qsvc_C_cv(Xa, ya, qcfg0, seed=int(cfg.model_seed), n_splits=5)
+        elif cfg.qsvc_tune != "none":
+            raise ValueError(f"Unknown --qsvc-tune '{cfg.qsvc_tune}' (use none|cv5)")
+        model = train_qsvc(Xa, ya, qcfg1)[0]
+        try:
+            model._paper15_tuning = info  # type: ignore[attr-defined]
+        except Exception:
+            pass
+        return model
 
     # --------------------------------------------------------
     # Classical runs
@@ -1739,9 +1916,10 @@ def main() -> None:
             X_te_f=X_te_c,
             y_tr_f=y_tr,
             y_te_f=y_te,
-            train_fn=lambda Xa, ya: train_classical_svc(Xa, ya, ClassicalCfg()),
+            train_fn=_train_classical_with_policy,
             predict_fn=lambda m, Xx: m.predict(Xx),
             get_scores_fn=lambda m, Xx: _get_scores(m, Xx),
+            pool_f=pool_c,
         )
 
         rows.extend(rows_c)
@@ -1785,9 +1963,10 @@ def main() -> None:
                     X_te_f=X_te_q,
                     y_tr_f=y_tr,
                     y_te_f=y_te,
-                    train_fn=lambda Xa, ya, qcfg=qcfg: train_qsvc(Xa, ya, qcfg)[0],
+                    train_fn=lambda Xa, ya, qcfg=qcfg: _train_quantum_with_policy(Xa, ya, qcfg),
                     predict_fn=lambda m, Xx: predict_qsvc(m, Xx),
                     get_scores_fn=lambda m, Xx: scores_qsvc(m, Xx),
+                    pool_f=pool_q,
                 )
 
                 rows.extend(rows_q)

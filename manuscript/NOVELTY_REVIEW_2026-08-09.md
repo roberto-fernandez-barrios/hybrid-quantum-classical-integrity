@@ -77,3 +77,25 @@ claim based on contracts or complementary sensors. The revised claim remains
 distinct, but the related-work comparison must be retained at submission and
 rerun immediately before upload.
 
+
+## Addendum — recheck on 6 September 2026
+
+The searches above were repeated on 6 September 2026 (arXiv, publisher
+records, forward citations of QCIVET). Four records appeared after or were
+missed by the 9 August cut-off and are now cited or positioned:
+
+| Work | What it contributes | Consequence for this paper |
+|---|---|---|
+| Yeniaras, *QML-PipeGuard: Drift-Aware Behavioral Fingerprinting for QML Pipeline Integrity* (arXiv:2605.25066, 24 May 2026) | Informationally complete observable contract; drift-aware tolerance that absorbs benign calibration change; channel-substitution detection on IBM Heron r2 (`ibm_fez`); shot-complexity bound | **Closest quantum-specific neighbour after QCIVET.** Added to §II and Table 1. Its unit is the quantum channel; it does not model the evaluation-label path, provenance, or multi-environment coverage. Do not claim "calibrated tolerance on real hardware" as novelty in this or any follow-up paper without citing it |
+| Bajaj, *Evaluation Blindness: How Silent Measurement Failures Corrupt AI Systems from Training to Deployment* (arXiv:2608.02786, 3 Aug 2026) | Defines evaluation blindness (measurement indistinguishable from healthy state while failing); six-class taxonomy over 50 incidents; failure-budget framing | **Conceptual neighbour of the central term.** Added to §II and Table 1. Qualitative and classical; no information-regime formalization, exact blind regions, coverage validation, or executable response |
+| Deng, *Runtime Calibration as State-Trajectory Feedback Control in Quantum-Classical Workflows* (arXiv:2605.11860, 12 May 2026) | When to recalibrate during variational workloads under drift; feedback control under wall-clock budget | Not cited here (out of scope: no integrity claim). Relevant to the planned operational follow-up |
+| Qurator (arXiv:2604.05505, Apr 2026) | Scheduling hybrid workflows across heterogeneous cloud providers | Not cited here (scheduling excluded). Relevant to the planned operational follow-up |
+
+Companion work by the authors is now disclosed in a dedicated subsection
+(§II-C) with an explicit non-overlap statement: target-domain certificates
+(Zenodo 10.5281/zenodo.21776862; submitted to EPJ Quantum Technology),
+conditional validity of quantum event classifiers (arXiv:2609.02781), and
+candidate comparability before promotion (Zenodo 10.5281/zenodo.22239106).
+
+The frozen novelty statement is unchanged. The recheck must be repeated on the
+day of upload.

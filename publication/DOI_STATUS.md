@@ -1,19 +1,23 @@
 # Zenodo/DOI status
 
-Status on 10 August 2026: **scientific artifact and TDSC release candidate
-prepared; DOI not minted**.
+Status on 6 September 2026: **artifact 1.1.0 (frozen 1.0.0 evidence plus
+preregistered reinforcement gates) and TDSC release candidate rc2 prepared;
+DOI not minted**. The GitHub repository became public on 6 September 2026 and
+`main` now points at the science branch; a LICENSE file is still missing and
+must be added before archival.
 
-The repository is private and no Zenodo access token is available in the
-workspace. More importantly, public archival requires author/order metadata and
-a license choice that cannot be inferred safely. The GitHub-Zenodo path also
-requires the repository to be public. No repository visibility, license or
-authorship decision has therefore been changed automatically.
+No Zenodo access token is available in the workspace. Author order,
+affiliations and ORCIDs were confirmed on 6 September 2026; CRediT roles are
+proposed on the title page and await all-author confirmation; the license
+choice is still open. No license or archival decision has been made
+automatically.
 
 Ready inputs:
 
-- version `1.0.0` and intended tag `paper15-q1-v1.0.0`;
+- frozen evidence version `1.0.0` (tag `paper15-q1-v1.0.0`) and artifact
+  version `1.1.0` (submission tag to be created after all-author approval);
 - `publication/paper15-q1-v1.0.0.zip` and its SHA-256 file;
-- TDSC submission build `1.1.0-tdsc-rc1`, with checked main and supplement
+- TDSC submission build `1.1.0-tdsc-rc2`, with checked main and supplement
   sources in `publication/tdsc/` and rendered PDFs in `output/pdf/`;
 - `publication/tdsc/CHECKSUMS.sha256`, binding the inspected PDFs;
 - `.zenodo.json.in` and `CITATION.cff.in` metadata templates;

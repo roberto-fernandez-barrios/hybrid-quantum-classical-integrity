@@ -1,0 +1,95 @@
+row_label,order,strength,mechanism,attack,attack_family,target,n,n_fire,detection_rate,ci95_low,ci95_high
+Clean evaluation draws (false alarm),-1,0.0,clean_null,clean_resample_eval,null_control,I_X,12000,1500,0.125,0.1191326034902537,0.1310499527791443
+Clean evaluation draws (false alarm),-1,0.0,clean_null,clean_resample_eval,null_control,I_XF,12000,2438,0.2031666666666666,0.1959987361398627,0.2104788641360654
+Clean evaluation draws (false alarm),-1,0.0,clean_null,clean_resample_eval,null_control,I_Ym,12000,570,0.0475,0.0437627788541338,0.0514586255959296
+Clean evaluation draws (false alarm),-1,0.0,clean_null,clean_resample_eval,null_control,I_XFY,12000,3113,0.2594166666666667,0.2515918024961291,0.2673583864842989
+Feature sign flip 0.02,0,0.02,Feature sign flip,feature_sign_flip_p_0.020,corruption,I_X,600,71,0.1183333333333333,0.0935858341868567,0.146908209868535
+Feature sign flip 0.02,0,0.02,Feature sign flip,feature_sign_flip_p_0.020,corruption,I_XF,600,115,0.1916666666666666,0.1609200752922687,0.2254833524242762
+Feature sign flip 0.02,0,0.02,Feature sign flip,feature_sign_flip_p_0.020,corruption,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature sign flip 0.02,0,0.02,Feature sign flip,feature_sign_flip_p_0.020,corruption,I_XFY,600,120,0.2,0.1687024703711657,0.2342830849242782
+Feature sign flip 0.02,0,0.02,Feature sign flip,feature_sign_flip_p_0.020,corruption,I_XFY_item_aligned,600,476,0.7933333333333333,0.758692646625738,0.8250559543803031
+Feature sign flip 0.05,0,0.05,Feature sign flip,feature_sign_flip_p_0.050,corruption,I_X,600,319,0.5316666666666666,0.4908337720222055,0.5721864454178114
+Feature sign flip 0.05,0,0.05,Feature sign flip,feature_sign_flip_p_0.050,corruption,I_XF,600,384,0.64,0.6001443710102972,0.6784698902421662
+Feature sign flip 0.05,0,0.05,Feature sign flip,feature_sign_flip_p_0.050,corruption,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature sign flip 0.05,0,0.05,Feature sign flip,feature_sign_flip_p_0.050,corruption,I_XFY,600,386,0.6433333333333333,0.6035396313173258,0.6817082234248746
+Feature sign flip 0.05,0,0.05,Feature sign flip,feature_sign_flip_p_0.050,corruption,I_XFY_item_aligned,600,520,0.8666666666666667,0.8368232683211245,0.8928403132004779
+Feature sign flip 0.10,0,0.1,Feature sign flip,feature_sign_flip_p_0.100,corruption,I_X,600,454,0.7566666666666667,0.720284836172824,0.7904997870976076
+Feature sign flip 0.10,0,0.1,Feature sign flip,feature_sign_flip_p_0.100,corruption,I_XF,600,526,0.8766666666666667,0.8476553378829209,0.9019033847647944
+Feature sign flip 0.10,0,0.1,Feature sign flip,feature_sign_flip_p_0.100,corruption,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature sign flip 0.10,0,0.1,Feature sign flip,feature_sign_flip_p_0.100,corruption,I_XFY,600,527,0.8783333333333333,0.8494659154483959,0.9034085785573798
+Feature sign flip 0.10,0,0.1,Feature sign flip,feature_sign_flip_p_0.100,corruption,I_XFY_item_aligned,600,544,0.9066666666666666,0.8805111130951372,0.9287265121946552
+Feature-wise mean shift 0.02,1,0.02,Feature-wise mean shift,mean_shift_pf_delta_0.020,covariate_shift,I_X,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.02,1,0.02,Feature-wise mean shift,mean_shift_pf_delta_0.020,covariate_shift,I_XF,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.02,1,0.02,Feature-wise mean shift,mean_shift_pf_delta_0.020,covariate_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature-wise mean shift 0.02,1,0.02,Feature-wise mean shift,mean_shift_pf_delta_0.020,covariate_shift,I_XFY,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.02,1,0.02,Feature-wise mean shift,mean_shift_pf_delta_0.020,covariate_shift,I_XFY_item_aligned,600,214,0.3566666666666667,0.3182917765751255,0.3964603686826742
+Feature-wise mean shift 0.05,1,0.05,Feature-wise mean shift,mean_shift_pf_delta_0.050,covariate_shift,I_X,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.05,1,0.05,Feature-wise mean shift,mean_shift_pf_delta_0.050,covariate_shift,I_XF,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.05,1,0.05,Feature-wise mean shift,mean_shift_pf_delta_0.050,covariate_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature-wise mean shift 0.05,1,0.05,Feature-wise mean shift,mean_shift_pf_delta_0.050,covariate_shift,I_XFY,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.05,1,0.05,Feature-wise mean shift,mean_shift_pf_delta_0.050,covariate_shift,I_XFY_item_aligned,600,300,0.5,0.4592436802668269,0.5407563197331731
+Feature-wise mean shift 0.10,1,0.1,Feature-wise mean shift,mean_shift_pf_delta_0.100,covariate_shift,I_X,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.10,1,0.1,Feature-wise mean shift,mean_shift_pf_delta_0.100,covariate_shift,I_XF,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.10,1,0.1,Feature-wise mean shift,mean_shift_pf_delta_0.100,covariate_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature-wise mean shift 0.10,1,0.1,Feature-wise mean shift,mean_shift_pf_delta_0.100,covariate_shift,I_XFY,600,600,1.0,0.9938707286693308,1.0
+Feature-wise mean shift 0.10,1,0.1,Feature-wise mean shift,mean_shift_pf_delta_0.100,covariate_shift,I_XFY_item_aligned,600,371,0.6183333333333333,0.5781233693690266,0.6573723985641315
+Scaling drift 0.02,2,0.02,Scaling drift,scaling_drift_alpha_0.020,covariate_shift,I_X,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.02,2,0.02,Scaling drift,scaling_drift_alpha_0.020,covariate_shift,I_XF,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.02,2,0.02,Scaling drift,scaling_drift_alpha_0.020,covariate_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Scaling drift 0.02,2,0.02,Scaling drift,scaling_drift_alpha_0.020,covariate_shift,I_XFY,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.02,2,0.02,Scaling drift,scaling_drift_alpha_0.020,covariate_shift,I_XFY_item_aligned,600,322,0.5366666666666666,0.4958363376114133,0.5771344339423475
+Scaling drift 0.05,2,0.05,Scaling drift,scaling_drift_alpha_0.050,covariate_shift,I_X,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.05,2,0.05,Scaling drift,scaling_drift_alpha_0.050,covariate_shift,I_XF,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.05,2,0.05,Scaling drift,scaling_drift_alpha_0.050,covariate_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Scaling drift 0.05,2,0.05,Scaling drift,scaling_drift_alpha_0.050,covariate_shift,I_XFY,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.05,2,0.05,Scaling drift,scaling_drift_alpha_0.050,covariate_shift,I_XFY_item_aligned,600,365,0.6083333333333333,0.5679874751981395,0.6476073795024757
+Scaling drift 0.10,2,0.1,Scaling drift,scaling_drift_alpha_0.100,covariate_shift,I_X,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.10,2,0.1,Scaling drift,scaling_drift_alpha_0.100,covariate_shift,I_XF,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.10,2,0.1,Scaling drift,scaling_drift_alpha_0.100,covariate_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Scaling drift 0.10,2,0.1,Scaling drift,scaling_drift_alpha_0.100,covariate_shift,I_XFY,600,600,1.0,0.9938707286693308,1.0
+Scaling drift 0.10,2,0.1,Scaling drift,scaling_drift_alpha_0.100,covariate_shift,I_XFY_item_aligned,600,401,0.6683333333333333,0.6290690731684311,0.7059305227456115
+Feature dropout 0.02,3,0.02,Feature dropout,feature_dropout_p_0.020,pipeline,I_X,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.02,3,0.02,Feature dropout,feature_dropout_p_0.020,pipeline,I_XF,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.02,3,0.02,Feature dropout,feature_dropout_p_0.020,pipeline,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.02,3,0.02,Feature dropout,feature_dropout_p_0.020,pipeline,I_XFY,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.02,3,0.02,Feature dropout,feature_dropout_p_0.020,pipeline,I_XFY_item_aligned,600,293,0.4883333333333333,0.4476455372385918,0.5291364826599279
+Feature dropout 0.05,3,0.05,Feature dropout,feature_dropout_p_0.050,pipeline,I_X,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.05,3,0.05,Feature dropout,feature_dropout_p_0.050,pipeline,I_XF,600,13,0.0216666666666666,0.0115858255688451,0.0367656884344933
+Feature dropout 0.05,3,0.05,Feature dropout,feature_dropout_p_0.050,pipeline,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.05,3,0.05,Feature dropout,feature_dropout_p_0.050,pipeline,I_XFY,600,13,0.0216666666666666,0.0115858255688451,0.0367656884344933
+Feature dropout 0.05,3,0.05,Feature dropout,feature_dropout_p_0.050,pipeline,I_XFY_item_aligned,600,423,0.705,0.6667298904521011,0.7412380927819966
+Feature dropout 0.10,3,0.1,Feature dropout,feature_dropout_p_0.100,pipeline,I_X,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.10,3,0.1,Feature dropout,feature_dropout_p_0.100,pipeline,I_XF,600,37,0.0616666666666666,0.043786996659553,0.0840006125955407
+Feature dropout 0.10,3,0.1,Feature dropout,feature_dropout_p_0.100,pipeline,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Feature dropout 0.10,3,0.1,Feature dropout,feature_dropout_p_0.100,pipeline,I_XFY,600,37,0.0616666666666666,0.043786996659553,0.0840006125955407
+Feature dropout 0.10,3,0.1,Feature dropout,feature_dropout_p_0.100,pipeline,I_XFY_item_aligned,600,458,0.7633333333333333,0.7272413003570726,0.7968097010552704
+Prior-preserving label flip 0.02,4,0.02,Prior-preserving label flip,label_flip_prior_preserving_r_0.020,target_shift,I_X,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.02,4,0.02,Prior-preserving label flip,label_flip_prior_preserving_r_0.020,target_shift,I_XF,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.02,4,0.02,Prior-preserving label flip,label_flip_prior_preserving_r_0.020,target_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.02,4,0.02,Prior-preserving label flip,label_flip_prior_preserving_r_0.020,target_shift,I_XFY,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.02,4,0.02,Prior-preserving label flip,label_flip_prior_preserving_r_0.020,target_shift,I_XFY_item_aligned,600,600,1.0,0.9938707286693308,1.0
+Prior-preserving label flip 0.05,4,0.05,Prior-preserving label flip,label_flip_prior_preserving_r_0.050,target_shift,I_X,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.05,4,0.05,Prior-preserving label flip,label_flip_prior_preserving_r_0.050,target_shift,I_XF,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.05,4,0.05,Prior-preserving label flip,label_flip_prior_preserving_r_0.050,target_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.05,4,0.05,Prior-preserving label flip,label_flip_prior_preserving_r_0.050,target_shift,I_XFY,600,1,0.0016666666666666,4.219545638717012e-05,0.0092507722793745
+Prior-preserving label flip 0.05,4,0.05,Prior-preserving label flip,label_flip_prior_preserving_r_0.050,target_shift,I_XFY_item_aligned,600,600,1.0,0.9938707286693308,1.0
+Prior-preserving label flip 0.10,4,0.1,Prior-preserving label flip,label_flip_prior_preserving_r_0.100,target_shift,I_X,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.10,4,0.1,Prior-preserving label flip,label_flip_prior_preserving_r_0.100,target_shift,I_XF,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.10,4,0.1,Prior-preserving label flip,label_flip_prior_preserving_r_0.100,target_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Prior-preserving label flip 0.10,4,0.1,Prior-preserving label flip,label_flip_prior_preserving_r_0.100,target_shift,I_XFY,600,20,0.0333333333333333,0.0204774239002063,0.0510126524365247
+Prior-preserving label flip 0.10,4,0.1,Prior-preserving label flip,label_flip_prior_preserving_r_0.100,target_shift,I_XFY_item_aligned,600,600,1.0,0.9938707286693308,1.0
+Random label flip 0.02,5,0.02,Random label flip,label_flip_r_0.020,target_shift,I_X,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.02,5,0.02,Random label flip,label_flip_r_0.020,target_shift,I_XF,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.02,5,0.02,Random label flip,label_flip_r_0.020,target_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.02,5,0.02,Random label flip,label_flip_r_0.020,target_shift,I_XFY,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.02,5,0.02,Random label flip,label_flip_r_0.020,target_shift,I_XFY_item_aligned,600,600,1.0,0.9938707286693308,1.0
+Random label flip 0.05,5,0.05,Random label flip,label_flip_r_0.050,target_shift,I_X,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.05,5,0.05,Random label flip,label_flip_r_0.050,target_shift,I_XF,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.05,5,0.05,Random label flip,label_flip_r_0.050,target_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.05,5,0.05,Random label flip,label_flip_r_0.050,target_shift,I_XFY,600,2,0.0033333333333333,0.0004039373604426,0.0119888339586524
+Random label flip 0.05,5,0.05,Random label flip,label_flip_r_0.050,target_shift,I_XFY_item_aligned,600,600,1.0,0.9938707286693308,1.0
+Random label flip 0.10,5,0.1,Random label flip,label_flip_r_0.100,target_shift,I_X,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.10,5,0.1,Random label flip,label_flip_r_0.100,target_shift,I_XF,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.10,5,0.1,Random label flip,label_flip_r_0.100,target_shift,I_Ym,600,0,0.0,0.0,0.0061292713306692
+Random label flip 0.10,5,0.1,Random label flip,label_flip_r_0.100,target_shift,I_XFY,600,20,0.0333333333333333,0.0204774239002063,0.0510126524365247
+Random label flip 0.10,5,0.1,Random label flip,label_flip_r_0.100,target_shift,I_XFY_item_aligned,600,600,1.0,0.9938707286693308,1.0

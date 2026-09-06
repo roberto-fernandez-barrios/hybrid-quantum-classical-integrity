@@ -1,0 +1,3 @@
+condition,label_rows,feature_prediction_blind_rows,prior_preserving_rows,label_marginal_blind_rows,positive_impact_rows,positive_impact_with_joint_response,negative_impact_rows
+gate1_id_cicids__tuned_cv5,360,360,180,180,320,320,0
+gate6_ood_unsw__tuned_cv5,360,360,180,180,319,319,0

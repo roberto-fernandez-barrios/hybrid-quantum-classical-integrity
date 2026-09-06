@@ -1,11 +1,30 @@
 {
   "title": "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows",
-  "description": "Version 1.0.0 reproducibility artifact: code, tests, compact derived evidence, figures, manifests and manuscript sources.",
+  "description": "Version 1.1.0 reproducibility artifact: code, tests, compact derived evidence (frozen 1.0.0 gates plus preregistered reinforcement gates), figures, manifests and manuscript sources.",
   "upload_type": "software",
-  "publication_date": "2026-08-09",
-  "version": "1.0.0",
+  "publication_date": "2026-09-06",
+  "version": "1.1.0",
   "creators": [
-    {"name": "AUTHOR LIST REQUIRES JOINT CONFIRMATION"}
+    {
+      "name": "Fernández-Barrios, Roberto",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0009-0003-5312-2634"
+    },
+    {
+      "name": "Pastor-López, Iker",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0000-0002-3068-6248"
+    },
+    {
+      "name": "Pikatza-Huerga, Amaia",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0009-0003-9080-6242"
+    },
+    {
+      "name": "García Bringas, Pablo",
+      "affiliation": "Faculty of Engineering, University of Deusto",
+      "orcid": "0000-0003-3594-9534"
+    }
   ],
   "keywords": [
     "integrity auditing",
@@ -16,7 +35,7 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.0.0",
+      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.1.0",
       "relation": "isSupplementTo",
       "scheme": "url"
     }

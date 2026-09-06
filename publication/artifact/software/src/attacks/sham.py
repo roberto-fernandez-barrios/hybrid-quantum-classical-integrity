@@ -153,3 +153,87 @@ class TinyScalingDrift:
                 "n_features": int(X_att.shape[1]) if X_att.ndim == 2 else 0,
             },
         )
+
+@dataclass(frozen=True)
+class CleanResampleCfg:
+    """
+    pool_half: which disjoint half of the clean held-out pool to draw from
+               ("calibration" or "evaluation").
+    draw_index: 1-based index of the draw; only used for traceability.
+    """
+
+    pool_half: str = "calibration"
+    draw_index: int = 1
+
+
+class CleanResample:
+    """
+    Null-distribution control: an independent clean evaluation batch.
+
+    ``IdentityAttack`` returns exactly the reference batch, so every sensor
+    delta is exactly zero and no null distribution is obtained. This control
+    instead draws ``n = len(X)`` rows by simple random sampling without
+    replacement from the designated half of a clean held-out pool that the
+    runner supplies (rows never used for training or for the frozen
+    evaluation batch, transformed with the same training-fitted
+    preprocessing). The calibration and evaluation halves are disjoint, so
+    thresholds calibrated on one half can be evaluated on the other.
+    """
+
+    needs_pool = True
+
+    def __init__(self, cfg: Optional[CleanResampleCfg] = None):
+        self.cfg = cfg or CleanResampleCfg()
+        if self.cfg.pool_half not in ("calibration", "evaluation"):
+            raise ValueError(
+                f"CleanResampleCfg.pool_half must be 'calibration' or 'evaluation', got {self.cfg.pool_half!r}"
+            )
+
+    def apply(
+        self,
+        X: np.ndarray,
+        seed: int = 0,
+        y: Optional[np.ndarray] = None,
+        pool: Optional[Dict[str, Any]] = None,
+    ) -> AttackResult:
+        if pool is None:
+            raise ValueError("CleanResample requires the runner to supply a clean held-out pool")
+
+        X_pool = np.asarray(pool["X"])
+        y_pool = np.asarray(pool["y"]).astype(int)
+        half_idx = np.asarray(pool[f"{self.cfg.pool_half}_idx"], dtype=int)
+        n = int(np.asarray(X).shape[0])
+
+        if X_pool.ndim != 2 or X_pool.shape[0] != len(y_pool):
+            raise ValueError("Clean pool X/y shapes are inconsistent")
+        if len(half_idx) < n:
+            raise ValueError(
+                f"Clean pool half '{self.cfg.pool_half}' has {len(half_idx)} rows; "
+                f"cannot draw {n} rows without replacement"
+            )
+
+        rng = np.random.default_rng(int(seed))
+        sel = np.sort(rng.choice(half_idx, size=n, replace=False))
+
+        X_att = X_pool[sel].copy()
+        y_att = y_pool[sel].copy()
+
+        return AttackResult(
+            X_att=X_att,
+            y_att=y_att,
+            meta={
+                "family": "null_control",
+                "priority_group": f"null_{self.cfg.pool_half}",
+                "strength_nominal": 0.0,
+                "strength_eff": 0.0,
+                "sham_type": "clean_resample",
+                "pool_half": str(self.cfg.pool_half),
+                "draw_index": int(self.cfg.draw_index),
+                "n_pool_half": int(len(half_idx)),
+                "n_pool_total": int(len(y_pool)),
+                "n_samples": int(n),
+                "n_features": int(X_att.shape[1]) if X_att.ndim == 2 else 0,
+                "pos_rate_draw": float(np.mean(y_att)) if n > 0 else 0.0,
+                "pool_sampling": "simple_random_without_replacement",
+            },
+        )

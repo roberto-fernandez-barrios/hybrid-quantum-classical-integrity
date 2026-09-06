@@ -35,9 +35,9 @@ test or manifest result.
   --root publication\artifact
 ```
 
-This read-only command verifies the artifact-wide SHA-256 manifest, all four
-embedded evidence manifests and 22 outputs, their row counts, and the exact
-primary-claim counts. It fails on a missing file, changed byte, incomplete
+This read-only command verifies the artifact-wide SHA-256 manifest, all five
+embedded evidence manifests and 44 outputs, their row counts, the exact
+primary-claim counts and the calibrated label-path consistency checks. It fails on a missing file, changed byte, incomplete
 acceptance check or changed blind-region result.
 
 ## Frozen Gate 1 evidence
@@ -111,6 +111,41 @@ fidelity-estimation emulators at 256 and 1,024 shots. The latter sample exact
 fidelities; they are not sampler-backend or QPU runs. Reviewer-facing copies
 of the figure and small tables are under `manuscript/figures/` and
 `manuscript/tables/`.
+
+## Reinforcement gates (artifact 1.1.0)
+
+Three sensitivity gates were preregistered in
+`manuscript/paper15_v11_reinforcement_prereg.md` and executed after the 1.0.0
+evidence was frozen. They reuse the exact-statevector engine, the frozen seeds
+and the frozen suite; historical run identifiers are unchanged because the new
+runner options are excluded from the configuration fingerprint at their
+defaults.
+
+```powershell
+.\.venv\Scripts\python.exe -m src.experiments.run_v11_reinforcement_queue --gates N,P,T --n-jobs 6
+.\.venv\Scripts\python.exe -m src.experiments.build_q1_reinforcement_evidence
+.\.venv\Scripts\python.exe -m src.experiments.make_q1_reinforcement_figures
+```
+
+The queue runs 390 jobs (240 null-calibration, 90 preprocessing-ablation and 60
+tuned-baseline jobs) with single-threaded BLAS per worker; a frozen job
+regenerates bit-identically under that setting. Gate N draws 20 calibration
+and 20 evaluation clean batches per run from disjoint halves of the held-out
+evaluation pool (`paper_null` suite); the builder computes per-cell thresholds
+at alpha = 0.05 from calibration draws only, reports false-alarm rates on the
+evaluation half, and applies the frozen thresholds to the frozen `paper_core`
+observations. Gates P and T rerun the CICIDS ID design (and UNSW temporal OOD
+for Gate T) under matched scalers or 5-fold cross-validated tuning of both
+learners on training rows only. The builder fails closed on any missing job or
+failed acceptance check and writes
+`results/paper_digest/paper15_v11_reinforcement/reinforcement_evidence_manifest.json`.
+
+Reassemble the compact artifact and verify it:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.experiments.assemble_publication_artifact
+.\.venv\Scripts\python.exe -m src.experiments.verify_publication_artifact --root publication\artifact
+```
 
 ## Auditable HSaaS demonstrator
 
