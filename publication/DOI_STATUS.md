@@ -1,6 +1,17 @@
 # Zenodo/DOI status
 
-Status on 6 September 2026: **version 1.1.0 archived and published**.
+Status on 6 September 2026: **version 1.1.1 archived and published** (editorial
+release over 1.1.0; funding acknowledgement wording only).
+
+| Version 1.1.1 | Value |
+|---|---|
+| Version DOI | `10.5281/zenodo.22552643` |
+| Repository tag | `paper15-q1-v1.1.1` |
+| GitHub release | <https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.1.1> |
+| Deposited files | `paper15-q1-v1.1.1.zip`, `paper15-q1-v1.1.1-source.zip`, `SHA256SUMS.txt` (hashes recorded after publication) |
+| Funding wording | Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU (AEI guide v09) |
+
+Version 1.1.0 record (evidence identical):
 
 | Item | Value |
 |---|---|
@@ -13,7 +24,7 @@ Status on 6 September 2026: **version 1.1.0 archived and published**.
 | Deposited files | `paper15-q1-v1.1.0.zip` (compact review artifact, 6,383,060 bytes, SHA-256 `1424ba3d0e5cf79ea1c47a370423d454c1d52e9cbf5c6682d98059345ea9aed7`); `paper15-q1-v1.1.0-source.zip` (tagged source snapshot, 20,721,105 bytes, SHA-256 `c83c4f5704f8bdc49ce47763f94d2a9aecd6425671b73fb67ee52cf207528338`); `SHA256SUMS.txt` |
 | Record license field | Apache-2.0 (code); CC BY 4.0 for derived evidence and documentation and the manuscript exclusion are stated in the record description and in `LICENSING.md` |
 | Authors | Fernández-Barrios, Pastor-López, Pikatza-Huerga, García Bringas (University of Deusto), with ORCIDs |
-| Funding | AEI ATHENA-AEGIS `PID2024-155693NB-C43` |
+| Funding (1.1.0 wording) | AEI ATHENA-AEGIS `PID2024-155693NB-C43` (superseded by the AEI formula in 1.1.1) |
 
 Release order followed (so that PDF, `CITATION.cff`, `.zenodo.json`, tag,
 GitHub release and Zenodo record point at the same object):

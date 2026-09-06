@@ -36,14 +36,15 @@
 - [x] Confirm CRediT roles and competing-interest wording (all authors, 2026-09-06).
 - [x] Select a software/artifact license approved by all rights holders
       (Apache-2.0 code, CC BY 4.0 evidence/documentation, manuscript excluded).
-- [x] Funding statement confirmed by all authors; any extra co-funding clause
-      required by the executed award is a proof-stage addition.
+- [x] Funding statement follows the AEI publicity guide v09 (MICIU/AEI/
+      10.13039/501100011033 and ERDF/EU) and keeps the ATHENA-AEGIS acronym and
+      grant code; confirmed by all authors.
 - [x] Repository visibility: public since 2026-09-06; `main` aligned with the
       science branch. **A LICENSE file must be added before the DOI is minted.**
 - [x] `CITATION.cff` and `.zenodo.json` carry confirmed authors, licenses and
       the version DOI (2026-09-06).
 - [x] Upload/publish the archive in Zenodo and insert the reserved DOI
-      (`10.5281/zenodo.22550853`, artifact 1.1.0, tag `paper15-q1-v1.1.0`).
+      (`10.5281/zenodo.22552643`, artifact 1.1.1, tag `paper15-q1-v1.1.1`; 1.1.0 = `10.5281/zenodo.22550853`).
 - [ ] Remove author-identifying funding/AI metadata if the journal requires it
       outside the anonymous manuscript file; retain it on the title page.
 - [x] Confirm originality/not-under-review statement in the cover letter.

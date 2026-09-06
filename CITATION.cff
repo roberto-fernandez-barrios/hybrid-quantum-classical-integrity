@@ -2,19 +2,22 @@ cff-version: 1.2.0
 message: "If you use this artifact, cite the archived release (version DOI below) and the associated article. Code is Apache-2.0; derived evidence and documentation are CC BY 4.0; see LICENSING.md."
 type: software
 title: "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows"
-version: 1.1.0
+version: 1.1.1
 date-released: 2026-09-06
-doi: "10.5281/zenodo.22550853"
+doi: "10.5281/zenodo.22552643"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22550852"
     description: "Concept DOI (resolves to the latest archived version)"
   - type: url
-    value: "https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.1.0"
+    value: "https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.1.1"
     description: "GitHub release of the tagged source"
+  - type: doi
+    value: "10.5281/zenodo.22550853"
+    description: "Version 1.1.0 (identical evidence; funding acknowledgement wording differs)"
 repository-code: "https://github.com/roberto-fernandez-barrios/paper_HAIS"
 license: Apache-2.0
-license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.1.0/LICENSING.md"
+license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.1.1/LICENSING.md"
 authors:
   - family-names: "Fernández-Barrios"
     given-names: "Roberto"

@@ -17,7 +17,7 @@ observability; quantum kernels; sensor coverage
 Author list confirmed by the corresponding author on 2026-09-06 (same team as
 the companion intrusion-detection study). Mirror this block in
 `publication/tdsc/main.tex`, `publication/tdsc/supplement.tex`,
-`CITATION.cff.in` and `.zenodo.json.in`.
+`CITATION.cff` and `.zenodo.json`.
 
 | # | Author | ORCID | E-mail | Role |
 |---|---|---|---|---|
@@ -31,16 +31,14 @@ Avda. de las Universidades 24, 48007 Bilbao, Spain.
 
 ## Funding
 
-> This work was supported by the Spanish State Research Agency (*Agencia
-> Estatal de Investigación*, AEI) through ATHENA-AEGIS (*Advanced Secure
-> Technologies for Hybrid Quantum-Classical Environments and Applications*),
-> project PID2024-155693NB-C43.
+> This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
 The identifier and beneficiary were verified against the AEI granted-aid record
-on 2026-08-09 and the statement was confirmed by all authors on 2026-09-06.
-Production-stage note: if the executed award text requires an additional
-ministry or EU co-funding clause, it is added at proof stage and changes no
-scientific content.
+on 2026-08-09. The wording follows the AEI publicity guide (v09, 5 February
+2026) for Knowledge Generation projects 2021–2025, which prescribes
+`MICIU/AEI/10.13039/501100011033` and the ERDF/EU co-funding clause, with the
+MICIU and AEI acronyms kept in Spanish; it retains the project acronym and code
+requested by the principal investigator. Confirmed by all authors on 2026-09-06.
 
 ## Competing interests
 
@@ -61,12 +59,13 @@ authors on 2026-09-06).
 
 ## Data and code availability
 
-The reproducibility artifact (version 1.1.0) contains source code, locked
+The reproducibility artifact (version 1.1.1) contains source code, locked
 dependencies, tests, derived evidence for the frozen gates and the
 preregistered reinforcement gates, vector figures, and SHA-256 manifests. Raw
 benchmark datasets are not redistributed; public sources and deterministic
-staging instructions are documented. Version DOI: **10.5281/zenodo.22550853**
-(Zenodo, artifact 1.1.0; repository tag `paper15-q1-v1.1.0`).
+staging instructions are documented. Version DOI: **10.5281/zenodo.22552643**
+(Zenodo, artifact 1.1.1; repository tag `paper15-q1-v1.1.1`; concept DOI
+10.5281/zenodo.22550852).
 
 ## Related manuscripts by the authors (disclosed in §II-C and the cover letter)
 

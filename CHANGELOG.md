@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.1 — 2026-09-06
+
+- funding acknowledgement compliance update: the statement now follows the
+  formula prescribed by the Spanish State Research Agency for the 2024
+  Knowledge Generation projects (grant PID2024-155693NB-C43, ATHENA-AEGIS,
+  funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU);
+- no scientific content, results, figures, data or claims changed; the derived
+  evidence and its manifests are byte-identical to 1.1.0. New Zenodo version
+  10.5281/zenodo.22552643 (concept DOI 10.5281/zenodo.22550852).
+
 ## 1.1.0 — 2026-09-06
 
 - added three preregistered reinforcement gates without changing the frozen

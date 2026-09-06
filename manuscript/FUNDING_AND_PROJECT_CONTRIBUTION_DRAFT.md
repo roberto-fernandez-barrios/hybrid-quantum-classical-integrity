@@ -1,11 +1,16 @@
 # Funding and ATHENA-AEGIS contribution statement — verified submission wording
 
-## Funding statement for the manuscript
+## Funding statement for the manuscript (final, 2026-09-06)
 
-> This work was supported by the Spanish State Research Agency (*Agencia Estatal
-> de Investigacion*, AEI) through ATHENA-AEGIS (*Advanced Secure Technologies
-> for Hybrid Quantum-Classical Environments and Applications*), project
-> PID2024-155693NB-C43.
+> This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
+
+Source of the formula: AEI, *Guía recopilatoria de obligaciones de publicidad de
+ayudas*, v09 (5 February 2026), Annex 1 row for Proyectos de «Generación de
+Conocimiento» 2021–2025: `MICIU/AEI/10.13039/501100011033 y por FEDER, UE`
+(English: `funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU`). The
+ministry and agency acronyms are kept in Spanish as the guide requires. The
+ATHENA-AEGIS acronym and the grant code requested by the principal investigator
+are retained.
 
 The identifier and University of Deusto beneficiary were verified against the
 AEI granted-aid record on 9 August 2026. The public DeustoTech page displays a
@@ -41,7 +46,7 @@ demonstrated by this release.
 ## Submission checklist
 
 - [x] Verify the AEI grant identifier and beneficiary in the public award record.
-- [ ] Confirm required national/regional and EU co-funding acknowledgements.
-- [ ] Confirm author list and CRediT roles with all contributors.
-- [ ] Add the exact software release tag and DOI after archival.
+- [x] National and EU co-funding acknowledgements follow the AEI guide v09.
+- [x] Author list and CRediT roles confirmed by all contributors (2026-09-06).
+- [x] Release tag `paper15-q1-v1.1.1`, DOI 10.5281/zenodo.22552643 (concept 10.5281/zenodo.22550852).
 - [ ] Copy the final wording unchanged into manuscript and supplement.

@@ -82,10 +82,11 @@ source tables, environment lock, source/tests snapshot, {counts['manifests']}
 evidence manifests and all {counts['manifested_outputs']} outputs referenced by
 those manifests.
 
-Version 1.1.0 adds the preregistered reinforcement gates (null calibration of
+Version 1.1.0 added the preregistered reinforcement gates (null calibration of
 non-invariant sensors with disjoint clean pools, symmetric preprocessing
-ablation, cross-validated tuning of both learners). The 1.0.0 evidence, counts
-and claims are unchanged.
+ablation, cross-validated tuning of both learners); version 1.1.1 changes only
+the funding acknowledgement wording. The 1.0.0 evidence, counts and claims are
+unchanged.
 
 ## Verify without recomputation
 

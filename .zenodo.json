@@ -1,9 +1,9 @@
 {
   "title": "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows",
-  "description": "Version 1.1.0 reproducibility artifact: code, tests, compact derived evidence (frozen 1.0.0 gates plus preregistered reinforcement gates), figures, manifests and manuscript sources.",
+  "description": "Version 1.1.1 reproducibility artifact: code, tests, compact derived evidence (frozen 1.0.0 gates plus preregistered reinforcement gates), figures, manifests and manuscript sources. Editorial release: only the funding acknowledgement wording changed with respect to 1.1.0.",
   "upload_type": "software",
   "publication_date": "2026-09-06",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "creators": [
     {
       "name": "Fernández-Barrios, Roberto",
@@ -35,12 +35,12 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.1.0",
+      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.1.1",
       "relation": "isSupplementTo",
       "scheme": "url"
     }
   ],
-  "notes": "Funding: Spanish State Research Agency (AEI), ATHENA-AEGIS PID2024-155693NB-C43. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",
+  "notes": "Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",
   "license": "apache-2.0",
   "access_right": "open"
 }

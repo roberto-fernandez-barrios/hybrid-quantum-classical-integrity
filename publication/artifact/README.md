@@ -1,4 +1,4 @@
-# Paper 1.5 compact review artifact — version 1.1.0
+# Paper 1.5 compact review artifact — version 1.1.1
 
 This directory is the self-contained, derived-evidence artifact for
 *Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical
@@ -10,10 +10,11 @@ source tables, environment lock, source/tests snapshot, 5
 evidence manifests and all 44 outputs referenced by
 those manifests.
 
-Version 1.1.0 adds the preregistered reinforcement gates (null calibration of
+Version 1.1.0 added the preregistered reinforcement gates (null calibration of
 non-invariant sensors with disjoint clean pools, symmetric preprocessing
-ablation, cross-validated tuning of both learners). The 1.0.0 evidence, counts
-and claims are unchanged.
+ablation, cross-validated tuning of both learners); version 1.1.1 changes only
+the funding acknowledgement wording. The 1.0.0 evidence, counts and claims are
+unchanged.
 
 ## Verify without recomputation
 
@@ -38,7 +39,7 @@ primary count causes a non-zero exit.
 - `manuscript/` — TDSC PDFs, frozen source, novelty audit, threat model,
   preregistration, reinforcement summary, figures and tables;
 - `environment/` — Python 3.10 dependency lock and packaging metadata;
-- `software/` — exact Python source and tests snapshot used for version 1.1.0.
+- `software/` — exact Python source and tests snapshot used for version 1.1.1.
 
 See `manuscript/Q1_REPRODUCTION.md` for dataset staging and experiment replay.
 Exact-statevector evaluation and binomial-shot emulation are not QPU evidence.

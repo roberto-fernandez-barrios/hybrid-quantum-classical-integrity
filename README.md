@@ -53,7 +53,7 @@ these counts from the released derived tables.
 - `publication/` — submission files, compact evidence artifact, hashes and DOI
   status.
 
-Build the current 11-page main article and 6-page supplement (release 1.1.0) with:
+Build the current 11-page main article and 6-page supplement (release 1.1.1) with:
 
 ```powershell
 pwsh -NoProfile -File publication/tdsc/build.ps1
@@ -122,13 +122,15 @@ selected simulator evidence for G3.1, a local research prototype towards Result
 
 ## Version, funding and citation
 
-Artifact version: `1.1.0` (frozen 1.0.0 evidence, tag `paper15-q1-v1.0.0`, plus
-the preregistered reinforcement gates; release tag `paper15-q1-v1.1.0`).
+Artifact version: `1.1.1` (frozen 1.0.0 evidence, tag `paper15-q1-v1.0.0`, plus
+the preregistered reinforcement gates added in 1.1.0; 1.1.1 is an editorial
+release; release tag `paper15-q1-v1.1.1`).
 
-This work was supported by the Spanish State Research Agency (AEI) through
-ATHENA-AEGIS, project `PID2024-155693NB-C43`.
+This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
-Version 1.1.0 is archived at Zenodo, DOI `10.5281/zenodo.22550853` (tag `paper15-q1-v1.1.0`).
+Version 1.1.1 is archived at Zenodo, DOI `10.5281/zenodo.22552643` (tag `paper15-q1-v1.1.1`;
+concept DOI `10.5281/zenodo.22550852`; version 1.1.0, DOI `10.5281/zenodo.22550853`, differs only in the
+funding acknowledgement wording).
 Author metadata, CRediT roles and licenses were confirmed by all authors on
 2026-09-06: code is Apache-2.0, derived evidence and documentation CC BY 4.0,
 and the manuscript files are author preprints (see `LICENSING.md`). Citation

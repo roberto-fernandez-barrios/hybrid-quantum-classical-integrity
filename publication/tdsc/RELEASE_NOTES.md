@@ -1,4 +1,13 @@
-# TDSC submission build `1.1.0-tdsc-rc2`
+# TDSC submission build `1.1.1-tdsc`
+
+Date: 2026-09-06 (editorial release). Changes only the funding acknowledgement
+wording to the AEI-prescribed formula (grant PID2024-155693NB-C43, ATHENA-AEGIS,
+funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU) and the artifact
+version/DOI references (Zenodo 10.5281/zenodo.22552643; concept 10.5281/zenodo.22550852). No scientific
+content, results, figures, data or claims changed; the derived evidence and its
+manifests are byte-identical to 1.1.0.
+
+# TDSC submission build `1.1.0-tdsc-rc2` (superseded by 1.1.1)
 
 Date: 2026-09-06
 

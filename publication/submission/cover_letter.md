@@ -56,7 +56,7 @@ advantage, complete lifecycle security, physical-QPU coverage, calibrated
 device-noise coverage, provider authentication, scheduling security,
 multi-tenancy protection, or operational Fleet Management. Code, tests, derived
 evidence, vector figures, and SHA-256 manifests accompany the manuscript and are
-archived at Zenodo (DOI 10.5281/zenodo.22550853, version 1.1.0).
+archived at Zenodo (DOI 10.5281/zenodo.22552643, version 1.1.1).
 
 The manuscript is original, is not under consideration elsewhere, and has been
 approved by all authors. Author identities, affiliations, ORCIDs, CRediT
