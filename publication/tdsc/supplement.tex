@@ -1,0 +1,309 @@
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{url}
+\usepackage{microtype}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title{Supplementary Material for ``Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows''}
+\author{Anonymous Author(s)}
+
+\begin{document}
+\maketitle
+
+\section{Purpose and Claim Boundary}
+
+This supplement records the complete experimental design, coverage contract,
+validation checks, and reproduction mapping behind the main article. It adds no
+QPU, calibrated-noise, scheduling, provider-security, multi-tenancy, or
+operational Fleet Management evidence. The exact claims remain bounded to
+data-to-evaluation interventions, ideal-statevector quantum kernels, controlled
+binomial shot emulation, and a local executable contract.
+
+\section{Frozen Experimental Design}
+
+\subsection{Expansion Environments}
+
+The expansion comprises eight fixed environments (Table~\ref{tab:env}). ``OOD''
+means a prespecified source-to-target construction, not a sampled deployment
+population. Every environment uses five split seeds and two nested model seeds.
+All evaluate projected dimensions 8, 10, and 12. The CICIDS scale gate uses
+256/256 train/evaluation samples; all others use 128/128. The two additional ID
+datasets retain all empirically distinct quantum profiles. Scale and temporal
+gates compare SVC-RBF with QSVC-ZZ.
+
+\begin{table*}[!t]
+\caption{Prespecified expansion environments.}
+\label{tab:env}
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}p{0.05\textwidth}p{0.24\textwidth}p{0.20\textwidth}p{0.20\textwidth}YY@{}}
+\toprule
+ID & Environment & Training source & Evaluation source & Samples & Profiles \\
+\midrule
+E1 & CICIDS scale/ID & Frozen CICIDS subset & Same staged source & 256/256 & SVC, ZZ \\
+E2 & UNSW-NB15 ID & Balanced staged UNSW & Same staged source & 128/128 & SVC, ZZ, PauliXYZ, Z/PauliXZ-equivalent \\
+E3 & ToN-IoT ID & Balanced staged ToN-IoT & Same staged source & 128/128 & SVC, ZZ, PauliXYZ, Z/PauliXZ-equivalent \\
+E4 & CICIDS Tue$\rightarrow$Wed & Tuesday traffic & Wednesday traffic & 128/128 & SVC, ZZ \\
+E5 & CICIDS Tue$\rightarrow$Fri-PortScan & Tuesday traffic & Friday PortScan traffic & 128/128 & SVC, ZZ \\
+E6 & CICIDS Wed$\rightarrow$Thu-Web & Wednesday traffic & Thursday Web traffic & 128/128 & SVC, ZZ \\
+E7 & CICIDS Wed$\rightarrow$Fri-AM & Wednesday traffic & Friday morning traffic & 128/128 & SVC, ZZ \\
+E8 & UNSW temporal OOD & Prespecified UNSW source period & Prespecified UNSW target period & 128/128 & SVC, ZZ \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+Each staged table contains 3,000 balanced binary rows before experimental
+subsampling. Numeric non-finite values are replaced during staging; categorical
+fields are excluded. These choices produce a controlled integrity audit but do
+not reproduce operational prevalence. Several temporal targets yield clean
+performance near chance, limiting the impact that later interventions can
+express; the exact information-set invariances do not depend on clean headroom.
+
+\subsection{Perturbation Suite}
+
+The paper-core suite crosses six mechanisms with nominal strengths 0.02, 0.05,
+and 0.10 (Table~\ref{tab:attacks}). Artifact identifiers retain the historical
+family string \texttt{target\_shift}; the scientific text uses
+\emph{evaluation-label intervention} because these rows do not instantiate the
+statistical label-shift problem.
+
+\begin{table}[!t]
+\caption{Frozen 18-condition intervention suite.}
+\label{tab:attacks}
+\centering
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}p{0.08\columnwidth}Yp{0.26\columnwidth}@{}}
+\toprule
+IDs & Mechanism & Strengths \\
+\midrule
+1--3 & Feature sign flip & 0.02, 0.05, 0.10 \\
+4--6 & Feature-wise mean shift & 0.02, 0.05, 0.10 \\
+7--9 & Scaling drift & 0.02, 0.05, 0.10 \\
+10--12 & Feature dropout & 0.02, 0.05, 0.10 \\
+13--15 & Prior-preserving evaluation-label flip & 0.02, 0.05, 0.10 \\
+16--18 & Random evaluation-label flip & 0.02, 0.05, 0.10 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The feature mechanisms may alter representation, scores, predictions, and the
+reported conclusion. Both label mechanisms keep the feature representation,
+scores, and predictions fixed. Prior-preserving flips also retain the empirical
+class histogram. Equal mechanism weighting is a deliberately transparent stress
+profile, not an estimate of real incident frequency.
+
+\section{Information-Set Coverage Contract}
+
+Table~\ref{tab:regimes} records what each evidence regime can establish in the
+implemented study. Structural blindness means that the sensor's complete input
+is unchanged by construction; it is stronger and narrower than observing zero
+empirical response in a finite sample.
+
+\begin{table*}[!t]
+\caption{Evidence regimes, implemented sensors, and demonstrated blind regions.}
+\label{tab:regimes}
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}p{0.10\textwidth}p{0.19\textwidth}p{0.28\textwidth}YY@{}}
+\toprule
+Regime & Evidence & Implemented sensor family & Exact/empirical blind region & Minimum closing evidence in this study \\
+\midrule
+$\mathcal I_X$ & Features & Feature JSD, MMD, KS rejection & Every label-only change is structurally blind & Trusted label or item provenance \\
+$\mathcal I_{XF}$ & Features, scores, predictions & $\mathcal I_X$ plus score JSD and prediction disagreement & Every label-only change is structurally blind for a fixed predictor & Item-aligned outcome-prediction evidence \\
+$\mathcal I_{Y_m}$ & Label class counts/marginal & Prior delta and label JSD & Prior-preserving item-level relabeling is structurally blind & Trusted item-level label provenance \\
+$\mathcal I_{XFY}$ & Item-aligned features, predictions, outcomes & Prediction-rate, disagreement, prediction-distribution, confusion-profile deltas & Closes every positive label-path case executed, conditional on trusted outcomes & Independent authentication of the joint evidence \\
+$\mathcal I_Q$ & Circuit, parameters, kernel, estimation evidence & Hashes, semantic probes, algebra, repeated estimation, output changes & Sensor-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes & Layered policy-aware composition \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+Every machine-readable coverage record contains seven fields:
+\begin{enumerate}
+  \item workflow boundary;
+  \item protected asset;
+  \item adversary or failure capability, including fixed elements;
+  \item available information regime;
+  \item sensor, reference, threshold, and false-alarm budget;
+  \item covered perturbations and residual blind region; and
+  \item response or countermeasure.
+\end{enumerate}
+This record prevents a sensor response from being promoted into a global
+security claim.
+
+\section{Deduplication and Statistical Units}
+
+Gate 1 emits 7,980 raw model-intervention rows. Different quantum-map jobs
+repeat the same classical SVC pipeline, producing 3,420 repeated rows. The
+builder compares every repeated key across performance, impact, and raw signal
+columns before retaining one representative; 4,560 unique observations remain.
+
+The expansion emits 13,680 raw rows from 360 completed CSV/JSON job pairs. Its
+multi-map ID gates contain 2,280 repeated SVC rows, again accepted as duplicates
+only after numerical identity checks; 11,400 unique observations remain. The
+strict builder fails if a job is missing, an environment contains an unexpected
+model/dimension/seed/attack design, or a duplicated row disagrees.
+
+Coverage counts use prespecified cells as their denominators. For the secondary
+suite-average model profile, nested model-seed values are averaged inside each
+of five split seeds. The split seed is the inferential unit, and the interval is
+\begin{equation}
+ \bar d \pm t_{0.975,4}\frac{s_d}{\sqrt{5}},
+\end{equation}
+where $d$ is the within-split ZZ-minus-SVC impact difference. The intervals are
+not multiplicity-adjusted and do not support population transport. Results over
+20 split-model combinations are sensitivity analyses only.
+
+\section{Exact-Statevector Engine Validation}
+
+The expansion evaluator replaces pairwise compute-uncompute execution with a
+mathematically equivalent ideal-statevector calculation. It prepares each
+unique state $\lvert\phi(x)\rangle$ once and forms
+\begin{equation}
+ K(x,y)=\left|\langle\phi(x)\mid\phi(y)\rangle\right|^2
+\end{equation}
+by matrix multiplication. Symmetric blocks use the same eigenvalue-clipping PSD
+repair as the frozen Qiskit reference.
+
+Validation has four layers:
+\begin{enumerate}
+  \item symmetric and cross-kernel unit matrices agree with the reference at
+  relative and absolute tolerance $10^{-10}$;
+  \item symmetry, unit diagonal, numerical range, cache bounds, and cache reuse
+  are unit-tested;
+  \item a CICIDS 128/128 end-to-end replay (split/model seed 42, dimension 8,
+  ZZ, paper-core suite) preserves every categorical, discrete performance,
+  impact, and integrity-signal endpoint; and
+  \item the prespecified 256/256 pilot completes.
+\end{enumerate}
+
+The two end-to-end outputs each have 38 rows and 126 columns. Only ROC-AUC and
+its derived drops differ, with maximum absolute difference
+$1.221896\times10^{-4}$, approximately one half-tie increment for 64 positive
+and 64 negative evaluation examples. This supports an explicit $2\times10^{-4}$
+ROC-AUC tolerance, not bitwise identity of continuous scores. The engine is
+tagged \texttt{exact\_statevector}; it supplies no finite-shot, noise-model, or
+hardware evidence.
+
+\section{Quantum Gate: Conditions and Coverage}
+
+The quantum gate crosses five split seeds, dimensions 4/6/8, and 11 conditions,
+giving 165 cells. Table~\ref{tab:qcoverage} reports response fractions over the
+15 split-dimension cells per condition. A value of one means nonzero raw
+response in all 15 cells at the frozen tolerance; it is not calibrated power.
+
+\begin{table*}[!t]
+\caption{Quantum-gate sensor response fractions.}
+\label{tab:qcoverage}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Condition & Circuit prov. & Kernel prov. & Semantic kernel & Algebraic kernel & Repeated estimate & Output change \\
+\midrule
+Clean & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+Benign transpilation & 1.00 & 1.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+Common-unitary rewrite & 1.00 & 1.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+Parameterized RZ 0.02 & 1.00 & 1.00 & 1.00 & 0.00 & 0.00 & 0.00 \\
+Parameterized RZ 0.10 & 1.00 & 1.00 & 1.00 & 0.00 & 0.00 & 0.13 \\
+Feature-map reps 1$\rightarrow$2 & 1.00 & 1.00 & 1.00 & 0.00 & 0.00 & 0.73 \\
+Asymmetric kernel edit & 0.00 & 1.00 & 1.00 & 1.00 & 0.00 & 0.00 \\
+Kernel diagonal erosion & 0.00 & 1.00 & 1.00 & 1.00 & 0.00 & 0.00 \\
+PSD-preserving kernel mix & 0.00 & 1.00 & 1.00 & 0.00 & 0.00 & 0.07 \\
+Shot estimator 256 & 0.00 & 1.00 & 1.00 & 1.00 & 1.00 & 0.47 \\
+Shot estimator 1,024 & 0.00 & 1.00 & 1.00 & 1.00 & 1.00 & 0.20 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+All nine frozen acceptance checks pass: 165 cells are present; clean evidence is
+invariant; benign transpilation and common-unitary rewrite alter provenance but
+preserve semantic kernels and outputs; every data-dependent circuit mutation
+changes the semantic kernel; symmetry and diagonal sensors catch their
+respective malformed edits; the PSD-preserving mixture passes algebra but is
+exposed by trusted provenance/semantics; and both shot estimators produce
+nonzero repeat discrepancy in every cell.
+
+\section{Executable Contract Details}
+
+The prototype evaluates four ordered contracts:
+\begin{enumerate}
+  \item \textbf{Input/preprocessing}: input-array and preprocessing-declaration
+  hashes; mismatch blocks.
+  \item \textbf{Circuit/kernel}: circuit/kernel provenance, semantic probes,
+  symmetry, diagonal, eigenvalue, and PSD-repair evidence; an equivalent rewrite
+  passes only if explicitly approved.
+  \item \textbf{Execution/result}: declared execution metadata, repeated-
+  estimation discrepancy, and prediction provenance; approved stochastic
+  execution is held for adjudication.
+  \item \textbf{Evaluation/report}: item-level labels are bound to predictions
+  and balanced accuracy is recomputed; prior-preserving corruption blocks even
+  when the marginal is identical.
+\end{enumerate}
+
+Contracts form an ordered SHA-256 chain. Later modification is detectable, but
+the chain does not authenticate a provider because it is not digitally signed.
+The response lattice is deliberately fail-closed: all passes yield
+\texttt{allow}; at least one review and no failure yields \texttt{hold}; any
+failure yields \texttt{block}. Six prespecified scenarios and all six chains
+pass eight strict acceptance checks in the frozen artifact.
+
+\section{Reproduction and Evidence Manifest}
+
+The recommended read-only verification is:
+{\scriptsize
+\begin{verbatim}
+python -m src.experiments.`
+verify_publication_artifact `
+--root publication/artifact
+\end{verbatim}
+}
+It verifies the artifact-wide SHA-256 manifest, four embedded evidence
+manifests, 22 outputs, row counts, and primary-claim counts. In the frozen
+release it reports 96 files, 3,600 expansion label rows, 2,184 positive
+expansion impacts, 1,440 Gate-1 label rows, and 1,276 positive Gate-1 impacts.
+
+The complete test command is:
+{\scriptsize
+\begin{verbatim}
+python -m pytest tests -q -p no:cacheprovider
+\end{verbatim}
+}
+The frozen environment uses Python 3.10.16, NumPy 2.2.6, pandas 2.3.3,
+scikit-learn 1.7.2, Qiskit 2.3.0, and Qiskit Machine Learning 0.9.0. Qiskit is
+pinned below 3 because migrating deprecated feature-map constructors would
+change circuit serialization and therefore requires a new evidence version.
+
+The artifact intentionally omits raw benchmark datasets. It includes staging
+instructions, source locations, source code, locked dependencies, compact
+derived evidence, figures, figure-source tables, tests, manifests, and expected
+outputs. Public DOI insertion remains contingent on confirmed authorship,
+license, and repository visibility; those administrative fields do not alter
+the scientific results.
+
+\section{Claims-Supported / Claims-Excluded Matrix}
+
+\textbf{Supported by the artifact.}
+Auditability is conditional on evidence exposed at a declared boundary;
+model-output and evaluation-conclusion impacts can have different causal loci;
+feature/prediction sensors are exactly blind to label-only changes, whereas
+label marginals are blind to prior-preserving relabeling; complementary
+quantum-workflow sensors close different simulator-gate blind regions; and the
+local prototype executes policy-aware, fail-closed
+\texttt{allow/hold/block} composition.
+
+\textbf{Explicitly excluded.}
+The evidence does not estimate attack prevalence or population-level deployment
+incidence, establish universal superiority or vulnerability of quantum
+kernels, or causally isolate feature-map geometry from preprocessing and clean
+headroom. It provides no evidence about QPU security, calibrated device noise,
+scheduling, provider integrity, multi-tenancy, side channels, production
+readiness, provider authentication, non-repudiation, persistence, incident
+handling, or operational Fleet Management.
+
+\end{document}

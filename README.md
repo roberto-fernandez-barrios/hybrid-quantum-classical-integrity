@@ -35,8 +35,11 @@ these counts from the released derived tables.
 
 ## Manuscript and reviewer files
 
-- `manuscript/paper15_q1_manuscript_spine_v11.md` — final double-anonymized
-  manuscript source;
+- `publication/tdsc/main.tex` — submission-oriented IEEE TDSC manuscript;
+- `publication/tdsc/supplement.tex` — experimental and reproducibility detail;
+- `publication/tdsc/README.md` — clean-build and submission-package guide;
+- `manuscript/paper15_q1_manuscript_spine_v11.md` — frozen Markdown source from
+  which the TDSC article was developed;
 - `manuscript/NOVELTY_REVIEW_2026-08-09.md` — claim-specific literature and
   overlap audit through 9 August 2026;
 - `manuscript/ATHENA_DEUSTO_TRACEABILITY.md` — bounded project
@@ -45,6 +48,12 @@ these counts from the released derived tables.
 - `Q1_REPRODUCTION.md` — exact commands and evidence tiers;
 - `publication/` — submission files, compact evidence artifact, hashes and DOI
   status.
+
+Build the current 9-page main article and 3-page supplement with:
+
+```powershell
+pwsh -NoProfile -File publication/tdsc/build.ps1
+```
 
 ## Quick verification
 
@@ -108,5 +117,5 @@ ATHENA-AEGIS, project `PID2024-155693NB-C43`.
 
 Author metadata, CRediT roles, license choice and the version DOI require final
 author confirmation before public archival. The machine-readable templates are
-`CITATION.cff` and `.zenodo.json`; current archival status is recorded in
+`CITATION.cff.in` and `.zenodo.json.in`; current archival status is recorded in
 `publication/DOI_STATUS.md`.

@@ -1,0 +1,736 @@
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{microtype}
+\usepackage{stfloats}
+
+\graphicspath{{figures/}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\cmark}{\ensuremath{\checkmark}}
+\newcommand{\blind}{\textsc{blind}}
+\newcommand{\react}{\textsc{react}}
+\newcommand{\na}{--}
+
+\title{Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows}
+
+% TDSC is single-anonymous by default. Replace this line with the confirmed
+% author block and funding footnote before upload. The separate title page
+% records every item still requiring author confirmation.
+\author{Anonymous Author(s)}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Integrity auditing asks whether the evidence exposed at a workflow boundary can
+identify a consequential intervention. We formalize information-set conditional
+auditability and connect interventions, evidence regimes, sensor coverage,
+blind regions, and response. For a fixed deterministic predictor, evaluation-
+label changes leave feature and prediction statistics invariant; when class
+counts are preserved, label-marginal statistics are invariant as well. These
+elementary boundaries support an integrated coverage methodology rather than a
+standalone theorem claim. We evaluate a classical support-vector classifier and
+three empirically distinct fidelity-kernel profiles under 18 controlled
+interventions. A frozen CICIDS2017 gate and 360 exact-statevector expansion jobs
+cover CICIDS2017, UNSW-NB15, and ToN-IoT across scale and five fixed
+out-of-distribution settings. After verified deduplication, the expansion
+contains 11,400 model-intervention observations. All 3,600 evaluation-label
+observations leave features, scores, and predictions unchanged; all 1,800
+prior-preserving cases also leave label marginals unchanged. Every one of the
+2,184 positive conclusion impacts changes item-aligned joint-outcome evidence.
+A separate 165-cell simulator gate demonstrates complementary quantum-workflow
+coverage, including an algebraic blind region under positive-semidefinite kernel
+substitution. Finally, a four-contract prototype converts the coverage map into
+hash-chained, fail-closed \texttt{allow/hold/block} decisions. The contribution
+is the combined formalization, coverage validation, bounded quantum layer, and
+executable response; quantum-versus-classical performance is secondary.
+\end{abstract}
+
+\begin{IEEEkeywords}
+hybrid quantum-classical systems, integrity auditing, partial observability,
+quantum kernels, sensor coverage
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+\IEEEPARstart{H}{ybrid} quantum-classical software distributes one reported
+result across heterogeneous computational and evidential boundaries. Classical
+records are acquired, cleaned, projected, and encoded; a circuit and execution
+stack produce quantum evidence; a classical learner turns a kernel or
+measurement into a decision; and an evaluation layer aligns that decision with
+reference outcomes and reports a metric. A plausible final number may therefore
+coexist with a failure in the data, circuit, kernel, prediction, label, or
+reporting path. Security analyses of hybrid systems accordingly call for
+lifecycle-aware controls rather than trust in an isolated algorithm
+\cite{Volya2023,Ghosh2023}.
+
+Robustness benchmarking usually collapses this chain into a performance change.
+That endpoint is necessary, but it cannot identify what changed or whether the
+available evidence could reveal the change. A large loss can be easy to diagnose
+because several independent sensors react. A smaller loss can be the more
+serious integrity failure when it changes the reported conclusion while every
+sensor available to the evaluator is invariant. Conversely, a drift statistic
+can react although a fixed decision is unchanged. Impact, observability, and
+response are distinct axes.
+
+Consider the evaluation boundary. A deployed predictor receives the same
+feature batch and emits the same predictions, but the labels used to score that
+batch are corrupted. Balanced accuracy can change although the model has not
+degraded. Feature and prediction monitors cannot observe the event because
+their inputs are identical. Label counts expose an unbalanced corruption, but a
+balanced exchange of class identities preserves that marginal. Detection then
+requires item-aligned outcome-prediction evidence, authenticated label
+provenance, or an assumption that excludes the transformation. Calling the
+event simply stealthy omits the decisive qualifier: stealthy to which auditor,
+with which evidence?
+
+This paper makes that qualifier explicit. \emph{Information-set conditional
+auditability} evaluates an intervention relative to the evidence exposed at a
+workflow boundary and to a declared sensor family. It separates model-output
+changes from changes in the evidence used to evaluate that output, then records
+the residual blind region. Quantum kernels form a bounded but demanding
+instantiation: their workflow crosses classical preprocessing, parameterized
+circuit construction, fidelity estimation, a kernel matrix, a classical
+support-vector decision, and outcome-based evaluation. This boundary is
+quantum-specific without requiring a physical processor.
+
+Three research questions organize the study. \textbf{RQ1} asks which controlled
+interventions are observable from feature, prediction, label-marginal,
+item-aligned outcome, and quantum-workflow evidence, and where exact blind
+regions remain. \textbf{RQ2} asks whether those coverage boundaries recur across
+datasets, fixed in- and out-of-distribution (ID/OOD) environments, projected
+dimensions, and kernel profiles. \textbf{RQ3} asks whether provenance,
+semantic, algebraic, repeated-estimation, and output sensors provide
+complementary quantum-boundary coverage and whether their evidence can drive a
+fail-closed decision.
+
+The contribution is one integrated package:
+\begin{itemize}
+  \item a workflow formalization that separates model-output, evaluation-
+  conclusion, and execution-integrity effects and conditions every auditability
+  claim on an information set;
+  \item exact blind-region statements and an attack-to-sensor coverage method
+  that separates structural invariance from low empirical detector power;
+  \item multi-dataset and fixed-OOD validation with verified computational-unit
+  deduplication and uncertainty clustered at the data-split level;
+  \item a bounded quantum-specific layer combining circuit/kernel provenance,
+  semantic comparison, algebraic validation, repeated estimation, and output
+  monitoring; and
+  \item an executable four-contract prototype whose
+  \texttt{allow/hold/block} policy makes the coverage map operational within a
+  local research boundary.
+\end{itemize}
+
+No constituent is claimed to be individually sufficient novelty. The two
+propositions make the evidence boundary exact; contracts, hash chains, and
+semantics-preserving tests have clear prior art; and the observed ZZ-versus-RBF
+profile is neither a quantum-advantage result nor a universal vulnerability
+ordering. Physical hardware, calibrated backend noise, scheduling,
+provider-side security, multi-tenant interference, and operational Fleet
+Management are outside the claim.
+
+\section{Related Work and Positioning}
+
+\subsection{Hybrid Integrity and Quantum Software Assurance}
+
+Volya \emph{et al.} decompose classical-quantum systems into classical control,
+compilation, quantum execution, and measurement surfaces \cite{Volya2023};
+surveys extend the threat space to malicious compilation, hardware faults,
+cloud exposure, side channels, and classical dependencies
+\cite{Ghosh2023,Saki2022}. Quantum Vulnerability Factor quantifies circuit-output
+sensitivity to injected faults \cite{Oliveira2024}, while Quantum Leak
+demonstrates timing leakage in cloud services \cite{Lu2025}. These works
+establish impact and threat surfaces, but do not condition a workflow-audit
+claim on the exact evidence exposed to its sensor.
+
+The closest direct overlap is QCIVET, a concurrent 2026 preprint that combines
+stage contracts, hash-chained traces, behavioral subtyping, semantic observable
+checks, calibrated-noise models, and real-QPU validation
+\cite{YeniarasKarimov2026}. We therefore make no priority claim for contracts,
+hash chains, stage decomposition, or fail-closed verification. Our unit of
+analysis is instead the information set that makes a changed asset
+distinguishable: evaluation labels and conclusions are first-class boundaries,
+coverage is mapped across multiple data environments, and the contract merely
+executes that map. A second concurrent line evaluates structural, interaction,
+and behavioral circuit-integrity scores \cite{Ahmed2026}; it likewise
+establishes metric complementarity, but not the cross-boundary evidence lattice
+studied here.
+
+Quantum software testing already addresses the oracle problem through
+differential or semantics-preserving variants. QDiff, MorphQ, and QEMI test
+quantum stacks using cross-implementation, metamorphic, or
+equivalence-modulo-input relations \cite{Wang2021,Paltenghi2023,Luo2026}.
+Compiler verification, program logics, runtime assertions, and design-by-
+contract provide complementary formal and runtime mechanisms
+\cite{Shi2019,Ying2011,Zhou2019,Li2020,Yamaguchi2023}. Our benign transpilation
+and common-unitary conditions are therefore negative controls, not a new
+compiler-testing method. Their role is to expose what a provenance hash,
+semantic probe, algebraic check, repeated estimate, or final prediction can
+actually establish about one hybrid kernel workflow.
+
+\subsection{Monitoring, Labels, and Benchmark Validity}
+
+Classical monitoring work makes clear that labels change what can be inferred.
+Black-box shift estimation targets label shift under source-target assumptions
+\cite{Lipton2018}; MLDemon and uncertainty-aware monitoring combine unlabeled
+observations with selectively acquired labels
+\cite{Ginart2022,Koebler2025}. A concurrent evidence-sufficiency framework maps
+proxy coverage under delayed ground truth and formalizes the inability of
+feature proxies to expose pure concept drift when the feature distribution is
+unchanged \cite{Solozobov2026}.
+
+Our label intervention is different: it changes the evaluation labels attached
+to fixed items while holding input and predictor fixed. Because the label source
+may itself be compromised, label availability is not sufficient; the audit must
+separate an unauthenticated marginal from trusted item-aligned outcomes.
+Likewise, MMD, KS, and Jensen--Shannon statistics are useful signals
+\cite{Gretton2012}, but a nonzero value is not automatically a calibrated alarm.
+Thresholds, false-alarm control, and power are deployment-specific.
+
+Security-oriented machine-learning benchmarks are vulnerable to sampling,
+labeling, metric, baseline, and threat-model errors \cite{Arp2022}. Quantum-
+kernel benchmarks add feature-map, encoding, preprocessing, and comparator
+dependence \cite{Schnabel2025}. Work on adversarial quantum kernels and QML
+poisoning asks whether attacks change performance and whether defenses recover
+it \cite{Montalbano2025,Kundu2024}. Our ZZ-versus-RBF comparison is retained only
+to show that impact profiles vary by frozen pipeline.
+
+\begin{table*}[!t]
+\caption{Positioning against the closest lines of work. A dash means that the
+property is not the work's declared object, not that the work is deficient.}
+\label{tab:positioning}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}YYYY@{}}
+\toprule
+Line of work & Evidence conditioning & Evaluation-label boundary & Quantum evidence & Validation and response \\
+\midrule
+Hybrid threat taxonomies \cite{Volya2023,Ghosh2023} & -- & -- & Broad lifecycle & Taxonomy; no executable response \\
+QCIVET \cite{YeniarasKarimov2026} & Stage contracts/observables & -- & Calibrated noise and QPU & Three applications; verification engine \\
+MorphQ/QDiff/QEMI \cite{Wang2021,Paltenghi2023,Luo2026} & Semantic relations & -- & Software stacks & Cross-platform test verdicts \\
+Evidence sufficiency \cite{Solozobov2026} & Proxy-coverage dimensions & Delayed outcomes & -- & One dataset; readiness gate \\
+Circuit-integrity metrics \cite{Ahmed2026} & Fixed metric layers & -- & Circuit metrics & Circuit corpus; metric complementarity \\
+\textbf{This work} & \textbf{Explicit evidence partial order} & \textbf{First-class protected boundary} & \textbf{Bounded simulator gate} & \textbf{Three datasets, eight environments, local fail-closed response} \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+Table~\ref{tab:positioning} states the combination claim. We found no previous
+study that jointly conditions integrity auditability on a partially ordered
+information set, models the evaluation-label path explicitly, separates exact
+and empirical sensor blind regions, validates their transport in a quantum-
+kernel workflow, and drives a fail-closed response. Removing the conditioning
+would reduce the study to a detector benchmark; claiming the contract or the
+propositions alone would overlap established work.
+
+\section{Formal Model and Threat Boundary}
+
+\subsection{Workflow and Impact Loci}
+
+Represent a hybrid evaluation workflow as
+\begin{equation}
+  \mathcal{W}=(X,P,C,K,E,f,y,R),
+  \label{eq:workflow}
+\end{equation}
+where $X$ is the acquired feature batch, $P$ classical preprocessing, $C$ the
+parameterized circuit or feature map, $K$ the estimated kernel, $E$ execution
+metadata, $f$ the resulting predictor, $y$ reference outcomes, and $R$ the
+reported evaluation result. An intervention $a$ may act on one or more elements
+of $\mathcal W$.
+
+We distinguish three effects. \emph{Model-output impact} measures changed
+scores or predictions on aligned items; \emph{benchmark-conclusion impact}
+measures a changed reported metric or comparison; and \emph{execution-integrity
+impact} measures changed circuit, kernel, or execution evidence even if the
+decision is invariant. The primary conclusion endpoint is
+\begin{equation}
+  \Delta_R(a)=\mathrm{BA}_{0}-\mathrm{BA}_{a},
+  \label{eq:conclusion-impact}
+\end{equation}
+where BA denotes balanced accuracy. For aligned deterministic predictions,
+\begin{equation}
+  \Delta_f(a)=\frac{1}{n}\sum_{i=1}^{n}
+  \mathbf{1}\!\left[f_a(x_i)\neq f_0(x_i)\right].
+  \label{eq:output-impact}
+\end{equation}
+When $\Delta_R(a)>0$ but $\Delta_f(a)=0$, the measured loss lies in the
+evaluation or label path, not in predictor output.
+
+\subsection{Information Regimes and Exact Boundaries}
+
+The auditor receives a partially ordered family of evidence sets:
+\begin{itemize}
+  \item $\mathcal I_X$: features or preprocessed features;
+  \item $\mathcal I_{XF}$: features plus scores or predictions, with
+  $\mathcal I_X\subset\mathcal I_{XF}$;
+  \item $\mathcal I_{Y_m}$: the evaluation-label marginal or class counts;
+  \item $\mathcal I_{XFY}$: item-aligned features, predictions, and outcomes,
+  containing both $\mathcal I_{XF}$ and the outcome marginal; and
+  \item $\mathcal I_Q$: circuit, transpilation, kernel-estimation, and execution
+  evidence.
+\end{itemize}
+$\mathcal I_{Y_m}$ is not an intermediate step between $\mathcal I_{XF}$ and
+$\mathcal I_{XFY}$, and $\mathcal I_Q$ is a separate branch that may be joined
+with classical evidence. A sensor $S$ is admissible in regime $\mathcal I$ only
+if it is a measurable function of evidence in $\mathcal I$. Auditability is
+therefore reported as $\mathsf A(a\mid\mathcal I,S)$, not as an unqualified
+property of $a$.
+
+\textbf{Proposition 1 (feature/prediction blindness).} Let $f$ be fixed and
+deterministic. If $T_y$ changes only evaluation labels, so $X'=X$ and
+$f'(X')=f(X)$, then every audit statistic measurable with respect to
+$\mathcal I_X$ or $\mathcal I_{XF}$ is invariant under $T_y$.
+
+\begin{IEEEproof}
+The complete arguments supplied to the statistic are identical before and
+after intervention. A deterministic function of identical arguments returns
+the same value.
+\end{IEEEproof}
+
+\textbf{Proposition 2 (label-marginal blindness).} If $T_y$ also preserves the
+empirical class histogram, every statistic measurable only with respect to
+$\mathcal I_{Y_m}$ is invariant.
+
+\begin{IEEEproof}
+The statistic's sufficient input, the empirical label-count vector, is
+unchanged.
+\end{IEEEproof}
+
+Thus, a prior-preserving label-only intervention requires joint label-
+prediction evidence, item-level provenance, an independently authenticated
+label source, or an assumption restricting admissible transformations. These
+are finite-batch capability statements, not claims about attack prevalence.
+
+For information regime $\mathcal I$, sensor family $\mathcal S$, and
+materiality threshold $\tau$, define the auditability gap
+\begin{equation}
+  \mathcal G_{\mathcal I,\mathcal S}(\tau)=
+  \left\{a:|\Delta_R(a)|\geq\tau\ \wedge\
+  \mathcal S(a)=\mathcal S(0)\right\}.
+  \label{eq:gap}
+\end{equation}
+The absolute endpoint includes apparent improvement caused by an integrity
+failure; positive-impact counts below use the signed drop for interpretability.
+Exact equality is asserted only when the construction supplies it. For a
+non-invariant signal, practical detection requires a separately calibrated
+alarm and false-alarm budget.
+
+\subsection{Threat and Trust Boundary}
+
+This study is an integrity stress test. Its manipulations are controlled
+interventions, not estimates of attack frequency. Data-to-evaluation gates
+trust the training routine and fitted model artifact while changing evaluation
+features, post-projection values, or labels. The quantum gate additionally
+permits circuit/parameter mutation and post-estimation kernel corruption. The
+protected assets are the evaluation representation, circuit and parameters,
+kernel matrix, predictions, outcomes, and reported conclusion.
+
+The adversary does not compromise every evidence source simultaneously. Each
+claim instead states what can change and what the auditor sees. This is
+essential: if an adversary can replace both an asset and every trusted reference
+used to authenticate it, the present local contract cannot identify the event.
+Malicious scheduling, device-calibrated noise, provider-side manipulation,
+multi-tenant interference, side channels, and physical-device execution are
+excluded.
+
+\section{Methodology}
+
+\subsection{Data, Pipelines, and Interventions}
+
+The frozen first gate uses a balanced binary subset derived from CICIDS2017
+\cite{Sharafaldin2018}: 3,000 rows, 77 numeric columns before projection, and
+128/128 capped training/evaluation samples. The expansion adds a 256/256
+CICIDS scale gate; balanced ID subsets of UNSW-NB15 \cite{Moustafa2015} and
+ToN-IoT \cite{Alsaedi2020}; four temporal CICIDS source-target pairs; and one
+UNSW temporal pair. Expansion jobs otherwise use 128/128 samples. Every
+data-to-evaluation gate evaluates projected dimensions 8, 10, and 12. The eight
+fixed expansion environments are enumerated in the supplement. They are not a
+probability sample of deployments. Balanced staging, numeric-only fields, and
+near-chance clean performance in several temporal pairs constrain external
+interpretation.
+
+Non-finite numeric values are replaced during staging. Train-defined
+preprocessing is applied without evaluation labels. Each branch fits
+TruncatedSVD on training features. The RBF support-vector classifier (SVC) then
+uses training-fitted standardization; fidelity-kernel branches use frozen
+training-fitted angular scaling to $[0,2\pi]$. No hyperparameter search is
+performed, so SVC/QSVC comparisons concern complete frozen pipelines rather
+than an isolated causal effect of kernel geometry.
+
+Fidelity kernels use one feature-map repetition. Four configured labels reduce
+to three empirical profiles because Z and PauliXZ yield identical matrices in
+the frozen implementation: ZZ, PauliXYZ, and Z/PauliXZ-equivalent. Gate 1 uses
+Qiskit Machine Learning's ideal reference evaluator \cite{JavadiAbhari2024}.
+Expansion gates use a tagged exact-statevector evaluator that prepares each
+unique state once and computes
+$K(x,y)=|\langle\phi(x)|\phi(y)\rangle|^2$. Against the reference, unit matrices
+agree at $10^{-10}$; a 128/128 replay preserves every discrete endpoint and
+sensor value, with maximum difference $1.222\times10^{-4}$ confined to ROC-AUC
+half-tie behavior. This is an ideal-simulation optimization, not shot-noise or
+QPU evidence.
+
+The intervention suite has six mechanisms at three frozen severities: feature
+sign flip, feature-wise mean shift, scaling drift, feature dropout, random
+evaluation-label flip, and prior-preserving evaluation-label flip. The first
+four may change model input and output. The last two keep features, scores, and
+predictions fixed; the prior-preserving transformation also retains the class
+histogram. Equal mechanism weights define an engineering stress profile, not a
+threat distribution.
+
+Feature-only sensors comprise feature Jensen--Shannon divergence (JSD), maximum
+mean discrepancy (MMD), and the Kolmogorov--Smirnov rejection rate. Prediction-
+aware evidence adds score-distribution JSD. Label-marginal evidence uses prior
+shift and label JSD. Joint-outcome evidence includes prediction-rate,
+disagreement, prediction-distribution, and confusion-profile changes. Raw
+invariance is primary for structural-blindness claims; min--max normalization is
+retained only as a fixed-design sensitivity.
+
+\subsection{Experimental Units and Uncertainty}
+
+Gate 1 crosses five split seeds with four nested model/perturbation seeds. Its
+7,980 raw rows include 3,420 exact repeated SVC rows emitted under different
+quantum-map configurations. Equality across performance, impact, and sensor
+columns is verified before deduplication, leaving 4,560 unique model-
+intervention observations.
+
+The eight expansion environments cross the same five split seeds with two
+nested model seeds. All 360 expected CSV/JSON job pairs completed. Their 13,680
+raw rows contain 2,280 verified repeated SVC rows, leaving 11,400 unique
+observations. No key is collapsed unless all relevant numeric evidence agrees.
+
+Primary coverage endpoints are exact raw invariance/response counts in the
+prespecified design. The secondary model-profile endpoint is the within-split
+difference in suite-average balanced-accuracy conclusion impact. Nested model-
+seed values are averaged within each split; the five split seeds are the
+inferential units. Two-sided 95\% Student-$t$ intervals use four degrees of
+freedom. They describe within-environment resampling uncertainty, not a
+deployment population, and are not multiplicity-adjusted. Analyses over all 20
+split-model combinations are sensitivity checks, not 20 independent
+replications.
+
+\subsection{Quantum-Specific Integrity Gate}
+
+A separate simulator gate isolates the quantum boundary using CICIDS, 64/64
+samples, five split seeds, projected dimensions 4, 6, and 8, and 11 conditions:
+165 split-dimension-condition cells. Negative controls are clean execution,
+benign level-1 transpilation, and a common post-feature-map X rewrite that
+preserves fidelity. Mutations include data-dependent RZ gates at strengths 0.02
+and 0.10, increasing feature-map repetitions, asymmetric and diagonal-eroded
+kernel edits, a symmetric positive-semidefinite (PSD)-preserving substitution,
+and binomial fidelity-estimation emulators at 256 and 1,024 shots.
+
+Each cell records canonical OpenQASM 3 circuit and parameter provenance, kernel
+hashes, semantic kernel differences against a trusted reference,
+symmetry/diagonal/eigenvalue checks, repeated-estimation discrepancy, and
+prediction changes. The shot conditions sample exact fidelities: they exercise
+the contract under controlled stochastic estimation but are neither sampler-
+backend nor QPU runs. PSD repair is containment, not proof of integrity.
+
+\subsection{Executable Response Prototype}
+
+A local hybrid-software-as-a-service prototype instantiates four ordered
+contracts: input/preprocessing, circuit/kernel, execution/result, and
+evaluation/report. Each records evidence, violations, and review conditions in
+an SHA-256 chain. Four passes yield \texttt{allow}; a review yields fail-closed
+\texttt{hold}; a violation yields \texttt{block}. The chain exposes later
+modification but provides neither provider-authenticated identity nor
+non-repudiation.
+
+The demonstrator uses one compact CICIDS cell (split 42, dimension 4, 32/32
+samples) and six prespecified scenarios. It evaluates composition and decision
+logic, not predictive generalization or throughput.
+
+\section{Results}
+
+\subsection{Exact Label-Path Blind Regions}
+
+All random and prior-preserving evaluation-label cells have zero prediction
+disagreement: the model sees the same $X$ and emits the same predictions.
+Feature JSD, MMD, KS rejection, and score JSD are exactly unchanged. Balanced-
+accuracy conclusion impact is nonnegative in the executed design but not
+positive in every cell. Gate 1 contains 1,276 positive and 164 zero impacts
+among 1,440 label observations; the expansion contains 2,184 positive and 1,416
+zero impacts among 3,600. No negative impact occurs.
+
+Prior-preserving flips also produce zero prior shift and label JSD, occupying
+the exact blind region of Propositions 1--2. In Gate 1 at flip rate 0.10, their
+mean conclusion impacts range from 0.0492 to 0.0633 across evaluated model-
+dimension cells. Joint confusion evidence reacts whenever the conclusion impact
+is positive. Table~\ref{tab:coverage-counts} makes the denominators explicit.
+
+\begin{table}[!t]
+\caption{Verified coverage counts after computational-unit deduplication.
+$\mathcal I_{Y_m}$ applies only to prior-preserving rows; joint response is
+evaluated only among positive impacts.}
+\label{tab:coverage-counts}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Verified quantity & Gate 1 & Expansion \\
+\midrule
+Unique observations & 4,560 & 11,400 \\
+Label-only / $\mathcal I_{XF}$ blind & 1,440 / 1,440 & 3,600 / 3,600 \\
+Prior-preserving / $\mathcal I_{Y_m}$ blind & 720 / 720 & 1,800 / 1,800 \\
+Positive impact / joint response & 1,276 / 1,276 & 2,184 / 2,184 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The expansion reproduces the information boundary without exception across all
+eight fixed environments and evaluated model profiles. Figure~\ref{fig:sensor}
+shows response fractions by information regime. Random label flips provide a
+negative control: they remain invisible to $\mathcal I_{XF}$ but are visible to
+label-marginal monitoring. The intervention has not become intrinsically less
+stealthy; the auditor has acquired a more informative view.
+
+\begin{figure*}[!t]
+  \centering
+  \includegraphics[width=0.94\textwidth]{fig_q1_sensor_coverage.pdf}
+  \caption{Empirical sensor response by information regime. Fractions are over
+  model/environment/seed cells. Zero denotes raw invariance, not estimated
+  detector power; operational alarms require separate calibration.}
+  \label{fig:sensor}
+\end{figure*}
+
+\subsection{Secondary Model-Impact Profile}
+
+QSVC-ZZ has the largest mean conclusion impact in the frozen ID suite. Relative
+to SVC-RBF, mean ratios are 2.524, 3.094, and 3.323 at dimensions 8, 10, and 12;
+paired differences, rather than ratios, are the inferential endpoint. The
+within-split differences are respectively 0.02427 (95\% CI
+0.01200--0.03654), 0.03289 (0.01998--0.04580), and 0.03855
+(0.02773--0.04937), with all five split clusters positive at every dimension.
+Corresponding ZZ/SVC impacts are 0.04019/0.01592, 0.04860/0.01571, and
+0.05514/0.01659. These intervals describe one fixed environment.
+
+Across the eight expansion environments, mean ZZ-minus-SVC impact is positive
+in 7/8 environments at dimension 8 and 8/8 at dimensions 10 and 12.
+Environment-specific intervals exclude zero in 4/8, 7/8, and 5/8 environments,
+respectively. Means range from $-0.00009$ to 0.09382 at dimension 8, 0.00107 to
+0.09508 at dimension 10, and 0.00403 to 0.11585 at dimension 12
+(Fig.~\ref{fig:forest}). No pooled population effect is claimed. Clean balanced
+accuracy and impact correlate positively across expansion cells
+($r=0.714$, exploratory), revealing performance-headroom confounding. The
+conditional auditability result does not depend on this model ordering.
+
+\begin{figure*}[!b]
+  \centering
+  \includegraphics[width=0.93\textwidth]{fig_q1_external_forest.pdf}
+  \caption{Environment-specific ZZ-minus-SVC mean conclusion-impact
+  differences and 95\% $t$ intervals over five split clusters. ID and OOD
+  settings are fixed cases; no population pooling is performed.}
+  \label{fig:forest}
+\end{figure*}
+
+\subsection{Quantum-Workflow Coverage}
+
+All 165 cells are present and all nine prespecified acceptance checks pass at
+the frozen numerical tolerance ($10^{-8}$ for nonzero response unless a
+stricter contract check is stated). Clean cells trigger no sensor. Benign
+transpilation and the common-unitary rewrite change serialized provenance while
+preserving semantic kernels, algebraic properties, and outputs in every cell.
+Thus, raw hash difference requires policy-aware adjudication; it is not evidence
+of harmful semantic change.
+
+Every data-dependent circuit mutation changes the semantic kernel. The mild RZ
+mutation changes no evaluated prediction, the stronger mutation changes
+predictions in 2/15 cells, and increasing feature-map repetitions does so in
+11/15. Every asymmetric and diagonal-eroded matrix is detected algebraically
+but changes no prediction at the tested severity. Conversely, the PSD-
+preserving mixture remains symmetric, unit-diagonal, and PSD in all cells:
+algebraic validation is exactly blind. Trusted provenance and semantic
+comparison expose all 15 substitutions; output monitoring reacts in only 1/15.
+
+Both shot emulators produce nonzero repeated-estimation discrepancy in all 15
+cells. Output changes occur in 7/15 cells at 256 shots and 3/15 at 1,024 shots,
+with mean balanced-accuracy drops 0.00521 and 0.00313. These results support
+repeated-estimation logic, not a hardware or calibrated-noise claim.
+Figure~\ref{fig:quantum} summarizes the complementary sensor profile: hashes
+overreact to approved equivalence, algebraic checks miss valid-looking
+substitution, and output monitors miss changes that do not cross a decision
+boundary.
+
+\begin{figure*}[!t]
+  \centering
+  \includegraphics[width=0.91\textwidth]{fig_q1_quantum_integrity_contract.pdf}
+  \caption{Sensor response across clean and semantics-preserving controls,
+  circuit mutations, kernel corruptions, and finite-shot emulators. Coverage is
+  conditional on the evidence exposed to each sensor; output invariance does
+  not imply workflow integrity.}
+  \label{fig:quantum}
+\end{figure*}
+
+\subsection{Fail-Closed Composition}
+
+All six prototype envelopes verify and all eight acceptance checks pass.
+Table~\ref{tab:decisions} shows that response depends on the coverage contract,
+not on a single anomaly score. Clean and explicitly approved transpilation are
+allowed; the latter's semantic-kernel difference is only
+$7.11\times10^{-15}$. Parameterized mutation and PSD-preserving kernel
+substitution are blocked. Prior-preserving label corruption is blocked at the
+evaluation/report contract despite exactly zero class-prior delta. The approved
+256-shot emulator is held for uncertainty adjudication rather than silently
+allowed.
+
+\begin{table}[!t]
+\caption{Executable contract outcomes.}
+\label{tab:decisions}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\columnwidth}{@{}Yp{0.18\columnwidth}Y@{}}
+\toprule
+Scenario & Decision & Decisive evidence \\
+\midrule
+Clean & \texttt{allow} & All contracts pass \\
+Approved transpilation & \texttt{allow} & Policy + semantic equivalence \\
+Parameterized circuit mutation & \texttt{block} & Parameter/semantic mismatch \\
+PSD-preserving kernel substitution & \texttt{block} & Provenance + semantic mismatch \\
+Prior-preserving label corruption & \texttt{block} & Item-aligned outcome evidence \\
+Approved 256-shot emulator & \texttt{hold} & Repeat uncertainty review \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The prototype ships with a console entry point, tests, CI, a strict output
+manifest, and reviewer-facing summaries. It remains a local process: there is
+no network authentication, signed provider record, persistence layer,
+incident-response evaluation, scheduler binding, or QPU identity.
+
+\section{Integrity-Audit Contract}
+
+The evidence from RQ1--RQ3 yields a reporting and enforcement contract. Every
+integrity claim should name:
+\begin{enumerate}
+  \item the workflow boundary and protected asset;
+  \item the adversary/failure capability, including what remains fixed;
+  \item the information regime available to the auditor;
+  \item the sensor, reference, threshold, and false-alarm budget;
+  \item the covered interventions and exact or empirical blind region; and
+  \item the response: provenance failure, abstention, rerun, containment,
+  rollback, or human adjudication.
+\end{enumerate}
+The seven-field implementation record separates boundary and asset into distinct
+fields and is included in the supplement.
+
+For label-path integrity, the minimum defensive bundle is item-level label
+provenance plus a joint label-prediction audit. For the studied quantum-kernel
+boundary it is authenticated circuit/parameter provenance, an approved-
+transpilation policy, semantic probe kernels, symmetry/diagonal/PSD checks,
+repeated-estimation evidence, and fail-closed handling of missing or
+inconsistent evidence. PSD repair may contain a numerical failure but cannot
+certify integrity. These controls identify the evidence required inside the
+declared boundary; they do not certify provider or hardware behavior.
+
+The executable decision rule is intentionally asymmetric. \texttt{allow}
+requires every mandatory contract to pass. Expected but unresolved stochastic
+deviation yields \texttt{hold}; a violated invariant or unapproved semantic
+change yields \texttt{block}. Missing mandatory evidence cannot be converted
+into assurance. This is the operational consequence of information-set
+conditionality: the system abstains when the preconditions of its integrity
+claim are absent.
+
+\section{Discussion and Limitations}
+
+\subsection{Security Interpretation}
+
+The label-path result exposes a category error with practical consequences. A
+metric can fall while predictor output is bit-for-bit unchanged. Calling that
+model degradation assigns failure to the wrong component and suggests the wrong
+defense: input robustness cannot repair corrupted ground truth; provenance and
+joint validation can.
+
+Likewise, zero sensor response is informative only if the sensor receives
+evidence capable of distinguishing the states. A circuit hash cannot expose a
+calibration change, a PSD check cannot establish label provenance, and an output
+monitor cannot protect circuit confidentiality. Hybrid assurance therefore
+requires a coverage argument across boundaries, not one global anomaly score.
+
+The secondary ZZ profile illustrates why impact must remain separate from
+auditability. Its direction is consistent in most fixed environments, but
+magnitude and interval support vary with clean headroom, scaling, and feature
+map. Causal attribution to quantum geometry would require symmetric
+preprocessing, headroom-aware endpoints, or kernel-level decomposition. No such
+universal claim is made here.
+
+\subsection{Validity Boundaries}
+
+The study has eight principal limitations. First, three datasets and eight
+scale/temporal settings improve transport evidence but remain fixed
+cybersecurity environments, not sampled deployments. Five split clusters
+measure within-environment sampling only. Second, most gates use 128/128
+samples; the 256/256 gate is a scale sensitivity, not large-scale QML evidence.
+Third, balanced numeric-only staging does not reproduce operational prevalence
+or categorical-feature handling.
+
+Fourth, both quantum evaluators are ideal statevector simulators. The separate
+gate adds binomial shot emulation, not a sampler backend, device-calibrated
+noise, or hardware execution. Fifth, SVC and QSVC retain pipeline-specific
+scalers, so their comparison does not isolate kernel geometry. Sixth, exact
+blindness is a capability result under a constructed perturbation; it neither
+estimates deployment frequency nor implies malicious intent.
+
+Seventh, nonzero sensor response is not calibrated detection power. Min--max
+stealth is reference-dependent and retained only as a sensitivity; deployment
+requires a null model, threshold, false-alarm budget, and power analysis.
+Eighth, the prototype is not a deployed service or authenticated provider
+ledger. Its hash chain is tamper-evident but supplies neither identity nor
+non-repudiation. Scheduling, provider security, multi-tenancy, confidentiality,
+physical QPU execution, and operational Fleet Management are excluded rather
+than silently treated as future evidence for this study.
+
+\section{Conclusion}
+
+Hybrid workflow integrity cannot be reduced to a robustness number. An
+intervention can change a reported conclusion without changing the model, and a
+sensor can remain silent because its evidence is mathematically invariant. We
+formalized this dependency as information-set conditional auditability, derived
+exact blind regions for label-only and prior-preserving interventions, and
+reproduced those boundaries across CICIDS2017, UNSW-NB15, ToN-IoT, and eight
+fixed expansion environments. A bounded quantum simulator gate then showed why
+provenance, semantic, algebraic, repeated-estimation, and output controls are
+complementary; a local contract converted that coverage into fail-closed
+decisions.
+
+The resulting requirement is precise: every integrity claim must state its
+boundary, information set, sensor coverage, residual blind region, calibration,
+and response. Assurance is granted only when the evidence required by that
+claim is present and consistent. The evidence is complete for this declared
+research boundary and deliberately supports no full-lifecycle, provider,
+hardware, or Fleet Management security claim.
+
+\section*{Data, Code, and Ethics Statement}
+
+The review artifact contains source code, a locked environment, tests, compact
+derived tables, figures, SHA-256 manifests, and exact reproduction commands.
+Raw CICIDS2017, UNSW-NB15, and ToN-IoT data are not redistributed; their public
+sources and deterministic staging procedures are documented. The artifact DOI
+will be inserted after author, license, and repository-visibility confirmation.
+The study uses previously released network-security benchmarks and involves no
+new human-participant, animal, or personal-data collection.
+
+\section*{Acknowledgment}
+
+Funding is reported on the separate title page and must be moved to the first
+author footnote in the unblinded source. During manuscript and artifact
+preparation, the authors used OpenAI Codex for literature-discovery assistance,
+language editing, code inspection, and test automation. The authors verified
+the primary sources, numerical claims, code changes, and generated text and
+retain full responsibility for the article.
+
+% Recheck this trigger after inserting the final author block/biographies.
+\IEEEtriggeratref{26}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

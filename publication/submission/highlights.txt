@@ -1,5 +1,7 @@
-• Auditability is conditioned on evidence exposed at the workflow boundary
-• Label corruption creates exact blind regions for feature-based sensors
-• Blind regions replicate across three datasets and eight fixed environments
-• Quantum-kernel sensors give complementary, explicitly bounded coverage
-• An executable contract turns coverage evidence into fail-closed decisions
+OPTIONAL INTERNAL SUMMARY — IEEE TDSC does not currently require highlights.
+
+Auditability is conditioned on evidence exposed at the workflow boundary.
+Label corruption creates exact blind regions for feature-based sensors.
+Blind regions recur across three datasets and eight fixed environments.
+Quantum-workflow sensors provide complementary, explicitly bounded coverage.
+An executable contract turns missing evidence into fail-closed decisions.
