@@ -37,9 +37,12 @@ accounts.
 - No DOI, license, competing-interest statement or CRediT confirmation was
   guessed.
 
-## Release gate
+## Release
 
-`rc2` becomes the submission release only after all-author approval of the
-manuscript, CRediT roles, competing interests and AI disclosure; a LICENSE
-file; the Zenodo DOI; a final rebuild with `build.ps1`; regenerated
-`CHECKSUMS.sha256`; and page-by-page visual inspection.
+All-author approval of the manuscript, CRediT roles, competing interests,
+funding statement and AI disclosure was received on 2026-09-06. Licenses were
+added (Apache-2.0 code, CC BY 4.0 evidence/documentation, manuscript excluded),
+the version DOI `10.5281/zenodo.22550853` was reserved and inserted, the PDFs were rebuilt
+(11 + 6 pages, clean preflight), checksums regenerated and the artifact
+reassembled and verified. `rc2` is the submission release, tagged
+`paper15-q1-v1.1.0`.

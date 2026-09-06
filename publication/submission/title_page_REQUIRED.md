@@ -37,14 +37,17 @@ Avda. de las Universidades 24, 48007 Bilbao, Spain.
 > project PID2024-155693NB-C43.
 
 The identifier and beneficiary were verified against the AEI granted-aid record
-on 2026-08-09. **[CONFIRM WHETHER THE OFFICIAL MINISTRY AND/OR EU CO-FUNDING
-FORMULA MUST BE REPRODUCED VERBATIM AT PRODUCTION STAGE.]**
+on 2026-08-09 and the statement was confirmed by all authors on 2026-09-06.
+Production-stage note: if the executed award text requires an additional
+ministry or EU co-funding clause, it is added at proof stage and changes no
+scientific content.
 
 ## Competing interests
 
-**[ALL AUTHORS MUST CONFIRM: no competing interests / list interests.]**
+The authors declare that they have no competing interests (confirmed by all
+authors on 2026-09-06).
 
-## CRediT author statement (proposed, mirrored from the companion study)
+## CRediT author statement (confirmed by all authors on 2026-09-06)
 
 - Roberto Fernández-Barrios: Conceptualization, Methodology, Software, Data
   curation, Formal analysis, Visualization, Investigation, Writing – original
@@ -55,7 +58,6 @@ FORMULA MUST BE REPRODUCED VERBATIM AT PRODUCTION STAGE.]**
 - Pablo García Bringas: Supervision, Resources, Funding acquisition, Writing –
   review & editing.
 
-**[ALL AUTHORS MUST CONFIRM ROLES.]**
 
 ## Data and code availability
 
@@ -63,8 +65,8 @@ The reproducibility artifact (version 1.1.0) contains source code, locked
 dependencies, tests, derived evidence for the frozen gates and the
 preregistered reinforcement gates, vector figures, and SHA-256 manifests. Raw
 benchmark datasets are not redistributed; public sources and deterministic
-staging instructions are documented. Replace **[DOI PENDING]** with the version
-DOI after license and repository decisions are final.
+staging instructions are documented. Version DOI: **10.5281/zenodo.22550853**
+(Zenodo, artifact 1.1.0; repository tag `paper15-q1-v1.1.0`).
 
 ## Related manuscripts by the authors (disclosed in §II-C and the cover letter)
 
@@ -83,11 +85,14 @@ submission.
 
 ## Generative-AI disclosure
 
-See `AI_USE_DISCLOSURE.md` (OpenAI Codex and Anthropic Claude Code; authors
-retain full responsibility).
+See `AI_USE_DISCLOSURE.md`: system, affected sections and level of use for
+OpenAI Codex and Anthropic Claude Code; approved by all authors on 2026-09-06.
 
 ## Artifact and copyright choices
 
-**[CONFIRM SOFTWARE/ARTIFACT LICENSE, IEEE COPYRIGHT OR OA ROUTE, AND ZENODO
-PUBLICATION. The repository is already public; the license file must be added
-before the DOI is minted.]**
+Software: Apache-2.0 (`LICENSE`). Derived evidence, tables, figures and
+documentation: CC BY 4.0 (`LICENSE-DATA`). Manuscript sources and PDFs: all
+rights reserved pending the IEEE publishing agreement (`LICENSING.md`). The
+IEEE copyright-versus-open-access route is chosen in the publishing agreement
+after acceptance and does not affect the artifact licenses. Repository public;
+Zenodo record: see Data and code availability.

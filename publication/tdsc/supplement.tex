@@ -405,9 +405,10 @@ change circuit serialization and therefore requires a new evidence version.
 The artifact intentionally omits raw benchmark datasets. It includes staging
 instructions, source locations, source code, locked dependencies, compact
 derived evidence, figures, figure-source tables, tests, manifests, and expected
-outputs. Public DOI insertion remains contingent on confirmed authorship,
-license, and repository visibility; those administrative fields do not alter
-the scientific results.
+outputs. Version 1.1.0 is archived at Zenodo, DOI 10.5281/zenodo.22550853,
+with the repository tag \texttt{paper15-q1-v1.1.0}; source code is licensed
+under Apache-2.0, derived evidence, figures, and documentation under CC BY 4.0,
+and the manuscript files are author preprints excluded from both licenses.
 
 \section{Claims-Supported / Claims-Excluded Matrix}
 
@@ -416,9 +417,11 @@ Auditability is conditional on evidence exposed at a declared boundary;
 model-output and evaluation-conclusion impacts can have different causal loci;
 feature/prediction sensors are exactly blind to label-only changes, whereas
 label marginals are blind to prior-preserving relabeling; these blind regions
-persist under null calibration at $\alpha=0.05$ and are closed only by
-item-aligned evidence; non-invariant sensors reach nominal false-alarm rates on
-disjoint clean pools within the frozen design; the secondary ZZ-minus-SVC
+persist under calibration against a nominal $\alpha=0.05$ per-sensor target and
+are closed only by item-aligned evidence; the non-invariant sensors, calibrated
+against that target, show pooled empirical false-alarm rates of 0.029--0.069 on
+disjoint clean pools within the frozen design, with uncorrected regime unions
+of 0.125--0.259; the secondary ZZ-minus-SVC
 profile is direction-stable but scaler- and headroom-dependent; complementary
 quantum-workflow sensors close different simulator-gate blind regions; and the
 local prototype executes policy-aware, fail-closed

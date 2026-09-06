@@ -42,8 +42,8 @@ references and overfull boxes, checks the article page ceiling, and writes:
 
 The rc1 anonymous build was nine main-paper pages plus three supplement pages
 on US Letter; rc2 adds the author block, Section II-C, the calibrated-coverage
-paragraph and figure, and a supplement section, and compiles to 10 main-paper pages plus
-6 supplement pages (2026-09-06). Any required biographies can change pagination.
+paragraph and figure, and a supplement section, and compiles to 11 main-paper pages plus
+6 supplement pages (2026-09-06, release build). Any required biographies can change pagination.
 
 ## Scientific verification
 
@@ -71,18 +71,18 @@ calibrated device-noise coverage, scheduling security, provider integrity,
 multi-tenancy protection, or operational Fleet Management. The ZZ-versus-SVC
 profile is secondary evidence, not the headline result.
 
-## Required author actions
+## Author actions (closed on 2026-09-06)
 
-The scientific package is closed (artifact 1.1.0). Author order, affiliations,
-ORCIDs and corresponding author were confirmed on 2026-09-06. Submission
-remains administratively blocked until the authors confirm and insert:
+The scientific package is closed (artifact 1.1.0). All authors confirmed
+authorship, ORCIDs, CRediT roles, competing interests, funding wording, the
+AI-use disclosure and the licensing scheme; the version DOI is inserted. Items
+that were required:
 
-1. CRediT roles (proposed on the title page);
+1. CRediT roles;
 2. competing interests and approval of the AI-use disclosure;
 3. the verbatim funding/co-funding formula from the executed award;
 4. artifact/software license and repository visibility;
 5. related-work disclosures required by the IEEE portal; and
 6. the public Zenodo version DOI.
 
-Do not publish a DOI by inference; the repository is public and needs a LICENSE
-file before archival.
+Version DOI `10.5281/zenodo.22550853`; licenses in `LICENSING.md`.

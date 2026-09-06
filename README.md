@@ -53,7 +53,7 @@ these counts from the released derived tables.
 - `publication/` — submission files, compact evidence artifact, hashes and DOI
   status.
 
-Build the current 10-page main article and 6-page supplement (rc2) with:
+Build the current 11-page main article and 6-page supplement (release 1.1.0) with:
 
 ```powershell
 pwsh -NoProfile -File publication/tdsc/build.ps1
@@ -123,13 +123,14 @@ selected simulator evidence for G3.1, a local research prototype towards Result
 ## Version, funding and citation
 
 Artifact version: `1.1.0` (frozen 1.0.0 evidence, tag `paper15-q1-v1.0.0`, plus
-the preregistered reinforcement gates; the 1.1.0 submission tag is created only
-after all-author approval).
+the preregistered reinforcement gates; release tag `paper15-q1-v1.1.0`).
 
 This work was supported by the Spanish State Research Agency (AEI) through
 ATHENA-AEGIS, project `PID2024-155693NB-C43`.
 
-Author metadata, CRediT roles, license choice and the version DOI require final
-author confirmation before public archival. The machine-readable templates are
-`CITATION.cff.in` and `.zenodo.json.in`; current archival status is recorded in
+Version 1.1.0 is archived at Zenodo, DOI `10.5281/zenodo.22550853` (tag `paper15-q1-v1.1.0`).
+Author metadata, CRediT roles and licenses were confirmed by all authors on
+2026-09-06: code is Apache-2.0, derived evidence and documentation CC BY 4.0,
+and the manuscript files are author preprints (see `LICENSING.md`). Citation
+metadata is in `CITATION.cff` and `.zenodo.json`; archival status in
 `publication/DOI_STATUS.md`.

@@ -62,9 +62,9 @@ A separate 165-cell simulator gate demonstrates complementary quantum-workflow
 coverage, including an algebraic blind region under positive-semidefinite kernel
 substitution. Finally, a four-contract prototype converts the coverage map into
 hash-chained, fail-closed \texttt{allow/hold/block} decisions. Preregistered
-gates show that the blind regions survive null calibration at a 5\% false-alarm
-level and that the secondary quantum-versus-classical profile is scaler- and
-headroom-dependent. The contribution is the combined formalization, coverage
+gates show that the blind regions survive calibration against a nominal 5\%
+per-sensor false-alarm target and that the secondary quantum-versus-classical
+profile is scaler- and headroom-dependent. The contribution is the combined formalization, coverage
 validation, bounded quantum layer, and executable response.
 \end{abstract}
 
@@ -834,18 +834,27 @@ hardware, or Fleet Management security claim.
 The review artifact contains source code, a locked environment, tests, compact
 derived tables, figures, SHA-256 manifests, and exact reproduction commands.
 Raw CICIDS2017, UNSW-NB15, and ToN-IoT data are not redistributed; their public
-sources and deterministic staging procedures are documented. The artifact DOI
-will be inserted after author, license, and repository-visibility confirmation.
+sources and deterministic staging procedures are documented. The artifact
+(version 1.1.0) is archived at Zenodo, DOI 10.5281/zenodo.22550853; source code
+is released under Apache-2.0 and derived evidence, figures, and documentation
+under CC BY 4.0.
 The study uses previously released network-security benchmarks and involves no
 new human-participant, animal, or personal-data collection.
 
 \section*{Acknowledgment}
 
-During manuscript and artifact preparation, the authors used OpenAI Codex and
-Anthropic Claude Code for literature-discovery assistance, language editing,
-code generation and inspection, and test automation. The authors verified the
-primary sources, numerical claims, code changes, and generated text and retain
-full responsibility for the article.
+During manuscript and artifact preparation the authors used two generative-AI
+coding assistants. OpenAI Codex (May--August 2026) assisted with literature
+discovery, drafting and language editing of the Markdown manuscript and its
+TDSC conversion, code inspection, and the evidence builders, verifier, and
+tests of artifact 1.0.0. Anthropic Claude Code (September 2026) assisted with
+the related-work additions in Section~II, Sections II-C and V-E, the abstract,
+limitations, and conclusion edits, Supplement Section~8 and its generated
+tables, and the artifact 1.1.0 code (null-control sampler, cross-validated
+tuning, execution queue, evidence builder, figure and table generators,
+artifact assembler, and their tests). The authors specified the protocols,
+verified the primary sources, numerical results, code, and generated text, and
+retain full responsibility for the article.
 
 % Recheck this trigger after inserting the final author block/biographies.
 \IEEEtriggeratref{26}

@@ -274,8 +274,8 @@ No enviar hasta que todos estos puntos estén cerrados:
 - [x] LaTeX compila desde cero sin warnings materiales ni referencias rotas.
 - [x] PDF en US Letter, dos columnas, `compsoc`, visualmente inspeccionado.
 - [x] La versión rc1 quedaba tres páginas por debajo del techo interno de 12;
-      rc2 compila limpio en 10 páginas de artículo y 6 de suplemento
-      (2026-09-06), dos por debajo del techo interno de 12.
+      la versión de release compila limpia en 11 páginas de artículo y 6 de
+      suplemento (2026-09-06), una por debajo del techo interno de 12.
 - [x] Todos los claims tienen tabla/figura o argumento formal trazable.
 - [x] Supplement, tests y verificador del repositorio pasan desde el entorno
       bloqueado; el full replay conserva sus instrucciones separadas.

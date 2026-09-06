@@ -42,3 +42,10 @@ primary count causes a non-zero exit.
 
 See `manuscript/Q1_REPRODUCTION.md` for dataset staging and experiment replay.
 Exact-statevector evaluation and binomial-shot emulation are not QPU evidence.
+
+## Licensing and citation
+
+Software is released under Apache-2.0 (`LICENSE`); derived evidence, figures
+and documentation under CC BY 4.0 (`LICENSE-DATA`); the manuscript PDFs are
+author preprints excluded from both (`LICENSING.md`). Cite the version DOI in
+`CITATION.cff`.

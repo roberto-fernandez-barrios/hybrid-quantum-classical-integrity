@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this artifact, cite the archived release (version DOI below) and the associated article. Code is Apache-2.0; derived evidence and documentation are CC BY 4.0; see LICENSING.md."
+type: software
+title: "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows"
+version: 1.1.0
+date-released: 2026-09-06
+doi: "10.5281/zenodo.22550853"
+repository-code: "https://github.com/roberto-fernandez-barrios/paper_HAIS"
+license: Apache-2.0
+license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.1.0/LICENSING.md"
+authors:
+  - family-names: "Fernández-Barrios"
+    given-names: "Roberto"
+    orcid: "https://orcid.org/0009-0003-5312-2634"
+    affiliation: "Faculty of Engineering, University of Deusto"
+  - family-names: "Pastor-López"
+    given-names: "Iker"
+    orcid: "https://orcid.org/0000-0002-3068-6248"
+    affiliation: "Faculty of Engineering, University of Deusto"
+  - family-names: "Pikatza-Huerga"
+    given-names: "Amaia"
+    orcid: "https://orcid.org/0009-0003-9080-6242"
+    affiliation: "Faculty of Engineering, University of Deusto"
+  - family-names: "García Bringas"
+    given-names: "Pablo"
+    orcid: "https://orcid.org/0000-0003-3594-9534"
+    affiliation: "Faculty of Engineering, University of Deusto"
+keywords:
+  - integrity auditing
+  - hybrid quantum-classical systems
+  - quantum kernels
+  - sensor coverage
+  - cybersecurity

@@ -33,24 +33,27 @@
 ## Administrative actions requiring the authors
 
 - [x] Confirm author list/order, affiliations, corresponding author and ORCIDs (2026-09-06; mirrored from the companion intrusion-detection study).
-- [ ] Confirm CRediT roles (proposed on the title page) and competing-interest wording.
-- [ ] Select a software/artifact license approved by all rights holders.
-- [ ] Confirm the executed-award co-funding formula, if any.
+- [x] Confirm CRediT roles and competing-interest wording (all authors, 2026-09-06).
+- [x] Select a software/artifact license approved by all rights holders
+      (Apache-2.0 code, CC BY 4.0 evidence/documentation, manuscript excluded).
+- [x] Funding statement confirmed by all authors; any extra co-funding clause
+      required by the executed award is a proof-stage addition.
 - [x] Repository visibility: public since 2026-09-06; `main` aligned with the
       science branch. **A LICENSE file must be added before the DOI is minted.**
-- [x] Populate `CITATION.cff.in` and `.zenodo.json.in` with confirmed author
-      metadata (2026-09-06); license and DOI fields remain pending.
-- [ ] Upload/publish the archive in Zenodo and insert the reserved DOI.
+- [x] `CITATION.cff` and `.zenodo.json` carry confirmed authors, licenses and
+      the version DOI (2026-09-06).
+- [x] Upload/publish the archive in Zenodo and insert the reserved DOI
+      (`10.5281/zenodo.22550853`, artifact 1.1.0, tag `paper15-q1-v1.1.0`).
 - [ ] Remove author-identifying funding/AI metadata if the journal requires it
       outside the anonymous manuscript file; retain it on the title page.
-- [ ] Confirm originality/not-under-review statement in the cover letter.
+- [x] Confirm originality/not-under-review statement in the cover letter.
 - [x] Disclose closely related papers/preprints with a difference statement
       (Section II-C, title page, cover letter); attach copies if the portal asks.
 - [x] Replace `Anonymous Author(s)` in both LaTeX sources (done 2026-09-06).
 - [ ] Recheck the TDSC portal on submission day for article type, page limit,
       biographies, template, supplement designation, and current special issues.
-- [ ] Obtain all-author approval of the generative-AI disclosure (updated
-      2026-09-06 to name OpenAI Codex and Anthropic Claude Code).
+- [x] Obtain all-author approval of the generative-AI disclosure (system,
+      sections and level of use; approved 2026-09-06).
 
 These items are authorship, legal or external-account decisions. They do not
 require new scientific experiments.

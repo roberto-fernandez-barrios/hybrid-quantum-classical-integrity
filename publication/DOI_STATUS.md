@@ -1,43 +1,34 @@
 # Zenodo/DOI status
 
-Status on 6 September 2026: **artifact 1.1.0 (frozen 1.0.0 evidence plus
-preregistered reinforcement gates) and TDSC release candidate rc2 prepared;
-DOI not minted**. The GitHub repository became public on 6 September 2026 and
-`main` now points at the science branch; a LICENSE file is still missing and
-must be added before archival.
+Status on 6 September 2026: **version DOI reserved and inserted; record
+published with the 1.1.0 release**.
 
-No Zenodo access token is available in the workspace. Author order,
-affiliations and ORCIDs were confirmed on 6 September 2026; CRediT roles are
-proposed on the title page and await all-author confirmation; the license
-choice is still open. No license or archival decision has been made
-automatically.
+| Item | Value |
+|---|---|
+| Version DOI | `10.5281/zenodo.22550853` |
+| Zenodo record | <https://doi.org/10.5281/zenodo.22550853> |
+| Artifact version | `1.1.0` (frozen 1.0.0 evidence plus the preregistered reinforcement gates) |
+| Repository tag | `paper15-q1-v1.1.0` |
+| GitHub release | <https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.1.0> |
+| Files deposited | `paper15-q1-v1.1.0.zip` (compact review artifact) and `paper15-q1-v1.1.0-source.zip` (tagged source snapshot), each with SHA-256 |
+| Licenses | Apache-2.0 (code), CC BY 4.0 (derived evidence and documentation), manuscript files excluded pending the IEEE publishing agreement |
+| Authors | Fernández-Barrios, Pastor-López, Pikatza-Huerga, García Bringas (University of Deusto), with ORCIDs |
+| Funding | AEI ATHENA-AEGIS `PID2024-155693NB-C43` |
 
-Ready inputs:
+Release order followed (so that PDF, `CITATION.cff`, `.zenodo.json`, tag,
+GitHub release and Zenodo record point at the same object):
 
-- frozen evidence version `1.0.0` (tag `paper15-q1-v1.0.0`) and artifact
-  version `1.1.0` (submission tag to be created after all-author approval);
-- `publication/paper15-q1-v1.0.0.zip` and its SHA-256 file;
-- TDSC submission build `1.1.0-tdsc-rc2`, with checked main and supplement
-  sources in `publication/tdsc/` and rendered PDFs in `output/pdf/`;
-- `publication/tdsc/CHECKSUMS.sha256`, binding the inspected PDFs;
-- `.zenodo.json.in` and `CITATION.cff.in` metadata templates;
-- verified AEI grant `PID2024-155693NB-C43`;
-- artifact-wide and evidence-level SHA-256 manifests.
+1. all-author approval of authorship, CRediT, competing interests, funding and
+   the generative-AI disclosure (2026-09-06);
+2. licenses added and the two editorial corrections applied;
+3. Zenodo draft created and DOI reserved before publication;
+4. DOI inserted in the manuscript, supplement, title page, cover letter,
+   `CITATION.cff`, `.zenodo.json`, README and this file;
+5. clean rebuild (11 + 6 pages), checksums, 26 tests, verifier, artifact
+   reassembled and verified;
+6. release commit, immutable tag, GitHub release with the artifact ZIP;
+7. artifact and source ZIPs uploaded to the reserved deposition and published.
 
-To mint the DOI after author confirmation:
-
-1. choose and add the approved license;
-2. replace author placeholders in both metadata templates and rename them to
-   `.zenodo.json` and `CITATION.cff`;
-3. publish the exact tagged release or upload the prepared ZIP directly;
-4. reserve then publish the Zenodo record;
-5. replace `DOI PENDING` in the metadata, manuscript availability statement and
-   submission files with the version DOI.
-
-After inserting the DOI and confirmed author metadata, rerun
-`publication/tdsc/build.ps1`, regenerate `CHECKSUMS.sha256`, and visually inspect
-every page. The root artifact tag must not be silently moved; create a new,
-author-approved submission/release tag if the public package differs.
-
-Minting the DOI before these confirmations would create a public scholarly
-record with potentially incorrect authorship or reuse rights.
+The frozen 1.0.0 evidence tag `paper15-q1-v1.0.0` was never archived with a DOI
+and is unchanged; 1.1.0 is the first archived version. Any later version must
+be a new Zenodo version under the same concept record, never an in-place edit.

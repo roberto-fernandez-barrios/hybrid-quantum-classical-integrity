@@ -114,6 +114,13 @@ primary count causes a non-zero exit.
 
 See `manuscript/Q1_REPRODUCTION.md` for dataset staging and experiment replay.
 Exact-statevector evaluation and binomial-shot emulation are not QPU evidence.
+
+## Licensing and citation
+
+Software is released under Apache-2.0 (`LICENSE`); derived evidence, figures
+and documentation under CC BY 4.0 (`LICENSE-DATA`); the manuscript PDFs are
+author preprints excluded from both (`LICENSING.md`). Cite the version DOI in
+`CITATION.cff`.
 """
 
 
@@ -150,6 +157,9 @@ def assemble(repo: Path, out: Path, version: str) -> dict[str, object]:
     copied += _copy_tree(repo / "tests", out / "software" / "tests")
 
     shutil.copy2(repo / "CHANGELOG.md", out / "CHANGELOG.md")
+    for name in ("LICENSE", "LICENSE-DATA", "LICENSING.md", "CITATION.cff"):
+        if (repo / name).is_file():
+            shutil.copy2(repo / name, out / name)
     (out / "VERSION").write_text(version + "\n", encoding="utf-8")
 
     # Counts for the README come from the embedded manifests.

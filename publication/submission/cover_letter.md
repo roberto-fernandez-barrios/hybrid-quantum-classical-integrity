@@ -55,13 +55,13 @@ the ZZ-versus-SVC profile as standalone novelty. We make no claim of quantum
 advantage, complete lifecycle security, physical-QPU coverage, calibrated
 device-noise coverage, provider authentication, scheduling security,
 multi-tenancy protection, or operational Fleet Management. Code, tests, derived
-evidence, vector figures, and SHA-256 manifests accompany the manuscript.
+evidence, vector figures, and SHA-256 manifests accompany the manuscript and are
+archived at Zenodo (DOI 10.5281/zenodo.22550853, version 1.1.0).
 
-The manuscript is original and is not under consideration elsewhere. **[ALL
-AUTHORS TO CONFIRM APPROVAL BEFORE UPLOAD.]** Author identities, affiliations,
-ORCIDs, proposed CRediT roles, funding and the related-manuscript disclosure
-are recorded on the title page; competing interests and artifact licensing
-remain to be confirmed.
+The manuscript is original, is not under consideration elsewhere, and has been
+approved by all authors. Author identities, affiliations, ORCIDs, CRediT
+roles, funding, competing interests (none), artifact licensing and the
+related-manuscript disclosure are recorded on the title page.
 
 Sincerely,
 

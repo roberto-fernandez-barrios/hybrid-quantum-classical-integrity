@@ -108,9 +108,12 @@ spread over the grid. Exact label-path invariance holds in both environments.
 - The exact blind regions are not threshold artifacts: they are zero under
   calibration and are closed only by item-aligned evidence, exactly as the
   article's contract requires.
-- Non-invariant sensors reach nominal false-alarm rates on disjoint clean
-  pools; regime unions are honestly larger. Detection is mechanism-dependent
-  and, for KS, rests on cluster structure that an adversary could preserve.
+- Non-invariant sensors were calibrated against the nominal 5% per-sensor
+  target and show pooled empirical false-alarm rates of 2.9–6.9% on disjoint
+  clean pools; uncorrected regime unions are 12.5–25.9%. The binomial
+  intervals are descriptive (draws within a cell share a pool half). Detection
+  is mechanism-dependent and, for KS, rests on cluster structure that an
+  adversary could preserve.
 - The secondary ZZ-minus-SVC profile is direction-stable but magnitude-
   conditional on the quantum-branch scaler and on clean headroom; it must not
   be read as a universal ordering.

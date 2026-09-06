@@ -40,5 +40,7 @@
       "scheme": "url"
     }
   ],
-  "notes": "Funding: Spanish State Research Agency (AEI), ATHENA-AEGIS PID2024-155693NB-C43. LICENSE DECISION REQUIRED BEFORE PUBLICATION."
+  "notes": "Funding: Spanish State Research Agency (AEI), ATHENA-AEGIS PID2024-155693NB-C43. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",
+  "license": "apache-2.0",
+  "access_right": "open"
 }
