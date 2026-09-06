@@ -6,9 +6,11 @@ release over 1.1.0; funding acknowledgement wording only).
 | Version 1.1.1 | Value |
 |---|---|
 | Version DOI | `10.5281/zenodo.22552643` |
-| Repository tag | `paper15-q1-v1.1.1` |
+| Zenodo record | <https://zenodo.org/records/22552643> (published 2026-09-06, state `done`) |
+| Repository tag | `paper15-q1-v1.1.1` (release commit `d765a67`) |
 | GitHub release | <https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.1.1> |
-| Deposited files | `paper15-q1-v1.1.1.zip`, `paper15-q1-v1.1.1-source.zip`, `SHA256SUMS.txt` (hashes recorded after publication) |
+| Deposited files | `paper15-q1-v1.1.1.zip` (compact review artifact, 6,383,247 bytes, SHA-256 `8dcd71af6809078e3f38c4d4250898c93e19b818f523c69aadd1000dd0d776e0`); `paper15-q1-v1.1.1-source.zip` (tagged source snapshot, 20,723,313 bytes, SHA-256 `18c52141fb02a9d1d609689c65abd4c590f5f58332e1350681524a63608f818a`); `SHA256SUMS.txt` |
+| Evidence | The five evidence manifests are byte-identical to version 1.1.0 |
 | Funding wording | Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU (AEI guide v09) |
 
 Version 1.1.0 record (evidence identical):

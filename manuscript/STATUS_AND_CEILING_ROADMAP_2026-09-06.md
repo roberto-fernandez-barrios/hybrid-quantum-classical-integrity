@@ -298,5 +298,17 @@ DOI en Zenodo antes de publicar y se insertó en todo el paquete, se recompiló
 (11 + 6 páginas), se reensambló y verificó el artefacto, y se cerró con el
 commit de release `10a2a52`, el tag `paper15-q1-v1.1.0`, la GitHub Release y
 la publicación en Zenodo: DOI de versión `10.5281/zenodo.22550853`, DOI de
-concepto `10.5281/zenodo.22550852`. Queda únicamente la acción humana de
-subir el paquete al portal de TDSC (y el recheck de convocatorias ese día).
+concepto `10.5281/zenodo.22550852`.
+
+**Versión editorial 1.1.1 (misma noche).** La guía de publicidad de la AEI
+(v09, 5-feb-2026) prescribe para «Generación de Conocimiento» 2021–2025 la
+fórmula `MICIU/AEI/10.13039/501100011033 y por FEDER, UE` (acrónimos en
+español; en inglés `funded by MICIU/AEI/10.13039/501100011033 and by
+ERDF/EU`). La frase de financiación pasó a: *This work is part of grant
+PID2024-155693NB-C43, ATHENA-AEGIS (…), funded by MICIU/AEI/10.13039/501100011033
+and by ERDF/EU*, conservando el acrónimo y el código que pidió el IP. Sin
+ningún cambio científico (manifiestos de evidencia byte-idénticos). Release
+`d765a67`, tag `paper15-q1-v1.1.1`, GitHub Release y nueva versión Zenodo
+`10.5281/zenodo.22552643` bajo el mismo DOI de concepto. La 1.1.0 queda
+intacta. Queda únicamente la acción humana de subir el paquete al portal de
+TDSC (y el recheck de convocatorias ese día).
