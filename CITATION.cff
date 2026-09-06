@@ -5,6 +5,13 @@ title: "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classi
 version: 1.1.0
 date-released: 2026-09-06
 doi: "10.5281/zenodo.22550853"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22550852"
+    description: "Concept DOI (resolves to the latest archived version)"
+  - type: url
+    value: "https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.1.0"
+    description: "GitHub release of the tagged source"
 repository-code: "https://github.com/roberto-fernandez-barrios/paper_HAIS"
 license: Apache-2.0
 license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.1.0/LICENSING.md"

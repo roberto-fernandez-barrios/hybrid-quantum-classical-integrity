@@ -289,5 +289,14 @@ Resultados en una línea cada uno:
   condicional: estandarizar la rama cuántica lo reduce a ~1/3; tuning lo
   amplía en CICIDS ID (ZZ gana margen limpio) y no lo cambia en UNSW OOD.
 
-Sin tag, release ni Zenodo: quedan la aprobación de todos los autores (CRediT,
-conflictos, disclosure de IA), la licencia y el DOI.
+**Release (misma noche, tras la aprobación de todos los autores).** Se aplicaron
+las tres correcciones de la segunda opinión (abstract: "nominal 5% per-sensor
+false-alarm target"; disclosure de IA con sistemas, secciones y nivel de uso;
+title page sin contradicciones), se añadió el licenciamiento mixto (Apache-2.0
+código, CC BY 4.0 evidencia/documentación, manuscrito excluido), se reservó el
+DOI en Zenodo antes de publicar y se insertó en todo el paquete, se recompiló
+(11 + 6 páginas), se reensambló y verificó el artefacto, y se cerró con el
+commit de release `10a2a52`, el tag `paper15-q1-v1.1.0`, la GitHub Release y
+la publicación en Zenodo: DOI de versión `10.5281/zenodo.22550853`, DOI de
+concepto `10.5281/zenodo.22550852`. Queda únicamente la acción humana de
+subir el paquete al portal de TDSC (y el recheck de convocatorias ese día).
