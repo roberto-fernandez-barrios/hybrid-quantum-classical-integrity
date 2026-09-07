@@ -152,8 +152,7 @@ and their Zenodo versions are immutable.
 This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
 Zenodo concept DOI `10.5281/zenodo.22550852` resolves to the latest archived
-version; the version DOI of 1.2.0 is recorded in `CITATION.cff` and
-`publication/DOI_STATUS.md` (1.1.1: `10.5281/zenodo.22552643`; 1.1.0:
+version; the version DOI of 1.2.0 is `10.5281/zenodo.22644529` (1.1.1: `10.5281/zenodo.22552643`; 1.1.0:
 `10.5281/zenodo.22550853`). Author metadata, CRediT roles and licenses were
 confirmed by all authors on 2026-09-06: code is Apache-2.0, derived evidence
 and documentation CC BY 4.0, and the manuscript files are author preprints

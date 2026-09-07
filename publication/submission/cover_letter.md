@@ -65,8 +65,7 @@ authentication, scheduling security, multi-tenancy protection, context-condition
 runtime calibration under non-stationarity, or operational Fleet Management.
 Code, tests, derived evidence, vector figures, six SHA-256 evidence manifests
 and the preregistrations accompany the manuscript and are archived at Zenodo
-under the concept DOI 10.5281/zenodo.22550852 (version 1.2.0; the version DOI
-is recorded in the artifact metadata).
+at Zenodo (version DOI 10.5281/zenodo.22644529, version 1.2.0; concept DOI 10.5281/zenodo.22550852).
 
 The manuscript is original, is not under consideration elsewhere, and has been
 approved by all authors. Author identities, affiliations, ORCIDs, CRediT
