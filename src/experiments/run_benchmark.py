@@ -50,6 +50,7 @@ from src.attacks.label_flip_prior_preserving import (
     LabelFlipPriorPreservingCfg,
 )
 from src.attacks.mean_shift import MeanShift, MeanShiftCfg
+from src.attacks.cluster_preserving import ClusterPreservingCfg, ClusterPreservingPerturbation
 from src.attacks.quantization import Quantization, QuantizationCfg
 from src.attacks.scaling_drift import ScalingDrift, ScalingDriftCfg
 from src.attacks.sham import (
@@ -782,6 +783,47 @@ def _build_attacks(suite: str) -> List[AttackSpec]:
         specs.extend(_build_attacks("paper_sham")[1:])
         return specs
 
+    if suite in ("paper_f5", "f5"):
+        # Adversarial Gate A (artifact 1.3.0): the two executed feature-side drift
+        # mechanisms at the frozen strengths as matched controls (identical tags
+        # and therefore identical attack seeds to ``paper_core``), plus the
+        # adaptive cluster-preserving variants of both mechanisms on the
+        # prespecified strength grid (``manuscript/paper15_v13_prereg.md``).
+        f5_strengths = [0.02, 0.05, 0.10, 0.25, 0.50]
+        for a in sev_core:
+            _add(
+                f"scaling_drift_alpha_{a:.3f}",
+                "covariate_shift",
+                a,
+                "core",
+                ScalingDrift(ScalingDriftCfg(alpha=float(a))),
+            )
+        for d in sev_core:
+            _add(
+                f"mean_shift_pf_delta_{d:.3f}",
+                "covariate_shift",
+                d,
+                "core",
+                MeanShift(MeanShiftCfg(delta=float(d), per_feature=True)),
+            )
+        for d in f5_strengths:
+            _add(
+                f"cluster_preserving_mean_shift_delta_{d:.3f}",
+                "adaptive_covariate_shift",
+                d,
+                "adaptive",
+                ClusterPreservingPerturbation(ClusterPreservingCfg(mechanism="mean_shift", strength=float(d))),
+            )
+        for a in f5_strengths:
+            _add(
+                f"cluster_preserving_scaling_alpha_{a:.3f}",
+                "adaptive_covariate_shift",
+                a,
+                "adaptive",
+                ClusterPreservingPerturbation(ClusterPreservingCfg(mechanism="scaling_drift", strength=float(a))),
+            )
+        return specs
+
     if suite in ("paper_core", "core"):
         for r in sev_core:
             _add(
@@ -1024,7 +1066,7 @@ def _build_attacks(suite: str) -> List[AttackSpec]:
 
     raise ValueError(
         f"Unknown --attack-suite '{suite}'. "
-        f"Use: paper_core|paper_support|paper_sham|paper_full|v2|all|default|tiny|smoke"
+        f"Use: paper_core|paper_support|paper_sham|paper_null|paper_f5|paper_full|v2|all|default|tiny|smoke"
     )
 
 

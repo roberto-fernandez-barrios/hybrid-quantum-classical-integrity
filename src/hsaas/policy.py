@@ -1,26 +1,47 @@
 """Information-aware, calibrated decision layer for the HSaaS integrity contract.
 
-Artifact 1.2.0, Gate D (``manuscript/paper15_v12_policy_prereg.md``).
+Artifact 1.3.0 (``manuscript/paper15_v13_prereg.md``; first evaluated in
+artifact 1.2.0, ``manuscript/paper15_v12_policy_prereg.md``).
 
 The layer consumes, for one audited batch,
 
 * the information regime available to the auditor and whether it includes a
   trusted item-aligned reference;
 * the per-sensor calibrated fire flags (1.1.0 thresholds) and the
-  family-calibrated regime flag (Gate F);
+  family-calibrated regime flag (Gate F, conformal max-rank p-value);
 * the exact item-aligned fire flag, defined only under a trusted reference;
 * the protected boundaries declared by the contract;
 
-and returns a fail-closed ``allow / hold / block`` decision with reason codes.
+and returns an ``allow / hold / block`` decision with reason codes.
 
-``block`` is reserved for violations of an exact invariant against a trusted
-reference. ``hold`` is the response to statistical evidence of deviation or to
-missing mandatory evidence. The decision composes with the four frozen HSaaS
+Policy taxonomy (``POLICY_CLASS``)
+----------------------------------
+
+* P0 ``serve_always`` -- baseline: always ``allow``.
+* P1 ``union_uncalibrated`` -- uncalibrated, risk-tolerant: ``hold`` if any
+  per-sensor rule of the regime fires (the 1.1.0 rule); serves otherwise,
+  including under a declared residual blind region.
+* P2 ``family_calibrated`` -- calibrated, risk-tolerant: ``hold`` if the
+  family-calibrated regime rule fires; serves otherwise, *including under an
+  explicitly declared residual blind region* (reason code
+  ``allowed_with_residual_blind_region``). It is not a fail-closed policy.
+* P3 ``family_calibrated_strict`` -- strict, fail-closed / abstaining: as P2,
+  and every protected boundary that the regime cannot verify exactly or
+  statistically yields ``hold`` (reason code ``unverified_boundary``); missing
+  mandatory evidence is interpreted as abstention.
+
+Three notions must not be conflated: the *contract logic* of ``src/hsaas/contracts.py``
+fails closed on its invariants (a violated invariant blocks, missing mandatory
+evidence holds); the *decision policy* P2 is calibrated and risk-tolerant; the
+*decision policy* P3 is strictly fail-closed. ``block`` is reserved for
+violations of an exact invariant against a trusted reference; ``hold`` is the
+response to statistical evidence of deviation or, under P3, to a boundary the
+regime cannot verify. The decision composes with the four frozen HSaaS
 contracts by taking the maximum in the lattice ``allow < hold < block``.
 
 The module is pure: it performs no I/O and does not depend on the evidence
-tables, so the same function serves the batch evaluator and a service
-endpoint.
+tables, so the same function serves the offline batch evaluator of Gate D and
+a future service endpoint; nothing here is a deployed runtime service.
 """
 
 from __future__ import annotations
@@ -37,6 +58,12 @@ POLICIES: Final[tuple[str, ...]] = (
     "family_calibrated_strict",
 )
 BOUNDARIES: Final[tuple[str, ...]] = ("feature", "prediction", "label")
+POLICY_CLASS: Final[dict[str, str]] = {
+    "serve_always": "baseline (always serve)",
+    "union_uncalibrated": "uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",
+    "family_calibrated": "calibrated, risk-tolerant (may serve under a declared residual blind region)",
+    "family_calibrated_strict": "strict fail-closed / abstaining (unverified mandatory boundary => hold)",
+}
 
 
 @dataclass(frozen=True)
@@ -103,7 +130,11 @@ def decide(
     evidence: Evidence,
     protected: tuple[str, ...] = BOUNDARIES,
 ) -> Decision:
-    """Deterministic, total decision function of policy, regime and evidence."""
+    """Deterministic, total decision function of policy, regime and evidence.
+
+    ``evidence.family_fire`` is the flag of the family-calibrated rule of the
+    regime (artifact 1.3.0: conformal max-rank p-value <= alpha).
+    """
 
     spec = REGIMES[regime] if isinstance(regime, str) else regime
     if policy not in POLICIES:
