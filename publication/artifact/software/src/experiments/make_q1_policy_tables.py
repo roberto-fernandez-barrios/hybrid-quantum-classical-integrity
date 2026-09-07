@@ -34,9 +34,9 @@ POLICY_LABEL = {
     "serve_always": "P0 serve-always (baseline)",
     "union_uncalibrated": "P1 union (uncalibrated, risk-tolerant)",
     "family_calibrated": "P2 conformal (calibrated, risk-tolerant)",
-    "family_calibrated_strict": "P3 strict (fail-closed, abstaining)",
+    "family_calibrated_strict": "P3 coverage-complete abstaining (fail-closed on missing coverage)",
 }
-POLICY_SHORT = {"serve_always": "P0", "union_uncalibrated": "P1 union", "family_calibrated": "P2 conf.", "family_calibrated_strict": "P3 strict"}
+POLICY_SHORT = {"serve_always": "P0", "union_uncalibrated": "P1 union", "family_calibrated": "P2 conf.", "family_calibrated_strict": "P3 abst."}
 POLICY_ORDER = ["serve_always", "union_uncalibrated", "family_calibrated", "family_calibrated_strict"]
 RULE_SHORT = {"union": "union", "family_v12": "1.2.0", "family": "conformal"}
 ENV_LABEL = {
@@ -88,11 +88,13 @@ def _key(regime: str) -> str:
     return regime.replace("_", "")
 
 
-def _table(env: str, caption: str, label: str, colspec: str, header: str, rows: list[str], *, size: str = "\\scriptsize", colsep: str = "3pt", tabularx: bool = False) -> str:
+def _table(env: str, caption: str, label: str, colspec: str, header: str, rows: list[str], *, size: str = "\\scriptsize", colsep: str = "3pt", tabularx: bool = False, placement: str = "!tbp") -> str:
+    """Render one float. Supplement tables use ``!tbp`` so that they pack; the main-article tables pass ``!t``."""
+
     begin = f"\\begin{{tabularx}}{{{colspec}}}" if tabularx else f"\\begin{{tabular}}{{{colspec}}}"
     end = "\\end{tabularx}" if tabularx else "\\end{tabular}"
     return NL.join([
-        f"\\begin{{{env}}}[!t]",
+        f"\\begin{{{env}}}[{placement}]",
         f"\\caption{{{caption}}}",
         f"\\label{{{label}}}", "\\centering", size, f"\\setlength{{\\tabcolsep}}{{{colsep}}}",
         begin, "\\toprule",
@@ -121,8 +123,8 @@ def table_main_policy(ev: Path) -> str:
         if regime != "I_XFY_trusted":
             rows.append("\\addlinespace[1pt]")
     n_mat = int(m["n_material"].iloc[0])
-    caption = ("Offline end-to-end decisions on the frozen observations (primary materiality $|\\Delta_R|>0$; " + _n(n_mat) + " material of 10,800 intervened observations). FPR: clean false-action rate on 12,000 disjoint clean draws, or on the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$ (a different denominator). Benign: fraction of the 1,200 near-null in-place shams held or blocked (same rows for every regime). P0 serve-always allows all " + _n(n_mat) + " material observations in every regime. Blind: material observations structurally indistinguishable from the reference under the regime.")
-    return _table("table", caption, "tab:policy", "@{}llrrrrr@{}", "Regime & Policy & FPR & Benign & Unsafe & Contain. & Blind \\\\", rows, colsep="2pt")
+    caption = ("Offline end-to-end decisions on the frozen observations (primary materiality $|\\Delta_R|>0$; " + _n(n_mat) + " material of 10,800 intervened observations). P1 union, P2 conformal (calibrated, risk-tolerant), P3 abst.\\ (coverage-complete abstaining). FPR: clean false-action rate on 12,000 disjoint clean draws, or on the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$ (a different denominator). Benign: fraction of the 1,200 near-null synthetic controls held or blocked (same rows for every regime). P0 serve-always allows all " + _n(n_mat) + " material observations in every regime. Blind: material observations structurally indistinguishable from the reference under the regime.")
+    return _table("table", caption, "tab:policy", "@{}llrrrrr@{}", "Regime & Policy & FPR & Benign & Unsafe & Contain. & Blind \\\\", rows, colsep="2pt", placement="!t")
 
 
 def table_main_adversarial(adv: Path) -> str:
@@ -257,7 +259,7 @@ def table_policy_full(ev: Path) -> str:
         rows.append("\\addlinespace[1pt]")
     n_mat = int(m["n_material"].iloc[0])
     n_imm = int(m["n_immaterial"].iloc[0])
-    caption = ("Gate D: complete decision counts at the primary materiality threshold ($|\\Delta_R|>0$; " + _n(n_mat) + " material and " + _n(n_imm) + " non-material intervened observations; 1,200 near-null benign shams). P0 serve-always, P1 union, P2 conformal, P3 strict. Clean rows: 12,000 disjoint draws for batch-level regimes; the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$. B.\\ hold/block: benign shams held or blocked. Integ.: non-material intervened observations held or blocked. Safe allow: clean, benign and non-material observations allowed. Interr.: non-material interruption rate, (false hold + false block + benign hold + benign block + integrity-only hold/block) over all non-material observations.")
+    caption = ("Gate D: complete decision counts at the primary materiality threshold ($|\\Delta_R|>0$; " + _n(n_mat) + " material and " + _n(n_imm) + " non-material intervened observations; 1,200 near-null synthetic controls). P0 serve-always, P1 union, P2 conformal, P3 coverage-complete abstaining. Clean rows: 12,000 disjoint draws for batch-level regimes; the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$. B.\\ hold/block: near-null controls held (statistical) or blocked (exact-reference violation). Integ.: non-material intervened observations held or blocked. Safe allow: clean, benign and non-material observations allowed. Interr.: non-material interruption rate, (false hold + false block + benign hold + benign block + integrity-only hold/block) over all non-material observations.")
     return _table("table*", caption, "tab:s-policy-full", "@{}llrrrrrrrrrrrr@{}", "Regime & Pol. & Clean & F.\\ hold & F.\\ block & B.\\ hold & B.\\ block & Unsafe & T.\\ hold & T.\\ block & Integ. & Imm.\\ allow & Safe allow & Interr. \\\\", rows, colsep="2pt")
 
 
@@ -304,7 +306,7 @@ def table_policy_family(ev: Path) -> str:
             cells.append(f"{_n(r['unsafe_allow'])}/{_n(r['n_material'])}")
         rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + " \\\\")
     caption = "Gate D: unsafe allows / material observations by intervention mechanism under the conformal calibrated policy P2 ($|\\Delta_R|>0$)."
-    return _table("table", caption, "tab:s-policy-family", "@{}lrrrr@{}", "Regime & " + " & ".join(FAMILY_LABEL[x] for x in fams) + " \\\\", rows)
+    return _table("table", caption, "tab:s-policy-family", "@{}lrrrr@{}", "Regime & " + " & ".join(FAMILY_LABEL[x] for x in fams) + " \\\\", rows, placement="H")
 
 
 def table_witnesses(ev: Path) -> str:
@@ -373,8 +375,8 @@ def table_adversarial_policy(adv: Path) -> str:
             cells = [f"{_n(g.loc[(cls, regime, p), 'unsafe_allow'])}" for p in ("union_uncalibrated", "family_calibrated", "family_calibrated_strict")]
             rows.append(f"{REGIME_LABEL[regime]} & {_n(nm)} & " + " & ".join(cells) + " \\\\")
         rows.append("\\addlinespace[1pt]")
-    caption = ("Gate A: unsafe allows (material rows served) under P1 union, P2 conformal and P3 strict per regime, summed over mechanisms and strengths ($|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
-    return _table("table", caption, "tab:s-adversarial-policy", "@{}lrrrr@{}", "Regime & Material & P1 union & P2 conformal & P3 strict \\\\", rows, colsep="4pt")
+    caption = ("Gate A: unsafe allows (material rows served) under P1 union, P2 conformal and P3 coverage-complete abstaining per regime, summed over mechanisms and strengths ($|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
+    return _table("table", caption, "tab:s-adversarial-policy", "@{}lrrrr@{}", "Regime & Material & P1 union & P2 conformal & P3 abst. \\\\", rows, colsep="4pt", placement="H")
 
 
 def table_adversarial_env(adv: Path) -> str:
@@ -403,7 +405,7 @@ def table_adversarial_branch(adv: Path) -> str:
     caption = ("Gate A: detection of the adaptive variants under the conformal rule by branch (classical SVC on standardized features; fidelity kernels on features scaled to $[0,2\\pi]$). The cluster rule is the same in both branches; the branch scaler changes how much the unclustered entries move relative to the null.")
     header = (" & & \\multicolumn{2}{c}{Classical} & \\multicolumn{2}{c}{Quantum} \\\\" + NL + "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}" + NL +
               "Mechanism & Strength & $\\mathcal I_X$ & $\\mathcal I_{XF}$ & $\\mathcal I_X$ & $\\mathcal I_{XF}$ \\\\")
-    return _table("table", caption, "tab:s-adversarial-branch", "@{}lrrrrr@{}", header, rows, colsep="3.5pt")
+    return _table("table", caption, "tab:s-adversarial-branch", "@{}lrrrrr@{}", header, rows, colsep="3.5pt", placement="H")
 
 
 # ---------------------------------------------------------------------------
@@ -429,7 +431,7 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
     fam = fam[(fam["tau"] == 0.0) & (fam["policy"] == "family_calibrated") & (fam["family_rule"] == "conformal")].set_index(["regime", "attack_family"])
     units = pd.read_csv(ev / "inference_units.csv").iloc[0]
     env = pd.read_csv(ev / "family_false_alarm_by_environment.csv")
-    lines = ["% Generated by make_q1_policy_tables.py from the manifested 1.3.0 tables; do not edit."]
+    lines = ["% Generated by make_q1_policy_tables.py from the manifested tables of the frozen 1.3.0 evidence; do not edit."]
     for regime in BATCH_REGIMES:
         key = _key(regime)
         lines.append(_macro(f"FprUnion{key}", _f(fpr.loc[(regime, "union"), "pooled_rate"])))
@@ -456,6 +458,9 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
             lines.append(_macro(f"BenignHB{pk}{key}", _f(r["benign_interruption_rate"], 2)))
             lines.append(_macro(f"BenignHold{pk}{key}", _n(r["benign_hold"])))
             lines.append(_macro(f"BenignBlock{pk}{key}", _n(r["benign_block"])))
+            # Total interruptions = statistical holds + exact-reference blocks (the decomposition printed in the prose).
+            lines.append(_macro(f"BenignInterrupt{pk}{key}", _n(int(r["benign_hold"]) + int(r["benign_block"]))))
+            lines.append(_macro(f"BenignHBPct{pk}{key}", str(int(round(100 * float(r["benign_interruption_rate"]))))))
             lines.append(_macro(f"Interrupt{pk}{key}", _f(r["nonmaterial_interruption_rate"], 2)))
         lines.append(_macro(f"UnsafeLegacyFamily{key}", _n(mc0.loc[(regime, "family_calibrated"), "unsafe_allow"])))
         lines.append(_macro(f"DecFprLegacyFamily{key}", _f(mc0.loc[(regime, "family_calibrated"), "decision_fpr"])))

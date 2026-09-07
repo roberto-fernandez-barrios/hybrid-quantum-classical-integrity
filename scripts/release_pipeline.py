@@ -1,4 +1,4 @@
-"""Release pipeline for Paper 1.5 artifact versions (1.2.0 and later; 1.3.0 anchors are version-parametrised).
+"""Release pipeline for Paper 1.5 artifact versions (1.2.0 and later; anchors and messages are version-parametrised).
 
 The pipeline makes the version DOI, the manuscript, the citation metadata, the
 Git tag, the GitHub release and the Zenodo record point at the same object,
@@ -47,6 +47,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONCEPT_DOI = "10.5281/zenodo.22550852"
+# Human-readable summary of the version being released (commit, tag and GitHub release titles).
+RELEASE_SUMMARY = {
+    "1.3.0": "scientific closure of Paper 1.5 for IEEE TDSC",
+    "1.3.1": "formal and editorial correction of Paper 1.5 for IEEE TDSC (experimental evidence frozen at 1.3.0)",
+}
 ZENODO_API = "https://zenodo.org/api"
 SCIENCE_BRANCH = "paper15-q1-expansion"
 MAIN_BRANCH = "main"
@@ -85,6 +90,13 @@ def _version() -> str:
 
 def _tag() -> str:
     return f"paper15-q1-v{_version()}"
+
+
+def _summary() -> str:
+    version = _version()
+    if version not in RELEASE_SUMMARY:
+        _fail(f"no release summary registered for version {version}; add it to RELEASE_SUMMARY")
+    return RELEASE_SUMMARY[version]
 
 
 def _token() -> str:
@@ -282,7 +294,7 @@ def finalize(doi: str) -> None:
         forbidden = [f for f in staged if f.endswith(".zip") or f.endswith("SHA256SUMS.txt") or f.endswith("zenodo_draft_state.json")]
         if forbidden:
             _fail(f"release assets staged for commit: {forbidden}")
-        _run(["git", "commit", "-q", "-m", f"Release {tag}: scientific closure of Paper 1.5 for IEEE TDSC (version DOI {doi})\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"])
+        _run(["git", "commit", "-q", "-m", f"Release {tag}: {_summary()} (version DOI {doi})\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01KWdy8kq2aH9hjFa8cMvd5D"])
     _git_checks(tag)
     head = _out(["git", "rev-parse", "HEAD"])
 
@@ -293,7 +305,7 @@ def finalize(doi: str) -> None:
     if _out(["git", "status", "--porcelain"]):
         _fail("building the assets dirtied the working tree; check .gitignore")
 
-    _run(["git", "tag", "-a", tag, "-m", f"Paper 1.5 artifact {version} - observational indistinguishability and integrity blind regions; conformal decision-level calibration, offline end-to-end decisions and the adaptive cluster-preserving gate. Zenodo DOI {doi}."])
+    _run(["git", "tag", "-a", tag, "-m", f"Paper 1.5 artifact {version} - observational indistinguishability and integrity blind regions; {_summary()}. Zenodo DOI {doi}."])
     tagged = _out(["git", "rev-list", "-n", "1", tag])
     if tagged != head:
         _fail("tag does not point at HEAD")
@@ -316,7 +328,7 @@ def finalize(doi: str) -> None:
         _fail("remote tag does not point at the release commit")
     print("branch, main and tag all point at", head)
 
-    _run(["gh", "release", "create", tag, str(artifact_zip), str(ROOT / "publication" / f"{tag}.zip.sha256"), "--title", f"Paper 1.5 artifact {version} (final scientific closure for IEEE TDSC)", "--notes-file", str(ROOT / "publication/tdsc/RELEASE_NOTES.md")])
+    _run(["gh", "release", "create", tag, str(artifact_zip), str(ROOT / "publication" / f"{tag}.zip.sha256"), "--title", f"Paper 1.5 artifact {version} ({_summary()})", "--notes-file", str(ROOT / "publication/tdsc/RELEASE_NOTES.md")])
 
     source_zip = ROOT / "publication" / f"{tag}-source.zip"
     _run(["git", "archive", "--format=zip", f"--prefix={tag}-source/", "-o", str(source_zip), tag])

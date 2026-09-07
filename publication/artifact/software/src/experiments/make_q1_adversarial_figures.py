@@ -65,19 +65,21 @@ def _frames(adv: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def _draw(det: pd.DataFrame, mat: pd.DataFrame, paths: list[Path]) -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.55), gridspec_kw={"wspace": 0.32})
+    # Layout (artifact 1.3.1): short panel titles that cannot collide; the eight-entry legend of
+    # panel (a) sits below the axes instead of covering the dashed curves at strengths 0.10-0.50.
+    fig, axes = plt.subplots(1, 2, figsize=(7.16, 3.05), gridspec_kw={"wspace": 0.30, "width_ratios": [1.15, 1.0]})
     ax = axes[0]
     for (mech, cls, regime), (color, ls, marker, label) in STYLE.items():
         block = det[(det["mechanism"] == mech) & (det["attack_class"] == cls) & (det["regime"] == regime)]
-        ax.plot(block["strength"], block["detection_rate"], color=color, linestyle=ls, marker=marker, markersize=3.6, linewidth=1.2, label=label, zorder=3)
+        ax.plot(block["strength"], block["detection_rate"], color=color, linestyle=ls, marker=marker, markersize=3.8, linewidth=1.25, label=label, zorder=3)
     ax.set_xscale("log")
     ax.set_xticks([0.02, 0.05, 0.10, 0.25, 0.50])
-    ax.set_xticklabels(["0.02", "0.05", "0.10", "0.25", "0.50"], fontsize=6.5, color=INK_SECONDARY)
+    ax.set_xticklabels(["0.02", "0.05", "0.10", "0.25", "0.50"], fontsize=6.8, color=INK_SECONDARY)
     ax.set_ylim(-0.03, 1.05)
-    ax.set_xlabel("Strength ($\\delta$ or $\\alpha$, standard deviations of the scaled feature)", fontsize=6.6, color=INK_SECONDARY)
-    ax.set_ylabel("Detection rate, conformal family rule", fontsize=6.8, color=INK_SECONDARY)
-    ax.set_title("(a) Executed drift (solid) versus cluster-preserving attacker (dashed)", fontsize=7.4, color=INK, loc="left")
-    ax.tick_params(axis="y", labelsize=6.5, colors=INK_SECONDARY, length=2)
+    ax.set_xlabel("Strength ($\\delta$ or $\\alpha$, SD of the scaled feature)", fontsize=6.8, color=INK_SECONDARY)
+    ax.set_ylabel("Detection rate, conformal family rule", fontsize=7.0, color=INK_SECONDARY)
+    ax.set_title("(a) Executed drift (solid) vs. cluster-preserving (dashed)", fontsize=7.6, color=INK, loc="left")
+    ax.tick_params(axis="y", labelsize=6.8, colors=INK_SECONDARY, length=2)
     ax.tick_params(axis="x", length=2)
     for spine in ("top", "right"):
         ax.spines[spine].set_visible(False)
@@ -85,22 +87,22 @@ def _draw(det: pd.DataFrame, mat: pd.DataFrame, paths: list[Path]) -> None:
     ax.spines["bottom"].set_color(BASELINE)
     ax.grid(color=HAIRLINE, linewidth=0.8)
     ax.set_axisbelow(True)
-    ax.legend(fontsize=5.2, frameon=False, loc="lower right", ncol=1)
+    ax.legend(fontsize=5.6, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=2, columnspacing=1.2, handlelength=2.2)
 
     axb = axes[1]
     for mech, color in (("mean_shift", BLUE_DARK), ("scaling_drift", ORANGE_DARK)):
         for cls, ls in (("control", "-"), ("adaptive", "--")):
             block = mat[(mat["mechanism"] == mech) & (mat["attack_class"] == cls)]
             label = f"{'Mean shift' if mech == 'mean_shift' else 'Scaling'}, {'executed' if cls == 'control' else 'cluster-preserving'}"
-            axb.plot(block["strength"], block["material_fraction_tau0"], color=color, linestyle=ls, marker="o", markersize=3.6, linewidth=1.2, label=label, zorder=3)
+            axb.plot(block["strength"], block["material_fraction_tau0"], color=color, linestyle=ls, marker="o", markersize=3.8, linewidth=1.25, label=label, zorder=3)
     axb.set_xscale("log")
     axb.set_xticks([0.02, 0.05, 0.10, 0.25, 0.50])
-    axb.set_xticklabels(["0.02", "0.05", "0.10", "0.25", "0.50"], fontsize=6.5, color=INK_SECONDARY)
+    axb.set_xticklabels(["0.02", "0.05", "0.10", "0.25", "0.50"], fontsize=6.8, color=INK_SECONDARY)
     axb.set_ylim(-0.03, 1.05)
-    axb.set_xlabel("Strength", fontsize=6.6, color=INK_SECONDARY)
-    axb.set_ylabel("Material fraction ($|\\Delta_R|>0$)", fontsize=6.8, color=INK_SECONDARY)
-    axb.set_title("(b) Conclusion change kept by the attacker", fontsize=7.4, color=INK, loc="left")
-    axb.tick_params(axis="y", labelsize=6.5, colors=INK_SECONDARY, length=2)
+    axb.set_xlabel("Strength", fontsize=6.8, color=INK_SECONDARY)
+    axb.set_ylabel("Material fraction ($|\\Delta_R|>0$)", fontsize=7.0, color=INK_SECONDARY)
+    axb.set_title("(b) Conclusion change kept by the attacker", fontsize=7.6, color=INK, loc="left")
+    axb.tick_params(axis="y", labelsize=6.8, colors=INK_SECONDARY, length=2)
     axb.tick_params(axis="x", length=2)
     for spine in ("top", "right"):
         axb.spines[spine].set_visible(False)
@@ -108,7 +110,7 @@ def _draw(det: pd.DataFrame, mat: pd.DataFrame, paths: list[Path]) -> None:
     axb.spines["bottom"].set_color(BASELINE)
     axb.grid(color=HAIRLINE, linewidth=0.8)
     axb.set_axisbelow(True)
-    axb.legend(fontsize=5.4, frameon=False, loc="lower right")
+    axb.legend(fontsize=5.6, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=2, columnspacing=1.2, handlelength=2.2)
     for path in paths:
         if path.suffix.lower() == ".png":
             fig.savefig(path, dpi=300, bbox_inches="tight")

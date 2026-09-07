@@ -163,3 +163,28 @@ bias and design effect, not a new statistical rule. The adaptive
 cluster-preserving attacker is claimed as the executed instance of sensor
 insufficiency against an adaptive adversary within the same lattice, not as a
 general evasion bound. The recheck must be repeated on the day of upload.
+
+## Addendum — VAMP (artifact 1.3.1, 7 September 2026)
+
+Evaluated: J. W. Stokes, P. England and K. Kane, "Preventing machine learning
+poisoning attacks using authentication and provenance," MILCOM 2021, pp.
+181–188 (arXiv:2105.10051), which proposes VAMP, an extension of the AMP
+media-provenance manifests to machine learning: datasets, software components,
+trained models and evaluation sets are signed and bound by provenance
+manifests so that a poisoned or substituted artifact fails authentication.
+
+Verdict: relevant and added to §II-B and to the positioning table. What it
+protects: the integrity and origin of the artifacts as objects, through
+cryptographic authentication rooted in a signing infrastructure. It is the
+closest prior work on authenticating evaluation sets and it is exactly the
+"uncontrolled root" that Proposition 6 requires. What it does not ask, and
+this article adds: which interventions stay indistinguishable to an auditor
+who lacks that root (information-relative blind regions), whether an
+aggregate or an item-level reference suffices for a given integrity notion
+(conclusion versus identity), whether a passing substitution changes the
+reported conclusion (materiality), how to calibrate the decision when only a
+statistical baseline exists (conformal family rule), and what an adaptive
+attacker can hide from a calibrated sensor (Gate A). No artificial difference
+is constructed: the article states that a VAMP-style manifest is one way to
+instantiate the trusted references it assumes, and the positioning table
+credits VAMP with the provider/authentication evidence this work lacks.

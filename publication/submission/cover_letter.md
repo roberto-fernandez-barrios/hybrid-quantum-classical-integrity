@@ -20,9 +20,12 @@ label-only changes leave feature and prediction evidence invariant,
 prior-preserving changes also leave label marginals invariant, and any change
 of the reported balanced accuracy changes the confusion matrix, so a material
 label corruption is always separable in the joint view; a trusted aggregate
-reference of the same batch detects it exactly, and an item-aligned reference
-is needed only for relabelings that preserve every aggregate. The quantum
-branch is placed on the same lattice of views.
+reference of the same batch detects it exactly, an item-aligned reference is
+needed only for relabelings that preserve every aggregate, and a statistical
+or historical reference alone (the calibration sample every batch-level
+sensor holds) yields only calibrated power. The quantum branch is placed on
+the same lattice of views, with its semantic, estimated and observed kernels
+kept apart.
 
 The contribution is the integrated combination of (i) the observation model
 with its monotonicity, closure and materiality results and minimal
@@ -30,15 +33,18 @@ counterexamples, (ii) an explicit adversary and failure model including an
 executed adaptive attacker, (iii) validation over CICIDS2017, UNSW-NB15 and
 ToN-IoT in eight fixed ID/OOD environments (11,400 deduplicated observations)
 under preregistered null calibration, (iv) a decision-level calibration by a
-conformal family rule with an exact finite-sample level, which brings the
-multi-sensor regimes with feature evidence to 0.053–0.058 against
+conformal family rule whose finite-sample level holds under exchangeability;
+in the executed, non-exchangeable design its observed false-alarm rates are
+0.053–0.058 for the multi-sensor regimes with feature evidence against
 0.125–0.259 for the union of per-sensor rules (the label-marginal regime
 stays at 0.048), (v) an offline end-to-end allow/hold/block evaluation on
 24,000 frozen observations whose primary endpoint is the number of materially
 changed results a policy would serve (4,365–4,496 of 7,008 for batch-level
 regimes with feature evidence, all 7,008 for the label-marginal regime, none
 for the trusted item-aligned regime) and whose cost endpoint shows that the
-trusted regime interrupts 52 % of benign near-null variation, (vi) a
+trusted regime interrupts 629 of 1,200 near-null synthetic controls, 544
+through statistical holds that the calibrated batch-level policy also pays
+and 85 through exact-reference blocks, (vi) a
 preregistered adversarial gate in which an attacker who preserves the tight
 feature clusters that the batch-level sensors rely on cuts their detection of
 drift from 0.96–1.00 to 0.01–0.66 while keeping 83–91 % of the conclusion
@@ -63,9 +69,12 @@ corrections found during the audits: the earlier "harm-only" endpoint had
 folded 433 label corruptions that raise the reported metric into "zero
 impact" (now reported with sign), and the family-calibration rule of the
 previous version had a false finite-sample guarantee (now replaced by a
-conformal rule whose level is exact under exchangeability, with the earlier
+conformal rule whose level holds under exchangeability, with the earlier
 numbers retained as comparison columns and the decomposition of their excess
-into rule bias and design effect).
+into rule bias and design effect). A final formal review (version 1.3.1)
+corrected the finite-shot statement of the quantum proposition, the
+workflow-state semantics and the reference taxonomy without touching the
+evidence.
 
 Three companion manuscripts by the authors are disclosed in Section II-E and
 listed on the title page. They share datasets, monitors or vocabulary with this
@@ -78,7 +87,9 @@ runtime services, context-conditioned runtime calibration under
 non-stationarity, or operational Fleet Management. Code, tests, derived
 evidence, vector figures, seven SHA-256 evidence manifests and the
 preregistrations accompany the manuscript and are archived at Zenodo
-at Zenodo (version DOI 10.5281/zenodo.22648573, version 1.3.0; concept DOI 10.5281/zenodo.22550852).
+under the concept DOI 10.5281/zenodo.22550852 (version 1.3.1; the version DOI
+is recorded in the artifact metadata); the experimental evidence is frozen at
+version 1.3.0 (version DOI 10.5281/zenodo.22648573).
 
 The manuscript is original, is not under consideration elsewhere, and has been
 approved by all authors. Author identities, affiliations, ORCIDs, CRediT

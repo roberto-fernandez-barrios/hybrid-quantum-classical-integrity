@@ -83,7 +83,13 @@ class PolicyEvidenceDesignTests(unittest.TestCase):
         self.assertEqual(set(comparison["family_rule"]), {"conformal", "v12_asymmetric"})
         taxonomy = pd.read_csv(self.ev / "policy_taxonomy.csv").set_index("policy")
         self.assertIn("risk-tolerant", taxonomy.loc["family_calibrated", "policy_class"])
-        self.assertIn("fail-closed", taxonomy.loc["family_calibrated_strict", "policy_class"])
+        self.assertIn("coverage-complete abstaining", taxonomy.loc["family_calibrated_strict", "policy_class"])
+        self.assertNotIn("strict fail-closed", taxonomy.loc["family_calibrated_strict", "policy_class"])
+        # trusted-regime interruption decomposition: statistical holds + exact-reference blocks = total
+        trusted = primary.loc[("I_XFY_trusted", "family_calibrated")]
+        self.assertEqual((int(trusted["benign_hold"]), int(trusted["benign_block"])), (544, 85))
+        self.assertEqual(int(trusted["benign_hold"] + trusted["benign_block"]), 629)
+        self.assertAlmostEqual(float(trusted["benign_interruption_rate"]), 629 / 1200, places=12)
 
     def test_witnesses_and_composition(self) -> None:
         w = pd.read_csv(self.ev / "counterexample_witnesses.csv").set_index("witness")

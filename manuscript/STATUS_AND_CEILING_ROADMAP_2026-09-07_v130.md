@@ -1,6 +1,14 @@
 # Estado del proyecto tras el artefacto 1.3.0 — cierre científico definitivo del Paper 1.5
 
 Fecha: **2026-09-07** (tarde)  
+Addendum 1.3.1 (misma fecha, noche): versión correctiva formal y editorial
+sin ciencia nueva (Prop. 7(iii) bajo estimación de shots finitos, estado
+primitivo/derivado e intervenciones, K_sem/K̂/K_obs, taxonomía de referencias
+A/B/C, redacción conformal, P3 = coverage-complete abstaining, 83–91 % por
+macros, coste confiable 544 + 85 = 629 de 1.200, abstract ≤ 250 palabras,
+escenario de amenaza, VAMP, figuras legibles). Tras 1.3.1 el 1.5 queda cerrado
+salvo error objetivo, exigencia del portal/editor o petición de revisores; el
+resto va al 2.5 (§23 del plan ATHENA-AEGIS).  
 Sustituye a `STATUS_AND_CEILING_ROADMAP_2026-09-07.md` (estado tras 1.2.0,
 histórico). Los recuentos autoritativos están en
 `publication/RELEASE_STATUS.md` (generado).

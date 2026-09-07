@@ -70,6 +70,20 @@ biografías. Las páginas o fracciones por encima del límite generan un Mandato
 Overlength Page Charge de **USD 220 por página**, independiente del APC de open
 access.
 
+**Verificación 2026-09-07 (artefacto 1.3.1)**, página de autores de IEEE
+Computer Society (`computer.org/publications/author-resources/authors`):
+"The regular paper page length limit is defined at 12 formatted pages for
+Transactions [...], including references and author biographies"; "All page
+limits include abstracts, references, and author biographies"; "Any pages or
+fraction thereof exceeding this limit are charged $220 per page"; para
+revistas, "Author biographies are not required, and there is not a specific
+style format". La misma página indica para el abstract de un regular paper
+"100 to 200 words", mientras que el IEEE Author Center admite hasta 250; el
+abstract de 1.3.1 tiene ≤ 250 palabras (test de CI) y se comprobará en el
+portal si exige 200. Estado 1.3.1: 12 páginas sin biografías; si el editor
+las exige en aceptación (≈ media página para cuatro autores) habrá que
+absorberlas en camera-ready o asumir el MOPC de una página.
+
 El límite exacto de la versión sometida puede diferir del límite de producción;
 debe confirmarse en TDSC/Author Portal. Hasta entonces, el objetivo interno es
 un cuerpo final de **máximo 12 páginas IEEE**. Material útil pero no esencial

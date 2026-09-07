@@ -1,6 +1,9 @@
-# Adversary and failure model — Paper 1.5 (artifact 1.3.0)
+# Adversary and failure model — Paper 1.5 (artifact 1.3.1; evidence frozen at 1.3.0)
 
-Version 1.1 (2026-09-07; version 1.0 of the same day for artifact 1.2.0).
+Version 1.2 (2026-09-07, artifact 1.3.1: reference levels named, quantum
+rows annotated with the intervention class of Proposition 7 and the
+observed-kernel anchor, Q5 aligned with the corrected Proposition 7(iii);
+version 1.1 of the same day for artifact 1.3.0; version 1.0 for 1.2.0).
 Supersedes the "capabilities evaluated" list of `THREAT_MODEL_CARD.md` 1.0;
 the card is kept as the short reference and points here. Every row below
 corresponds to an intervention class that is actually executed in the frozen
@@ -85,13 +88,13 @@ actually supported by the frozen evidence.
 - Actor/cause: pipeline fault: features silently missing and imputed. Class: fault robustness / integrity corruption of the pipeline.
 - Capability: replace a fraction $p$ of entries by the training median. Access: B2 preprocessing. Knowledge: none.
 - Identifying information: nearly invisible to batch-level distributional sensors (0.00–0.03 conformal in $\mathcal I_{XF}$) because imputed values fall inside the clusters; prediction changes visible item-wise in 49–76% of cells.
-- Claim: the executed instance of a material feature-side change that is separable in $\mathcal I_{XF}$ (predictions differ) yet statistically undetectable without a reference; 1,800 rows, 1,079 with a changed conclusion, 1,057 served under $\mathcal I_{XF}$/P2.
+- Claim: the executed instance of a material feature-side change that is separable in $\mathcal I_{XF}$ (predictions differ) yet statistically undetectable with a level-A (statistical) reference only; 1,800 rows, 1,079 with a changed conclusion, 1,057 served under $\mathcal I_{XF}$/P2.
 
 ### F4 — Near-null in-place variation (`sham_tiny_gaussian_sigma_0.001`, `sham_tiny_scaling_alpha_0.001`)
 
 - Actor/cause: harmless numerical variation. Class: fault robustness (specificity control).
 - Identifying information: the KS sensor reacts in 40–64% of cells (conformal rule) through the cluster fingerprint; predictions change in 4–10% of cells.
-- Claim: a specificity cost of the cluster fingerprint, reported as the benign interruption rate of every policy and regime (Gate D); not an attack. The trusted item-aligned regime holds 544 and blocks 85 of these 1,200 rows.
+- Claim: a specificity cost of the cluster fingerprint, reported as the interruption rate of every policy and regime on these near-null synthetic controls (Gate D); not an attack and not operational benign traffic. The trusted same-batch regime under the calibrated policy interrupts 629 of these 1,200 rows: 544 statistical holds (a cost P2 already pays in the batch regimes, 590–654 holds) and 85 exact-reference blocks.
 
 ### F5 — Cluster-preserving mean shift and scaling drift (`cluster_preserving_*`, executed in Gate A, artifact 1.3.0)
 
@@ -102,40 +105,40 @@ actually supported by the frozen evidence.
 - Identifying information: conformal detection at matched strengths 0.01/0.08/0.34 (mean shift) and 0.05/0.35/0.56 (scaling) in $\mathcal I_X$, 0.06/0.24/0.48 and 0.23/0.47/0.66 in $\mathcal I_{XF}$, against 0.96–1.00 for F2; 0.76–0.90 at 0.25–0.50; exact under $\mathcal I_{XFY}^{\star}$ for every material row (a changed conclusion with fixed labels requires a changed prediction).
 - Claim: the executed instance of sensor insufficiency against an adaptive attacker: 6,000 rows, 3,418 with a changed conclusion (83–91% of F2's material fraction at matched strengths), of which P2 serves 1,328 / 959 / 1,006 in $\mathcal I_X$ / $\mathcal I_{XF}$ / $\mathcal I_{XFY}$ (F2 in the same runs: 0 / 6 / 10 of 1,848); the classical branch is more evasive than the quantum branch because its scaler moves the unclustered entries less relative to the null. Calibration controls false alarms; only a reference closes this region.
 
-### Q1 — Data-dependent circuit-parameter mutation (`parameterized_rz_alpha` 0.02 / 0.10) and feature-map repetition change
+### Q1 — Data-dependent circuit-parameter mutation (`parameterized_rz_alpha` 0.02 / 0.10) and feature-map repetition change (class (a), circuit-side)
 
 - Actor/cause: corrupted parameter store, compromised compilation output, malicious circuit substitution. Class: adversarial attack (targeted change of the quantum program).
 - Capability: insert data-dependent RZ rotations or change the feature-map depth before execution. Access: B3/B4 circuit design and transpilation. Knowledge: the circuit interface.
 - Objective: change the kernel semantics while producing a plausible circuit.
-- Alterable assets: $C$ and hence $K$, $\hat y$, $R$. Roots it cannot control: the canonical reference circuit hash and the trusted probe kernel $K_0$.
-- Identifying information: provenance hash and semantic probe comparison detect 15/15 cells; algebraic checks pass; output changes in 0/15, 2/15 and 11/15 cells.
-- Claim: identified by reference-anchored provenance and semantics; invisible to output monitoring unless a decision boundary is crossed (Proposition 7(ii)).
+- Alterable assets: $C$ and hence $K_{\mathrm{sem}}$, $\hat K$, $K_{\mathrm{obs}}$, $\hat y$, $R$. Roots it cannot control: the canonical reference circuit hash and the trusted semantic probe $K_{\mathrm{sem},0} = \Phi(C_0)$.
+- Identifying information: circuit hash and semantic probe comparison detect 15/15 cells; algebraic checks pass; output changes in 0/15, 2/15 and 11/15 cells.
+- Claim: identified by reference-anchored provenance and semantics; invisible to output monitoring unless a decision boundary is crossed (Proposition 7(i)–(ii)).
 
-### Q2 — Benign transpilation (level 1) and common-unitary rewrite (negative controls)
+### Q2 — Benign transpilation (level 1) and common-unitary rewrite (negative controls; class (a))
 
 - Actor/cause: approved compiler pass. Class: fault robustness (approved equivalence).
-- Identifying information: provenance hash changes in 15/15 cells; semantic kernel, algebra and outputs unchanged.
+- Identifying information: circuit hash changes in 15/15 cells; semantic kernel, algebra and outputs unchanged.
 - Claim: separability in the provenance view is not harm; the policy needs the approved-equivalence class $[C_0]$ of Proposition 7(i). A hash mismatch is evidence for adjudication, not proof of harm.
 
-### Q3 — Asymmetric and diagonal-eroded kernel edits
+### Q3 — Asymmetric and diagonal-eroded kernel edits (class (c), post-processing)
 
 - Actor/cause: faulty aggregation or malicious post-processing of the estimated kernel. Class: integrity corruption (non-adaptive).
-- Access: B6 kernel/post-processing. Alterable assets: $K$ after estimation. Roots: reference kernel, algebraic invariants.
-- Identifying information: algebraic checks (symmetry, unit diagonal) detect 15/15; no prediction changes at the tested severity.
-- Claim: detected by structural invariants without a reference.
+- Access: B6 kernel/post-processing. Alterable assets: $K_{\mathrm{obs}}$ after estimation ($C$, $K_{\mathrm{sem}}$ and $\hat K$ fixed). Roots: reference kernel, algebraic invariants.
+- Identifying information: algebraic checks (symmetry, unit diagonal) detect 15/15; the circuit hash is unchanged; no prediction changes at the tested severity.
+- Claim: detected by structural invariants of the observed kernel with a level-A reference only (no same-batch anchor needed for these malformed edits).
 
-### Q4 — PSD-preserving kernel substitution (`kernel_psd_preserving_mix`)
+### Q4 — PSD-preserving kernel substitution (`kernel_psd_preserving_mix`; class (c))
 
 - Actor/cause: adaptive attacker who knows that symmetry, diagonal and PSD are checked and substitutes a valid-looking kernel. Class: adaptive attacker.
-- Access: B6. Alterable assets: $K$. Roots it cannot control: the trusted reference/probe kernel and the circuit hash.
-- Identifying information: algebraic checks are exactly blind in 15/15 cells; provenance and semantic comparison detect 15/15; output changes in 1/15.
-- Claim: the executed instance of sensor-level blindness closed by a reference-anchored comparison (Proposition 7(ii)).
+- Access: B6. Alterable assets: $K_{\mathrm{obs}}$ ($C$, $K_{\mathrm{sem}}$ and $\hat K$ fixed). Roots it cannot control: the trusted reference on the observed kernel.
+- Identifying information: algebraic checks are exactly blind in 15/15 cells; the circuit hash is unchanged in 15/15 (the circuit was not touched); the kernel hash and the anchored comparison of the delivered kernel against the trusted reference detect 15/15; output changes in 1/15.
+- Claim: the executed instance of sensor-level blindness closed only by a trusted reference on $K_{\mathrm{obs}}$ itself; the semantic probe of the unchanged circuit cannot see it (Proposition 7(ii)). In the ideal-statevector gate the reference on $K_{\mathrm{obs}}$ and the semantic probe have the same honest value, which is why one anchored comparison against $\Phi(C_0)$ serves both roles there.
 
-### Q5 — Binomial shot emulation (256 and 1,024 shots)
+### Q5 — Binomial shot emulation (256 and 1,024 shots; class (b), estimation variation)
 
 - Actor/cause: legitimate finite-shot estimation uncertainty. Class: fault robustness (approved stochastic execution).
-- Identifying information: repeated-estimation discrepancy is non-zero in 15/15 cells; outputs change in 7/15 and 3/15 cells.
-- Claim: the contract holds the result for adjudication rather than allowing or blocking it; Proposition 7(iii) explains why an exact anchor is useless under shot noise and a calibrated null is needed. Not hardware or calibrated-noise evidence.
+- Identifying information: repeated-estimation discrepancy is non-zero in 15/15 cells of each condition (an empirical property of these cells, not a law); outputs change in 7/15 and 3/15 cells.
+- Claim: the contract holds the result for adjudication rather than allowing or blocking it; Proposition 7(iii) states that exact equality with the ideal kernel is not an appropriate acceptance criterion under finite-shot estimation (its false-alarm probability is $1 - \Pr[\hat K = K_{\mathrm{sem},0} \mid \text{honest}]$, which depends on the discrete support and is not universally one) and that the discrepancy needs a calibrated null from repeated honest estimation; without one no statistical integrity claim is made. Not hardware or calibrated-noise evidence.
 
 ### E1 — Post-hoc modification of the audit envelope
 

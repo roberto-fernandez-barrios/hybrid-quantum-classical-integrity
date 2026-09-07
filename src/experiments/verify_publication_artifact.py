@@ -210,6 +210,12 @@ def verify_policy_claims(root: Path) -> dict[str, int]:
     trusted = primary[(primary["regime"] == "I_XFY_trusted") & (primary["policy"] != "serve_always")]
     if int(trusted["unsafe_allow"].sum()) != 0 or int(trusted["false_hold"].sum() + trusted["false_block"].sum()) != 0:
         raise ValueError("trusted item-aligned regime has unsafe allows or false holds")
+    # Benign-interruption decomposition of the trusted calibrated policy (artifact 1.3.1):
+    # statistical holds + exact-reference blocks must equal the interruption count and rate.
+    trusted_p2 = primary[(primary["regime"] == "I_XFY_trusted") & (primary["policy"] == "family_calibrated")].iloc[0]
+    holds, blocks, n_benign = int(trusted_p2["benign_hold"]), int(trusted_p2["benign_block"]), int(trusted_p2["n_benign"])
+    if abs(float(trusted_p2["benign_interruption_rate"]) - (holds + blocks) / n_benign) > 1e-12:
+        raise ValueError("trusted-regime benign interruption rate does not equal (holds + blocks) / n_benign")
     fpr = pd.read_csv(fpr_path)
     if "aggregate" in fpr.columns:
         fpr = fpr[fpr["aggregate"] == "all_eight_environments"]
@@ -231,6 +237,9 @@ def verify_policy_claims(root: Path) -> dict[str, int]:
         "policy_regimes": int(primary["regime"].nunique()),
         "policy_policies": int(primary["policy"].nunique()),
         "policy_conformal_level_x10000": int(round(level * 10000)),
+        "policy_trusted_benign_holds": holds,
+        "policy_trusted_benign_blocks": blocks,
+        "policy_trusted_benign_interruptions": holds + blocks,
     }
 
 

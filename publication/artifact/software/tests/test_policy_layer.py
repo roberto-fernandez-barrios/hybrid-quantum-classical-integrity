@@ -4,7 +4,7 @@ The tests need neither the derived evidence nor Qiskit. They cover the adopted
 conformal family rule (single-sensor equivalence with the 1.1.0 per-sensor
 rule, empirical level under exchangeable draws, ordering against the union
 rule), the superseded 1.2.0 rule kept for comparison, the decision lattice,
-the policy taxonomy (calibrated risk-tolerant P2 versus strict abstaining P3),
+the policy taxonomy (calibrated risk-tolerant P2 versus coverage-complete abstaining P3),
 and the composition with the frozen contract actions. The exhaustive
 counting-bound tests are in ``tests/test_family_calibration_exhaustive.py``.
 """
@@ -87,8 +87,23 @@ class PolicyDecisionTests(unittest.TestCase):
         self.assertEqual(set(POLICY_CLASS), set(POLICIES))
         self.assertIn("baseline", POLICY_CLASS["serve_always"])
         self.assertIn("risk-tolerant", POLICY_CLASS["family_calibrated"])
-        self.assertIn("fail-closed", POLICY_CLASS["family_calibrated_strict"])
+        strict = POLICY_CLASS["family_calibrated_strict"]
+        self.assertIn("coverage-complete abstaining", strict)
+        self.assertIn("missing coverage", strict)
+        self.assertIn("no minimum-power guarantee", strict)
+        self.assertNotIn("strict fail-closed", strict)
         self.assertNotIn("fail-closed", POLICY_CLASS["family_calibrated"])
+
+    def test_abstaining_policy_serves_a_nominally_covered_boundary_of_any_power(self) -> None:
+        # P3 fails closed on missing coverage only: a covered boundary whose calibrated
+        # sensor did not fire is served exactly as under P2 (no minimum-power guarantee).
+        for regime in ("I_XFY", "I_XF"):
+            p2 = decide("family_calibrated", regime, Evidence(False, False, None))
+            p3 = decide("family_calibrated_strict", regime, Evidence(False, False, None))
+            if unverified_boundaries(REGIMES[regime]) == ():
+                self.assertEqual((p2.action, p3.action), ("allow", "allow"))
+            else:
+                self.assertEqual((p2.action, p3.action), ("allow", "hold"))
 
     def test_serve_always_allows_everything(self) -> None:
         for regime in REGIMES:

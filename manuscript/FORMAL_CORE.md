@@ -1,18 +1,38 @@
-# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.0)
+# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.1; evidence frozen at 1.3.0)
 
-Version 1.2 (2026-09-07). Version 1.1 of the same day (artifact 1.2.0) is
-superseded in Proposition 5, which was false as stated (see Section 4 and
-amendment A2 of `paper15_v13_prereg.md`); everything else is unchanged except
-for the new Proposition 7 (the quantum branch as an instance of the view
-lattice) and the remark on metrics other than balanced accuracy after
-Proposition 3. This document is the complete statement, with proofs, of the
-formal section of the TDSC article. The article prints the definitions and the
-propositions; the supplement reproduces the proofs. Every witness count quoted
-here is generated from the manifested table `counterexample_witnesses.csv`
-(Gate D) and printed in the article through
-`publication/tdsc/tables/policy_macros.tex`. The statement-by-statement audit
-(hypotheses, claim, proof, counterexample search, edge cases, brute-force
-tests) is `FORMAL_REVIEW_1.3.0.md`.
+Version 1.3 (2026-09-07, artifact 1.3.1). Version 1.2 of the same day
+(artifact 1.3.0) is corrected in four places and otherwise unchanged: (i) the
+workflow state is split into primitive (stored) and derived artifacts and an
+intervention is defined by the nodes it overwrites, the non-descendants it
+keeps fixed and the descendants it recomputes (Section 1), which removes the
+inconsistency of "changes $y$ and fixes everything else" while $R$ depends on
+$y$; (ii) the three kernel notions $K_{\mathrm{sem}}$ (semantic), $\hat K$
+(finite-shot estimate) and $K_{\mathrm{obs}}$ (observed, post-processed) are
+separated and every inclusion of Proposition 7 names the intervention class on
+which it holds (Section 6); (iii) Proposition 7(iii) no longer states that
+exact equality always fails under non-degenerate shot noise (a universal
+false-alarm rate of one), which is false on the discrete support of the estimator
+($p = 1/2$, $N = 2$ gives $\Pr[\hat p = p] = 1/2$), and states the correct
+consequence (exact equality is not an acceptance criterion; the discrepancy
+needs a calibrated null; without one no statistical integrity claim is made);
+(iv) the reference taxonomy is Level A = statistical or historical reference
+(null distribution, training or reference population, calibration sample,
+baseline score distribution; no authenticated value of the same batch),
+Level B = trusted aggregate same-batch reference, Level C = trusted
+item-aligned same-batch reference, so that a batch-level auditor is never
+described as having "no reference" (Section 2). Version 1.1 (artifact 1.2.0)
+was superseded in Proposition 5, which was false as stated (Section 4 and
+amendment A2 of `paper15_v13_prereg.md`). This document is the complete
+statement, with proofs, of the formal section of the TDSC article. The
+article prints the definitions and the propositions; the supplement
+reproduces the proofs. Every witness count quoted here is generated from the
+manifested table `counterexample_witnesses.csv` (Gate D) and printed in the
+article through `publication/tdsc/tables/policy_macros.tex`. The
+statement-by-statement audits are `FORMAL_REVIEW_1.3.0.md` (Lemma 1,
+Propositions 1–7, Corollaries 1–3, C1–C9) and `FORMAL_REVIEW_1.3.1.md` (the
+four corrections above, with counterexample search and permanent tests in
+`tests/test_workflow_state.py`). The executable counterpart of Section 1 is
+`src/integrity/workflow_state.py`.
 
 The results are elementary by design. Their role is to make exact which
 evidence separates which class of intervention, so that the empirical gates
@@ -22,23 +42,56 @@ test statements rather than intuitions. Every statement below is pointwise
 
 ## 1. Objects
 
-**States.** A workflow state is the complete tuple of artifacts of one
-evaluation run, $s = (X, P, C, K, E, f, y, R) \in \mathcal S$: acquired
-features $X$, preprocessing $P$, circuit/feature map $C$, estimated kernel
-$K$, execution metadata $E$, fitted predictor $f$, evaluation labels $y$ and
-reported result $R$. We write $\tilde X = P(X)$ for the evaluation
-representation and $\hat y = f(\tilde X)$ for the predictions. Items carry an
-identity $i = 1, \dots, n$ (the row of the evaluation batch).
+**States.** A workflow state separates the artifacts that are *stored* from
+those the workflow *derives* from them. The primitive artifacts of one
+evaluation run are $s = (X, P, C, E, \xi, g, f, y) \in \mathcal S$: acquired
+features $X$, preprocessing $P$, circuit/feature map $C$, execution context
+$E$ (shots, backend, declared metadata), estimation randomness $\xi$,
+post-processing map $g$, fitted predictor $f$ and evaluation labels $y$. The
+derived artifacts are recomputed from the primitives by the workflow:
 
-**Interventions.** An intervention is a map $a : \mathcal S \to \mathcal S$.
-The baseline state is $s_0$, the intervened state $s_a = a(s_0)$. An
-intervention class $\mathcal A$ is a set of such maps. Classes used in the
-study: $T_y$ (label-only: changes $y$ item-wise, leaves every other component
-fixed), $T_y^{\pi} \subset T_y$ (prior-preserving: additionally preserves the
-class histogram of $y$), and the feature-side mechanisms (sign flip, mean
-shift, scaling drift, dropout with imputation, and, from artifact 1.3.0, the
-adaptive cluster-preserving variants of mean shift and scaling drift), which
-change $\tilde X$ and, through $f$, may change $\hat y$ and $R$.
+| Derived artifact | Definition | Parents |
+|---|---|---|
+| $\tilde X = P(X)$ | evaluation representation | $P, X$ |
+| $K_{\mathrm{sem}} = \Phi(C)$ | ideal semantic kernel induced by the circuit on a fixed probe set | $C$ |
+| $\hat K = \mathrm{est}(K_{\mathrm{sem}}, E, \xi)$ | finite-shot estimate produced by execution | $K_{\mathrm{sem}}, E, \xi$ |
+| $K_{\mathrm{obs}} = g(\hat K)$ | kernel object delivered to downstream processing after estimation, transmission and post-processing | $g, \hat K$ |
+| $\hat y = f(\tilde X, K_{\mathrm{obs}})$ | predictions, indexed by item identity $i = 1, \dots, n$ | $f, \tilde X, K_{\mathrm{obs}}$ |
+| $R = r(\hat y, y)$ | reported result (balanced accuracy) | $\hat y, y$ |
+
+In the classical branch $f$ ignores $K_{\mathrm{obs}}$; in the
+ideal-statevector gates $\mathrm{est}$ is the identity in law and $g$ is the
+identity, so $K_{\mathrm{obs}} = \hat K = K_{\mathrm{sem}}$ on the honest path.
+
+**Interventions.** An intervention $a$ *overwrites* a declared set of nodes
+(primitive or derived), *keeps fixed* every node that is not a descendant of an
+overwritten node, and *recomputes* the descendants of the overwritten nodes
+through the workflow with $\xi$ retained (a stochastic descendant is
+recomputed with the same randomness unless $\xi$ itself is overwritten). The
+baseline state is $s_0$, the intervened state $s_a = a(s_0)$; an intervention
+class $\mathcal A$ is a set of such maps. "Fixes everything else" therefore
+means "fixes every non-descendant"; a derived node such as $R$ follows its
+parents. Classes used in the study and what each recomputes:
+
+- $T_y$ (label-only): overwrites $y$ item-wise; $\tilde X$, the kernels and
+  $\hat y$ are fixed, $R$ is recomputed. $T_y^{\pi} \subset T_y$
+  (prior-preserving) additionally preserves the class histogram of $y$.
+- Feature-side mechanisms (sign flip, mean shift, scaling drift, dropout with
+  imputation and, from artifact 1.3.0, the adaptive cluster-preserving
+  variants): overwrite $\tilde X$ (or its upstream source $X$); $\hat y$ and
+  $R$ are recomputed.
+- Circuit-side interventions (class (a) of Section 6): overwrite $C$;
+  $K_{\mathrm{sem}}$, $\hat K$, $K_{\mathrm{obs}}$, $\hat y$ and $R$ are
+  recomputed.
+- Estimation/execution variation (class (b)): overwrite $\xi$ or $E$; $C$ and
+  $K_{\mathrm{sem}}$ are fixed, $\hat K$ and its descendants are recomputed.
+- Post-processing / kernel substitution (class (c)): overwrite $g$ or
+  $K_{\mathrm{obs}}$ directly; $C$, $K_{\mathrm{sem}}$ and $\hat K$ are fixed,
+  $\hat y$ and $R$ are recomputed.
+
+`src/integrity/workflow_state.py` implements these semantics
+(`State.intervene`, `descendants`, `intervention_class`) and
+`tests/test_workflow_state.py` checks them.
 
 **Conclusion and materiality.** The conclusion functional is
 $R : \mathcal S \to \mathbb R$, here balanced accuracy of $\hat y$ against $y$,
@@ -81,27 +134,36 @@ comparable with $\mathcal I_X$ or $\mathcal I_{XF}$, and $\mathcal I_Q$ is a
 separate branch. The join $\mathcal I \vee \mathcal W$ of two views is the
 pair $(V_{\mathcal I}, V_{\mathcal W})$.
 
-**References and their three levels.** A reference is a stored value
-$\rho = V_{\mathcal J}(s_0)$ of some view of the baseline. It is *trusted*
-under assumption $\mathsf T(\rho)$: no intervention in the class under study
-can alter it (it is authenticated, or held by a party outside the adversary's
-reach). Three levels of evidence are distinguished throughout:
+**References and their three levels.** A reference is stored information
+about the baseline against which the audited batch is compared. It is
+*trusted* under assumption $\mathsf T(\rho)$: no intervention in the class
+under study can alter it (it is authenticated, or held by a party outside the
+adversary's reach). Three levels are distinguished throughout:
 
-- **Level A, batch-level statistical evidence.** No stored value of the
-  baseline view; the auditor holds a null model of $V_{\mathcal I}$ over
-  fresh clean batches. Detection is a statistical test with power below one.
-- **Level B, trusted aggregate reference.** A stored, uncontrolled value of a
-  permutation-invariant aggregate of the *same batch*, such as $M(s_0)$,
-  $\mathrm{hist}(y_0)$ or $R(s_0)$. Comparison against it has an exact-zero
-  null.
-- **Level C, trusted item-aligned reference.** A stored, uncontrolled
-  item-indexed tuple of the same items, such as $(y_{0,i})_i$ or
+- **Level A, statistical or historical reference.** A null distribution, a
+  training or reference population, a calibration sample or a baseline score
+  distribution: information about clean batches in general, with **no
+  authenticated value of the same batch**. Every batch-level sensor of the
+  study holds a Level-A reference (the 200 clean calibration draws of its
+  cell and the training-fitted projection and scaler); detection is a
+  statistical test with power below one. "No reference" is never the right
+  description of a batch-level auditor; "no authenticated same-batch anchor"
+  is.
+- **Level B, trusted aggregate same-batch reference.** A stored, uncontrolled
+  value $\rho = V_{\mathcal J}(s_0)$ of a permutation-invariant aggregate of
+  the *same batch*, such as $M(s_0)$, $\mathrm{hist}(y_0)$ or $R(s_0)$.
+  Comparison against it has an exact-zero null.
+- **Level C, trusted item-aligned same-batch reference.** A stored,
+  uncontrolled item-indexed tuple of the same items, such as $(y_{0,i})_i$ or
   $(\hat y_{0,i})_i$; comparison is item-wise with an exact-zero null.
 
-We write $\mathcal I^{\star}$ for a regime augmented with trusted references
-of its own baseline view; $\mathcal I_{XFY}^{\star}$ in the evidence holds
-both the aggregate confusion profile (Level B) and the item-aligned labels
-and predictions (Level C) of the same batch. A label being *available* in
+The distinction that carries the results is between a historical or
+statistical baseline (Level A) and an authenticated same-batch anchor
+(Levels B and C), not between having and lacking a reference. We write
+$\mathcal I^{\star}$ for a regime augmented with same-batch references of its
+own baseline view; $\mathcal I_{XFY}^{\star}$ in the evidence holds both the
+aggregate confusion profile (Level B) and the item-aligned labels and
+predictions (Level C) of the same batch. A label being *available* in
 $\mathcal I_{XFY}$ says nothing about whether it is *trusted*: if the label
 store is the asset under attack, the auditor sees $y_a$, not $y_0$.
 
@@ -254,12 +316,12 @@ $D(s) = d(V_{\mathcal J}(s), \rho)$ with a metric $d$ ($d = 0$ iff equal).
 Then $D(s_0) = 0$ exactly, the rule "fire iff $D > 0$" has false-alarm
 probability zero, and it detects every $a$ with $V_{\mathcal J}(s_a) \ne \rho$.
 
-(b) An *anchor-free (batch-level) auditor* (Level A) holds no value of the
-baseline view. It holds a null model $P_0$ of $V_{\mathcal I}$ over clean
-batches (the calibration draws of Gate N) and decides with a calibrated test
-at budget $\alpha$. For a separable $a$ the detection probability is the power
-of the test against the shift $V_{\mathcal I}(s_a)$ relative to the null
-variability of fresh batches; it is generally below one, and it is *not*
+(b) A *batch-level auditor* holds a Level-A reference only: a null model
+$P_0$ of $V_{\mathcal I}$ over clean batches (the calibration draws of Gate N)
+and no authenticated value of the audited batch. It decides with a calibrated
+test at budget $\alpha$. For a separable $a$ the detection probability is the
+power of the test against the shift $V_{\mathcal I}(s_a)$ relative to the
+null variability of fresh batches; it is generally below one, and it is *not*
 implied by separability.
 
 (c) A *post-hoc certifier* recomputes a view from inputs it trusts (e.g. the
@@ -512,75 +574,130 @@ answered by Gate A.
 **Objects.** Let $\mathcal C$ be the set of circuit representations (canonical
 OpenQASM 3 text with bound parameters), $\Phi : \mathcal C \to \mathcal K$ the
 semantic kernel map that sends a circuit to the ideal fidelity kernel it
-induces on a fixed probe set, $h : \mathcal C \to \{0,1\}^{256}$ the
-provenance hash, $A : \mathcal K \to \mathbb R^q$ the algebraic invariants
-(symmetry residual, diagonal residual, minimum eigenvalue, PSD-repair norm),
-$f_K : \tilde X \mapsto \hat y$ the classical decision computed from a kernel,
-and $\hat K \sim P(\cdot \mid C, E)$ the finite-shot estimator of $\Phi(C)$
-under execution context $E$ (shots, backend, seed). The views of
-$\mathcal I_Q$ are $V_h = h(C)$, $V_K = K$, $V_A = A(K)$, $V_f = f_K(\tilde X)$
-and, under shot noise, $V_{\hat K} = \hat K$.
+induces on a fixed probe set, $K_{\mathrm{sem}} = \Phi(C)$ the semantic
+kernel, $\hat K = \mathrm{est}(K_{\mathrm{sem}}, E, \xi)$ the finite-shot
+estimate produced by execution under context $E$ (shots, backend) with
+randomness $\xi$, $K_{\mathrm{obs}} = g(\hat K)$ the kernel object delivered
+downstream after estimation, transmission and post-processing,
+$h : \mathcal C \to \{0,1\}^{256}$ the provenance hash,
+$A : \mathcal K \to \mathbb R^q$ the algebraic invariants (symmetry residual,
+diagonal residual, minimum eigenvalue, PSD-repair norm) and
+$f_K : \tilde X \mapsto \hat y$ the classical decision computed from a
+kernel. The views of $\mathcal I_Q$ are $V_h = h(C)$,
+$V_{K_{\mathrm{sem}}} = K_{\mathrm{sem}}$, $V_{\hat K} = \hat K$,
+$V_{K_{\mathrm{obs}}} = K_{\mathrm{obs}}$, $V_A = A(K_{\mathrm{obs}})$ and
+$V_f = f_{K_{\mathrm{obs}}}(\tilde X)$. Three intervention classes are kept
+apart (Section 1):
+
+- **(a) circuit-side:** overwrites $C$; may change $K_{\mathrm{sem}}$ and
+  everything below it;
+- **(b) estimation/execution variation:** $C$ and $K_{\mathrm{sem}}$ fixed;
+  $\hat K$ (hence $K_{\mathrm{obs}}$) changes through $\xi$ or $E$;
+- **(c) post-processing / kernel substitution:** $C$, $K_{\mathrm{sem}}$ and
+  $\hat K$ fixed; $K_{\mathrm{obs}}$ changes through $g$ or directly.
+
+Every inclusion below names the class on which it holds. **No single
+inclusion of blind regions is claimed across classes**: an inclusion
+$B_h \subseteq B_{K_{\mathrm{sem}}}$ concerns interventions that act on $C$,
+and says nothing about a substitution of $K_{\mathrm{obs}}$, for which $h(C)$
+and $\Phi(C)$ are unchanged by definition.
 
 **Proposition 7 (the quantum lattice).** Assume $h$ is collision-free on the
 circuits under study (SHA-256 collision resistance).
 
-(i) *Semantic equivalence classes.* $[C] := \Phi^{-1}(\Phi(C))$ is the class
-of circuits with the same kernel semantics; approved transpilation and
-common-unitary rewrites map $C$ into $[C]$ without fixing $h(C)$.
-Consequently $V_h$ refines $V_K$ on $\mathcal C$ (identical hashes imply
-identical kernels but not conversely) and $B_h(\mathcal A) \subseteq B_K(\mathcal A)$
-for every class $\mathcal A$ of circuit-side interventions; the inclusion is
-strict whenever $\mathcal A$ contains an approved rewrite. Separability in the
-provenance view is therefore *not* evidence of harm; a provenance-anchored
-auditor needs the approved class $[C_0]$, which is implemented as semantic
-equality of probe kernels against the trusted reference $K_0 = \Phi(C_0)$
-(a Level-B reference: an aggregate of the reference circuit on the probe set).
+(i) *Semantic equivalence classes (class (a)).* $[C] := \Phi^{-1}(\Phi(C))$ is
+the class of circuits with the same kernel semantics; approved transpilation
+and common-unitary rewrites map $C$ into $[C]$ without fixing $h(C)$.
+Consequently $V_h$ refines $V_{K_{\mathrm{sem}}}$ on $\mathcal C$ (identical
+hashes imply identical semantic kernels but not conversely) and
+$B_h(\mathcal A) \subseteq B_{K_{\mathrm{sem}}}(\mathcal A)$ for every class
+$\mathcal A$ of circuit-side interventions; the inclusion is strict whenever
+$\mathcal A$ contains an approved rewrite. Separability in the provenance view
+is therefore *not* evidence of harm; a provenance-anchored auditor needs the
+approved class $[C_0]$, implemented as semantic equality of probe kernels
+against the trusted semantic probe $K_{\mathrm{sem},0} = \Phi(C_0)$ (a
+Level-B reference: an aggregate of the reference circuit on the probe set).
 
-(ii) *Algebraic and output coarsenings.* $V_A = A \circ V_K$ and
-$V_f = f_{\cdot}(\tilde X) \circ V_K$ are coarsenings of the kernel view, so
-by Proposition 1 $B_K(\mathcal A) \subseteq B_A(\mathcal A)$ and
-$B_K(\mathcal A) \subseteq B_f(\mathcal A)$. A PSD-preserving substitution
-$K' \ne K_0$ with $A(K') = A(K_0)$ lies in $B_A \setminus B_K$: the algebraic
-family is insufficient (Definition 3) and the blind region is closed only by
-the reference-anchored comparison with $K_0$ (Proposition 4(ii)). A kernel
-change that crosses no decision boundary lies in $B_f \setminus B_K$.
+(ii) *Algebraic and output coarsenings (class (c)).*
+$V_A = A \circ V_{K_{\mathrm{obs}}}$ and
+$V_f = f_{\cdot}(\tilde X) \circ V_{K_{\mathrm{obs}}}$ are coarsenings of the
+observed-kernel view, so by Proposition 1
+$B_{K_{\mathrm{obs}}}(\mathcal A) \subseteq B_A(\mathcal A)$ and
+$B_{K_{\mathrm{obs}}}(\mathcal A) \subseteq B_f(\mathcal A)$. A PSD-preserving
+substitution $K' \ne K_{\mathrm{obs},0}$ with $A(K') = A(K_{\mathrm{obs},0})$
+lies in $B_A \setminus B_{K_{\mathrm{obs}}}$: the algebraic family is
+insufficient (Definition 3). Because $C$, $K_{\mathrm{sem}}$ and $\hat K$ are
+fixed on this class, the substitution also lies in
+$B_h \cap B_{K_{\mathrm{sem}}}$: neither the circuit hash nor the semantic
+probe of the unchanged circuit can see it, and the blind region is closed
+only by a trusted reference on $K_{\mathrm{obs}}$ itself (Proposition 4(ii)).
+The trusted semantic probe $K_{\mathrm{sem},0}$ and the trusted
+observed-kernel reference $K_{\mathrm{obs},0}$ are therefore different
+anchors; in the ideal-statevector gate they have the same value on the
+honest path, which is why one anchored comparison against $\Phi(C_0)$ serves
+both roles there. A kernel change that crosses no decision boundary lies in
+$B_f \setminus B_{K_{\mathrm{obs}}}$.
 
-(iii) *Finite-shot estimation replaces exact anchoring by a calibrated test.*
-Under shot noise the kernel view is the random variable $\hat K$, and for a
-non-degenerate estimator $\Pr[\hat K = K_0] = 0$ even for the honest circuit,
-so the reference-anchored rule "fire iff $\hat K \ne K_0$" has false-alarm
-probability one and is useless. The auditor must instead treat $d(\hat K, K_0)$
-as a Level-A statistic with a null obtained from repeated honest estimation
+(iii) *Finite-shot estimation (class (b)).* For an honest finite-shot
+estimate, the acceptance rule "accept iff $\hat K = K_{\mathrm{sem},0}$" has
+false-alarm probability
+$$1 - \Pr[\hat K = K_{\mathrm{sem},0} \mid \text{honest}],$$
+which depends on the discrete support of the estimator and may be large or
+equal to one, but is **not universally one**. Consequently: exact equality is
+not an appropriate acceptance criterion under finite-shot estimation; the
+discrepancy $d(\hat K, K_{\mathrm{sem},0})$ must be treated as a Level-A
+statistic whose null is obtained from repeated honest estimation
 (Definition 5(b)); if those repeated estimates and the audited estimate are
-exchangeable, Proposition 5(b) applies to them verbatim with $m = 1$ and
-gives the same finite-sample level. Where no such null is calibrated, the
-only sound action is to abstain: this is the `hold` that the executable
+exchangeable, Proposition 5(b) applies to them with $m = 1$ and gives the
+finite-sample level $\lfloor \alpha(n+1) \rfloor/(n+1)$; and where no
+calibrated null is available, no statistical integrity claim is made and the
+only sound action is to abstain, which is the `hold` that the executable
 contract returns for approved stochastic estimation.
 
 *Proof.* (i) If $h(C_1) = h(C_2)$ then $C_1 = C_2$ by collision freedom, so
-$\Phi(C_1) = \Phi(C_2)$: $V_h$ refines $V_K$ through $\Phi \circ h^{-1}$ and
-Proposition 1 gives the inclusion. An approved rewrite $C' \in [C_0]$ with a
-different canonical text has $h(C') \ne h(C_0)$ and $\Phi(C') = \Phi(C_0)$,
-so it lies in $B_K \setminus B_h$. (ii) is Proposition 1 applied to the two
-coarsenings; the two set differences are witnessed in the gate (Table 8 of
-the supplement: 15/15 PSD-preserving substitutions with algebraic sensors at
-zero and semantic sensor firing; RZ mutations at 0.02 with zero output
-change and semantic firing). (iii) For a continuous estimator the event
-$\hat K = K_0$ has probability zero; the rest is Definition 5(b) and
-Proposition 5(b) with the repeated estimates as calibration draws. $\square$
+$\Phi(C_1) = \Phi(C_2)$: $V_h$ refines $V_{K_{\mathrm{sem}}}$ through
+$\Phi \circ h^{-1}$ and Proposition 1 gives the inclusion. An approved rewrite
+$C' \in [C_0]$ with a different canonical text has $h(C') \ne h(C_0)$ and
+$\Phi(C') = \Phi(C_0)$, so it lies in $B_{K_{\mathrm{sem}}} \setminus B_h$.
+(ii) is Proposition 1 applied to the two coarsenings of
+$V_{K_{\mathrm{obs}}}$; the membership in $B_h \cap B_{K_{\mathrm{sem}}}$ is
+the definition of an intervention of class (c) (Section 1: $C$ is not
+overwritten and is not a descendant of $g$ or $K_{\mathrm{obs}}$, so it is
+fixed, and $h(C)$, $\Phi(C)$ are functions of $C$). The two set differences
+are witnessed in the gate (Table 8 of the supplement: 15/15 PSD-preserving
+substitutions with algebraic sensors at zero, circuit hash unchanged and the
+anchored comparison of the delivered kernel firing; RZ mutations at 0.02 with
+zero output change and semantic firing). (iii) For a kernel entry with
+fidelity $p$ estimated from $N$ shots, $N \hat p \sim \mathrm{Binomial}(N, p)$
+and
+$$\Pr[\hat p = p] = \binom{N}{Np} p^{Np} (1-p)^{N-Np} \text{ if } Np \in \mathbb N, \qquad 0 \text{ otherwise};$$
+for independently estimated entries the probabilities multiply. For
+$p = 1/2$ and $N = 2$, $\Pr[\hat p = p] = \Pr[X = 1] = 1/2$, so the exact rule
+has false-alarm probability $1/2$; for $p = 1/3$ and $N = 2$ it is one; for a
+degenerate entry ($p \in \{0, 1\}$) it is zero. The universal statement of
+version 1.2 (that the honest estimate never equals the reference under
+non-degenerate shot noise, so that the exact rule always fires) was therefore
+false on the support of the estimator (it holds only for an estimator with a
+continuous law, which a finite-shot estimator is not) and is withdrawn; the operational
+conclusion (calibrated null or abstention) is unchanged and is Definition 5(b)
+with Proposition 5(b) on the repeated estimates. The arithmetic is checked in
+`tests/test_workflow_state.py` (`FiniteShotEqualityTests`). $\square$
 
-The empirical realisation is the 165-cell simulator gate of Section VI-D of
-the article: benign transpilation and the common-unitary rewrite change
-$h(C)$ in every cell while $\Phi(C)$, $A(K)$ and $f_K$ are unchanged
-(i); the PSD-preserving mixture passes the algebraic checks in every cell and
-is exposed by the semantic comparison with $K_0$ (ii); the mild RZ mutation
-changes the semantic kernel in every cell and no prediction (ii); and both
-shot emulators produce a non-zero repeated-estimation discrepancy in every
-cell, which the contract holds for adjudication (iii). The proposition adds
-no quantum mechanics: it states that the quantum branch is one more chain of
-coarsenings of the same lattice, with two features that the classical
-branches do not have, namely an approved equivalence class coarser than
-provenance and an estimation noise that turns an exact anchor into a
+The empirical realisation is the 165-cell simulator gate of Section VI-E of
+the article, read class by class: benign transpilation and the common-unitary
+rewrite (class (a)) change $h(C)$ in every cell while $\Phi(C)$, $A$ and
+$f_K$ are unchanged (i); the PSD-preserving mixture (class (c)) passes the
+algebraic checks and leaves the circuit hash unchanged in every cell and is
+exposed by the anchored comparison of the delivered kernel (ii); the mild RZ
+mutation (class (a)) changes the semantic kernel in every cell and no
+prediction (ii); and both shot emulators (class (b)) produce a non-zero
+repeated-estimation discrepancy in every one of the 30 cells, an empirical
+property of these cells that motivates the calibrated treatment of (iii) but
+is not a law, and the contract holds them for adjudication. The proposition
+adds no quantum mechanics: it states that the quantum branch is one more
+chain of coarsenings of the same lattice, with two features that the
+classical branches do not have, namely an approved equivalence class coarser
+than provenance and an estimation step that turns an exact anchor into a
 statistical one.
 
 ## 7. What the formal core does and does not claim
@@ -591,15 +708,19 @@ refinement and closed exactly by baseline-separating added views; that
 material label-path interventions always change the confusion matrix and are
 therefore separable in the joint view and detected exactly by a trusted
 aggregate reference of the same batch, while item-identity integrity needs an
-item-aligned reference; that a batch-level auditor without a reference
-detects such changes only with statistical power; that decision-level
-calibration requires calibrating the family rather than the sensors, with a
-conformal rule whose exact finite-sample level $\lfloor \alpha(n+1) \rfloor/(n+1)$
-holds under exchangeability with ties and whose executed-design deviation is
-measured; that the asymmetric rule of artifact 1.2.0 had no such guarantee;
-that the quantum branch is an instance of the same lattice in which
-provenance refines semantics, algebra and outputs coarsen the kernel, and
-shot noise converts exact anchoring into a calibrated test; and that no
+item-aligned reference; that a batch-level auditor with a statistical
+(Level-A) reference only detects such changes only with statistical power;
+that decision-level calibration requires calibrating the family rather than
+the sensors, with a conformal rule whose finite-sample level
+$\lfloor \alpha(n+1) \rfloor/(n+1)$ is exact under exchangeability with ties
+and whose executed-design deviation is measured (observed rates
+0.056 / 0.058 / 0.048 / 0.053 in a design that violates the premise); that the
+asymmetric rule of artifact 1.2.0 had no such guarantee; that the quantum
+branch is an instance of the same lattice in which, class by class,
+provenance refines the semantic kernel on circuit-side interventions, algebra
+and outputs coarsen the observed kernel on post-processing interventions,
+and finite-shot estimation makes exact equality an inappropriate acceptance
+criterion whose replacement is a calibrated null or abstention; and that no
 verifier all of whose evidence the adversarial class can rewrite establishes
 authenticity relative to a baseline. It does not claim a general
 detectability theory beyond finite batches with a fixed deterministic

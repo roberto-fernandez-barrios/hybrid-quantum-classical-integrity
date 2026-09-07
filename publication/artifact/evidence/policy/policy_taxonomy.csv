@@ -2,4 +2,4 @@ policy,policy_class
 serve_always,baseline (always serve)
 union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)"
 family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)"
-family_calibrated_strict,strict fail-closed / abstaining (unverified mandatory boundary => hold)
+family_calibrated_strict,coverage-complete abstaining (fail-closed on missing coverage: a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)

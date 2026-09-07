@@ -25,6 +25,8 @@ def test_local_evidence_manifests_and_primary_claims() -> None:
     assert summary["policy_material_observations"] == 7008
     assert summary["policy_regimes"] == 5
     assert summary["policy_conformal_level_x10000"] == 498
+    assert (summary["policy_trusted_benign_holds"], summary["policy_trusted_benign_blocks"]) == (544, 85)
+    assert summary["policy_trusted_benign_interruptions"] == 629
     assert summary["adversarial_conditions"] == 16
 
 

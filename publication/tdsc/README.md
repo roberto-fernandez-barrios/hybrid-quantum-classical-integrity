@@ -1,4 +1,4 @@
-# IEEE TDSC manuscript package (artifact 1.3.0)
+# IEEE TDSC manuscript package (artifact 1.3.1; experimental evidence frozen at 1.3.0)
 
 This directory contains the submission sources for the regular-paper candidate
 "Observational Indistinguishability and Integrity Blind Regions Across the
@@ -7,21 +7,28 @@ manuscript is formatted with `IEEEtran` in Computer Society journal mode.
 
 ## Source inventory
 
-- `main.tex` — complete article: abstract, related work and positioning
-  (including the calibration and multiple-testing literature), observation
-  model and blind regions with the quantum branch as an instance of the view
-  lattice, adversary and failure model with the executed adaptive attacker,
-  methodology, results (exact blind regions, conformal decision-level
-  calibration and the decomposition of the earlier rule's excess, offline
-  end-to-end decisions with the benign-interruption cost, the adaptive
+- `main.tex` — complete article: abstract (at most 250 words, CI-checked),
+  introduction with a concrete threat scenario, related work and a nine-axis
+  positioning table (including VAMP and the axes on which QCIVET,
+  QML-PipeGuard and VAMP exceed this work), observation model with primitive
+  and derived artifacts, reference levels A/B/C and the quantum branch as an
+  instance of the view lattice (semantic, estimated and observed kernels;
+  Proposition 7 corrected for finite-shot estimation), adversary and failure
+  model with the executed adaptive attacker, methodology (policy P3 as
+  coverage-complete abstaining), results (validation checks of the
+  structural prediction, conformal decision-level calibration with the
+  executed rates reported separately from the exchangeability property,
+  offline end-to-end decisions with the interruption cost decomposed into
+  statistical holds and exact-reference blocks, the adaptive
   cluster-preserving attacker, quantum-workflow coverage), integrity-audit
   contract, discussion and limitations, conclusion, declarations;
 - `supplement.tex` — formal core with proofs (Lemma 1, Propositions 1–7,
-  Corollaries 1–3), experimental design, coverage contract, statistical units
-  and dependence structure, exact-statevector validation, quantum gate,
-  contract and policy composition, the 1.1.0 reinforcement gates, the
-  regenerated 1.2.0/1.3.0 policy gates with the 1.2.0 rule as comparison, the
-  1.3.0 adversarial gate in full, the secondary model-impact profile, and the
+  Corollaries 1–3, including the finite-shot counterexample), experimental
+  design, coverage contract, statistical units and dependence structure,
+  exact-statevector validation, quantum gate (table and heatmap), contract
+  and policy composition, the 1.1.0 reinforcement gates, the regenerated
+  1.2.0/1.3.0 policy gates with the 1.2.0 rule as comparison, the 1.3.0
+  adversarial gate in full, the secondary model-impact profile, and the
   reproduction mapping;
 - `references.bib` — bibliography cited by the main article;
 - `figures/` — vector figures used in the article and supplement
@@ -75,11 +82,16 @@ Python 3.10 is the frozen reference interpreter. From the repository root:
 The verifier checks the artifact-wide SHA-256 manifest, seven evidence
 manifests, the manifested outputs, table shapes, the primary count claims
 including the signed label-path counts, the calibrated label-path checks, the
-policy-level claims (including the exact level of the conformal rule under
-exchangeable re-splits) and the replay and trust checks of the adversarial
-gate used by the paper. Full replay instructions are in `Q1_REPRODUCTION.md`;
-raw public benchmark datasets are staged by the documented procedures and are
-not redistributed.
+policy-level claims (including the level of the conformal rule under
+exchangeable re-splits and the decomposition of the trusted-regime
+interruption into 544 holds and 85 blocks) and the replay and trust checks of
+the adversarial gate used by the paper. The test suite adds the
+intervention-semantics and finite-shot tests (`tests/test_workflow_state.py`)
+and the manuscript consistency gates (`tests/test_manuscript_consistency.py`:
+abstract length, superseded headline strings, conformal and P3 wording,
+interruption decomposition). Full replay instructions are in
+`Q1_REPRODUCTION.md`; raw public benchmark datasets are staged by the
+documented procedures and are not redistributed.
 
 ## Claim boundary
 
@@ -100,8 +112,13 @@ profile is secondary evidence reported in the supplement.
 
 All authors confirmed authorship, ORCIDs, CRediT roles, competing interests,
 funding wording, the AI-use disclosure and the licensing scheme on
-2026-09-06; the 1.2.0 and 1.3.0 changes to the manuscript (formal core,
-adversary model, policy gates, amendment A2, adversarial gate, retitling,
-framing) and the extended AI-use disclosure were approved on 2026-09-07
-(communicated by the corresponding author). The version DOI of 1.3.0 is
-inserted by the release pipeline (`publication/DOI_STATUS.md`).
+2026-09-06; the 1.2.0, 1.3.0 and 1.3.1 changes to the manuscript (formal
+core, adversary model, policy gates, amendment A2, adversarial gate,
+retitling, framing, the 1.3.1 formal and editorial corrections) and the
+extended AI-use disclosure were approved on 2026-09-07 (communicated by the
+corresponding author). The version DOI of 1.3.1 is inserted by the release
+pipeline (`publication/DOI_STATUS.md`). IEEE Computer Society author
+guidance verified on 2026-09-07: regular Transactions papers are limited to
+12 formatted pages including references and biographies (USD 220 per
+overlength page); author biographies are not required for journal
+submissions; the article is at 12 pages without biographies.

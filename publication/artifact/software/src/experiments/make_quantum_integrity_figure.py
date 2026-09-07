@@ -33,12 +33,12 @@ ATTACK_LABELS = {
 }
 
 SENSORS = {
-    "Circuit\nprovenance": "circuit_provenance_detection_rate",
-    "Kernel\nprovenance": "kernel_provenance_detection_rate",
+    "Circuit\nhash": "circuit_provenance_detection_rate",
+    "Kernel\nhash": "kernel_provenance_detection_rate",
     "Semantic\nkernel": "semantic_kernel_detection_rate",
-    "Algebraic\nkernel": "algebraic_kernel_detection_rate",
-    "Repeated\nestimation": "repeated_estimation_detection_rate",
-    "Model\noutput": "output_change_rate",
+    "Algebra\nchecks": "algebraic_kernel_detection_rate",
+    "Repeated\nestimate": "repeated_estimation_detection_rate",
+    "Output\nchange": "output_change_rate",
 }
 
 
@@ -67,13 +67,16 @@ def build(evidence_dir: Path, out_dir: Path) -> None:
     coverage = coverage.loc[order]
     matrix = coverage[list(SENSORS.values())].to_numpy(dtype=float)
 
-    fig, axis = plt.subplots(figsize=(11.2, 6.9))
+    # Sized for a single IEEE column (3.5 in): fonts are set for print at that width
+    # (artifact 1.3.1; the earlier 11.2 x 6.9 in canvas scaled its 8-13 pt labels to about 3 pt).
+    matplotlib.rcParams["font.family"] = "sans-serif"
+    fig, axis = plt.subplots(figsize=(3.55, 2.7))
     image = axis.imshow(matrix, vmin=0.0, vmax=1.0, cmap="viridis", aspect="auto")
     axis.set_xticks(np.arange(len(SENSORS)))
-    axis.set_xticklabels(list(SENSORS), fontsize=9)
+    axis.set_xticklabels(list(SENSORS), fontsize=5.7)
     axis.set_yticks(np.arange(len(order)))
-    axis.set_yticklabels([ATTACK_LABELS[attack] for attack in order], fontsize=9)
-    axis.set_title("Quantum-workflow integrity coverage is sensor-conditional", fontsize=13)
+    axis.set_yticklabels([ATTACK_LABELS[attack] for attack in order], fontsize=6.2)
+    axis.tick_params(length=0, pad=2)
 
     for row in range(matrix.shape[0]):
         for column in range(matrix.shape[1]):
@@ -84,20 +87,12 @@ def build(evidence_dir: Path, out_dir: Path) -> None:
                 f"{value:.2f}",
                 ha="center",
                 va="center",
-                fontsize=8,
+                fontsize=6.0,
                 color="white" if value < 0.55 else "black",
             )
 
-    fig.subplots_adjust(left=0.24, right=0.91, bottom=0.22, top=0.90)
-    colorbar = fig.colorbar(image, ax=axis, shrink=0.82)
-    colorbar.set_label("Detection fraction across 5 splits × 3 dimensions")
-    fig.text(
-        0.5,
-        0.035,
-        "Provenance assumes a trusted reference; semantic and algebraic checks answer different questions. Shot rows are binomial emulation, not QPU runs.",
-        ha="center",
-        fontsize=9,
-    )
+    # Every cell prints its value, so no colour bar is needed at column width; the caption states the scale.
+    fig.subplots_adjust(left=0.345, right=0.995, bottom=0.12, top=0.995)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     png = out_dir / "fig_q1_quantum_integrity_contract.png"

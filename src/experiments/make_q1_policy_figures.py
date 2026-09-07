@@ -52,7 +52,7 @@ POLICY_STYLE = {
     "serve_always": ("P0 serve-always", GREY, "s"),
     "union_uncalibrated": ("P1 union (uncalibrated)", ORANGE, "^"),
     "family_calibrated": ("P2 conformal (calibrated, risk-tolerant)", BLUE, "o"),
-    "family_calibrated_strict": ("P3 strict (fail-closed)", GREEN, "D"),
+    "family_calibrated_strict": ("P3 coverage-complete abstaining", GREEN, "D"),
 }
 RULE_STYLE = (("union", ORANGE, "Union of per-sensor rules (1.1.0)"), ("family_v12", BLUE_LIGHT, "1.2.0 family rule (superseded)"), ("family", BLUE, "Conformal family rule (adopted)"))
 
@@ -92,8 +92,10 @@ def _style_axis(ax) -> None:
 
 
 def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
-    fig = plt.figure(figsize=(7.16, 2.75))
-    grid = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.05, 1.0], wspace=0.42)
+    # Layout (artifact 1.3.1): short panel titles that cannot collide, legends placed
+    # where they cover no data, value labels and ticks large enough at 7.16 in print width.
+    fig = plt.figure(figsize=(7.16, 2.7))
+    grid = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.05, 1.0], wspace=0.46)
 
     ax = fig.add_subplot(grid[0, 0])
     x = np.arange(len(BATCH))
@@ -106,29 +108,30 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
         hi = (block["environment_cluster_mean_max"] - block["pooled_rate"]).clip(lower=0)
         ax.errorbar(xs, block["pooled_rate"], yerr=np.vstack([lo, hi]), fmt="none", ecolor=INK_SECONDARY, elinewidth=0.7, capsize=1.6, zorder=4)
         for xi, v in zip(xs, block["pooled_rate"]):
-            ax.text(xi, v + 0.012, f"{v:.3f}", ha="center", va="bottom", fontsize=4.6, color=INK, rotation=90)
+            ax.text(xi, v + 0.012, f"{v:.3f}", ha="center", va="bottom", fontsize=5.2, color=INK, rotation=90)
     ax.axhline(0.05, color=BASELINE, linewidth=1.0, linestyle="--", zorder=2)
-    ax.text(len(BATCH) - 0.55, 0.053, "nominal 0.05", fontsize=5.6, color=INK_SECONDARY, ha="right", va="bottom")
+    ax.text(-0.42, 0.053, "nominal 0.05", fontsize=5.6, color=INK_SECONDARY, ha="left", va="bottom")
     ax.set_xticks(x)
-    ax.set_xticklabels([REGIME_LABEL[r] for r in BATCH], fontsize=7.2, color=INK)
-    ax.set_ylim(0, max(0.45, float(a["environment_cluster_mean_max"].max()) * 1.12))
-    ax.tick_params(axis="y", labelsize=6.2, colors=INK_SECONDARY, length=2)
+    ax.set_xticklabels([REGIME_LABEL[r] for r in BATCH], fontsize=7.4, color=INK)
+    ax.set_xlim(-0.55, len(BATCH) - 0.45)
+    ax.set_ylim(0, max(0.47, float(a["environment_cluster_mean_max"].max()) * 1.18))
+    ax.tick_params(axis="y", labelsize=6.5, colors=INK_SECONDARY, length=2)
     ax.tick_params(axis="x", length=0)
     _style_axis(ax)
-    ax.set_ylabel("Clean false-action rate (12,000 draws)", fontsize=6.4, color=INK_SECONDARY)
-    ax.set_title("(a) Decision-level calibration", fontsize=7.4, color=INK, loc="left")
-    ax.legend(fontsize=5.0, frameon=False, loc="upper left")
-    ax.text(0.0, -0.24, "Bars: pooled rate; whiskers: range of the eight per-environment\ncluster means. Conformal exact level 10/201 = 0.0498.", transform=ax.transAxes, fontsize=5.2, color=INK_SECONDARY, va="top")
+    ax.set_ylabel("Clean false-action rate (12,000 draws)", fontsize=6.6, color=INK_SECONDARY)
+    ax.set_title("(a) Decision-level calibration", fontsize=7.6, color=INK, loc="left")
+    ax.legend(fontsize=5.4, frameon=False, loc="upper left")
+    ax.text(0.0, -0.20, "Bars: pooled rate; whiskers: range of the eight per-environment\ncluster means. Conformal exact level 10/201 = 0.0498.", transform=ax.transAxes, fontsize=5.6, color=INK_SECONDARY, va="top")
 
     axb = fig.add_subplot(grid[0, 1])
     for policy, (label, color, marker) in POLICY_STYLE.items():
         block = b[b["policy"] == policy]
-        axb.scatter(block["decision_fpr"], block["unsafe_allow_rate"], s=24, color=color, marker=marker, label=label, zorder=4, edgecolor="white", linewidth=0.6)
+        axb.scatter(block["decision_fpr"], block["unsafe_allow_rate"], s=26, color=color, marker=marker, label=label.split(" (")[0], zorder=4, edgecolor="white", linewidth=0.6)
     for regime in REGIME_ORDER:
         block = b[(b["regime"] == regime) & (b["policy"].isin(["union_uncalibrated", "family_calibrated"]))].sort_values("decision_fpr")
         if len(block) == 2:
             axb.plot(block["decision_fpr"], block["unsafe_allow_rate"], color=HAIRLINE, linewidth=0.9, zorder=2)
-    offsets = {"I_X": (-4, 7), "I_XF": (10, -13), "I_Ym": (6, 4), "I_XFY": None, "I_XFY_trusted": (8, 4)}
+    offsets = {"I_X": (-4, 7), "I_XF": (10, -13), "I_Ym": None, "I_XFY": None, "I_XFY_trusted": (8, 4)}
     labels = {"I_XF": REGIME_LABEL["I_XF"] + ", " + REGIME_LABEL["I_XFY"]}
     for regime in REGIME_ORDER:
         if offsets[regime] is None:
@@ -136,17 +139,20 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
         row = b[(b["regime"] == regime) & (b["policy"] == "family_calibrated")].iloc[0]
         dx, dy = offsets[regime]
         axb.annotate(labels.get(regime, REGIME_LABEL[regime]), (row["decision_fpr"], row["unsafe_allow_rate"]), xytext=(dx, dy), textcoords="offset points", fontsize=6.2, color=INK, arrowprops=dict(arrowstyle="-", color=HAIRLINE, lw=0.7) if regime == "I_XF" else None)
+    p0 = b[(b["policy"] == "serve_always") & (b["regime"] == "I_X")].iloc[0]
+    axb.annotate("P0 (every regime); P1, P2 in " + REGIME_LABEL["I_Ym"], (p0["decision_fpr"], p0["unsafe_allow_rate"]), xytext=(16, -12), textcoords="offset points", fontsize=6.0, color=INK)
     strict = b[(b["policy"] == "family_calibrated_strict") & (b["regime"] == "I_X")].iloc[0]
-    axb.annotate("P3 in $\\mathcal{I}_X$, $\\mathcal{I}_{XF}$, $\\mathcal{I}_{Y_m}$:\nnothing served", (strict["decision_fpr"], strict["unsafe_allow_rate"]), xytext=(-72, 10), textcoords="offset points", fontsize=5.4, color=INK_SECONDARY, ha="left")
+    axb.annotate("P3 in $\\mathcal{I}_X$, $\\mathcal{I}_{XF}$, $\\mathcal{I}_{Y_m}$:\nnothing served", (strict["decision_fpr"], strict["unsafe_allow_rate"]), xytext=(-7, 6), textcoords="offset points", fontsize=5.6, color=INK_SECONDARY, ha="right", va="bottom")
     axb.set_xlim(-0.03, 1.05)
-    axb.set_ylim(-0.04, 1.06)
-    axb.set_xlabel("Clean false-action rate (trusted: 1,200 exact-zero rows)", fontsize=6.2, color=INK_SECONDARY)
-    axb.set_ylabel("Unsafe-allow rate (material served)", fontsize=6.4, color=INK_SECONDARY)
-    axb.tick_params(labelsize=6.2, colors=INK_SECONDARY, length=2)
+    axb.set_ylim(-0.04, 1.08)
+    axb.set_xlabel("Clean false-action rate (trusted: 1,200 exact-zero rows)", fontsize=6.4, color=INK_SECONDARY)
+    axb.set_ylabel("Unsafe-allow rate (material served)", fontsize=6.6, color=INK_SECONDARY)
+    axb.tick_params(labelsize=6.5, colors=INK_SECONDARY, length=2)
     _style_axis(axb)
     axb.grid(color=HAIRLINE, linewidth=0.8)
-    axb.set_title("(b) Unsafe allow versus clean false action", fontsize=7.4, color=INK, loc="left")
-    axb.legend(fontsize=5.0, frameon=False, loc="upper right")
+    axb.set_title("(b) Unsafe allow vs. clean false action", fontsize=7.6, color=INK, loc="left")
+    # The data occupy the left edge and the two corners; the lower centre-right is empty.
+    axb.legend(fontsize=5.6, frameon=False, loc="center right", bbox_to_anchor=(1.02, 0.31), handletextpad=0.4)
 
     axc = fig.add_subplot(grid[0, 2])
     xr = np.arange(len(REGIME_ORDER))
@@ -156,21 +162,23 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
         block = b[b["policy"] == policy].set_index("regime").reindex(REGIME_ORDER)
         xs = xr + (k - 1) * width
         axc.bar(xs, block["benign_interruption_rate"], width=width, color=color, zorder=3, label=label.split(" (")[0])
-        for xi, v, h, bl in zip(xs, block["benign_interruption_rate"], block["benign_hold"], block["benign_block"]):
+        for xi, v in zip(xs, block["benign_interruption_rate"]):
             if v > 0:
-                axc.text(xi, v + 0.012, f"{v:.2f}", ha="center", va="bottom", fontsize=4.6, color=INK, rotation=90)
+                axc.text(xi, v + 0.012, f"{v:.2f}", ha="center", va="bottom", fontsize=5.2, color=INK, rotation=90)
     trusted = b[(b["regime"] == "I_XFY_trusted") & (b["policy"] == "family_calibrated")].iloc[0]
-    axc.annotate(f"{int(trusted['benign_hold'])} held +\n{int(trusted['benign_block'])} blocked\nof 1,200", (xr[-1], trusted["benign_interruption_rate"]), xytext=(-2, 22), textcoords="offset points", fontsize=5.2, color=INK_SECONDARY, ha="right")
+    total = int(trusted["benign_hold"]) + int(trusted["benign_block"])
+    axc.annotate(f"{int(trusted['benign_hold'])} statistical holds +\n{int(trusted['benign_block'])} exact-reference blocks\n= {total} of 1,200", (xr[-1], trusted["benign_interruption_rate"] + 0.2), xytext=(xr[-1] + 0.35, 1.04), textcoords="data", fontsize=5.6, color=INK_SECONDARY, ha="right", va="bottom", arrowprops=dict(arrowstyle="-", color=BASELINE, lw=0.7))
     axc.set_xticks(xr)
-    axc.set_xticklabels([REGIME_LABEL[r] for r in REGIME_ORDER], fontsize=7.0, color=INK)
-    axc.set_ylim(0, 1.12)
-    axc.tick_params(axis="y", labelsize=6.2, colors=INK_SECONDARY, length=2)
+    axc.set_xticklabels([REGIME_LABEL[r] for r in REGIME_ORDER], fontsize=7.2, color=INK)
+    axc.set_ylim(0, 1.34)
+    axc.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
+    axc.tick_params(axis="y", labelsize=6.5, colors=INK_SECONDARY, length=2)
     axc.tick_params(axis="x", length=0)
     _style_axis(axc)
-    axc.set_ylabel("Benign interruption (1,200 near-null shams)", fontsize=6.4, color=INK_SECONDARY)
-    axc.set_title("(c) Cost on benign in-place variation", fontsize=7.4, color=INK, loc="left")
-    axc.legend(fontsize=5.0, frameon=False, loc="upper left")
-    axc.text(0.0, -0.24, "Same 1,200 rows for every regime. The trusted regime's zero unsafe\nallows and zero clean false actions cost 52% benign interruption.", transform=axc.transAxes, fontsize=5.2, color=INK_SECONDARY, va="top")
+    axc.set_ylabel("Interruption of 1,200 near-null controls", fontsize=6.6, color=INK_SECONDARY)
+    axc.set_title("(c) Cost on near-null synthetic variation", fontsize=7.6, color=INK, loc="left")
+    axc.legend(fontsize=5.4, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.12), ncol=3, columnspacing=1.0, handlelength=1.2)
+    axc.text(0.0, -0.26, "Same 1,200 rows for every regime; synthetic near-null variation,\nnot operational traffic.", transform=axc.transAxes, fontsize=5.6, color=INK_SECONDARY, va="top")
 
     for path in paths:
         if path.suffix.lower() == ".png":

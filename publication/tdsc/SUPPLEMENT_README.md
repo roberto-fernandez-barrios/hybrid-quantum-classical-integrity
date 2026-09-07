@@ -1,4 +1,4 @@
-# Supplementary material README (artifact 1.3.0)
+# Supplementary material README (artifact 1.3.1; experimental evidence frozen at 1.3.0)
 
 ## Description
 
@@ -6,7 +6,9 @@
 and Integrity Blind Regions Across the Evidence Boundaries of Hybrid
 Quantum-Classical Kernel Workflows". It records the formal core with proofs
 (Lemma 1, Propositions 1–7, Corollaries 1–3, the counterexample witnesses,
-the remark on metrics other than balanced accuracy), the adversary-model
+the remark on metrics other than balanced accuracy, the primitive/derived
+state semantics and the finite-shot counterexample of Proposition 7(iii)
+introduced by the 1.3.1 correction), the adversary-model
 reading rule, the prespecified experimental environments with their dataset
 weights, the 18-condition intervention suite, the information-set coverage
 matrix, the deduplication rules and the dependence structure of the
@@ -72,16 +74,18 @@ On Linux or macOS, use `.venv/bin/python` and `/` path separators.
 
 The tests must pass (the collected count is recorded in
 `publication/RELEASE_STATUS.md`); they include the exhaustive counting-bound
-tests of the conformal rule, the five-vector counterexample to the 1.2.0 rule
-and the brute-force checks of the formal core. The verifier must exit zero and
-report seven evidence manifests, the manifested outputs, 3,600 expansion
-label rows with 2,184 lowered / 983 unchanged / 433 raised conclusions (2,617
-changed), 1,440 Gate-1 label rows with 1,276 / 105 / 59, 60 calibrated
-cells, 7,008 material observations over 5 regimes and 4 policies, the
-conformal level 10/201 respected under the exchangeable re-splits, 16
-adversarial conditions with an exact replay of the matched controls, and the
-number of files in the artifact-wide manifest. A hash, schema, count or
-consistency mismatch causes a non-zero exit.
+tests of the conformal rule, the five-vector counterexample to the 1.2.0
+rule, the brute-force checks of the formal core, the intervention-semantics
+and finite-shot tests and the manuscript consistency gates. The verifier
+must exit zero and report seven evidence manifests, the manifested outputs,
+3,600 expansion label rows with 2,184 lowered / 983 unchanged / 433 raised
+conclusions (2,617 changed), 1,440 Gate-1 label rows with 1,276 / 105 / 59,
+60 calibrated cells, 7,008 material observations over 5 regimes and 4
+policies, the conformal level 10/201 respected under the exchangeable
+re-splits, the trusted-regime interruption decomposition (544 holds + 85
+blocks = 629), 16 adversarial conditions with an exact replay of the matched
+controls, and the number of files in the artifact-wide manifest. A hash,
+schema, count or consistency mismatch causes a non-zero exit.
 
 ## Full replay
 

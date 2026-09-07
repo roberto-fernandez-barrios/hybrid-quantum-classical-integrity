@@ -237,7 +237,9 @@ class QuantumLatticeTests(unittest.TestCase):
         self.assertTrue(len(psd) == 15 and semantic_changed[psd.index].all() and (~psd["algebraic_kernel_detected"].astype(str).str.lower().eq("true")).all())
         # (ii) outputs coarsen the kernel: no row with unchanged kernel has a prediction change
         self.assertTrue((obs.loc[~semantic_changed & ~obs["attack"].str.contains("shot"), "prediction_disagreement"].astype(float) <= tol).all())
-        # (iii) finite-shot estimators never reproduce the exact kernel
+        # (iii) in these 30 finite-shot cells the repeated-estimation discrepancy is non-zero: an empirical
+        # property of the frozen gate, not a universal law (see tests/test_workflow_state.py for the
+        # counterexample to "Pr[K_hat = K_0] = 0" on the support of the estimator)
         shots = obs[obs["attack"].str.contains("shot")]
         self.assertTrue(len(shots) == 30 and (shots["repeated_estimation_discrepancy"].astype(float) > 0).all())
 

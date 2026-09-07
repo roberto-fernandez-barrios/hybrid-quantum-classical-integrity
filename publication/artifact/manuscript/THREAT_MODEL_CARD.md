@@ -1,7 +1,8 @@
 # Threat-model card — Paper 1.5 / ATHENA-AEGIS
 
-Version: 3.0 (2026-09-07, artifact 1.3.0; version 2.0 of the same day for
-1.2.0; version 1.0 dated 2026-08-09)  
+Version: 3.1 (2026-09-07, artifact 1.3.1: reference taxonomy, P3 name and
+definition, trusted-cost decomposition, quantum kernel notions; version 3.0 of
+the same day for 1.3.0; version 2.0 for 1.2.0; version 1.0 dated 2026-08-09)  
 Scope: integrity and auditability of a hybrid quantum-classical kernel workflow.
 The per-class adversary and failure model is `ADVERSARY_MODEL.md`; the formal
 objects (views, trusted references, blind regions, the quantum lattice) are
@@ -85,12 +86,17 @@ non-repudiation are outside the demonstrated claim.
 | `I_X` | features (multiset of rows) | any label-only change | conformal decision FPR 0.056; label path 0/3,600; cluster-preserving drift detected in 0.01–0.56 at matched strengths |
 | `I_XF` | features and fixed-model outputs | any label-only change | conformal FPR 0.058; label path 0/3,600; cluster-preserving drift 0.06–0.66 |
 | `I_Ym` | label marginal | prior-preserving item-level relabeling; every feature-side change | FPR 0.048; contains nothing in this suite |
-| `I_XFY` (batch) | multiset of item triples, no reference | none for material label changes (Proposition 3) but statistically undetectable: 11–43 of 2,617 | conformal FPR 0.053 |
-| `I_XFY*` (trusted, item-aligned) | same items against an authenticated reference | none | exact: 2,617/2,617 material label rows and every material adaptive row; 0 unsafe allows; 0 clean false actions on 1,200 exact-zero rows; benign interruption 0.52 |
-| `I_Q` | circuit, kernel and execution evidence | composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes (Proposition 7) | 165/165 cells |
+| `I_XFY` (batch) | multiset of item triples; level-A (statistical) reference only | none for material label changes (Proposition 3) but statistically undetectable: 11–43 of 2,617 | conformal FPR 0.053 |
+| `I_XFY*` (trusted, same-batch) | same items against authenticated same-batch references (level B aggregate, level C item-aligned) | none | exact: 2,617/2,617 material label rows and every material adaptive row; 0 unsafe allows; 0 clean false actions on 1,200 exact-zero rows; interrupts 629 of 1,200 near-null synthetic controls (544 statistical holds + 85 exact-reference blocks) |
+| `I_Q` | circuit, kernel and execution evidence | class-dependent (Proposition 7): on circuit-side interventions hashes overreact to approved equivalence; on post-processing interventions algebra misses a PSD-preserving substitution of the observed kernel, which the circuit hash and the semantic probe cannot see either; outputs miss sub-decision changes; under finite-shot estimation exact equality is not an acceptance criterion | 165/165 cells |
 
-No "stealth" claim is valid without naming one of these regimes and the
-references it trusts.
+Reference levels: A = statistical or historical reference (null distribution,
+training or reference population, calibration sample; no authenticated
+same-batch anchor), which every batch-level sensor holds; B = trusted
+aggregate same-batch reference; C = trusted item-aligned same-batch
+reference. No "stealth" claim is valid without naming one of these regimes
+and the references it trusts, and "no reference" is never the right
+description of a batch-level auditor.
 
 ## Detection and response policy
 
@@ -101,16 +107,21 @@ contracts by the maximum in `allow < hold < block`:
 
 - `block` only for an exact invariant violated against a trusted reference;
 - `hold` for statistical evidence of deviation (conformal rule) or, under the
-  strict policy P3, for an unverified protected boundary;
+  coverage-complete abstaining policy P3, for a mandatory protected boundary
+  without declared exact or statistical coverage;
 - `allow` otherwise; the calibrated risk-tolerant policy P2 declares the
   residual blind region in the reason code and serves.
 
-The contracts fail closed on their invariants; P2 is not fail-closed; P3 is.
-The conformal rule's level (10/201 under exchangeability) is marginal and the
-executed design violates the premise by a measured, small margin. PSD repair
-is containment for numerical validity, not proof that the original kernel was
-trustworthy. A raw hash mismatch is evidence for adjudication, not automatic
-proof of harmful semantics.
+The contracts fail closed on their invariants; P2 is not fail-closed; P3
+fails closed on missing coverage only and guarantees no minimum detection
+power (where every boundary is covered it coincides with P2). Abstention
+conditioned on the validity of the calibration itself (out-of-support
+context) is outside this layer (Paper 2.5). The conformal rule's finite-sample
+level (10/201 under exchangeability) is marginal; the executed design
+violates the premise and the observed rates (0.056 / 0.058 / 0.048 / 0.053)
+are reported as executed. PSD repair is containment for numerical validity,
+not proof that the original kernel was trustworthy. A raw hash mismatch is
+evidence for adjudication, not automatic proof of harmful semantics.
 
 ## Claims supported
 
@@ -123,15 +134,20 @@ proof of harmful semantics.
   and no verifier whose evidence the adversary can rewrite certifies
   authenticity (Proposition 6).
 - Per-sensor calibration does not calibrate the decision; the conformal family
-  rule does, with an exact level under exchangeability; the 1.2.0 rule had a
-  false guarantee and most of its excess was rule bias.
+  rule does, with a finite-sample level that is exact under exchangeability
+  (observed 0.048–0.058 in the executed, non-exchangeable design); the 1.2.0
+  rule had a false guarantee and most of its excess was rule bias.
 - The unsafe-allow count is set by the information regime; only the trusted
-  item-aligned regime serves none of the materially changed results, at a
-  measured cost on benign variation.
+  same-batch regime serves none of the materially changed results, at a
+  measured cost on near-null synthetic variation (629 of 1,200 controls, 544
+  statistical holds + 85 exact-reference blocks).
 - An adaptive attacker who preserves the cluster fingerprint evades the
-  calibrated batch-level sensors while keeping most of the conclusion changes;
-  only a reference closes that region.
-- The quantum branch is an instance of the same view lattice (Proposition 7).
+  calibrated batch-level sensors while keeping 83–91 % of the conclusion
+  changes; only a reference closes that region.
+- The quantum branch is an instance of the same view lattice, class by class
+  (Proposition 7); under finite-shot estimation exact equality with the ideal
+  kernel is not an acceptance criterion and the discrepancy needs a calibrated
+  null.
 
 ## Claims not supported
 

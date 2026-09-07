@@ -40,9 +40,12 @@ jobs:
           src/experiments/make_q1_adversarial_figures.py
           src/attacks/cluster_preserving.py
           src/integrity/family_calibration.py
+          src/integrity/workflow_state.py
           src/hsaas/policy.py
           src/hsaas/contracts.py
           src/hsaas/demo.py
+      - name: Manuscript consistency gates (abstract length, active numbers, claim wording)
+        run: python -m pytest -q tests/test_manuscript_consistency.py
       - name: Run tests
         run: python -m pytest -q
       - name: Verify publication evidence and SHA-256 contracts

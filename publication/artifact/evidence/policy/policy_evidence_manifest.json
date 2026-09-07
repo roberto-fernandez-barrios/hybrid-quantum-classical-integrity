@@ -4,7 +4,7 @@
   "status": "complete",
   "preregistration": {
     "file": "manuscript/paper15_v12_policy_prereg.md",
-    "sha256": "31860b4d233db730492839be289112cd5ec445fb78d7d690b19ae7e2d0efa8a8"
+    "sha256": "c42c13af883b4cc21f455613aa7be8bce34eef89ce3ad1cc436ccc9668c46a42"
   },
   "amendment_a2": {
     "file": "manuscript/paper15_v13_prereg.md",
@@ -63,7 +63,7 @@
       "serve_always": "baseline (always serve)",
       "union_uncalibrated": "uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",
       "family_calibrated": "calibrated, risk-tolerant (may serve under a declared residual blind region)",
-      "family_calibrated_strict": "strict fail-closed / abstaining (unverified mandatory boundary => hold)"
+      "family_calibrated_strict": "coverage-complete abstaining (fail-closed on missing coverage: a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)"
     },
     "regimes": {
       "I_X": {
@@ -165,7 +165,7 @@
     {
       "role": "prereg_v12",
       "path": "manuscript/paper15_v12_policy_prereg.md",
-      "sha256": "31860b4d233db730492839be289112cd5ec445fb78d7d690b19ae7e2d0efa8a8"
+      "sha256": "c42c13af883b4cc21f455613aa7be8bce34eef89ce3ad1cc436ccc9668c46a42"
     },
     {
       "role": "prereg_v13",
@@ -232,11 +232,11 @@
     },
     "policy_metrics.csv": {
       "rows": 60,
-      "sha256": "bb07adb5f7e653a713c1da1f95b325f0dc6d93b2c9a32eb732ef8fe8755847ea"
+      "sha256": "98545e7fb07c27eca74710bfff57eff2bdd56c4b2aec487ce6ccce19c2a378d5"
     },
     "policy_metrics_rule_comparison.csv": {
       "rows": 120,
-      "sha256": "8b5e6dab98857c9d449a421539c10d6a46d61d3b9eb1fd6fb73763baeb35828e"
+      "sha256": "ff3cad8e8fd905ae12bea29657182c6aa12373f489f365b4131a9486e5602d93"
     },
     "policy_metrics_by_family.csv": {
       "rows": 480,
@@ -260,7 +260,7 @@
     },
     "policy_taxonomy.csv": {
       "rows": 4,
-      "sha256": "b9c4dbee4e5aebba5bacf0e9fe9455d347f0375a13b96c8ef04f5d0307af017e"
+      "sha256": "c1c1c2c004862fe9072b5241985d8f4f453a23f63d6e550f2978c118764884c9"
     },
     "policy_intervened_decisions.csv": {
       "rows": 10800,

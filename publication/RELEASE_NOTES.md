@@ -4,6 +4,34 @@ The authoritative counts of every release (manifests, outputs, files, tests,
 pages, hashes, DOIs) are generated into `publication/RELEASE_STATUS.md`;
 the notes below describe scope only.
 
+## 1.3.1 — 2026-09-07 (formal and editorial correction; evidence frozen at 1.3.0)
+
+- No new science: no kernel, job, dataset, seed, model, QPU, noise or attacker
+  run; every number of the article is that of 1.3.0.
+- Proposition 7(iii) restated for finite-shot estimation: exact equality has
+  false-alarm probability 1 − Pr[K̂ = K₀ | honest], not universally one
+  (1/2 at fidelity 1/2 with two shots); the discrepancy needs a calibrated
+  null, otherwise no statistical integrity claim. Semantic, estimated and
+  observed kernels separated with class-indexed inclusions.
+- Workflow state split into primitive and derived artifacts with explicit
+  intervention semantics (`src/integrity/workflow_state.py`).
+- Reference taxonomy: Level A statistical/historical reference; Level B
+  trusted aggregate same-batch reference; Level C trusted item-aligned
+  same-batch reference.
+- Conformal claim: finite-sample level under exchangeability stated
+  separately from the observed rates of the executed design (0.048–0.058).
+- P3 renamed coverage-complete abstaining (fail-closed on missing coverage;
+  no minimum-power guarantee); decisions unchanged; `policy_class` label
+  regenerated.
+- Headline numbers from macros only (83–91 % retention); trusted-regime
+  interruption decomposed: 544 statistical holds + 85 exact-reference blocks
+  = 629 of 1,200 near-null synthetic controls.
+- Abstract ≤ 250 words (CI test); threat scenario; VAMP and a nine-axis
+  positioning table; figures made legible; 12 + 17 pages.
+- New tests (`tests/test_workflow_state.py`,
+  `tests/test_manuscript_consistency.py`); verifier records the interruption
+  decomposition; tags 1.1.0–1.3.0 immutable.
+
 ## 1.3.0 — 2026-09-07 (final scientific closure for IEEE TDSC)
 
 - Amendment A2: the family-calibration rule of 1.2.0 had a false guarantee
@@ -17,9 +45,10 @@ the notes below describe scope only.
   excluded; split construction as sensitivity.
 - Gate D regenerated with the conformal rule and the benign-interruption cost
   made explicit: the trusted item-aligned regime serves none of the 7,008
-  material observations but interrupts 52 % of benign near-null variation;
-  policy taxonomy corrected (P2 calibrated risk-tolerant, P3 strict
-  fail-closed); "offline end-to-end" wording throughout.
+  material observations but interrupts 52 % of the near-null controls;
+  policy taxonomy corrected (P2 calibrated risk-tolerant; P3 abstaining,
+  renamed coverage-complete abstaining in 1.3.1); "offline end-to-end"
+  wording throughout.
 - Gate A (new, preregistered): adaptive cluster-preserving perturbation,
   240 exact-statevector jobs; detection of feature drift under the conformal
   rule falls from 0.96–1.00 to 0.01–0.66 at matched strengths while 83–91 %
@@ -29,7 +58,8 @@ the notes below describe scope only.
   metric remark, C9), statement-by-statement formal review with brute-force
   tests; seventh evidence manifest; verifier and CI extended; 76 tests.
 - Final hostile review (Audit 5) fixed one headline number (material
-  retention of the adaptive attacker: 83–91 %, not 88–95 %), the abstract
+  retention of the adaptive attacker: 83–91 %, correcting the higher range of
+  the first draft; one hand-typed row survived and was removed in 1.3.1), the abstract
   range of the conformal rule (0.053–0.058 for the regimes with feature
   evidence) and one rounding inconsistency before the release build.
 - Manuscript: calibration, benign cost, adaptive attacker and quantum lattice

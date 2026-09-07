@@ -25,18 +25,25 @@ Policy taxonomy (``POLICY_CLASS``)
   family-calibrated regime rule fires; serves otherwise, *including under an
   explicitly declared residual blind region* (reason code
   ``allowed_with_residual_blind_region``). It is not a fail-closed policy.
-* P3 ``family_calibrated_strict`` -- strict, fail-closed / abstaining: as P2,
-  and every protected boundary that the regime cannot verify exactly or
-  statistically yields ``hold`` (reason code ``unverified_boundary``); missing
-  mandatory evidence is interpreted as abstention.
+* P3 ``family_calibrated_strict`` -- *coverage-complete abstaining* (artifact
+  1.3.1 name; the identifier is kept for compatibility with the frozen
+  evidence tables): as P2, and every mandatory protected boundary that the
+  regime covers neither exactly (trusted item-aligned reference) nor
+  statistically (declared calibrated sensor) yields ``hold`` (reason code
+  ``unverified_boundary``). It fails closed *on missing coverage*, not on
+  insufficient power: a boundary that is nominally covered by a calibrated
+  sensor of low power is served exactly as under P2, so P3 does not guarantee
+  a minimum detection power and does not rule out an unsafe allow whenever a
+  sensor exists. Abstention that depends on the validity of the calibration
+  itself (out-of-support context) is outside this layer (Paper 2.5).
 
 Three notions must not be conflated: the *contract logic* of ``src/hsaas/contracts.py``
 fails closed on its invariants (a violated invariant blocks, missing mandatory
 evidence holds); the *decision policy* P2 is calibrated and risk-tolerant; the
-*decision policy* P3 is strictly fail-closed. ``block`` is reserved for
+*decision policy* P3 abstains on missing coverage. ``block`` is reserved for
 violations of an exact invariant against a trusted reference; ``hold`` is the
 response to statistical evidence of deviation or, under P3, to a boundary the
-regime cannot verify. The decision composes with the four frozen HSaaS
+regime does not cover. The decision composes with the four frozen HSaaS
 contracts by taking the maximum in the lattice ``allow < hold < block``.
 
 The module is pure: it performs no I/O and does not depend on the evidence
@@ -62,7 +69,7 @@ POLICY_CLASS: Final[dict[str, str]] = {
     "serve_always": "baseline (always serve)",
     "union_uncalibrated": "uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",
     "family_calibrated": "calibrated, risk-tolerant (may serve under a declared residual blind region)",
-    "family_calibrated_strict": "strict fail-closed / abstaining (unverified mandatory boundary => hold)",
+    "family_calibrated_strict": "coverage-complete abstaining (fail-closed on missing coverage: a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",
 }
 
 
@@ -119,7 +126,11 @@ class Decision:
 
 
 def unverified_boundaries(regime: RegimeSpec, protected: tuple[str, ...] = BOUNDARIES) -> tuple[str, ...]:
-    """Protected boundaries that the regime cannot verify exactly or statistically."""
+    """Protected boundaries without declared exact or statistical coverage under the regime.
+
+    Coverage is declared, not measured: a boundary covered by a calibrated
+    sensor counts as covered whatever the power of that sensor.
+    """
 
     return tuple(b for b in protected if not regime.covers(b))
 

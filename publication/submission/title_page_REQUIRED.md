@@ -1,4 +1,4 @@
-# Title page — author-confirmed metadata (authors confirmed 2026-09-06; 1.2.0 and 1.3.0 manuscript changes approved 2026-09-07, communicated by the corresponding author)
+# Title page — author-confirmed metadata (authors confirmed 2026-09-06; 1.2.0, 1.3.0 and 1.3.1 manuscript changes approved 2026-09-07, communicated by the corresponding author)
 
 ## Article metadata
 
@@ -58,17 +58,21 @@ authors on 2026-09-06; reconfirmed for 1.3.0 on 2026-09-07).
 
 ## Data and code availability
 
-The reproducibility artifact (version 1.3.0) contains source code, locked
-dependencies, tests (including the exhaustive tests of the conformal
-calibration rule and the brute-force checks of the formal core), derived
-evidence for the frozen gates, the preregistered 1.1.0, 1.2.0 and 1.3.0
-gates (with amendments A1–A3), the formal core and its statement-by-statement
-review, the adversary model, vector figures, seven SHA-256 evidence manifests
-and the artifact-wide manifest. Raw benchmark datasets are not redistributed;
-public sources, expected hashes and deterministic staging instructions are
-documented. Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest
-version); version DOI of 1.3.0: **10.5281/zenodo.22648573**
-(repository tag `paper15-q1-v1.3.0`; 1.2.0: 10.5281/zenodo.22644529; 1.1.1:
+The reproducibility artifact (version 1.3.1; experimental evidence frozen at
+version 1.3.0) contains source code, locked dependencies, tests (including
+the exhaustive tests of the conformal calibration rule, the brute-force
+checks of the formal core, the intervention-semantics and finite-shot tests
+and the manuscript consistency gates), derived evidence for the frozen gates,
+the preregistered 1.1.0, 1.2.0 and 1.3.0 gates (with amendments A1–A3), the
+formal core and its statement-by-statement reviews, the adversary model,
+vector figures, seven SHA-256 evidence manifests and the artifact-wide
+manifest. Raw benchmark datasets are not redistributed; public sources,
+expected hashes and deterministic staging instructions are documented.
+Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest
+version); the version DOI
+of 1.3.1 is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`
+(repository tag `paper15-q1-v1.3.1`; frozen evidence 1.3.0:
+10.5281/zenodo.22648573; 1.2.0: 10.5281/zenodo.22644529; 1.1.1:
 10.5281/zenodo.22552643).
 
 ## Related manuscripts by the authors (disclosed in §II-E and the cover letter)
@@ -90,9 +94,10 @@ submission.
 
 See `AI_USE_DISCLOSURE.md`: system, affected sections and level of use for
 OpenAI Codex and Anthropic Claude Code; the 1.1.0 wording was approved by all
-authors on 2026-09-06 and the 1.2.0/1.3.0 extensions (formal core, adversary
-model, policy gates, mathematical audit, conformal rule, adversarial gate,
-release automation) on 2026-09-07.
+authors on 2026-09-06 and the 1.2.0/1.3.0/1.3.1 extensions (formal core,
+adversary model, policy gates, mathematical audit, conformal rule,
+adversarial gate, release automation, the 1.3.1 formal and editorial
+corrections) on 2026-09-07.
 
 ## Artifact and copyright choices
 

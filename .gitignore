@@ -24,3 +24,4 @@ tmp/
 /publication/paper15-tdsc-source-v*.zip.sha256
 /publication/SHA256SUMS.txt
 /publication/zenodo_draft_state.json
+/publication/zenodo_published_state.json

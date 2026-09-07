@@ -1,4 +1,11 @@
-# Paper 1.5 reproduction guide (artifact 1.3.0)
+# Paper 1.5 reproduction guide (artifact 1.3.1; experimental evidence frozen at 1.3.0)
+
+Version 1.3.1 re-executes nothing: it corrects the formal statements and the
+editorial framing, regenerates the policy and adversarial tables with the
+unchanged, deterministic builders so that the textual `policy_class` label of
+P3 reads "coverage-complete abstaining" (every number is identical to 1.3.0),
+and adds `tests/test_workflow_state.py` and
+`tests/test_manuscript_consistency.py`. The commands below are those of 1.3.0.
 
 This guide separates two activities that a third party may want to perform
 from a clean clone:

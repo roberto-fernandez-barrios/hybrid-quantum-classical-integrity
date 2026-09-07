@@ -46,8 +46,9 @@ must sign the chain and bind it to backend/job/calibration identities.
 ## Fail-closed logic of the contracts
 
 The contracts fail closed on their invariants. This is a property of the
-contract layer and must not be confused with the decision policies below,
-of which only P3 is fail-closed.
+contract layer and must not be confused with the decision policies below:
+P2 is risk-tolerant, and P3 (coverage-complete abstaining) fails closed on
+missing coverage only.
 
 | Contract state | Service action | Meaning |
 |---|---|---|
@@ -86,8 +87,12 @@ Policy taxonomy (`POLICY_CLASS`):
   family rule fires; otherwise serves, *including under an explicitly declared
   residual blind region* (`allowed_with_residual_blind_region:label`). It is
   not a fail-closed policy.
-- P3 `family_calibrated_strict` — strict fail-closed / abstaining: as P2, and
-  an unverified mandatory boundary yields `hold` (`unverified_boundary:label`).
+- P3 `family_calibrated_strict` — coverage-complete abstaining (the identifier
+  is historical): as P2, and a mandatory boundary without declared exact or
+  statistical coverage yields `hold` (`unverified_boundary:label`). It fails
+  closed on missing coverage, not on insufficient power: a boundary covered by
+  a low-power calibrated sensor is served as under P2, so P3 guarantees no
+  minimum detection power (in `I_XFY` it coincides with P2).
 
 `block` is reserved for an exact invariant violated against a trusted
 reference. The policy composes with the four contracts by the maximum in the
@@ -104,8 +109,9 @@ consistency checks; the results are summarised in
 rule): decision false-alarm rates 0.056 / 0.058 / 0.048 / 0.053 against
 0.125 / 0.203 / 0.048 / 0.259 (union); unsafe allows 4,496 / 4,365 / 7,008 /
 4,390 of 7,008 for the batch-level regimes under P2 and 0 for the trusted
-item-aligned regime, which however interrupts 52 % of the 1,200 benign
-near-null controls (544 held, 85 blocked). The adversarial gate of 1.3.0
+item-aligned regime, which however interrupts 629 of the 1,200 near-null
+synthetic controls (544 statistical holds that P2 also pays in the batch
+regimes, 85 exact-reference blocks). The adversarial gate of 1.3.0
 (`build_q1_adversarial_evidence.py`) shows that P2 serves 959–1,328 of 3,418
 material rows of an attacker who preserves the batch-level fingerprint; the
 trusted regime blocks all of them.

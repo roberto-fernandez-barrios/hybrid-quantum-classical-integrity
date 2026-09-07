@@ -1,9 +1,10 @@
 OPTIONAL INTERNAL SUMMARY — IEEE TDSC does not currently require highlights.
 
-Auditability is conditioned on the evidence exposed at the workflow boundary and on the trusted references the auditor holds.
-Label corruption creates exact blind regions for feature-based sensors; a trusted aggregate of the same batch closes them for material changes.
-Blind regions recur across three datasets and eight fixed environments and survive null and conformal calibration.
-A conformal family rule calibrates multi-sensor decisions to an exact finite-sample level; the earlier asymmetric rule did not.
-An adaptive attacker who preserves the feature-cluster fingerprint evades calibrated batch-level sensors while keeping most of the harm.
-Stronger provenance closes blind regions at a measured cost on benign variation; the trusted regime interrupts half of the near-null controls.
-Quantum-workflow sensors are one more chain of coarsenings of the same lattice, with an approved equivalence class and estimation noise.
+Auditability is conditioned on the evidence exposed at the workflow boundary and on the trusted references the auditor holds; a statistical or historical reference (level A) is not an authenticated same-batch anchor (levels B, C).
+Label corruption creates exact blind regions for feature-based sensors; a trusted aggregate of the same batch closes them for material changes, and item alignment is needed only for identity.
+The calibrated rules reproduce the structural blind regions across three datasets and eight fixed environments (a consistency check); the informative quantity is how often those blind regions coincide with material conclusion changes and served decisions.
+A conformal family rule has finite-sample level at most alpha under exchangeability; in the executed, non-exchangeable design the observed decision false-alarm rates are 0.048–0.058, against 0.125–0.259 for the union of per-sensor rules; the earlier asymmetric rule had no guarantee.
+An adaptive attacker who preserves the feature-cluster fingerprint evades calibrated batch-level sensors while keeping 83–91 % of the conclusion changes.
+Stronger provenance closes blind regions at a measured cost: the trusted regime interrupts 629 of 1,200 near-null synthetic controls, mostly statistical holds (544) that the calibrated batch-level policy also pays, plus 85 exact-reference blocks.
+Policy P3 (coverage-complete abstaining) fails closed on missing coverage only and guarantees no minimum detection power.
+Quantum-workflow sensors are one more chain of coarsenings of the same lattice, with semantic, estimated and observed kernels kept apart; under finite-shot estimation exact equality is not an acceptance criterion and the discrepancy needs a calibrated null.
