@@ -1,14 +1,24 @@
 {
   "analysis": "paper15_v12_policy",
+  "artifact_version": "1.3.0",
   "status": "complete",
   "preregistration": {
     "file": "manuscript/paper15_v12_policy_prereg.md",
     "sha256": "31860b4d233db730492839be289112cd5ec445fb78d7d690b19ae7e2d0efa8a8"
   },
+  "amendment_a2": {
+    "file": "manuscript/paper15_v13_prereg.md",
+    "sha256": "c2b1f3e83838a844d51ae0401ffe5c0132cef7291bb82598e22ffdc720da3774"
+  },
   "gate_f": {
     "alpha_per_decision": 0.05,
-    "statistic": "maximum calibration rank score over the regime (one minus the minimum calibration p-value); ties count against firing",
-    "threshold": "191th smallest calibration family score per (environment, dimension, model) cell",
+    "adopted_rule": "full conformal max-rank p-value: leave-one-out family score of every member of the augmented set (calibration draws plus the audited batch); fire iff (1 + #{calibration scores >= audited score}) / (n+1) <= alpha; ties against firing",
+    "exact_level_under_exchangeability": 0.04975124378109453,
+    "superseded_rule_v12": "asymmetric family rule of artifact 1.2.0, reported for comparison only",
+    "resplits": {
+      "n": 30,
+      "seed": 20260907
+    },
     "regimes": {
       "I_X": [
         "integrity_jsd_vs_clean_eval",
@@ -40,7 +50,7 @@
         "integrity_confusion_profile_jsd"
       ]
     },
-    "inferential_unit": "environment x split-seed cluster; pooled rates descriptive"
+    "inferential_unit": "environment x split-seed cluster; pooled rates descriptive; primary aggregate all eight environments, E1 also reported separately"
   },
   "gate_d": {
     "policies": [
@@ -49,6 +59,12 @@
       "family_calibrated",
       "family_calibrated_strict"
     ],
+    "policy_classes": {
+      "serve_always": "baseline (always serve)",
+      "union_uncalibrated": "uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",
+      "family_calibrated": "calibrated, risk-tolerant (may serve under a declared residual blind region)",
+      "family_calibrated_strict": "strict fail-closed / abstaining (unverified mandatory boundary => hold)"
+    },
     "regimes": {
       "I_X": {
         "trusted_reference": false,
@@ -99,17 +115,20 @@
       ]
     },
     "observation_classes": {
-      "clean": "12,000 disjoint clean evaluation draws (exact-zero rows for the trusted regime)",
-      "benign": "near-null in-place shams",
-      "intervened": "frozen paper_core observations of the eight Gate N environments"
+      "clean": "12,000 disjoint clean evaluation draws (1,200 exact-zero rows for the trusted regime)",
+      "benign": "1,200 near-null in-place shams",
+      "intervened": "10,800 frozen paper_core observations of the eight Gate N environments"
     },
+    "evaluation_mode": "offline, on frozen outputs; not a deployed runtime service",
     "composition": "max in the lattice allow < hold < block over the six frozen HSaaS envelopes"
   },
   "acceptance_checks": {
     "F0_frozen_per_sensor_thresholds_reproduced": true,
+    "F1_conformal_rate_at_most_union_rate_every_regime": true,
     "F3_family_I_X_zero_on_label_rows": true,
     "F3_family_I_XF_zero_on_label_rows": true,
     "F3_family_I_Ym_zero_on_prior_preserving_rows": true,
+    "F4_conformal_rule_within_level_under_exchangeable_resplits": true,
     "D1_serve_always_unsafe_allow_equals_material": true,
     "D2_structural_blindness_reproduced_by_decisions": true,
     "D3_trusted_regime_blocks_all_material_label_rows_and_exact_violations": true,
@@ -144,87 +163,116 @@
       "sha256": "9a27f93583c78300b22e40f7df36bb2b07581807064b0f2c877e543a155aa134"
     },
     {
-      "role": "prereg",
+      "role": "prereg_v12",
       "path": "manuscript/paper15_v12_policy_prereg.md",
       "sha256": "31860b4d233db730492839be289112cd5ec445fb78d7d690b19ae7e2d0efa8a8"
+    },
+    {
+      "role": "prereg_v13",
+      "path": "manuscript/paper15_v13_prereg.md",
+      "sha256": "c2b1f3e83838a844d51ae0401ffe5c0132cef7291bb82598e22ffdc720da3774"
     }
   ],
   "outputs": {
     "family_calibration_thresholds.csv": {
       "rows": 240,
-      "sha256": "8b2161a25241de3bf8589315ea9f6ec77b2ffae6b052f98170cc07ec52b5c719"
+      "sha256": "142ec9c61d78755e018d56ccd8a3a3786da2e55f74b23f2d8d67d2f19a9abec4"
     },
     "family_false_alarm_by_cell.csv": {
-      "rows": 480,
-      "sha256": "3579500e7d0425bcc7503345b3cac5dbe0d8bc72ccf8fa367c89e36b36d76bb4"
+      "rows": 720,
+      "sha256": "b45e0715ab223899b0a700ff0f7698c63f09626b80555cfb5251c502a29a54b7"
     },
     "family_false_alarm_by_cluster.csv": {
-      "rows": 320,
-      "sha256": "7fae8794364f0fe6dcdc92807c0134629fe5cd9bc0484ac0e80c3cc1a828c729"
+      "rows": 480,
+      "sha256": "0b867da38d9550d985ecf1eb0f4c2cb982cdd68a15f4022f1916a8791f33a80e"
     },
     "family_false_alarm_by_environment.csv": {
-      "rows": 64,
-      "sha256": "23c4f37dc1c121f62022123c0942b4e74127bfc3f6dd58c36fd29fa017b6afbc"
+      "rows": 96,
+      "sha256": "e0be8a6045dad95f2e16ffaec8868c238862cd8c68a8846cddcea7b44845a375"
     },
     "family_false_alarm_overall.csv": {
-      "rows": 8,
-      "sha256": "e6984c3c3bfa884eaece96a871e6f1501f811915160d1f4b6a03c92af751213a"
+      "rows": 36,
+      "sha256": "29220bd99b11ebfd35c354aee63092581f36a91556fcb0f5dc9128cd6f2ac480"
+    },
+    "family_excess_decomposition.csv": {
+      "rows": 4,
+      "sha256": "01c988be7293052a4b3113f0b9823ad9365324f9623a011c04e48e96c6a20f6d"
+    },
+    "family_resplit_by_cell.csv": {
+      "rows": 240,
+      "sha256": "11855701f0132798338891a76629fde5bb8fa595c31dc39cd395670425e0fab8"
+    },
+    "family_resplit_pooled.csv": {
+      "rows": 4,
+      "sha256": "c6fdb720f3ba0adf7187f4c47b6e14a7b6458630eeb40769a298fce2f96c1024"
+    },
+    "family_split_construction_sensitivity.csv": {
+      "rows": 4,
+      "sha256": "d0a8ce6c559ed2d0ffbffb55088567a003c2cc2c529f4ecfe1ded51cc98ec184"
     },
     "family_detection_pooled.csv": {
-      "rows": 144,
-      "sha256": "7323939356da59fb54c9aa1e50e84c67269e4745bc7bc80ad7bfbaf333d3c19a"
+      "rows": 216,
+      "sha256": "f5c52342561a2ff2dc31681700430b7ef385bd209251dc50380a81316ecc236e"
     },
     "family_detection_by_environment.csv": {
-      "rows": 1152,
-      "sha256": "752cdf7c54e91566da05efeff0e025a34d53fc3cfed0ad0b8b74f6b1fef9fac9"
+      "rows": 1728,
+      "sha256": "f38f16f61ea0e68466d190df344e12af73536e4b30cec4e8b86bedb522ca23d3"
     },
     "family_benign_control_response.csv": {
-      "rows": 24,
-      "sha256": "2ec23cd8d4ff73850c896e4a5543e3b8f490a397ecae4ad43a74475cb520b3cb"
+      "rows": 36,
+      "sha256": "bd3811fd5daceb9cb2ca271ee0db8bdadf794df3aca9c1cdb06db4bdda9f88ae"
     },
     "family_label_path_summary.csv": {
-      "rows": 27,
-      "sha256": "908abdd76756bc80598657fb632255cbd819fa528b4e9f97fe712fac55868510"
+      "rows": 39,
+      "sha256": "bec19044e3ae4d01804e6d6744ec5ad9c8b1866b795efe6e808a5ac41eb22420"
     },
     "inference_units.csv": {
       "rows": 1,
-      "sha256": "0a3d1e3e70d455145ef121afcf0c8f9f8fe62a36a72427e6e131f43933310b2c"
+      "sha256": "d017298e97cb005fb129a900326da63fb4c4746806e10bc69cbd043e5233f638"
     },
     "policy_metrics.csv": {
       "rows": 60,
-      "sha256": "26e55cf764d5920efda3bc81e4a2f9f5f5ced7ade844527f29f8eaa05f8c7a3f"
+      "sha256": "bb07adb5f7e653a713c1da1f95b325f0dc6d93b2c9a32eb732ef8fe8755847ea"
+    },
+    "policy_metrics_rule_comparison.csv": {
+      "rows": 120,
+      "sha256": "8b5e6dab98857c9d449a421539c10d6a46d61d3b9eb1fd6fb73763baeb35828e"
     },
     "policy_metrics_by_family.csv": {
-      "rows": 240,
-      "sha256": "fe960beb45e5f320e1eff6583e79f41339b06b8c95fdc4372deb67f627ba9347"
+      "rows": 480,
+      "sha256": "c694a5a422c7c7a88feb95afa87f8e6b859e70cbe3952bebed588d9926fa5184"
     },
     "policy_metrics_by_environment.csv": {
-      "rows": 160,
-      "sha256": "68dedd3afc46c743e8444eaf07d99419f0a4819a3eaadf62deac65c9c2e650ac"
+      "rows": 320,
+      "sha256": "e39a622eadfe01a06a4ed570e23868220a8b1e3f5da91afc3dfa449fae19f40f"
     },
     "policy_decision_counts.csv": {
       "rows": 180,
-      "sha256": "38d7c0054339e0f3bbffe6f56ded0ae2ea0efa185a8464d9fee3379303c7366a"
+      "sha256": "7bbf638d638c4d6d8247304bfd244de1ed02dbcb953318ead72647f90053871c"
     },
     "policy_reason_counts.csv": {
       "rows": 111,
-      "sha256": "5d3995130ae4ae0444c599f265f602a8e871ee406883eaf5b62ddbc7c5d0cb12"
+      "sha256": "a29d37ea0975bd7b2da4c38d61153d19c138c9d3b22d8af5e232794bb10beef4"
     },
     "policy_regime_coverage.csv": {
       "rows": 5,
       "sha256": "7c6d4abd034edf90c61953196d1d08ccc60891f0bb385b30d4f66ac0f7fce2c3"
     },
+    "policy_taxonomy.csv": {
+      "rows": 4,
+      "sha256": "b9c4dbee4e5aebba5bacf0e9fe9455d347f0375a13b96c8ef04f5d0307af017e"
+    },
     "policy_intervened_decisions.csv": {
       "rows": 10800,
-      "sha256": "acf86cc6b57334fde7f689cdafb56e37ad8ec5ebf64c4d46bdc6044f42cce096"
+      "sha256": "9de3c82e8436b5ee5ba2e8891a12f5e3a28403cca6fa803ed80f408174b6a49d"
     },
     "policy_null_decisions.csv": {
       "rows": 12000,
-      "sha256": "c698717a7458178f774c2bd94e3a49ec6d662d28a287be9b691eb71605c35718"
+      "sha256": "9f7ceebac830d038b404525d3aeb2b998afb025bd09349be228b51d0db24454d"
     },
     "policy_benign_decisions.csv": {
       "rows": 1200,
-      "sha256": "386c345ea682b996dbfd03538e6a2690e79f60afefd44cb2ffad8c8b018534d1"
+      "sha256": "d041504a28caff9b1c9e3cb4bf90a246ab0ee3fba72c9ca11f708d851a9144aa"
     },
     "policy_contract_composition.csv": {
       "rows": 6,

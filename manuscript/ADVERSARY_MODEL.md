@@ -1,10 +1,13 @@
-# Adversary and failure model — Paper 1.5 (artifact 1.2.0)
+# Adversary and failure model — Paper 1.5 (artifact 1.3.0)
 
-Version 1.0 (2026-09-07). Supersedes the "capabilities evaluated" list of
-`THREAT_MODEL_CARD.md` 1.0; the card is kept as the short reference and points
-here. Every row below corresponds to an intervention class that is actually
-executed in the frozen evidence, except the rows marked *discussed*, which are
-named because the formal core predicts them and they are not executed.
+Version 1.1 (2026-09-07; version 1.0 of the same day for artifact 1.2.0).
+Supersedes the "capabilities evaluated" list of `THREAT_MODEL_CARD.md` 1.0;
+the card is kept as the short reference and points here. Every row below
+corresponds to an intervention class that is actually executed in the frozen
+evidence, except the row marked *realised, not executed as a suite*, which is
+named because the formal core predicts it and the executed rows realise it by
+chance. Rates quoted are those of the conformal family rule of artifact 1.3.0
+(Gate F) unless stated.
 
 ## Reading rule
 
@@ -22,10 +25,12 @@ Interventions approximate mechanisms of a hybrid chain as follows: the
 evaluation-label classes stand for corruption of the ground-truth store or
 of the label join between evaluation items and outcomes; feature-side
 classes stand for corruption or drift of the acquisition/preprocessing path
-that feeds both the classical and the quantum branch; circuit and kernel
-classes stand for corruption of the circuit/parameter store, the compiler
-output or the post-estimation kernel; shot emulation stands for legitimate
-estimation uncertainty. None is an estimate of prevalence.
+that feeds both the classical and the quantum branch; the cluster-preserving
+class stands for an attacker who knows which batch-level fingerprint the
+auditor relies on; circuit and kernel classes stand for corruption of the
+circuit/parameter store, the compiler output or the post-estimation kernel;
+shot emulation stands for legitimate estimation uncertainty. None is an
+estimate of prevalence.
 
 ## Per-class model
 
@@ -40,7 +45,7 @@ actually supported by the frozen evidence.
 - Capability: rewrite the label of a fraction $r$ of evaluation items, chosen at random. Access: B8 evaluation/report. Knowledge: none of the auditor.
 - Objective: none specific (corruption); effect is a change of the reported metric in either direction.
 - Budget: $r$ of the batch. Alterable assets: $y$ only. Roots it cannot control: $X$, $P$, $C$, $K$, $f$, the training routine, and (when declared) an item-aligned authenticated copy $y^{\star}$ of the labels.
-- Identifying information: none in $\mathcal I_X$ or $\mathcal I_{XF}$ (Corollary 1a, exact); $\mathcal I_{Y_m}$ only through the class-count change, which at these rates and $n=128/256$ stays inside the batch-to-batch null (calibrated detection 0.00–0.03); $\mathcal I_{XFY}$ batch-level only through the confusion profile (0.00–0.03); exact under $\mathcal I_{XFY}^{\star}$.
+- Identifying information: none in $\mathcal I_X$ or $\mathcal I_{XF}$ (Corollary 1a, exact); $\mathcal I_{Y_m}$ only through the class-count change, which at these rates and $n=128/256$ stays inside the batch-to-batch null (calibrated detection 0.00–0.01); $\mathcal I_{XFY}$ batch-level only through the confusion profile (0.00–0.01); exact under $\mathcal I_{XFY}^{\star}$.
 - Claim: structurally invisible to feature and prediction evidence; not detected at the nominal budget by marginal or batch-level joint evidence at these rates; identified exactly with an item-aligned trusted reference; 1,800 rows, 1,558 with a changed conclusion.
 
 ### L2 — Prior-preserving evaluation-label flip (`label_flip_prior_preserving`, r ∈ {0.02, 0.05, 0.10})
@@ -49,14 +54,15 @@ actually supported by the frozen evidence.
 - Capability: swap the labels of $r n / 2$ pairs of opposite-class items. Access: B8. Knowledge: that the auditor monitors label marginals; no knowledge of the predictor is needed.
 - Objective: change the reported conclusion while leaving class counts invariant.
 - Budget: $r$ of the batch. Alterable assets: $y$. Roots it cannot control: as L1, including $y^{\star}$ when declared.
-- Identifying information: none in $\mathcal I_X$, $\mathcal I_{XF}$, $\mathcal I_{Y_m}$ (Corollary 1, exact; calibrated rules fire 0/1,800); $\mathcal I_{XFY}$ batch-level 0.005–0.012; exact under $\mathcal I_{XFY}^{\star}$. Proposition 3: every material instance changes the confusion matrix; Corollary 2: no view factoring through $(\tilde X, f(\tilde X), \mathrm{hist}(y))$ can separate it.
+- Identifying information: none in $\mathcal I_X$, $\mathcal I_{XF}$, $\mathcal I_{Y_m}$ (Corollary 1, exact; conformal rules fire 0/1,800); $\mathcal I_{XFY}$ batch-level 0.00–0.01; exact under $\mathcal I_{XFY}^{\star}$. Proposition 3: every material instance changes the confusion matrix; Corollary 2: no view factoring through $(\tilde X, f(\tilde X), \mathrm{hist}(y))$ can separate it.
 - Claim: the executed instance of the exact blind region of Propositions 1–2; 1,800 rows, 1,059 with a changed conclusion; closed by a trusted reference of the same batch (aggregate confusion reference for every material instance, Corollary 3a; item-aligned reference for aggregate-preserving swaps, Corollary 3b).
 
-### L3 — Confusion-preserving relabeling (*discussed*, not executed as a suite)
+### L3 — Confusion-preserving relabeling (*realised, not executed as a suite*)
 
 - Actor/cause: adaptive attacker who knows the confusion profile is monitored and swaps labels only between items with identical predictions. Class: adaptive attacker.
-- Effect: invariant marginal, confusion matrix and conclusion; only item identity changes (counterexample C1). 808 of the executed random and prior-preserving flips realise this pattern by chance (witness W1).
-- Claim: an item-identity violation with no aggregate or conclusion impact; visible only to an item-aligned reference (Corollary 3b); it is the reason item-identity, aggregate and conclusion integrity are reported as separate notions.
+- Effect: invariant marginal, confusion matrix and conclusion; only item identity changes (counterexample C1). 808 of the executed random and prior-preserving flips realise this pattern by chance (witness W1 = W10).
+- Decision (1.3.0, recorded in the preregistration before execution): not executed as a controlled suite, because it would reproduce C1 by construction and could change no conclusion: a trusted aggregate reference is exactly blind to it (Corollary 3b), an item-aligned reference detects it exactly, and every batch-level policy serves it as an immaterial row, which is not an unsafe allow.
+- Claim: an item-identity violation with no aggregate or conclusion impact; visible only to an item-aligned reference; it is the reason item-identity, aggregate and conclusion integrity are reported as separate notions.
 
 ### F1 — Feature sign flip (`feature_sign_flip_p`, p ∈ {0.02, 0.05, 0.10})
 
@@ -64,33 +70,37 @@ actually supported by the frozen evidence.
 - Capability: negate a fraction $p$ of entries of $\tilde X$ (post-projection). Access: B1/B2 acquisition–preprocessing of evaluation data. Knowledge: none.
 - Objective: none specific; may flip predictions and change the conclusion in either direction.
 - Alterable assets: $\tilde X$ (and through $f$, $\hat y$ and $R$). Roots it cannot control: the training data and fitted model, the reference features when declared.
-- Identifying information: distributional feature sensors in $\mathcal I_X$ (family-calibrated detection 0.09/0.47/0.72 by strength); prediction sensors add power in $\mathcal I_{XF}$ (0.15/0.56/0.85); exact under item-aligned reference (0.79–0.91, where predictions change).
-- Claim: partially separable at the batch level; the residual is strength-dependent; 1,800 rows, 1,464 with a changed conclusion, of which 655 are still served under $\mathcal I_{XF}$/P2.
+- Identifying information: distributional feature sensors in $\mathcal I_X$ (conformal detection 0.09/0.47/0.72 by strength); prediction sensors add power in $\mathcal I_{XF}$ (0.13/0.52/0.84); exact under item-aligned reference (0.79–0.91, where predictions change).
+- Claim: partially separable at the batch level; the residual is strength-dependent; 1,800 rows, 1,464 with a changed conclusion, of which 685 are still served under $\mathcal I_{XF}$/P2.
 
 ### F2 — Feature-wise mean shift and scaling drift (`mean_shift_pf_delta`, `scaling_drift_alpha`)
 
 - Actor/cause: sensor miscalibration, unit or scaling change, preprocessing drift. Class: fault robustness (benign drift) or non-adaptive corruption.
 - Capability: additive shift or multiplicative scaling of all evaluation features. Access: B1/B2. Knowledge: none.
-- Identifying information: detected in every cell at every strength by the feature regime because the standardized projected features contain tight clusters (69–87% of rows within 0.01 SD in some feature): an in-place perturbation smears the cluster, a fresh clean batch reproduces it. Item-aligned prediction changes 0.36–0.67.
-- Claim: fully detected in this design, but by a fragile fingerprint; an adaptive attacker who preserves the clusters (F5) would evade it. 3,600 rows, 1,848 with a changed conclusion.
+- Identifying information: detected in 0.96–1.00 of cells at every strength by the feature regime because the standardized projected features contain tight clusters (69–87% of rows within 0.01 SD in some feature): an in-place perturbation smears the cluster, a fresh clean batch reproduces it. Item-aligned prediction changes 0.36–0.67.
+- Claim: detected in this design by a fragile fingerprint; the adaptive attacker F5 who preserves the clusters evades it (executed in 1.3.0). 3,600 rows, 1,848 with a changed conclusion, 6 served under $\mathcal I_{XF}$/P2.
 
 ### F3 — Feature dropout with median imputation (`feature_dropout_p`)
 
 - Actor/cause: pipeline fault: features silently missing and imputed. Class: fault robustness / integrity corruption of the pipeline.
 - Capability: replace a fraction $p$ of entries by the training median. Access: B2 preprocessing. Knowledge: none.
-- Identifying information: nearly invisible to batch-level distributional sensors (0.00–0.04 family-calibrated in $\mathcal I_{XF}$) because imputed values fall inside the clusters; prediction changes visible item-wise in 49–76% of cells.
-- Claim: the executed instance of a material feature-side change that is separable in $\mathcal I_{XF}$ (predictions differ) yet statistically undetectable without a reference; 1,800 rows, 1,079 with a changed conclusion, 1,053 served under $\mathcal I_{XF}$/P2.
+- Identifying information: nearly invisible to batch-level distributional sensors (0.00–0.03 conformal in $\mathcal I_{XF}$) because imputed values fall inside the clusters; prediction changes visible item-wise in 49–76% of cells.
+- Claim: the executed instance of a material feature-side change that is separable in $\mathcal I_{XF}$ (predictions differ) yet statistically undetectable without a reference; 1,800 rows, 1,079 with a changed conclusion, 1,057 served under $\mathcal I_{XF}$/P2.
 
 ### F4 — Near-null in-place variation (`sham_tiny_gaussian_sigma_0.001`, `sham_tiny_scaling_alpha_0.001`)
 
 - Actor/cause: harmless numerical variation. Class: fault robustness (specificity control).
-- Identifying information: the KS sensor reacts in 43–68% of cells (family rule) through the cluster fingerprint; predictions change in 4–10% of cells.
-- Claim: a specificity cost of the cluster fingerprint, reported as the benign hold/block rate of every policy; not an attack.
+- Identifying information: the KS sensor reacts in 40–64% of cells (conformal rule) through the cluster fingerprint; predictions change in 4–10% of cells.
+- Claim: a specificity cost of the cluster fingerprint, reported as the benign interruption rate of every policy and regime (Gate D); not an attack. The trusted item-aligned regime holds 544 and blocks 85 of these 1,200 rows.
 
-### F5 — Cluster-preserving perturbation (*discussed*, not executed)
+### F5 — Cluster-preserving mean shift and scaling drift (`cluster_preserving_*`, executed in Gate A, artifact 1.3.0)
 
-- Actor/cause: adaptive attacker who knows the KS/cluster fingerprint and perturbs only rows outside the clusters, or moves clusters as blocks. Class: adaptive attacker.
-- Claim: predicted to evade $\mathcal I_X$ at the batch level while remaining separable item-wise; named as a limitation of the feature-side coverage, not measured.
+- Actor/cause: adaptive attacker who knows the batch-level sensor definitions and the cluster fingerprint and applies the drift mechanisms of F2 only to the entries outside the tight clusters. Class: adaptive attacker.
+- Capability: on the audited batch, leave every entry untouched whose value is shared (within 0.01 batch standard deviations) by at least $\lceil 0.05 n \rceil$ rows, and apply the F2 mechanism to the remaining 32% of entries on average (16–47% by environment, branch and dimension). Access: B1/B2. Knowledge: the batch, the sensor definitions and the fingerprint; not the thresholds. Strengths 0.02, 0.05, 0.10 (matched to F2) and 0.25, 0.50.
+- Objective: change the conclusion while keeping the feature distribution inside the between-batch null.
+- Alterable assets: $\tilde X$ (and through $f$, $\hat y$ and $R$). Roots it cannot control: the training data and fitted model; the item-aligned prediction reference when declared.
+- Identifying information: conformal detection at matched strengths 0.01/0.08/0.34 (mean shift) and 0.05/0.35/0.56 (scaling) in $\mathcal I_X$, 0.06/0.24/0.48 and 0.23/0.47/0.66 in $\mathcal I_{XF}$, against 0.96–1.00 for F2; 0.76–0.90 at 0.25–0.50; exact under $\mathcal I_{XFY}^{\star}$ for every material row (a changed conclusion with fixed labels requires a changed prediction).
+- Claim: the executed instance of sensor insufficiency against an adaptive attacker: 6,000 rows, 3,418 with a changed conclusion (83–91% of F2's material fraction at matched strengths), of which P2 serves 1,328 / 959 / 1,006 in $\mathcal I_X$ / $\mathcal I_{XF}$ / $\mathcal I_{XFY}$ (F2 in the same runs: 0 / 6 / 10 of 1,848); the classical branch is more evasive than the quantum branch because its scaler moves the unclustered entries less relative to the null. Calibration controls false alarms; only a reference closes this region.
 
 ### Q1 — Data-dependent circuit-parameter mutation (`parameterized_rz_alpha` 0.02 / 0.10) and feature-map repetition change
 
@@ -99,13 +109,13 @@ actually supported by the frozen evidence.
 - Objective: change the kernel semantics while producing a plausible circuit.
 - Alterable assets: $C$ and hence $K$, $\hat y$, $R$. Roots it cannot control: the canonical reference circuit hash and the trusted probe kernel $K_0$.
 - Identifying information: provenance hash and semantic probe comparison detect 15/15 cells; algebraic checks pass; output changes in 0/15, 2/15 and 11/15 cells.
-- Claim: identified by reference-anchored provenance and semantics; invisible to output monitoring unless a decision boundary is crossed.
+- Claim: identified by reference-anchored provenance and semantics; invisible to output monitoring unless a decision boundary is crossed (Proposition 7(ii)).
 
 ### Q2 — Benign transpilation (level 1) and common-unitary rewrite (negative controls)
 
 - Actor/cause: approved compiler pass. Class: fault robustness (approved equivalence).
 - Identifying information: provenance hash changes in 15/15 cells; semantic kernel, algebra and outputs unchanged.
-- Claim: separability in the provenance view is not harm; the policy needs an approved-equivalence class. A hash mismatch is evidence for adjudication, not proof of harm.
+- Claim: separability in the provenance view is not harm; the policy needs the approved-equivalence class $[C_0]$ of Proposition 7(i). A hash mismatch is evidence for adjudication, not proof of harm.
 
 ### Q3 — Asymmetric and diagonal-eroded kernel edits
 
@@ -119,13 +129,13 @@ actually supported by the frozen evidence.
 - Actor/cause: adaptive attacker who knows that symmetry, diagonal and PSD are checked and substitutes a valid-looking kernel. Class: adaptive attacker.
 - Access: B6. Alterable assets: $K$. Roots it cannot control: the trusted reference/probe kernel and the circuit hash.
 - Identifying information: algebraic checks are exactly blind in 15/15 cells; provenance and semantic comparison detect 15/15; output changes in 1/15.
-- Claim: the executed instance of sensor-level blindness closed by a reference-anchored comparison (Section 6 of `FORMAL_CORE.md`).
+- Claim: the executed instance of sensor-level blindness closed by a reference-anchored comparison (Proposition 7(ii)).
 
 ### Q5 — Binomial shot emulation (256 and 1,024 shots)
 
 - Actor/cause: legitimate finite-shot estimation uncertainty. Class: fault robustness (approved stochastic execution).
 - Identifying information: repeated-estimation discrepancy is non-zero in 15/15 cells; outputs change in 7/15 and 3/15 cells.
-- Claim: the contract holds the result for adjudication rather than allowing or blocking it. Not hardware or calibrated-noise evidence.
+- Claim: the contract holds the result for adjudication rather than allowing or blocking it; Proposition 7(iii) explains why an exact anchor is useless under shot noise and a calibrated null is needed. Not hardware or calibrated-noise evidence.
 
 ### E1 — Post-hoc modification of the audit envelope
 
@@ -151,4 +161,6 @@ malicious scheduler, physical mapping attacks and unapproved compiler passes
 on real hardware; calibrated device noise, crosstalk, multi-tenant
 interference and QPU faults; timing, power or network side channels and
 circuit confidentiality; denial of service, availability, billing and access
-control; the operational Fleet Management System; attack prevalence.
+control; adaptive attackers with a model of the sensors other than the
+executed cluster-preserving one; the operational Fleet Management System;
+attack prevalence.

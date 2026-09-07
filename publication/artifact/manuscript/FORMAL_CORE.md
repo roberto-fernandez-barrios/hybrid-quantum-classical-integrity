@@ -1,13 +1,18 @@
-# Formal core — observational indistinguishability and integrity blind regions (artifact 1.2.0)
+# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.0)
 
-Version 1.1 (2026-09-07; version 1.0 of the same day corrected in
-Propositions 2, 5 and 6 and in the treatment of trusted references after the
-final mathematical review). This document is the complete statement, with
-proofs, of the formal section of the TDSC article. The article prints the
-definitions and the propositions; the supplement reproduces the proofs. Every
-witness count quoted here is generated from the manifested table
-`counterexample_witnesses.csv` (Gate D) and printed in the article through
-`publication/tdsc/tables/policy_macros.tex`.
+Version 1.2 (2026-09-07). Version 1.1 of the same day (artifact 1.2.0) is
+superseded in Proposition 5, which was false as stated (see Section 4 and
+amendment A2 of `paper15_v13_prereg.md`); everything else is unchanged except
+for the new Proposition 7 (the quantum branch as an instance of the view
+lattice) and the remark on metrics other than balanced accuracy after
+Proposition 3. This document is the complete statement, with proofs, of the
+formal section of the TDSC article. The article prints the definitions and the
+propositions; the supplement reproduces the proofs. Every witness count quoted
+here is generated from the manifested table `counterexample_witnesses.csv`
+(Gate D) and printed in the article through
+`publication/tdsc/tables/policy_macros.tex`. The statement-by-statement audit
+(hypotheses, claim, proof, counterexample search, edge cases, brute-force
+tests) is `FORMAL_REVIEW_1.3.0.md`.
 
 The results are elementary by design. Their role is to make exact which
 evidence separates which class of intervention, so that the empirical gates
@@ -31,8 +36,9 @@ intervention class $\mathcal A$ is a set of such maps. Classes used in the
 study: $T_y$ (label-only: changes $y$ item-wise, leaves every other component
 fixed), $T_y^{\pi} \subset T_y$ (prior-preserving: additionally preserves the
 class histogram of $y$), and the feature-side mechanisms (sign flip, mean
-shift, scaling drift, dropout with imputation), which change $\tilde X$ and,
-through $f$, may change $\hat y$ and $R$.
+shift, scaling drift, dropout with imputation, and, from artifact 1.3.0, the
+adaptive cluster-preserving variants of mean shift and scaling drift), which
+change $\tilde X$ and, through $f$, may change $\hat y$ and $R$.
 
 **Conclusion and materiality.** The conclusion functional is
 $R : \mathcal S \to \mathbb R$, here balanced accuracy of $\hat y$ against $y$,
@@ -225,6 +231,19 @@ confusion-profile delta (witness W8). It is also why the batch-level
 $\mathcal I_{XFY}$ result (Section 4) is a statement about *detectability*,
 not *separability*.
 
+*Remark (metrics other than balanced accuracy).* Proposition 3 uses only
+$R = g(M)$; it holds verbatim for accuracy, precision, recall, $F_1$ and every
+other function of the binarised confusion matrix, with the confusion matrix as
+the sufficient aggregate (Level B). A ranking metric such as ROC-AUC is not a
+function of $M$: it depends on the multiset of (score, label) pairs
+$\{(f_{\mathrm{score}}(\tilde x_i), y_i)\}$. The same argument applies with
+that multiset in the role of $M$: a label-only intervention that changes the
+AUC changes the score-label multiset, which is a coarsening of the joint view
+$\mathcal I_{XFY}$ augmented with scores, and a trusted stored copy of that
+multiset (Level B for ranking metrics) detects every material change exactly,
+while item identity again needs Level C. No AUC experiment is run; the remark
+delimits the hypothesis.
+
 ## 4. Auditor classes and which reference certifies which integrity
 
 **Definition 5.** Relative to a regime $\mathcal I$ and a class $\mathcal A$:
@@ -286,16 +305,16 @@ In the frozen evidence, (a) is the 2,617/2,617 detection of material label
 rows by the confusion-profile delta against the reference batch (and 2,792 of
 3,600 label rows in total, witness W9), and (b) is the 808 relabelings with
 zero confusion-profile delta that only the item-level label mismatch exposes
-(W1 = W10). The batch-level $\mathcal I_{XFY}$ rule detects 16
-(family-calibrated) or 43 (union) of the 2,617 material label rows: every one
-of them is separable (Proposition 3), but a 2–10% relabeling of a 128-row
-batch shifts the confusion profile by less than the profile's natural
-variability across fresh clean batches. The value of a trusted reference of
-the same batch is therefore informational: it replaces a statistical null
-with an exact one. Which level is needed depends on the integrity notion:
-conclusion and aggregate integrity need Level B; item-identity integrity
-needs Level C. Neither is an oracle: each costs an uncontrolled copy of a
-view of the baseline, i.e. provenance.
+(W1 = W10). The batch-level $\mathcal I_{XFY}$ rule detects 11 (conformal
+family rule of 1.3.0), 16 (asymmetric rule of 1.2.0) or 43 (union) of the
+2,617 material label rows: every one of them is separable (Proposition 3),
+but a 2–10% relabeling of a 128-row batch shifts the confusion profile by
+less than the profile's natural variability across fresh clean batches. The
+value of a trusted reference of the same batch is therefore informational:
+it replaces a statistical null with an exact one. Which level is needed
+depends on the integrity notion: conclusion and aggregate integrity need
+Level B; item-identity integrity needs Level C. Neither is an oracle: each
+costs an uncontrolled copy of a view of the baseline, i.e. provenance.
 
 **Proposition 5 (union of calibrated sensors versus family calibration).**
 
@@ -310,54 +329,104 @@ $m\alpha \le 1$) by mutually disjoint events, and under independence
 $\Pr_0[\bigcup_j E_j] = 1 - \prod_j (1 - p_j) = 1 - (1-\alpha)^m$, which lies
 strictly between the two bounds for $m \ge 2$ and $0 < \alpha < 1$.
 
-(b) *Family rule, theoretical guarantee.* Let $v_1, \dots, v_n$ be the sensor
-vectors of the calibration draws and $v_{n+1}$ that of the audited batch. For
-a family $F$ of sensors define the score of any vector $v$ as
-$U(v) = \max_{j \in F} \#\{i \le n : v_{j,i} < v_j\}/n$ (the largest
-calibration rank score over the family; ties count against firing), and let
-$q$ be the $k$-th smallest of $U(v_1), \dots, U(v_n)$ with
-$k = \lceil (n+1)(1-\alpha) \rceil$. If the $n+1$ draws are exchangeable, then
-$$\Pr_0[U(v_{n+1}) > q] \;\le\; \frac{n+2-k}{n+1} \;\le\; \alpha + \frac{1}{n+1}.$$
-For $n = 200$, $\alpha = 0.05$: $k = 191$ and the bound is $11/201 = 0.0547$.
-For a single sensor the rule "fire iff $U(v_{n+1}) > q$" coincides with
-"fire iff $v_{n+1}$ exceeds the $k$-th smallest calibration value", whose
-exact exchangeable level is $(n+1-k)/(n+1) = 10/201 = 0.0498$; the extra
-$1/(n+1)$ in the family bound comes from the calibration draws being ranked
-against the other $n-1$ draws while the audited batch is ranked against all
-$n$.
+(b) *Family rule: full conformal max-rank p-value (adopted in 1.3.0).* Let
+$v_1, \dots, v_n \in \mathbb R^m$ be the sensor vectors of the $n$ calibration
+draws and $v_{n+1}$ that of the audited batch, and write
+$\mathcal V = \{v_1, \dots, v_{n+1}\}$ for the augmented set. Give every member
+$j \in \{1, \dots, n+1\}$ the leave-one-out family score
+$$\tilde U_j \;=\; \max_{s \le m}\ \frac{\#\{i \ne j : v_{s,i} < v_{s,j}\}}{n},$$
+computed against the other $n$ members of $\mathcal V$, and define the
+conformal p-value and the rule
+$$p \;=\; \frac{1 + \#\{i \le n : \tilde U_i \ge \tilde U_{n+1}\}}{n+1}, \qquad
+\text{fire iff } p \le \alpha .$$
+Ties count against firing ($\ge$). Then, for every $\alpha \in (0,1)$:
 
-(c) *Design actually used and empirical deviation.* Gate F uses exactly the
-rule of (b) with $n = 200$ calibration draws per (environment, dimension,
-model) cell and evaluates it on 200 disjoint evaluation draws of the same
-cell. The 20 draws of one run are overlapping simple random subsets of one
-pool half, and the calibration and evaluation halves are different rows of
-the same staged table, so the exchangeability premise of (b) does not hold
-exactly. The observed pooled false-alarm rates are 0.061 ($\mathcal I_X$),
-0.073 ($\mathcal I_{XF}$), 0.048 ($\mathcal I_{Y_m}$, whose two sensors are
-monotone transforms of each other, so union and family coincide) and 0.079
-($\mathcal I_{XFY}$), against 0.125, 0.203, 0.048 and 0.259 for the union
-rule on the same draws; per-environment cluster means range from 0.025 to
-0.146. These numbers measure the violation of the premise; they are not
-evidence that the bound holds in deployment.
+  (i) *Deterministic counting bound.* For every augmented set $\mathcal V$, at
+  most $\lfloor \alpha (n+1) \rfloor$ of its $n+1$ members satisfy
+  $N_j := \#\{i \le n+1 : \tilde U_i \ge \tilde U_j\} \le \lfloor \alpha (n+1) \rfloor$,
+  i.e. would fire if they were the audited member.
+
+  (ii) *Exact finite-sample level.* If $(v_1, \dots, v_{n+1})$ are
+  exchangeable, then
+  $$\Pr_0[\,p \le \alpha\,] \;\le\; \frac{\lfloor \alpha (n+1) \rfloor}{n+1} \;\le\; \alpha,$$
+  with equality in the first inequality when the $\tilde U_j$ are almost
+  surely distinct. No continuity or tie assumption is needed; ties only
+  lower the firing probability. For $n = 200$ and $\alpha = 0.05$ the level is
+  $10/201 = 0.0498$.
+
+  (iii) *Single sensor.* For $m = 1$ and distinct values the rule coincides
+  with "fire iff $v_{n+1}$ exceeds the $\lceil (n+1)(1-\alpha) \rceil$-th
+  smallest calibration value", the per-sensor rule of artifact 1.1.0, whose
+  level is the same $\lfloor \alpha(n+1) \rfloor / (n+1)$.
+
+  (iv) *What the guarantee is and is not.* The level is marginal over the
+  joint draw of the calibration set and the audited batch (unconditional).
+  Conditional on a fixed calibration set the false-alarm probability
+  fluctuates around the level; audited batches that share one calibration set
+  are dependent, so an empirical rate pooled over them is descriptive. The
+  premise is exchangeability of the $n+1$ draws; nothing is claimed when it
+  fails (Section 4, Gate F: the design's overlapping draws and its two pool
+  halves violate it, and the observed rates measure that deviation).
+
+(c) *The superseded rule of artifact 1.2.0 has no such guarantee.* That rule
+scored each calibration draw against the other $n-1$ calibration draws only,
+the audited batch against all $n$, and fired when the audited score exceeded
+the $\lceil (n+1)(1-\alpha) \rceil$-th smallest calibration score. It claimed
+$\Pr_0[\text{fire}] \le \alpha + 1/(n+1)$. The claim is false: for $n = 4$,
+$\alpha = 0.2$ and $m = 3$ sensors with the cyclic orderings
+$s_1: j_1 > j_2 > j_3 > x > y$, $s_2: j_2 > j_3 > j_1 > x > y$,
+$s_3: j_3 > j_1 > j_2 > x > y$, the members $j_1, j_2, j_3$ each fire when
+audited, so the firing probability under exchangeability is $3/5 = 0.60$
+against the claimed $0.40$ and against $\alpha$. The asymmetry lets a
+calibration draw tied with the audited batch in family score fall one grid
+step below it whenever its maximising sensors rank the audited batch below,
+and with several sensors many draws can do so at once. On the frozen null
+draws, exchangeable random re-splits show the rule at 0.052 / 0.058 / 0.040 /
+0.059 for $\mathcal I_X$ / $\mathcal I_{XF}$ / $\mathcal I_{Y_m}$ /
+$\mathcal I_{XFY}$ where the conformal rule stays at 0.044 / 0.042 / 0.040 /
+0.036 (level $0.0498$). Its published 1.2.0 numbers are retained only as
+comparison columns.
 
 *Proof.* (a) The union contains each $E_j$, which gives the lower bound;
 Boole's inequality gives the upper bound; the attainment statements are the
 standard nested, disjoint and independent constructions, and the inclusion
-–exclusion identity gives the product form under independence. (b) Let
-$\tilde U_i$ be the score of draw $i$ computed against the *other* $n$ draws
-of the augmented set $\{1, \dots, n+1\}$. Under exchangeability the
-$\tilde U_i$ are exchangeable, so the rank of $\tilde U_{n+1}$ among the
-$n+1$ scores is uniform up to ties, and
-$\Pr[\tilde U_{n+1} \ge \tilde U_{(k)}] \le (n+2-k)/(n+1)$, where
-$\tilde U_{(k)}$ is the $k$-th smallest of $\tilde U_1, \dots, \tilde U_n$
-(ties count against firing and can only lower the probability). Now
-$U(v_{n+1}) = \tilde U_{n+1}$ and, for $i \le n$, $U(v_i) \le \tilde U_i \le U(v_i) + 1/n$,
-because the augmented comparison set adds one element. Hence
-$q \ge \tilde U_{(k)} - 1/n$ and, on the grid $\{0, 1/n, \dots, 1\}$,
-$\{U(v_{n+1}) > q\} \subseteq \{\tilde U_{n+1} \ge \tilde U_{(k)}\}$. The
-single-sensor statement is the same argument with $U(v_i) = \tilde U_i$
-exactly, since the audited batch's value is either above or below $v_i$ and
-the rank of $v_i$ among the other $n$ is what the threshold uses. $\square$
+–exclusion identity gives the product form under independence.
+
+(b)(i) Let $k = \lfloor \alpha (n+1) \rfloor$ and suppose $k+1$ members
+$j_0, \dots, j_k$ satisfy $N_j \le k$. Let $j^\ast$ be one with the smallest
+score among them. Every one of the $k+1$ members has $\tilde U \ge \tilde U_{j^\ast}$,
+so $N_{j^\ast} \ge k+1$, a contradiction. Hence at most $k$ members fire.
+
+(b)(ii) The score of member $j$ depends on $v_j$ and on the multiset
+$\{v_i : i \ne j\}$; the map $(v_1, \dots, v_{n+1}) \mapsto (\tilde U_1, \dots, \tilde U_{n+1})$
+is therefore permutation-equivariant, and exchangeability of the $v$'s gives
+exchangeability of the $\tilde U$'s, hence of the $N_j$'s. The audited member
+is $j = n+1$ and $p \le \alpha$ iff $N_{n+1} \le k$ (because
+$N_{n+1} = 1 + \#\{i \le n : \tilde U_i \ge \tilde U_{n+1}\}$ and
+$N_{n+1}/(n+1) \le \alpha$ iff $N_{n+1} \le k$). By exchangeability
+$\Pr[N_{n+1} \le k] = \mathbb E[\#\{j : N_j \le k\}]/(n+1) \le k/(n+1)$ by
+(i). With almost surely distinct scores exactly $k$ members satisfy
+$N_j \le k$, giving equality. Ties can only merge ranks, which reduces the set
+$\{j : N_j \le k\}$.
+
+(b)(iii) For $m = 1$ and distinct values, $\tilde U_i \ge \tilde U_{n+1}$ iff
+$v_i > v_{n+1}$: if $v_i > v_{n+1}$ then every value below $v_{n+1}$ is below
+$v_i$ and $v_{n+1}$ itself is below $v_i$, so $\tilde U_i > \tilde U_{n+1}$;
+symmetrically if $v_i < v_{n+1}$. Hence $p = (1 + \#\{i : v_i > v_{n+1}\})/(n+1)$
+and $p \le \alpha$ iff $\#\{i : v_i > v_{n+1}\} \le k - 1$ iff $v_{n+1}$
+exceeds at least $n - k + 1 = \lceil (n+1)(1-\alpha) \rceil$ calibration
+values (for non-integer $\alpha(n+1)$; the integer case differs by the tie
+convention on the grid and is covered by (ii)).
+
+(b)(iv) is a restatement of what (ii) proves and of what it does not.
+
+(c) The configuration is checked by enumeration
+(`tests/test_family_calibration_exhaustive.py`): with $j_1$ audited, the
+calibration scores are $0.75, 0.75, 0.25, 0$ and the audited score is $1$;
+the threshold is the fourth smallest calibration score $0.75$ and $1 > 0.75$
+fires; the same holds for $j_2$ and $j_3$ by the cyclic symmetry, while $x$
+and $y$ do not fire. The re-split rates are `family_resplit_pooled.csv`.
+$\square$
 
 **Proposition 6 (no local authentication without an uncontrolled root).** Let
 a *local verifier* be any map $\mathrm{acc} : \mathcal O_{\mathcal I} \times \mathrm{Ref} \to \{\text{accept}, \text{reject}\}$
@@ -423,6 +492,7 @@ that realise it, from `counterexample_witnesses.csv`.
 | C8 | Material label change (Proposition 3) | — | confusion matrix | W8: 2,617 / 2,617 material label rows change the confusion profile |
 | — | Label rows detectable by a trusted aggregate reference (Corollary 3a) | — | confusion matrix | W9: 2,792 / 3,600 |
 | — | Label rows detectable only item-wise (Corollary 3b) | confusion matrix, histogram, $R$ | item identity | W10: 808 / 3,600 (= W1) |
+| C9 | Cluster-preserving feature drift (class F5, Gate A): the executed drift applied only to entries outside the tight clusters that the batch-level fingerprint relies on | the clustered entries, hence the mass points that a fresh batch reproduces | the remaining entries; possibly predictions and $R$ | Gate A tables (`adversarial_*.csv`); a sensor-level blindness of Level-A auditors that no structural statement predicts and that the executed gate measures |
 
 C1 shows that *item-identity violation* and *conclusion impact* are different
 events: 808 relabelings leave every aggregate and the conclusion untouched,
@@ -431,31 +501,87 @@ marginal invariance, confusion-matrix invariance and conclusion invariance.
 C5–C6 separate representation, output and conclusion on the feature side.
 C7 shows that the clipped "harm" endpoint of 1.1.x hid 433 label-path
 conclusion changes; they are counted from 1.2.0 on. C8 is the empirical face
-of Proposition 3, and W9/W10 the empirical face of Corollary 3.
+of Proposition 3, and W9/W10 the empirical face of Corollary 3. C9 is not a
+structural blind region (the view $\tilde X$ does change) but the executed
+instance of sensor insufficiency of Definition 3 against an adaptive
+attacker: whether the calibrated family detects it is an empirical question,
+answered by Gate A.
 
-## 6. The quantum branch in the same lattice
+## 6. The quantum branch as an instance of the view lattice
 
-The quantum-workflow gate uses the same objects. Views of $\mathcal I_Q$: the
-provenance view $h(C)$ (canonical circuit hash), the kernel view $K$, the
-algebraic view $\mathrm{alg}(K)$ (symmetry, diagonal, minimum eigenvalue; a
-coarsening of $K$), the repeated-estimation view, and the output view
-$f_K(\tilde X)$ (a coarsening of $K$ through the decision).
+**Objects.** Let $\mathcal C$ be the set of circuit representations (canonical
+OpenQASM 3 text with bound parameters), $\Phi : \mathcal C \to \mathcal K$ the
+semantic kernel map that sends a circuit to the ideal fidelity kernel it
+induces on a fixed probe set, $h : \mathcal C \to \{0,1\}^{256}$ the
+provenance hash, $A : \mathcal K \to \mathbb R^q$ the algebraic invariants
+(symmetry residual, diagonal residual, minimum eigenvalue, PSD-repair norm),
+$f_K : \tilde X \mapsto \hat y$ the classical decision computed from a kernel,
+and $\hat K \sim P(\cdot \mid C, E)$ the finite-shot estimator of $\Phi(C)$
+under execution context $E$ (shots, backend, seed). The views of
+$\mathcal I_Q$ are $V_h = h(C)$, $V_K = K$, $V_A = A(K)$, $V_f = f_K(\tilde X)$
+and, under shot noise, $V_{\hat K} = \hat K$.
 
-- Approved transpilation: in $B_{K}$ (kernel unchanged) but not in $B_{h}$.
-  Separability in the provenance view is not harm; the policy needs an
-  approved equivalence class, implemented as semantic equality of probe
-  kernels against a trusted reference (Level B: the reference kernel is an
-  aggregate of the same inputs).
-- PSD-preserving substitution: in $B_{\mathrm{alg}}$ (the coarsened view is
-  invariant) but not in $B_{K}$. This is sensor-level blindness
-  (insufficiency of the algebraic family), closed by a reference-anchored
-  comparison with the trusted $K_0$ (Definition 5(a)).
-- Output monitoring: in $B_{f}$ for every change that does not cross a
-  decision boundary, although not in $B_K$: the output view is a coarsening.
-- Hash chaining of the audit envelope: a local verifier of internal
-  consistency; tamper-evident, but its root is writable by whoever controls
-  the record and the verifier, so Proposition 6 applies and no authenticity
-  relative to an external baseline is claimed.
+**Proposition 7 (the quantum lattice).** Assume $h$ is collision-free on the
+circuits under study (SHA-256 collision resistance).
+
+(i) *Semantic equivalence classes.* $[C] := \Phi^{-1}(\Phi(C))$ is the class
+of circuits with the same kernel semantics; approved transpilation and
+common-unitary rewrites map $C$ into $[C]$ without fixing $h(C)$.
+Consequently $V_h$ refines $V_K$ on $\mathcal C$ (identical hashes imply
+identical kernels but not conversely) and $B_h(\mathcal A) \subseteq B_K(\mathcal A)$
+for every class $\mathcal A$ of circuit-side interventions; the inclusion is
+strict whenever $\mathcal A$ contains an approved rewrite. Separability in the
+provenance view is therefore *not* evidence of harm; a provenance-anchored
+auditor needs the approved class $[C_0]$, which is implemented as semantic
+equality of probe kernels against the trusted reference $K_0 = \Phi(C_0)$
+(a Level-B reference: an aggregate of the reference circuit on the probe set).
+
+(ii) *Algebraic and output coarsenings.* $V_A = A \circ V_K$ and
+$V_f = f_{\cdot}(\tilde X) \circ V_K$ are coarsenings of the kernel view, so
+by Proposition 1 $B_K(\mathcal A) \subseteq B_A(\mathcal A)$ and
+$B_K(\mathcal A) \subseteq B_f(\mathcal A)$. A PSD-preserving substitution
+$K' \ne K_0$ with $A(K') = A(K_0)$ lies in $B_A \setminus B_K$: the algebraic
+family is insufficient (Definition 3) and the blind region is closed only by
+the reference-anchored comparison with $K_0$ (Proposition 4(ii)). A kernel
+change that crosses no decision boundary lies in $B_f \setminus B_K$.
+
+(iii) *Finite-shot estimation replaces exact anchoring by a calibrated test.*
+Under shot noise the kernel view is the random variable $\hat K$, and for a
+non-degenerate estimator $\Pr[\hat K = K_0] = 0$ even for the honest circuit,
+so the reference-anchored rule "fire iff $\hat K \ne K_0$" has false-alarm
+probability one and is useless. The auditor must instead treat $d(\hat K, K_0)$
+as a Level-A statistic with a null obtained from repeated honest estimation
+(Definition 5(b)); if those repeated estimates and the audited estimate are
+exchangeable, Proposition 5(b) applies to them verbatim with $m = 1$ and
+gives the same finite-sample level. Where no such null is calibrated, the
+only sound action is to abstain: this is the `hold` that the executable
+contract returns for approved stochastic estimation.
+
+*Proof.* (i) If $h(C_1) = h(C_2)$ then $C_1 = C_2$ by collision freedom, so
+$\Phi(C_1) = \Phi(C_2)$: $V_h$ refines $V_K$ through $\Phi \circ h^{-1}$ and
+Proposition 1 gives the inclusion. An approved rewrite $C' \in [C_0]$ with a
+different canonical text has $h(C') \ne h(C_0)$ and $\Phi(C') = \Phi(C_0)$,
+so it lies in $B_K \setminus B_h$. (ii) is Proposition 1 applied to the two
+coarsenings; the two set differences are witnessed in the gate (Table 8 of
+the supplement: 15/15 PSD-preserving substitutions with algebraic sensors at
+zero and semantic sensor firing; RZ mutations at 0.02 with zero output
+change and semantic firing). (iii) For a continuous estimator the event
+$\hat K = K_0$ has probability zero; the rest is Definition 5(b) and
+Proposition 5(b) with the repeated estimates as calibration draws. $\square$
+
+The empirical realisation is the 165-cell simulator gate of Section VI-D of
+the article: benign transpilation and the common-unitary rewrite change
+$h(C)$ in every cell while $\Phi(C)$, $A(K)$ and $f_K$ are unchanged
+(i); the PSD-preserving mixture passes the algebraic checks in every cell and
+is exposed by the semantic comparison with $K_0$ (ii); the mild RZ mutation
+changes the semantic kernel in every cell and no prediction (ii); and both
+shot emulators produce a non-zero repeated-estimation discrepancy in every
+cell, which the contract holds for adjudication (iii). The proposition adds
+no quantum mechanics: it states that the quantum branch is one more chain of
+coarsenings of the same lattice, with two features that the classical
+branches do not have, namely an approved equivalence class coarser than
+provenance and an estimation noise that turns an exact anchor into a
+statistical one.
 
 ## 7. What the formal core does and does not claim
 
@@ -467,12 +593,17 @@ therefore separable in the joint view and detected exactly by a trusted
 aggregate reference of the same batch, while item-identity integrity needs an
 item-aligned reference; that a batch-level auditor without a reference
 detects such changes only with statistical power; that decision-level
-calibration requires calibrating the family rather than the sensors, with an
-exchangeability bound of $\alpha + 1/(n+1)$ that the executed design violates
-measurably; and that no verifier all of whose evidence the adversarial class
-can rewrite establishes authenticity relative to a baseline. It does not
-claim a general detectability theory beyond finite batches with a fixed
-deterministic predictor, does not claim that the exchangeability premise
-holds in deployment, does not claim identification of which intervention
-occurred, and does not claim anything about interventions outside the
-declared classes.
+calibration requires calibrating the family rather than the sensors, with a
+conformal rule whose exact finite-sample level $\lfloor \alpha(n+1) \rfloor/(n+1)$
+holds under exchangeability with ties and whose executed-design deviation is
+measured; that the asymmetric rule of artifact 1.2.0 had no such guarantee;
+that the quantum branch is an instance of the same lattice in which
+provenance refines semantics, algebra and outputs coarsen the kernel, and
+shot noise converts exact anchoring into a calibrated test; and that no
+verifier all of whose evidence the adversarial class can rewrite establishes
+authenticity relative to a baseline. It does not claim a general
+detectability theory beyond finite batches with a fixed deterministic
+predictor, does not claim that the exchangeability premise holds in
+deployment, does not claim a conditional guarantee given a calibration set,
+does not claim identification of which intervention occurred, and does not
+claim anything about interventions outside the declared classes.

@@ -1,15 +1,15 @@
 {
   "generated_on": "2026-09-07",
-  "version": "1.2.0",
-  "artifact_version": "1.2.0",
-  "evidence_manifests": 6,
-  "manifested_outputs": 65,
-  "artifact_files": 175,
-  "tests_collected": 41,
-  "main_pages": 11,
-  "supplement_pages": 11,
-  "main_pdf_sha256": "c58657bb1fea5651778ae308dc1574e748152534f89af99932d5d1a126e59fb4",
-  "supplement_pdf_sha256": "fb9a759a6d33d69eb8a82c38071fde78563e1637b08c5ab8b89b361e300a4b3b",
+  "version": "1.3.0",
+  "artifact_version": "1.3.0",
+  "evidence_manifests": 7,
+  "manifested_outputs": 83,
+  "artifact_files": 209,
+  "tests_collected": 76,
+  "main_pages": 12,
+  "supplement_pages": 16,
+  "main_pdf_sha256": "4597883be8c7f97508470337e2adc419dd10bb8eb2de14bb7571f3741f3f444e",
+  "supplement_pdf_sha256": "0469bb93b9bdfa9dc3a26f92b0a89cf53f878f61bab8276cde0570c9941da1d8",
   "primary_counts": {
     "gate1_label_rows": 1440,
     "gate1_positive_impact": 1276,
@@ -23,9 +23,12 @@
     "reinforcement_fpr_rows": 14,
     "policy_material_observations": 7008,
     "policy_regimes": 5,
-    "policy_policies": 4
+    "policy_policies": 4,
+    "policy_conformal_level_x10000": 498,
+    "adversarial_adaptive_rows": 6000,
+    "adversarial_conditions": 16
   },
-  "version_doi": "10.5281/zenodo.22644529",
+  "version_doi": "",
   "concept_doi": "10.5281/zenodo.22550852",
-  "version_doi_state": "minted"
+  "version_doi_state": "not yet minted (CITATION.cff carries the concept DOI)"
 }

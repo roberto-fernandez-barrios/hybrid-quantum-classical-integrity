@@ -1,0 +1,14 @@
+column,n_rows,max_abs_difference,n_frozen_missing,within_1e-9
+bal_acc,4200,0.0,0,True
+bal_acc_clean,4200,0.0,0,True
+integrity_pred_disagreement,4200,0.0,0,True
+integrity_jsd_vs_clean_eval,4200,0.0,0,True
+integrity_mmd_vs_clean_eval,4200,0.0,0,True
+integrity_ks_reject05_vs_clean_eval,4200,0.0,0,True
+integrity_score_jsd_vs_clean_eval,4200,0.0,0,True
+integrity_pred_pos_rate_shift,4200,0.0,0,True
+integrity_pred_jsd,4200,0.0,0,True
+integrity_label_prior_shift,4200,0.0,0,True
+integrity_label_jsd,4200,0.0,0,True
+integrity_confusion_profile_l1,4200,0.0,0,True
+integrity_confusion_profile_jsd,4200,0.0,0,True

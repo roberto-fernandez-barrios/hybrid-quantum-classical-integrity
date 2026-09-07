@@ -1,12 +1,115 @@
 # Changelog
 
+## 1.3.0 — 2026-09-07
+
+Final scientific iteration of Paper 1.5 for IEEE TDSC. After this version the
+article is reopened only for an objective error that invalidates a claim, an
+editorial requirement of the journal, or a reviewer request. Protocol:
+`manuscript/paper15_v13_prereg.md` (frozen at `cad9136`, amendment A3 at
+`678c5d7`, both before any regenerated table or new job existed).
+
+- **Amendment A2 — the family rule of 1.2.0 is replaced.** Two independent
+  reviews found that Proposition 5(b) of 1.2.0 was false: the executed rule
+  scored calibration draws against the calibration set only and the audited
+  batch against all calibration draws, and with several sensors and tied
+  max-rank scores the claimed level `alpha + 1/(n+1)` fails (five-vector
+  counterexample: 0.60 against a claimed 0.40). Artifact 1.3.0 adopts the
+  full conformal max-rank p-value, whose level under exchangeability is
+  exactly `floor(alpha (n+1))/(n+1) = 10/201` with ties counted against
+  firing; the deterministic counting bound behind it is tested exhaustively
+  over every weak ordering (all tie patterns) for small `n` and one to three
+  sensors, over random tied configurations with up to ten sensors, and
+  against the counterexample (`tests/test_family_calibration_exhaustive.py`).
+  The 1.2.0 rule is kept only as a comparison column.
+- **Gate F regenerated** from the frozen 1.1.1 outputs (no kernel, model or
+  draw re-executed): decision false-alarm rates 0.056 / 0.058 / 0.048 /
+  0.053 (I_X / I_XF / I_Ym / I_XFY) against 0.061 / 0.073 / 0.048 / 0.079 for
+  the 1.2.0 rule and 0.125 / 0.203 / 0.048 / 0.259 for the union. The 1.2.0
+  excess decomposes into rule bias (+0.005 / +0.015 / 0 / +0.025) and design
+  effect (+0.006 / +0.008 / −0.003 / +0.003); under 30 exchangeable
+  re-splits of the pooled draws the 1.2.0 rule fires at 0.052 / 0.058 /
+  0.040 / 0.059 and the conformal rule at 0.044 / 0.042 / 0.040 / 0.036. E1
+  is kept in the primary aggregate and also reported alone (0.125 / 0.115 /
+  0.045 / 0.123) and excluded (0.048 / 0.052 / 0.048 / 0.045). The split
+  construction is reported once as sensitivity S1.
+- **Gate D regenerated** with the conformal rule and new cost metrics
+  (benign interruption on the 1,200 near-null shams, clean false action with
+  its denominator flagged, non-material interruption): P2 serves 4,496 /
+  4,365 / 7,008 / 4,390 / 0 of 7,008 material observations (1.2.0 rule:
+  4,494 / 4,327 / 7,008 / 4,322 / 0); the trusted item-aligned regime serves
+  none and has zero clean false actions on its 1,200 exact-zero rows but
+  interrupts 52 % of benign near-null variation (544 held, 85 blocked). The
+  evaluation is described everywhere as offline, on frozen outputs.
+- **Policy taxonomy corrected**: P0 baseline; P1 uncalibrated, risk-tolerant;
+  P2 calibrated, risk-tolerant (serves under a declared residual blind
+  region; never called fail-closed); P3 strict fail-closed / abstaining. The
+  contracts of the prototype fail closed on their invariants. "Missing
+  evidence is never converted into assurance" replaced by the precise
+  statement (P2 converts it into a declared, accepted risk; P3 abstains).
+- **Gate A (preregistered, new)**: adaptive cluster-preserving perturbation
+  (adversary class F5, previously "discussed, not executed"): the executed
+  drift mechanisms applied only to the entries outside the tight feature
+  clusters that the batch-level fingerprint relies on; 240 exact-statevector
+  jobs, eight environments, strengths 0.02–0.50, matched controls that
+  reproduce the frozen expansion exactly. At matched strengths detection
+  under the conformal rule falls from 0.96–1.00 to 0.01–0.34 (I_X) and
+  0.06–0.66 (I_XF) while 83–91 % of the material fraction is kept; P2 serves
+  1,328 / 959 / 1,006 of 3,418 material adaptive rows in I_X / I_XF / I_XFY
+  against 0 / 6 / 10 for the executed mechanisms; the trusted regime blocks
+  every material adaptive row. L3 (confusion-preserving relabeling) is not
+  executed, with the reason recorded (808 realised witnesses; no conclusion
+  could change).
+- **Formal core 1.2**: Proposition 5 replaced; Proposition 7 (the quantum
+  branch as an instance of the view lattice: provenance refines semantics,
+  algebra and outputs coarsen the kernel, shot noise turns the exact anchor
+  into a calibrated test); remark on metrics other than balanced accuracy
+  (any function of the confusion matrix; AUC needs the score-label
+  multiset); counterexample C9. Statement-by-statement review with
+  hypotheses, proof, counterexample search and brute-force tests
+  (`manuscript/FORMAL_REVIEW_1.3.0.md`, `tests/test_formal_core.py`).
+- **Manuscript**: abstract, introduction and conclusion rewritten around the
+  corrected calibration, the benign cost of the trusted regime and the
+  adaptive attacker; new related-work subsection on conformal p-values,
+  exchangeability, rank tests and Tippett / Westfall–Young; ZZ-versus-SVC
+  moved to the supplement except one sentence; the dataset weight made
+  explicit (five CICIDS2017, two UNSW-NB15, one ToN-IoT environments; six of
+  nine with Gate 1); adversary table with the executed F5 row; new
+  three-panel policy figure with the benign cost; new adversarial figure;
+  the adversarial table and the coverage heatmap in the supplement
+  (12-page ceiling).
+- **Code**: `src/integrity/family_calibration.py` (conformal rule, split
+  construction, superseded rule for comparison), `src/attacks/cluster_preserving.py`,
+  `paper_f5` suite, `run_v13_f5_queue`, `build_q1_adversarial_evidence`,
+  `make_q1_adversarial_figures`, extended policy builder, tables and
+  figures; seventh evidence manifest (12 tables); verifier extended to the
+  conformal level under re-splits and to the adversarial replay and trust
+  checks; 35 new tests (76 in total).
+- **Documentation**: preregistration with amendments A2 and A3, result
+  summary, formal review, ATHENA traceability, threat-model card and
+  adversary model (F5 executed), Paper 2.5 roadmap (§23), hostile review
+  audit 5, generative-AI disclosure extended to the 1.3.0 work.
+- **Final hostile review (Audit 5)** before the release build: the
+  materiality-retention headline of the adaptive attacker was mis-stated as
+  88–95 % in the first draft of this version; the generated ratios are
+  0.831–0.907, so every document now says 83–91 % and the article uses
+  generated macros; the abstract range of the conformal rule is stated for
+  the regimes with feature evidence (0.053–0.058); one rounding
+  inconsistency (0.565 printed as 0.57 in prose, 0.56 in tables) aligned;
+  machine-specific paths removed from the queue status file and from the
+  manuscript copy of the expansion gate-completeness table.
+- Tags `paper15-q1-v1.1.0`, `paper15-q1-v1.1.1` and `paper15-q1-v1.2.0` and
+  their Zenodo versions are immutable.
+
 ## 1.2.0 — 2026-09-07
 
 Scientific closure of Paper 1.5 for IEEE TDSC. No kernel, model or draw was
 re-executed; every new table is computed from the frozen 1.1.1 outputs. The
 1.0.0 evidence tables are byte-identical except for the two gate-completeness
 tables, whose machine-specific raw-result paths were replaced by
-repository-relative paths.
+repository-relative paths. **Superseded by 1.3.0 in one point: the
+family-calibration rule of Gate F had a false guarantee (amendment A2); its
+numbers are correct for the rule as executed and are kept as comparison
+columns.**
 
 - **Formal core reconstructed** around observational indistinguishability:
   states, interventions, views, refinement order, trusted item-aligned

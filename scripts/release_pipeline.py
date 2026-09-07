@@ -1,4 +1,4 @@
-"""Release pipeline for Paper 1.5 artifact versions (1.2.0 and later).
+"""Release pipeline for Paper 1.5 artifact versions (1.2.0 and later; 1.3.0 anchors are version-parametrised).
 
 The pipeline makes the version DOI, the manuscript, the citation metadata, the
 Git tag, the GitHub release and the Zenodo record point at the same object,
@@ -152,7 +152,7 @@ def reserve_doi() -> str:
     metadata["prereserve_doi"] = payload["metadata"].get("prereserve_doi", {"doi": doi})
     updated = requests.put(draft_url, headers={**headers, "Content-Type": "application/json"}, data=json.dumps({"metadata": metadata}), timeout=60)
     updated.raise_for_status()
-    # Remove files inherited from the previous version so that only 1.2.0 assets are deposited.
+    # Remove files inherited from the previous version so that only the assets of this version are deposited.
     for f in updated.json().get("files", []):
         requests.delete(f["links"]["self"], headers=headers, timeout=60).raise_for_status()
         print("removed inherited file", f.get("filename"))
@@ -177,24 +177,24 @@ def insert_doi(doi: str) -> None:
     tag = _tag()
     edits: list[tuple[Path, str, str]] = [
         (ROOT / "publication/tdsc/main.tex",
-         "Version\n1.2.0 is archived at Zenodo under the concept DOI 10.5281/zenodo.22550852\n(version DOI in the artifact metadata)",
+         f"Version\n{version} is archived at Zenodo under the concept DOI {CONCEPT_DOI}\n(version DOI in the artifact metadata)",
          f"Version\n{version} is archived at Zenodo, version DOI {doi} (concept DOI\n{CONCEPT_DOI})"),
         (ROOT / "publication/tdsc/supplement.tex",
-         "Version 1.2.0 is archived at Zenodo under the concept\nDOI 10.5281/zenodo.22550852 with repository tag \\texttt{paper15-q1-v1.2.0};",
+         f"Version {version} is archived at Zenodo under the concept\nDOI {CONCEPT_DOI} with repository tag \\texttt{{{tag}}};",
          f"Version {version} is archived at Zenodo, version DOI {doi} (concept\nDOI {CONCEPT_DOI}), with repository tag \\texttt{{{tag}}};"),
         (ROOT / "CITATION.cff", f'doi: "{CONCEPT_DOI}"', f'doi: "{doi}"'),
         (ROOT / "CITATION.cff",
-         "concept DOI below resolves to the latest version; the version DOI of 1.2.0 is recorded in publication/DOI_STATUS.md once minted",
+         f"concept DOI below resolves to the latest version; the version DOI of {version} is recorded in publication/DOI_STATUS.md once minted",
          f"version DOI {doi}; concept DOI {CONCEPT_DOI} resolves to the latest version"),
         (ROOT / "README.md",
-         "the version DOI of 1.2.0 is recorded in `CITATION.cff` and\n`publication/DOI_STATUS.md`",
+         f"the version DOI of {version} is recorded in `CITATION.cff` and\n`publication/DOI_STATUS.md`",
          f"the version DOI of {version} is `{doi}`"),
-        (ROOT / "publication/DOI_STATUS.md", "| 1.2.0 | recorded here by the release pipeline |", f"| {version} | `{doi}` |"),
+        (ROOT / "publication/DOI_STATUS.md", f"| {version} | recorded here by the release pipeline |", f"| {version} | `{doi}` |"),
         (ROOT / "publication/submission/title_page_REQUIRED.md",
-         "the version DOI\nof 1.2.0 is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`",
+         f"the version DOI\nof {version} is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`",
          f"version DOI of {version}: **{doi}**"),
         (ROOT / "publication/submission/cover_letter.md",
-         "under the concept DOI 10.5281/zenodo.22550852 (version 1.2.0; the version DOI\nis recorded in the artifact metadata)",
+         f"under the concept DOI {CONCEPT_DOI} (version {version}; the version DOI\nis recorded in the artifact metadata)",
          f"at Zenodo (version DOI {doi}, version {version}; concept DOI {CONCEPT_DOI})"),
     ]
     for path, old, new in edits:
@@ -205,7 +205,7 @@ def insert_doi(doi: str) -> None:
         print("inserted DOI in", path.relative_to(ROOT))
     status = ROOT / "publication/DOI_STATUS.md"
     text = status.read_text(encoding="utf-8")
-    text = text.replace("Status on 7 September 2026: **version 1.2.0 prepared**", f"Status: **version {version} DOI reserved ({doi}); publication in progress**", 1)
+    text = text.replace(f"Status: **version {version} prepared**", f"Status: **version {version} DOI reserved ({doi}); publication in progress**", 1)
     status.write_text(text, encoding="utf-8", newline="\n")
     preflight()
     release_status = json.loads((ROOT / "publication/RELEASE_STATUS.json").read_text(encoding="utf-8"))
@@ -293,7 +293,7 @@ def finalize(doi: str) -> None:
     if _out(["git", "status", "--porcelain"]):
         _fail("building the assets dirtied the working tree; check .gitignore")
 
-    _run(["git", "tag", "-a", tag, "-m", f"Paper 1.5 artifact {version} - observational indistinguishability and integrity blind regions; policy-level calibration and end-to-end decisions. Zenodo DOI {doi}."])
+    _run(["git", "tag", "-a", tag, "-m", f"Paper 1.5 artifact {version} - observational indistinguishability and integrity blind regions; conformal decision-level calibration, offline end-to-end decisions and the adaptive cluster-preserving gate. Zenodo DOI {doi}."])
     tagged = _out(["git", "rev-list", "-n", "1", tag])
     if tagged != head:
         _fail("tag does not point at HEAD")
@@ -316,7 +316,7 @@ def finalize(doi: str) -> None:
         _fail("remote tag does not point at the release commit")
     print("branch, main and tag all point at", head)
 
-    _run(["gh", "release", "create", tag, str(artifact_zip), str(ROOT / "publication" / f"{tag}.zip.sha256"), "--title", f"Paper 1.5 artifact {version} (scientific closure for IEEE TDSC)", "--notes-file", str(ROOT / "publication/tdsc/RELEASE_NOTES.md")])
+    _run(["gh", "release", "create", tag, str(artifact_zip), str(ROOT / "publication" / f"{tag}.zip.sha256"), "--title", f"Paper 1.5 artifact {version} (final scientific closure for IEEE TDSC)", "--notes-file", str(ROOT / "publication/tdsc/RELEASE_NOTES.md")])
 
     source_zip = ROOT / "publication" / f"{tag}-source.zip"
     _run(["git", "archive", "--format=zip", f"--prefix={tag}-source/", "-o", str(source_zip), tag])

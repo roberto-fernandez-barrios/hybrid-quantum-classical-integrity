@@ -32,12 +32,15 @@ Bilbao, Spain}
 This supplement records the complete formal statements with proofs, the
 experimental design, the adversary-model reading rule, the statistical units
 and their dependence structure, the validation checks, the full tables of the
-preregistered gates of artifacts 1.1.0 and 1.2.0, the secondary model-impact
-profile and the reproduction mapping behind the main article. It adds no QPU,
-calibrated-noise, scheduling, provider-security, multi-tenancy or operational
-Fleet Management evidence. The exact claims remain bounded to
-data-to-evaluation interventions, ideal-statevector quantum kernels,
-controlled binomial shot emulation and a local executable contract.
+preregistered gates of artifacts 1.1.0, 1.2.0 and 1.3.0 (including the
+amendment that replaced the calibration rule and the adversarial
+cluster-preserving gate), the secondary model-impact profile and the
+reproduction mapping behind the main article. It adds no QPU,
+calibrated-noise, scheduling, provider-security, multi-tenancy, deployed
+runtime-service or operational Fleet Management evidence. The exact claims
+remain bounded to data-to-evaluation interventions, ideal-statevector quantum
+kernels, controlled binomial shot emulation, offline policy evaluation on
+frozen outputs and a local executable contract.
 
 \section{Formal Core with Proofs}
 
@@ -47,15 +50,17 @@ A workflow state is $s=(X,P,C,K,E,f,y,R)\in\mathcal S$ with
 $\tilde X=P(X)$ and $\hat y=f(\tilde X)$ indexed by item identity
 $i=1,\dots,n$. An intervention is a map $a:\mathcal S\to\mathcal S$, the
 baseline is $s_0$ and $s_a=a(s_0)$. Classes: $T_y$ (label-only),
-$T_y^{\pi}\subset T_y$ (prior-preserving) and the feature-side mechanisms.
-The conclusion is $R(s)$ (balanced accuracy) and
-$\Delta_R(a)=R(s_0)-R(s_a)$; $a$ is material at level $\tau$ if
-$|\Delta_R(a)|\ge\tau$. An information set $\mathcal I$ is a view
-$V_{\mathcal I}:\mathcal S\to\mathcal O_{\mathcal I}$; refinement
-$\mathcal I\sqsubseteq\mathcal I'$ means $V_{\mathcal I}=\pi\circ V_{\mathcal I'}$;
-the join $\mathcal I\vee\mathcal W$ is the pair of views. A reference
-$\rho=V_{\mathcal J}(s_0)$ is trusted when no intervention of the class can
-alter it and item-aligned when $V_{\mathcal J}$ is item-indexed.
+$T_y^{\pi}\subset T_y$ (prior-preserving) and the feature-side mechanisms,
+including the adaptive cluster-preserving variants of Gate~A. The conclusion
+is $R(s)$ (balanced accuracy) and $\Delta_R(a)=R(s_0)-R(s_a)$; $a$ is
+material at level $\tau$ if $|\Delta_R(a)|\ge\tau$. An information set
+$\mathcal I$ is a view $V_{\mathcal I}:\mathcal S\to\mathcal O_{\mathcal I}$;
+refinement $\mathcal I\sqsubseteq\mathcal I'$ means
+$V_{\mathcal I}=\pi\circ V_{\mathcal I'}$; the join $\mathcal I\vee\mathcal W$
+is the pair of views. A reference $\rho=V_{\mathcal J}(s_0)$ is trusted when
+no intervention of the class can alter it, an aggregate reference (level B)
+when $V_{\mathcal J}$ is a permutation-invariant summary of the batch, and
+item-aligned (level C) when $V_{\mathcal J}$ is item-indexed.
 
 \subsection{Statements and Proofs}
 
@@ -78,11 +83,7 @@ $G_{\mathcal I}\subseteq G_{\mathcal I,\mathcal S}$, with equality iff
 $\mathcal S$ is baseline-separating on the orbit of $\mathcal A$: it takes a
 different value at $a(s_0)$ than at $s_0$ whenever the views differ. Pairwise
 separation of intervened states (injectivity on the orbit), which
-identification of the intervention would need, is never assumed. A reference
-$\rho=V_{\mathcal J}(s_0)$ is an \emph{aggregate} reference (level B) when
-$V_{\mathcal J}$ is a permutation-invariant summary of the batch such as the
-confusion matrix $M$, the label histogram or $R$, and \emph{item-aligned}
-(level C) when it is an item-indexed tuple.
+identification of the intervention would need, is never assumed.
 
 \textbf{Proposition 1 (monotonicity).} If $\mathcal I\sqsubseteq\mathcal I'$
 then $B_{\mathcal I'}(\mathcal A)\subseteq B_{\mathcal I}(\mathcal A)$ and
@@ -146,13 +147,24 @@ matrix is a function of the multiset of triples, so a changed $M$ implies a
 changed multiset.
 \end{IEEEproof}
 
+\emph{Remark (other metrics).} The proof uses only $R=g(M)$, so the statement
+holds for accuracy, precision, recall, $F_1$ and every function of the
+binarised confusion matrix, with $M$ as the sufficient aggregate. ROC-AUC is
+a function of the multiset of (score, label) pairs and not of $M$: two label
+vectors with the same confusion matrix can have different AUC. The same
+argument then holds with that multiset as the aggregate: a label-only change
+that changes the AUC changes the score-label multiset, a trusted stored copy
+of it detects every material change exactly, and item identity again needs an
+item-aligned reference. Both facts are checked by enumeration in the tests
+of the artifact; no AUC experiment is run.
+
 \textbf{Proposition 4 (separability and anchoring).} (i) For any auditor
 whose decision is a function of $V_{\mathcal I}(s)$ (including a seed carried
 in the view), $a\in B_{\mathcal I}$ implies $\mathrm{fire}(s_a)=\mathrm{fire}(s_0)$.
-(ii) A reference-anchored auditor with trusted item-aligned
-$\rho=V_{\mathcal J}(s_0)$ and rule ``fire iff
-$d(V_{\mathcal J}(s),\rho)>0$'' has zero false-alarm probability and detects
-every $a\notin B_{\mathcal J}$ with probability one.
+(ii) A reference-anchored auditor with trusted $\rho=V_{\mathcal J}(s_0)$
+(level B or C) and rule ``fire iff $d(V_{\mathcal J}(s),\rho)>0$'' has zero
+false-alarm probability and detects every $a\notin B_{\mathcal J}$ with
+probability one.
 
 \begin{IEEEproof}
 (i) is Lemma~1 applied to the decision function. (ii) $d(\rho,\rho)=0$ and
@@ -179,7 +191,7 @@ function of $M$, and the histogram is unchanged, whereas the item-indexed
 tuple differs in positions $i$ and $j$.
 \end{IEEEproof}
 
-\textbf{Proposition 5 (union of calibrated sensors versus family
+\textbf{Proposition 5 (union of calibrated sensors versus conformal family
 calibration).} (a) Let $E_1,\dots,E_m$ be the null firing events of $m$
 sensors with $p_j=\Pr_0[E_j]\le\alpha$. Then
 \begin{equation}
@@ -192,40 +204,64 @@ by nested (coincident) events, the upper bound $m\alpha$ (when $m\alpha\le1$) by
 mutually disjoint events, and under independence
 $\Pr_0[\bigcup_j E_j]=1-\prod_j(1-p_j)=1-(1-\alpha)^m$, strictly between the
 two bounds for $m\ge2$ and $0<\alpha<1$.
-(b) Let $v_1,\dots,v_n$ be the sensor vectors of the calibration draws and
-$v_{n+1}$ that of the audited batch. For a family $F$ define the score of any
-vector $v$ as $U(v)=\max_{j\in F}\#\{i\le n:v_{j,i}<v_j\}/n$ and let $q$ be
-the $k$-th smallest of $U(v_1),\dots,U(v_n)$ with $k=\lceil(n+1)(1-\alpha)\rceil$.
-If the $n+1$ draws are exchangeable, then
+
+(b) Let $v_1,\dots,v_n\in\mathbb R^m$ be the sensor vectors of the calibration
+draws and $v_{n+1}$ that of the audited batch. Give every member $j$ of the
+augmented set the leave-one-out family score
 \begin{equation}
-\Pr_0[U(v_{n+1})>q]\;\le\;\frac{n+2-k}{n+1}\;\le\;\alpha+\frac{1}{n+1}.
+\tilde U_j=\max_{s\le m}\frac{\#\{i\ne j: v_{s,i}<v_{s,j}\}}{n},
 \end{equation}
-For $n=200$ and $\alpha=0.05$, $k=191$ and the bound is $11/201=0.0547$. For
-a single sensor the rule coincides with ``fire iff $v_{n+1}$ exceeds the
-$k$-th smallest calibration value'', whose exact exchangeable level is
-$(n+1-k)/(n+1)=10/201=0.0498$.
-(c) Gate~F uses (b) with $n=200$ per (environment, dimension, model) cell and
-evaluates it on 200 disjoint evaluation draws; the 20 draws of a run overlap
-and the two halves are different rows of one staged table, so the premise
-does not hold exactly, and the observed rates (Table~\ref{tab:s-family-fpr})
-measure that deviation rather than confirm the bound.
+computed against the other $n$ members, and define
+$p=(1+\#\{i\le n:\tilde U_i\ge\tilde U_{n+1}\})/(n+1)$; the family fires iff
+$p\le\alpha$, ties counting against firing. Let $k=\lfloor\alpha(n+1)\rfloor$
+and $N_j=\#\{i\le n+1:\tilde U_i\ge\tilde U_j\}$. Then (i) for every
+augmented set at most $k$ members satisfy $N_j\le k$; (ii) if the $n+1$
+vectors are exchangeable,
+\begin{equation}
+\Pr_0[\,p\le\alpha\,]\;\le\;\frac{\lfloor\alpha(n+1)\rfloor}{n+1}\;\le\;\alpha,
+\end{equation}
+with equality in the first inequality when the scores are almost surely
+distinct, and with no assumption on ties or continuity; (iii) for a single
+sensor without ties the rule coincides with ``fire iff $v_{n+1}$ exceeds the
+$\lceil(n+1)(1-\alpha)\rceil$-th smallest calibration value''; (iv) the level
+is marginal over the joint draw of calibration set and audited batch, audited
+batches sharing one calibration set are dependent, and nothing is claimed
+when exchangeability fails. For $n=200$, $\alpha=0.05$: $k=10$ and the level
+is $10/201=0.0498$.
+
+(c) The rule of artifact 1.2.0 scored calibration draws against the other
+$n-1$ calibration draws only, the audited batch against all $n$, and fired
+when the audited score exceeded the $\lceil(n+1)(1-\alpha)\rceil$-th smallest
+calibration score; it claimed the level $\alpha+1/(n+1)$. The claim is false.
+For $n=4$, $\alpha=0.2$ and three sensors with cyclic orderings
+$s_1: j_1>j_2>j_3>x>y$, $s_2: j_2>j_3>j_1>x>y$, $s_3: j_3>j_1>j_2>x>y$,
+the members $j_1,j_2,j_3$ each fire when audited (calibration scores
+$0.75,0.75,0.25,0$, threshold $0.75$, audited score $1$), so the firing
+probability under exchangeability is $0.60$ against the claimed $0.40$ and
+against $\alpha$. On the frozen null draws the rule exceeds $\alpha$ under
+exchangeable re-splits (Table~\ref{tab:s-family-decomposition}).
 
 \begin{IEEEproof}
 (a) The union contains each $E_j$ (lower bound); Boole's inequality gives the
 upper bound; nested, disjoint and independent events attain or realise the
-stated values, the last by inclusion--exclusion. (b) Let $\tilde U_i$ be the
-score of draw $i$ computed against the \emph{other} $n$ draws of the
-augmented set $\{1,\dots,n+1\}$. Under exchangeability the $\tilde U_i$ are
-exchangeable, so the rank of $\tilde U_{n+1}$ among the $n+1$ scores is
-uniform up to ties and $\Pr[\tilde U_{n+1}\ge\tilde U_{(k)}]\le(n+2-k)/(n+1)$,
-where $\tilde U_{(k)}$ is the $k$-th smallest of $\tilde U_1,\dots,\tilde U_n$;
-ties count against firing and only lower the probability. Now
-$U(v_{n+1})=\tilde U_{n+1}$ and, for $i\le n$,
-$U(v_i)\le\tilde U_i\le U(v_i)+1/n$, because the augmented comparison set adds
-one element; hence $q\ge\tilde U_{(k)}-1/n$ and, on the grid
-$\{0,1/n,\dots,1\}$, $\{U(v_{n+1})>q\}\subseteq\{\tilde U_{n+1}\ge\tilde U_{(k)}\}$.
-For a single sensor $U(v_i)=\tilde U_i$ exactly and the level is
-$(n+1-k)/(n+1)$.
+stated values, the last by inclusion--exclusion. (b)(i) Suppose $k+1$ members
+satisfy $N_j\le k$ and let $j^\ast$ be one with the smallest score among
+them; every one of the $k+1$ has $\tilde U\ge\tilde U_{j^\ast}$, so
+$N_{j^\ast}\ge k+1$, a contradiction. (ii) The score of member $j$ depends on
+$v_j$ and on the multiset of the others, so the score map is
+permutation-equivariant and exchangeability of the $v$'s gives
+exchangeability of the $\tilde U$'s and of the $N_j$'s; $p\le\alpha$ iff
+$N_{n+1}\le k$, and by exchangeability
+$\Pr[N_{n+1}\le k]=\mathbb E[\#\{j:N_j\le k\}]/(n+1)\le k/(n+1)$ by (i).
+With distinct scores exactly $k$ members satisfy $N_j\le k$; ties merge
+ranks and shrink that set. (iii) For $m=1$ and distinct values,
+$\tilde U_i\ge\tilde U_{n+1}$ iff $v_i>v_{n+1}$, so
+$p=(1+\#\{i:v_i>v_{n+1}\})/(n+1)\le\alpha$ iff $v_{n+1}$ exceeds at least
+$n-k+1=\lceil(n+1)(1-\alpha)\rceil$ calibration values. (iv) restates what
+(ii) proves. (c) is checked by enumeration in the artifact tests, which also
+verify (i) over every weak ordering (all tie patterns) of up to seven
+elements with one sensor, five with two sensors and four with three sensors,
+and over random tied configurations with up to ten sensors.
 \end{IEEEproof}
 
 \textbf{Proposition 6 (no local authentication without an uncontrolled
@@ -255,6 +291,38 @@ changes the joint view, but the change is invisible to a verifier all of
 whose evidence the class can rewrite.
 \end{IEEEproof}
 
+\textbf{Proposition 7 (the quantum branch as an instance of the lattice).}
+Let $\mathcal C$ be the circuit representations, $\Phi:\mathcal C\to\mathcal K$
+the semantic kernel map on a fixed probe set, $h$ the provenance hash, $A$ the
+algebraic invariants, $f_K$ the decision from a kernel and
+$\hat K\sim P(\cdot\mid C,E)$ the finite-shot estimator. Assume $h$
+collision-free on the circuits under study. (i) $[C]=\Phi^{-1}(\Phi(C))$ is
+the semantic class of $C$; approved rewrites map $C$ into $[C]$ without
+fixing $h(C)$, so $V_h$ refines $V_K$ and $B_h(\mathcal A)\subseteq B_K(\mathcal A)$,
+strictly whenever $\mathcal A$ contains an approved rewrite. (ii) $V_A=A\circ V_K$
+and $V_f=f_{\cdot}(\tilde X)\circ V_K$, so $B_K\subseteq B_A$ and
+$B_K\subseteq B_f$; a PSD-preserving substitution $K'\ne K_0$ with
+$A(K')=A(K_0)$ lies in $B_A\setminus B_K$, a kernel change that crosses no
+decision boundary lies in $B_f\setminus B_K$. (iii) For a non-degenerate
+estimator $\Pr[\hat K=K_0]=0$ even for the honest circuit, so ``fire iff
+$\hat K\ne K_0$'' has false-alarm probability one; $d(\hat K,K_0)$ must be
+treated as a level-A statistic with a null from repeated honest estimation,
+to which Proposition~5(b) applies with $m=1$ when the repeated estimates and
+the audited one are exchangeable.
+
+\begin{IEEEproof}
+(i) If $h(C_1)=h(C_2)$ then $C_1=C_2$ by collision freedom and
+$\Phi(C_1)=\Phi(C_2)$; hence $V_h$ refines $V_K$ and Proposition~1 gives the
+inclusion; an approved rewrite $C'\in[C_0]$ with a different canonical text
+has $h(C')\ne h(C_0)$ and $\Phi(C')=\Phi(C_0)$. (ii) is Proposition~1 applied
+to the two coarsenings; the set differences are witnessed in
+Table~\ref{tab:qcoverage} (15/15 PSD-preserving substitutions with silent
+algebraic sensors and firing semantic sensor; RZ mutations at 0.02 with zero
+output change and firing semantic sensor). (iii) For a continuous estimator
+the event $\hat K=K_0$ has probability zero; the rest is the definition of
+the anchor-free auditor and Proposition~5(b).
+\end{IEEEproof}
+
 \subsection{Counterexamples}
 
 Table~\ref{tab:s-witnesses} restates the witnesses of the main text. C1 is
@@ -264,7 +332,10 @@ same number of items across the diagonal of $M$ in each class; C5 and C6
 are feature-side; C7 counts every intervened row whose balanced accuracy
 increased; C8 is Proposition~3; W9 and W10 count the label rows that a
 trusted aggregate reference of the same batch detects (every material one)
-and those that only an item-aligned reference exposes (Corollary~3).
+and those that only an item-aligned reference exposes (Corollary~3). The
+cluster-preserving drift of Gate~A (C9 in the artifact's formal core) is not
+a structural blind region but sensor insufficiency against an adaptive
+attacker; it is measured in Section~\ref{sec:gate-a}, not proved.
 
 \input{tables/s_witnesses.tex}
 
@@ -289,11 +360,13 @@ $\IXFYs$ is declared; and the code that builds and verifies the envelope.
 
 \subsection{Expansion Environments}
 
-The expansion comprises eight fixed environments (Table~\ref{tab:env}).
-``OOD'' means a prespecified source-to-target construction, not a sampled
-deployment population. Every environment uses five split seeds and two nested
-model seeds and evaluates projected dimensions 8, 10 and 12. The CICIDS scale
-gate uses 256/256 train/evaluation samples; all others use 128/128.
+The expansion comprises eight fixed environments (Table~\ref{tab:env}): five
+from CICIDS2017, two from UNSW-NB15 and one from ToN-IoT; with Gate~1, six of
+the nine environments of the study are CICIDS2017. ``OOD'' means a
+prespecified source-to-target construction, not a sampled deployment
+population. Every environment uses five split seeds and two nested model
+seeds and evaluates projected dimensions 8, 10 and 12. The CICIDS scale gate
+uses 256/256 train/evaluation samples; all others use 128/128.
 
 \begin{table*}[!t]
 \caption{Prespecified expansion environments.}
@@ -329,7 +402,9 @@ The paper-core suite crosses six mechanisms with nominal strengths 0.02, 0.05
 and 0.10 (Table~\ref{tab:attacks}). Artifact identifiers retain the historical
 family string \texttt{target\_shift}; the scientific text uses
 \emph{evaluation-label intervention} because these rows do not instantiate the
-statistical label-shift problem.
+statistical label-shift problem. Gate~A adds the adaptive cluster-preserving
+variants of mechanisms 4--9 at strengths 0.02, 0.05, 0.10, 0.25 and 0.50
+(Section~\ref{sec:gate-a}).
 
 \begin{table}[!t]
 \caption{Frozen 18-condition intervention suite.}
@@ -356,10 +431,10 @@ Table~\ref{tab:regimes} records what each evidence regime can establish in the
 implemented study. Structural blindness means that the view is unchanged by
 construction; it is stronger and narrower than observing zero empirical
 response in a finite sample, and both are distinct from calibrated
-detectability.
+detectability and from adaptive evasion.
 
 \begin{table*}[!t]
-\caption{Evidence regimes, implemented sensors, demonstrated blind regions and calibrated status.}
+\caption{Evidence regimes, implemented sensors, demonstrated blind regions and calibrated status (conformal family rule).}
 \label{tab:regimes}
 \centering
 \footnotesize
@@ -367,22 +442,22 @@ detectability.
 \toprule
 Regime & Evidence & Implemented sensor family & Structural blind region & Calibrated / exact status \\
 \midrule
-$\IX$ & Features & Feature JSD, MMD, KS rejection & Every label-only change & Family-calibrated decision FPR \FprFamilyIX; label path 0/3,600 \\
-$\IXF$ & Features, scores, predictions & $\IX$ plus score JSD, prediction-rate shift, prediction JSD & Every label-only change for a fixed predictor & Family-calibrated FPR \FprFamilyIXF; label path 0/3,600 \\
+$\IX$ & Features & Feature JSD, MMD, KS rejection & Every label-only change & Conformal decision FPR \FprFamilyIX; label path 0/3,600; evaded by cluster-preserving drift at matched strengths \\
+$\IXF$ & Features, scores, predictions & $\IX$ plus score JSD, prediction-rate shift, prediction JSD & Every label-only change for a fixed predictor & Conformal FPR \FprFamilyIXF; label path 0/3,600; partially evaded by cluster-preserving drift \\
 $\IYm$ & Label class counts & Prior delta and label JSD & Prior-preserving relabeling; every feature-side change & FPR \FprFamilyIYm; contains nothing in this suite \\
-$\IXFY$ (batch) & Item triples, no reference & Confusion-profile statistics added & None for material label changes (Proposition~3) but statistically undetectable: \BatchFamilyLabelFires{}--\BatchUnionLabelFires{} of \NMaterialLabel & Family-calibrated FPR \FprFamilyIXFY \\
-$\IXFYs$ & Same items against a trusted reference & Prediction disagreement, confusion-profile deltas, item-level label mismatch (exact-zero null) & None & Exact: \NMaterialLabel/\NMaterialLabel{} material label rows; 0 unsafe allows; 0 false holds \\
-$\IQ$ & Circuit, parameters, kernel, estimation evidence & Hashes, semantic probes, algebra, repeated estimation, output changes & Composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes & 165/165 cells; nine acceptance checks \\
+$\IXFY$ (batch) & Item triples, no reference & Confusion-profile statistics added & None for material label changes (Proposition~3) but statistically undetectable: \BatchFamilyLabelFires{}--\BatchUnionLabelFires{} of \NMaterialLabel & Conformal FPR \FprFamilyIXFY \\
+$\IXFYs$ & Same items against a trusted reference & Prediction disagreement, confusion-profile deltas, item-level label mismatch (exact-zero null) & None & Exact: \NMaterialLabel/\NMaterialLabel{} material label rows and every material adaptive row; 0 unsafe allows; 0 clean false actions on exact-zero rows; benign interruption \BenignHBFamilyIXFYtrusted \\
+$\IQ$ & Circuit, parameters, kernel, estimation evidence & Hashes, semantic probes, algebra, repeated estimation, output changes & Composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes (Proposition~7) & 165/165 cells; nine acceptance checks \\
 \bottomrule
 \end{tabularx}
 \end{table*}
 
-Every machine-readable coverage record contains seven fields: workflow
+Every machine-readable coverage record contains eight fields: workflow
 boundary; protected asset; adversary or failure class including fixed
 elements; available information regime and trusted references; sensor,
-threshold and decision-level false-alarm budget; covered perturbations and
-structural and calibrated residual blind regions; response or
-countermeasure.
+calibration rule, its level and premise; covered perturbations and
+structural, calibrated and adaptive residual blind regions; cost on benign
+variation; response or countermeasure.
 
 \section{Deduplication and Statistical Units}
 
@@ -401,11 +476,14 @@ is $\bar d\pm t_{0.975,4}\,s_d/\sqrt5$. For the calibration gates the
 dependence structure is explicit: each of the \NRuns{} runs (eight
 environments $\times$ five split seeds $\times$ two model seeds $\times$
 three dimensions) draws 20 calibration and 20 evaluation batches as
-overlapping simple random subsets of one pool half, and the 200 draws of a
-cell come from ten pool halves; the inferential unit is the (environment,
-split-seed) cluster (\NClusters{} clusters, five per environment). Pooled
-rates over draws and the Clopper--Pearson intervals of artifact 1.1.0 are
-descriptive. No multiplicity adjustment or population transport is claimed.
+overlapping simple random subsets of one pool half, the 200 draws of a cell
+come from ten pool halves, and the 200 evaluation draws of a cell share one
+calibration set; the inferential unit is the (environment, split-seed)
+cluster (\NClusters{} clusters, five per environment). Pooled rates over
+draws and the Clopper--Pearson intervals of artifact 1.1.0 are descriptive.
+The conformal level of Proposition~5(b) is marginal, not conditional on the
+calibration set. No multiplicity adjustment or population transport is
+claimed.
 
 \section{Exact-Statevector Engine Validation}
 
@@ -422,8 +500,11 @@ reuse are unit-tested; a CICIDS 128/128 end-to-end replay (split/model seed
 performance, impact and integrity-signal endpoint, with only ROC-AUC and its
 derived drops differing by at most $1.221896\times10^{-4}$ (one half-tie
 increment for 64 positive and 64 negative examples); and the prespecified
-256/256 pilot completes. The engine is tagged \texttt{exact\_statevector}; it
-supplies no finite-shot, noise-model or hardware evidence.
+256/256 pilot completes. The 240 jobs of Gate~A add a fifth layer: their
+clean rows and matched controls reproduce the frozen expansion rows with a
+maximum absolute difference of $0.0$ in thirteen columns over 4,200 rows. The
+engine is tagged \texttt{exact\_statevector}; it supplies no finite-shot,
+noise-model or hardware evidence.
 
 \section{Quantum Gate: Conditions and Coverage}
 
@@ -431,7 +512,11 @@ The quantum gate crosses five split seeds, dimensions 4/6/8 and 11
 conditions, giving 165 cells. Table~\ref{tab:qcoverage} reports response
 fractions over the 15 split-dimension cells per condition. A value of one
 means non-zero raw response in all 15 cells at the frozen tolerance; it is
-not calibrated power.
+not calibrated power. The table is the empirical realisation of
+Proposition~7: rows 2--3 change the hash and nothing semantic (i), rows 7--9
+change the kernel and are or are not visible to the algebraic coarsening
+(ii), and rows 10--11 show the finite-shot estimator never reproducing the
+exact kernel (iii).
 
 \begin{table*}[!t]
 \caption{Quantum-gate sensor response fractions.}
@@ -481,14 +566,16 @@ stochastic execution is held); evaluation/report (item-level labels bound to
 predictions and balanced accuracy recomputed; prior-preserving corruption
 blocks even when the marginal is identical). Contracts form an ordered
 SHA-256 chain: later modification is detectable, but the chain is not signed
-and does not authenticate a provider. All passes yield \texttt{allow}; at
-least one review and no failure yields \texttt{hold}; any failure yields
-\texttt{block}. Six prespecified scenarios and all six chains pass eight
-strict acceptance checks in the frozen artifact. The policy layer of artifact
-1.2.0 composes with these contracts by the maximum in the lattice; the
-composition over the six frozen envelopes is Table~\ref{tab:s-composition},
-where an exact violation is derived from the recorded evidence with the
-approval flags respected.
+and does not authenticate a provider. The contracts fail closed on their
+invariants: all passes yield \texttt{allow}; at least one review and no
+failure yields \texttt{hold}; any failure yields \texttt{block}. Six
+prespecified scenarios and all six chains pass eight strict acceptance checks
+in the frozen artifact. The policy layer composes with these contracts by the
+maximum in the lattice; the composition over the six frozen envelopes is
+Table~\ref{tab:s-composition}, where an exact violation is derived from the
+recorded evidence with the approval flags respected. The policy layer is a
+pure function evaluated offline on frozen outputs; nothing in this article is
+a deployed runtime service.
 
 \input{tables/s_composition.tex}
 
@@ -532,8 +619,8 @@ prior-preserving $\IYm$ fire on none of the 3,600 label observations; the
 batch-level $\IXFY$ union fires on 43; the item-aligned auditor detects all
 3,600); and Table~\ref{tab:s-mass} the cluster structure that makes the KS
 sensor react to in-place perturbations of order $10^{-3}$ standard
-deviations while its between-batch null stays narrow. The intervals in
-Table~\ref{tab:s-fpr} are descriptive.
+deviations while its between-batch null stays narrow, the fingerprint that
+Gate~A attacks. The intervals in Table~\ref{tab:s-fpr} are descriptive.
 
 \input{tables/s_fpr.tex}
 \input{tables/s_fpr_env.tex}
@@ -564,7 +651,7 @@ unchanged. Exact label-path invariance holds in every configuration.
 \input{tables/s_paired.tex}
 \input{tables/s_clean.tex}
 
-\section{Preregistered Policy Gates (Artifact 1.2.0)}
+\section{Preregistered Policy Gates (Artifacts 1.2.0 and 1.3.0)}
 
 Two gates were preregistered on 2026-09-07 in
 \path{manuscript/paper15_v12_policy_prereg.md} before any analysis and
@@ -574,69 +661,146 @@ draw. Amendment A1 records the finding that the 1.1.x column
 change, so that the material label-path count under the prespecified
 $|\Delta_R|>0$ definition is \LabelMaterialExp{} (\LabelDecreasedExp{}
 lowered, \LabelIncreasedExp{} raised) rather than the 2,184 lowered rows
-alone; check D3 was corrected accordingly and nothing else changed.
+alone. Amendment A2 (\path{manuscript/paper15_v13_prereg.md}, artifact 1.3.0)
+records that the family rule executed in 1.2.0 was asymmetric and that its
+stated level was false (Proposition~5(c)), adopts the conformal rule of
+Proposition~5(b), fixes the expectations before regeneration, and discloses
+that a diagnostic computation of the conformal rule had been seen during the
+review that found the defect (pooled rates 0.056 / 0.058 / 0.048 / 0.053,
+which the regeneration reproduces exactly). Both gates were regenerated from
+the same frozen outputs; the 1.2.0 numbers are retained as comparison
+columns and are used for no claim.
 
-\subsection{Gate F: Family-Wise Calibration}
+\subsection{Gate F: Conformal Family Calibration}
 
-For every cell and regime the family score of a batch is the maximum over
-the regime's sensors of the fraction of calibration values strictly below the
-observed value, and the family threshold is the 191st smallest calibration
-family score; the regime fires when the score exceeds it. The frozen
-per-sensor thresholds are reproduced from the calibration draws as a
-consistency check (F0). Table~\ref{tab:s-family-fpr} gives the decision-level
-false-alarm rates of the union and family rules, Table~\ref{tab:s-family-fpr-env}
-the per-environment cluster means with five-cluster $t$ intervals, and
+For every cell and regime the conformal $p$-value of a batch is computed as
+in Proposition~5(b) from the 200 calibration draws of the cell, and the
+regime fires when $p\le0.05$. The frozen per-sensor thresholds are reproduced
+from the calibration draws as a consistency check (F0).
+Table~\ref{tab:s-family-fpr} gives the decision-level false-alarm rates of
+the union rule, the superseded 1.2.0 rule and the conformal rule in the
+primary aggregate over the eight environments, in the sensitivity aggregate
+without E1 and in E1 alone; Table~\ref{tab:s-family-decomposition} the
+decomposition of the 1.2.0 excess into rule bias and design effect together
+with both rules under exchangeable re-splits; Table~\ref{tab:s-family-split}
+the split construction S1; Tables~\ref{tab:s-family-fpr-env} and \ref{tab:s-family-fpr-env-rules} the
+per-environment cluster means with five-cluster $t$ intervals; and
 Table~\ref{tab:s-family-detection} the detection rates on the frozen
-interventions and the near-null controls. The family-calibrated $\IX$ and
-$\IXF$ rules fire on none of the 3,600 label observations and the $\IYm$
-rule on none of the 1,800 prior-preserving ones (F3); the batch-level $\IXFY$
-family rule fires on \BatchFamilyLabelFires{} of the \NMaterialLabel{}
-material label rows.
+interventions and the near-null controls. The conformal $\IX$ and $\IXF$
+rules fire on none of the 3,600 label observations and the $\IYm$ rule on
+none of the 1,800 prior-preserving ones (F3); the batch-level $\IXFY$
+conformal rule fires on \BatchFamilyLabelFires{} of the \NMaterialLabel{}
+material label rows (1.2.0 rule \BatchLegacyLabelFires{}, union
+\BatchUnionLabelFires{}). Under the re-splits the conformal rule stays at or
+below its level in every regime (F4) and the 1.2.0 rule does not.
 
 \input{tables/s_family_fpr.tex}
+\input{tables/s_family_decomposition.tex}
+\input{tables/s_family_split.tex}
 \input{tables/s_family_fpr_env.tex}
+\input{tables/s_family_fpr_env_rules.tex}
 \input{tables/s_family_detection.tex}
 
-\subsection{Gate D: End-to-End Decisions}
+\subsection{Gate D: Offline End-to-End Decisions}
 
-Four policies (P0 serve-always; P1 the uncalibrated union of per-sensor
-rules; P2 the family-calibrated rule; P3 the strict variant that holds
-whenever a protected boundary is neither exactly nor statistically covered)
-are evaluated over five regimes on \NEvalDraws{} clean evaluation draws (the
+Four policies (P0 serve-always, baseline; P1 the uncalibrated union of
+per-sensor rules, risk-tolerant; P2 the conformal family rule, calibrated
+and risk-tolerant; P3 the strict fail-closed variant that holds whenever a
+protected boundary is neither exactly nor statistically covered) are
+evaluated over five regimes on \NEvalDraws{} clean evaluation draws (the
 1,200 exact-zero rows for $\IXFYs$), 1,200 near-null shams and the 10,800
 frozen intervened observations, of which \NMaterial{} are material at
 $|\Delta_R|>0$ (\NMaterialFive{} at $\tau=0.05$). \texttt{block} is reserved
 for exact violations against a trusted reference. Table~\ref{tab:s-policy-full}
-gives the complete decision counts, Table~\ref{tab:s-policy-tau} the
-materiality sensitivity and Table~\ref{tab:s-policy-family} the unsafe allows
-by mechanism under P2. The five consistency checks D1--D5 (serve-always
-allows every material observation; structural blindness is reproduced by the
-decisions; the trusted regime blocks every material label row and every
-exact violation; decisions are total and deterministic; the composition
-reproduces the frozen contract actions) all pass.
+gives the complete decision counts including the benign hold and block counts
+and the non-material interruption rate, Table~\ref{tab:s-policy-rule-comparison}
+the calibrated policy under the superseded and the adopted rule,
+Table~\ref{tab:s-policy-tau} the materiality sensitivity and
+Table~\ref{tab:s-policy-family} the unsafe allows by mechanism under P2. The
+five consistency checks D1--D5 (serve-always allows every material
+observation; structural blindness is reproduced by the decisions; the
+trusted regime blocks every material label row and every exact violation;
+decisions are total and deterministic; the composition reproduces the frozen
+contract actions) all pass.
 
 \input{tables/s_policy_full.tex}
+\input{tables/s_policy_rule_comparison.tex}
 \input{tables/s_policy_tau.tex}
 \input{tables/s_policy_family.tex}
+
+\section{Preregistered Adversarial Gate A (Artifact 1.3.0)}
+\label{sec:gate-a}
+
+Gate~A was preregistered in \path{manuscript/paper15_v13_prereg.md} before
+execution: threat knowledge, perturbation algorithm, cluster rule (an entry
+is frozen when at least $\lceil0.05n\rceil$ rows, never fewer than two, lie
+within 0.01 batch standard deviations of it; constant features frozen),
+budget (the unclustered entries, data-determined), strength grid
+(0.02, 0.05, 0.10 matched to the frozen suite; 0.25, 0.50), matched controls
+(the executed mechanisms with their frozen tags and seeds), environments,
+models, seeds, endpoints, acceptance checks, expectations and stopping rule.
+The 240 jobs completed; the clean rows and matched controls reproduce the
+frozen expansion exactly (AC1); labels are untouched (AC2); the frozen-entry
+fraction is recorded on every adaptive row (AC3); every material adaptive row
+carries a prediction change (AC4). Scoring uses the calibration draws,
+thresholds, rules and policy layer of Gates~F and D.
+Table~\ref{tab:adversarial} gives the compact overview at matched strengths,
+Table~\ref{tab:s-adversarial-detection} the detection rates under the
+three rules and the exact item-aligned detection,
+Table~\ref{tab:s-adversarial-materiality} the prediction-change and material
+fractions with the attacker's budget, Table~\ref{tab:s-adversarial-policy}
+the unsafe allows under P1--P3, Table~\ref{tab:s-adversarial-env} the
+per-environment detection in $\IXF$ and Table~\ref{tab:s-adversarial-branch}
+the classical and quantum branches separately. The expectation recorded
+before execution (detection below 0.30 at matched strengths) held for the
+mean shift in $\IX$ and $\IXF$ at 0.02 and 0.05 and for scaling drift in
+$\IX$ at 0.02 and 0.05, and did not hold at 0.10 (0.34--0.66); it is reported
+as executed. No parameter was changed after the results were seen.
+
+\input{tables/m_adversarial.tex}
+\input{tables/s_adversarial_detection.tex}
+\input{tables/s_adversarial_materiality.tex}
+\input{tables/s_adversarial_policy.tex}
+\input{tables/s_adversarial_env.tex}
+\input{tables/s_adversarial_branch.tex}
 
 \section{Secondary Model-Impact Profile}
 
 The ZZ fidelity kernel has the largest mean conclusion impact in the frozen
 Gate-1 ID suite. Relative to SVC-RBF, mean impact ratios are 2.524, 3.094 and
 3.323 at dimensions 8, 10 and 12; paired within-split differences are
-0.02427 (95\% CI 0.01200--0.03654), 0.03289 (0.01998--0.04580) and 0.03855
-(0.02773--0.04937), with all five split clusters positive at every dimension
+0.02427 (95\% CI 0.01200 to 0.03654), 0.03289 (0.01998 to 0.04580) and
+0.03855 (0.02773 to 0.04937), with all five split clusters positive at every dimension
 (ZZ/SVC impacts 0.04019/0.01592, 0.04860/0.01571 and 0.05514/0.01659). Across
 the eight expansion environments the mean ZZ-minus-SVC impact is positive in
 7/8 environments at dimension 8 and 8/8 at dimensions 10 and 12;
 environment-specific intervals exclude zero in 4/8, 7/8 and 5/8; means range
 from $-0.00009$ to 0.09382, 0.00107 to 0.09508 and 0.00403 to 0.11585
 (Fig.~\ref{fig:forest}). Clean balanced accuracy and impact correlate
-positively across expansion cells ($r=0.714$, exploratory). No pooled
-population effect is claimed, and the conditional-auditability result does
-not depend on this ordering. Figure~\ref{fig:sensor} shows the raw
-(uncalibrated) sensor response fractions by regime that motivated the
-calibration gates.
+positively across expansion cells ($r=0.714$, exploratory). The
+preregistered ablations (Fig.~\ref{fig:calibrated}(b)) show that the
+direction is stable but the magnitude is conditional: standardizing the
+quantum branch shrinks the difference to about a third, matched min--max
+scaling leaves it unchanged, and cross-validated tuning of both learners
+widens it in CICIDS ID and leaves UNSW temporal OOD unchanged. No pooled
+population effect is claimed, the profile is neither a quantum-advantage nor
+a vulnerability ordering, and the conditional-auditability result does not
+depend on it. Figure~\ref{fig:sensor} shows the raw (uncalibrated) sensor
+response fractions by regime that motivated the calibration gates.
+
+\begin{figure*}[!t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{fig_q1_calibrated_coverage.pdf}
+  \caption{Preregistered gates of artifact 1.1.0. (a) Null-calibrated
+  detection rate of each information regime on the frozen interventions with
+  the empirical false-alarm rate of disjoint clean evaluation draws in the
+  first row; the first four columns are batch-level unions of per-sensor
+  calibrated rules, the last column is exact item-aligned detection (undefined
+  on clean draws). (b) Secondary within-split ZZ-minus-SVC conclusion-impact
+  difference with 95\% $t$ intervals over five split clusters under three
+  scaler configurations and under cross-validated tuning of both learners.}
+  \label{fig:calibrated}
+\end{figure*}
 
 \begin{figure*}[!t]
   \centering
@@ -665,18 +829,23 @@ python -m src.experiments.verify_publication_artifact
        --root publication/artifact
 \end{verbatim}
 }
-It verifies the artifact-wide SHA-256 manifest, the six embedded evidence
-manifests and their 65 outputs, row counts, the primary-claim counts including
+It verifies the artifact-wide SHA-256 manifest, the seven embedded evidence
+manifests and their outputs, row counts, the primary-claim counts including
 the signed label-path counts, the calibrated label-path consistency checks of
-the reinforcement gate and the policy-level claims of the 1.2.0 gates. The
+the reinforcement gate, the policy-level claims of the regenerated gates
+(including the exact level of the conformal rule under the exchangeable
+re-splits), and the replay and trust checks of the adversarial gate. The
 complete test command is
 {\scriptsize
 \begin{verbatim}
 python -m pytest tests -q -p no:cacheprovider
 \end{verbatim}
 }
-The authoritative counts of tests, manifests, outputs, files, pages and
-hashes for the released version are generated into
+and includes the exhaustive counting-bound tests of Proposition~5(b), the
+five-vector counterexample to the 1.2.0 rule, and the brute-force checks of
+Lemma~1, Propositions~1--4, 6 and 7 and Corollaries~1--3 on enumerated
+batches. The authoritative counts of tests, manifests, outputs, files, pages
+and hashes for the released version are generated into
 \path{publication/RELEASE_STATUS.md} by \path{src/experiments/make_release_status.py}.
 The frozen environment uses Python 3.10.16, NumPy 2.2.6, pandas 2.3.3,
 scikit-learn 1.7.2, Qiskit 2.3.0 and Qiskit Machine Learning 0.9.0. Qiskit is
@@ -686,14 +855,15 @@ The artifact omits raw benchmark datasets; it documents their official
 sources, expected SHA-256 hashes, deterministic staging and a cross-platform
 hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
-and expected outputs. Version 1.2.0 is archived at Zenodo, version DOI 10.5281/zenodo.22644529 (concept
-DOI 10.5281/zenodo.22550852), with repository tag \texttt{paper15-q1-v1.2.0};
+and expected outputs. Version 1.3.0 is archived at Zenodo under the concept
+DOI 10.5281/zenodo.22550852 with repository tag \texttt{paper15-q1-v1.3.0};
 source code is licensed under Apache-2.0, derived evidence, figures and
 documentation under CC~BY~4.0, and the manuscript files are author preprints
 excluded from both licenses.
 
 \section{Claims-Supported / Claims-Excluded Matrix}
 
+{\sloppy
 \textbf{Supported by the artifact.} Auditability is a property of
 (intervention class, view, trusted references); structural blind regions are
 monotone under refinement and closed exactly by added evidence that separates
@@ -702,26 +872,37 @@ and label marginals to prior-preserving relabeling; every material label-path
 change alters the confusion matrix and is separable in the joint view, but
 batch-level auditors detect at most 1.6\% of them whereas a trusted aggregate
 reference of the same batch detects all of them and an item-aligned reference
-additionally exposes the 808 aggregate-preserving relabelings; the blind regions persist under per-sensor and
-family-wise calibration; per-sensor calibration at $\alpha=0.05$ yields
-decision false-alarm rates of 0.125--0.259 that family calibration reduces to
-0.061--0.079 within the frozen design; batch-level regimes with feature evidence serve
-4,322--4,494 of 7,008 materially changed results under calibrated policies,
-the label-marginal regime serves all of them, and the trusted item-aligned
-regime serves none; the secondary ZZ-minus-SVC
-profile is direction-stable but scaler- and headroom-dependent;
-complementary quantum-workflow sensors close different simulator-gate blind
-regions; and the local prototype executes policy-aware, fail-closed
-\texttt{allow/hold/block} composition.
+additionally exposes the 808 aggregate-preserving relabelings; the blind
+regions persist under per-sensor and conformal family calibration; the union
+of per-sensor rules at $\alpha=0.05$ yields decision false-alarm rates of
+0.125--0.259 that the conformal family rule brings to \FprFamilyIYm--\FprFamilyIXF{}
+within the frozen design, with an exact level of $10/201$ under
+exchangeability that the executed design violates by a measured, small margin
+concentrated in E1; the rule of artifact 1.2.0 had no valid guarantee and
+most of its published excess was rule bias; batch-level regimes with feature
+evidence serve \UnsafeFamilyIXF--\UnsafeFamilyIX{} of \NMaterial{} materially
+changed results under the calibrated risk-tolerant policy, the label-marginal
+regime serves all of them, and the trusted item-aligned regime serves none at
+a benign-interruption cost of \BenignHBFamilyIXFYtrusted{}; an adaptive
+attacker who preserves the tight feature clusters cuts the batch-level
+detection of drift from 0.96--1.00 to 0.01--0.66 at matched strengths while
+keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes, and is served by the calibrated
+policy in 28--39\% of its material instances; the secondary ZZ-minus-SVC
+profile is direction-stable but scaler- and headroom-dependent; complementary
+quantum-workflow sensors close different simulator-gate blind regions as
+instances of one view lattice; and the local prototype executes policy-aware
+\texttt{allow/hold/block} composition offline on frozen outputs.\par}
 
 \textbf{Explicitly excluded.} The evidence does not estimate attack
 prevalence or population-level deployment incidence, establish universal
 superiority or vulnerability of quantum kernels, causally isolate feature-map
-geometry from preprocessing and clean headroom, or establish that the
-exchangeability premise of the calibration holds in deployment. It provides
-no evidence about QPU security, calibrated device noise, scheduling, provider
-integrity or attestation, multi-tenancy, side channels, production readiness,
-non-repudiation, persistence, incident handling, recovery under
+geometry from preprocessing and clean headroom, establish that the
+exchangeability premise of the calibration holds in deployment, or claim a
+conditional guarantee given a calibration set. It evaluates one adaptive
+attacker model and no other. It provides no evidence about QPU security,
+calibrated device noise, scheduling, provider integrity or attestation,
+multi-tenancy, side channels, production readiness, deployed runtime
+services, non-repudiation, persistence, incident handling, recovery under
 non-stationarity, or operational Fleet Management.
 
 \end{document}

@@ -1,10 +1,11 @@
 # Threat-model card — Paper 1.5 / ATHENA-AEGIS
 
-Version: 2.0 (2026-09-07; version 1.0 dated 2026-08-09)  
+Version: 3.0 (2026-09-07, artifact 1.3.0; version 2.0 of the same day for
+1.2.0; version 1.0 dated 2026-08-09)  
 Scope: integrity and auditability of a hybrid quantum-classical kernel workflow.
 The per-class adversary and failure model is `ADVERSARY_MODEL.md`; the formal
-objects (views, trusted references, blind regions) are `FORMAL_CORE.md`. This
-card is the short reference.
+objects (views, trusted references, blind regions, the quantum lattice) are
+`FORMAL_CORE.md`. This card is the short reference.
 
 ## System and protected conclusion
 
@@ -38,7 +39,7 @@ a protected boundary in its own right.
 | Fault robustness | mean shift, scaling drift, feature dropout with imputation, near-null shams, binomial shot emulation, approved transpilation and common-unitary rewrite |
 | Integrity corruption | random evaluation-label flip, feature sign flip, asymmetric and diagonal-eroded kernel edits |
 | Adversarial attack | data-dependent circuit-parameter mutation, feature-map repetition change, post-hoc envelope edit |
-| Adaptive attacker | prior-preserving evaluation-label flip, PSD-preserving kernel substitution; discussed but not executed: confusion-preserving relabeling, cluster-preserving feature perturbation |
+| Adaptive attacker | prior-preserving evaluation-label flip, PSD-preserving kernel substitution, **cluster-preserving mean shift and scaling drift (Gate A, 1.3.0)**; realised but not executed as a suite: confusion-preserving relabeling (808 rows) |
 
 None of these is asserted to be a realistic exploit or an estimate of
 prevalence; each is a controlled intervention with a declared class.
@@ -73,38 +74,43 @@ non-repudiation are outside the demonstrated claim.
 - calibrated device noise, crosstalk, multi-tenant interference and QPU faults;
 - timing/power/network side channels and circuit confidentiality attacks;
 - denial of service, availability, billing and access-control threats;
+- adaptive attackers with a model of the sensors other than the executed
+  cluster-preserving one;
 - prevalence of attacks in real deployments.
 
 ## Information regimes and blind regions
 
-| Regime | Observes | Structural blind region demonstrated | Calibrated / exact status in the frozen design |
+| Regime | Observes | Structural blind region demonstrated | Calibrated / exact status in the frozen design (conformal rule, 1.3.0) |
 |---|---|---|---|
-| `I_X` | features (multiset of rows) | any label-only change | family-calibrated FPR 0.061; label path 0/3,600 |
-| `I_XF` | features and fixed-model outputs | any label-only change | family-calibrated FPR 0.073; label path 0/3,600 |
+| `I_X` | features (multiset of rows) | any label-only change | conformal decision FPR 0.056; label path 0/3,600; cluster-preserving drift detected in 0.01–0.56 at matched strengths |
+| `I_XF` | features and fixed-model outputs | any label-only change | conformal FPR 0.058; label path 0/3,600; cluster-preserving drift 0.06–0.66 |
 | `I_Ym` | label marginal | prior-preserving item-level relabeling; every feature-side change | FPR 0.048; contains nothing in this suite |
-| `I_XFY` (batch) | multiset of item triples, no reference | none for material label changes (Proposition 3) but statistically undetectable: 16–43 of 2,617 | family-calibrated FPR 0.079 |
-| `I_XFY*` (trusted, item-aligned) | same items against an authenticated reference | none | exact: 2,617/2,617 material label rows, 0 unsafe allows, 0 false holds |
-| `I_Q` | circuit, kernel and execution evidence | composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes | 165/165 cells |
+| `I_XFY` (batch) | multiset of item triples, no reference | none for material label changes (Proposition 3) but statistically undetectable: 11–43 of 2,617 | conformal FPR 0.053 |
+| `I_XFY*` (trusted, item-aligned) | same items against an authenticated reference | none | exact: 2,617/2,617 material label rows and every material adaptive row; 0 unsafe allows; 0 clean false actions on 1,200 exact-zero rows; benign interruption 0.52 |
+| `I_Q` | circuit, kernel and execution evidence | composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes (Proposition 7) | 165/165 cells |
 
 No "stealth" claim is valid without naming one of these regimes and the
 references it trusts.
 
 ## Detection and response policy
 
-The policy layer composes calibrated sensors, the regime, the
+The policy layer composes the conformal family rule, the regime, the
 trusted-reference status, materiality and the declared residual blind region
 into `allow / hold / block`, and composes with the four ordered HSaaS
 contracts by the maximum in `allow < hold < block`:
 
 - `block` only for an exact invariant violated against a trusted reference;
-- `hold` for statistical evidence of deviation (family-calibrated rule) or for
-  missing mandatory evidence (strict policy: an unverified protected boundary);
-- `allow` otherwise, with the residual blind region declared in the reason
-  code.
+- `hold` for statistical evidence of deviation (conformal rule) or, under the
+  strict policy P3, for an unverified protected boundary;
+- `allow` otherwise; the calibrated risk-tolerant policy P2 declares the
+  residual blind region in the reason code and serves.
 
-PSD repair is containment for numerical validity, not proof that the original
-kernel was trustworthy. A raw hash mismatch is evidence for adjudication, not
-automatic proof of harmful semantics.
+The contracts fail closed on their invariants; P2 is not fail-closed; P3 is.
+The conformal rule's level (10/201 under exchangeability) is marginal and the
+executed design violates the premise by a measured, small margin. PSD repair
+is containment for numerical validity, not proof that the original kernel was
+trustworthy. A raw hash mismatch is evidence for adjudication, not automatic
+proof of harmful semantics.
 
 ## Claims supported
 
@@ -116,18 +122,25 @@ automatic proof of harmful semantics.
   batch detects them exactly, item identity needs an item-aligned reference,
   and no verifier whose evidence the adversary can rewrite certifies
   authenticity (Proposition 6).
-- Per-sensor calibration does not calibrate the decision; family calibration
-  restores a decision-level budget at a small detection cost.
+- Per-sensor calibration does not calibrate the decision; the conformal family
+  rule does, with an exact level under exchangeability; the 1.2.0 rule had a
+  false guarantee and most of its excess was rule bias.
 - The unsafe-allow count is set by the information regime; only the trusted
-  item-aligned regime serves none of the materially changed results.
+  item-aligned regime serves none of the materially changed results, at a
+  measured cost on benign variation.
+- An adaptive attacker who preserves the cluster fingerprint evades the
+  calibrated batch-level sensors while keeping most of the conclusion changes;
+  only a reference closes that region.
+- The quantum branch is an instance of the same view lattice (Proposition 7).
 
 ## Claims not supported
 
 - universal superiority or vulnerability of quantum models;
 - QPU security, calibrated-noise robustness or provider integrity;
-- production readiness of the local HSaaS demonstrator;
+- production readiness or deployment of the local HSaaS demonstrator;
 - population-level incident rates or deployment-wide detector power;
-- that the exchangeability premise of the calibration holds in deployment.
+- that the exchangeability premise of the calibration holds in deployment, or
+  a conditional guarantee given a calibration set.
 
 ## Residual validation gates (outside this article)
 
@@ -135,7 +148,7 @@ automatic proof of harmful semantics.
 2. Malicious transpiler/scheduler and physical-layout scenarios.
 3. Calibrated noisy-backend and QPU campaign with repeated jobs and multiple
    calibration windows.
-4. Multi-tenant and side-channel tests.
+4. Multi-tenant and side-channel tests; confidentiality exposure assessment.
 5. Context-conditioned runtime calibration under non-stationarity, with
    out-of-support abstention and recovery/fallback evaluation.
 6. Network deployment, authentication, persistence and incident-response tests.

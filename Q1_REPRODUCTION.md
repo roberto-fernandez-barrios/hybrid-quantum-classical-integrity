@@ -1,11 +1,11 @@
-# Paper 1.5 reproduction guide (artifact 1.2.0)
+# Paper 1.5 reproduction guide (artifact 1.3.0)
 
 This guide separates two activities that a third party may want to perform
 from a clean clone:
 
 - **Verify the frozen artifact** — no benchmark dataset is needed. The compact
-  artifact under `publication/artifact/` carries every derived table, its six
-  embedded evidence manifests, 65 manifested outputs, figures, and an
+  artifact under `publication/artifact/` carries every derived table, its seven
+  embedded evidence manifests, 83 manifested outputs, figures, and an
   independent verifier that recomputes the primary claims.
 - **Recompute everything** — the public benchmark datasets must be obtained
   from their official sources, verified by hash, staged with the documented
@@ -72,16 +72,19 @@ $PY -m src.experiments.verify_publication_artifact --root publication/artifact
 
 The test suite must pass (its size is recorded in
 `publication/RELEASE_STATUS.md`). The verifier is read-only: it checks the
-artifact-wide SHA-256 manifest, the six embedded evidence manifests and their
-65 outputs, CSV row counts, the primary label-boundary counts (3,600 / 2,184
-expansion and 1,440 / 1,276 Gate 1, plus the signed decreased / unchanged /
-increased counts), the calibrated label-path consistency checks of the
-reinforcement gate and the policy-level claims of the 1.2.0 gates. It exits
-non-zero on any missing file, changed byte, incomplete acceptance check or
-changed primary count.
+artifact-wide SHA-256 manifest, the seven embedded evidence manifests and
+their 83 outputs, CSV row counts, the primary label-boundary counts (3,600 /
+2,184 expansion and 1,440 / 1,276 Gate 1, plus the signed decreased /
+unchanged / increased counts), the calibrated label-path consistency checks of
+the reinforcement gate, the policy-level claims of the conformal calibration
+and decision gates (level 10/201 recomputed from the frozen family scores,
+exchangeable re-split rates at or below the level, unsafe-allow counts) and
+the adversarial gate (exact replay of the matched controls, zero unsafe allows
+in the trusted regime). It exits non-zero on any missing file, changed byte,
+incomplete acceptance check or changed primary count.
 
 The same verification works on an unpacked release ZIP
-(`publication/paper15-q1-v1.2.0.zip`): from inside the unpacked directory run
+(`publication/paper15-q1-v1.3.0.zip`): from inside the unpacked directory run
 `python software/src/experiments/verify_publication_artifact.py --root .`
 (pandas is the only third-party dependency of the verifier).
 
@@ -279,8 +282,9 @@ entry point `athena-aegis-demo` (`pip install -e ".[dev]"`) runs the same
 prototype. Both are local research prototypes, not a deployed service,
 authenticated provider ledger or QPU run.
 
-The 1.2.0 policy gates need only the frozen 1.1.1 derived tables that are part
-of the compact artifact and of `results/paper_digest/` in a full checkout:
+The policy gates (Gate F calibration, Gate D offline end-to-end decisions)
+need only the frozen 1.1.1 derived tables that are part of the compact
+artifact and of `results/paper_digest/` in a full checkout:
 
 ```bash
 $PY -m src.experiments.build_q1_policy_evidence        # Gate F + Gate D from frozen outputs
@@ -290,7 +294,23 @@ $PY -m src.experiments.make_q1_policy_figures
 
 They re-execute no kernel and no draw; their protocol was frozen in
 `manuscript/paper15_v12_policy_prereg.md` before analysis (amendment A1
-recorded).
+recorded) and amended in `manuscript/paper15_v13_prereg.md` (amendment A2:
+the 1.2.0 family rule was replaced by the conformal max-rank rule after its
+stated guarantee was found false; the superseded rule is recomputed as a
+comparison column, never as the adopted rule; amendment A3 fixes the
+evaluation of check F4). The builder prints every acceptance check
+(F0, F1, F3, F4, D1--D5, W8) and fails closed on any failure.
+
+The adversarial gate (Gate A, artifact 1.3.0) needs the staged datasets of
+the eight environments because it executes 240 new exact-statevector jobs;
+see Section 6.6. Its evidence builder, tables and figure run from the frozen
+raw outputs:
+
+```bash
+$PY -m src.experiments.build_q1_adversarial_evidence   # Gate A tables + manifest, checks A0, AC1--AC4
+$PY -m src.experiments.make_q1_policy_tables           # includes the adversarial tables and macros
+$PY -m src.experiments.make_q1_adversarial_figures
+```
 
 ## 6. Full replay (needs the staged datasets)
 
@@ -361,16 +381,37 @@ The queue is a cross-platform Python runner (390 jobs: 240 null-calibration,
 90 preprocessing-ablation, 60 tuned-baseline; single-threaded BLAS per
 worker). Protocol: `manuscript/paper15_v11_reinforcement_prereg.md`.
 
-### 6.5 Policy gates (artifact 1.2.0), artifact assembly and verification
+### 6.5 Policy gates (artifacts 1.2.0 and 1.3.0)
 
 ```bash
 $PY -m src.experiments.build_q1_policy_evidence
 $PY -m src.experiments.make_q1_policy_tables
 $PY -m src.experiments.make_q1_policy_figures
+```
+
+### 6.6 Adversarial gate (artifact 1.3.0), artifact assembly and verification
+
+The preregistered cluster-preserving attacker
+(`manuscript/paper15_v13_prereg.md`, Gate A; `src/attacks/cluster_preserving.py`)
+is executed by a dedicated queue over the eight environments, five split
+seeds and three feature dimensions (240 jobs, suite `paper_f5`: clean control,
+six matched unconstrained controls and ten cluster-preserving conditions per
+job). The queue is resumable; its status file records the log path of every
+job.
+
+```bash
+$PY -m src.experiments.run_v13_f5_queue                 # 240 exact-statevector jobs, resumable
+$PY -m src.experiments.build_q1_adversarial_evidence    # Gate A evidence + manifest
+$PY -m src.experiments.make_q1_policy_tables
+$PY -m src.experiments.make_q1_adversarial_figures
 $PY -m src.experiments.assemble_publication_artifact
 $PY -m src.experiments.verify_publication_artifact --root publication/artifact
 $PY -m src.experiments.verify_publication_artifact --root results/paper_digest   # same checks on the full digest
 ```
+
+The matched controls of the adversarial suite must replay the frozen 1.1.1
+observations exactly (check AC1, maximum absolute difference within 1e-9 on
+4,200 rows); the builder fails closed otherwise.
 
 A successful full replay reproduces the manifested output hashes of the
 compact artifact, except that the two gate-completeness tables record the
@@ -381,8 +422,9 @@ repository-relative raw-result directories of the replaying checkout.
 The completed software supports information-set conditional integrity
 auditing from data and preprocessing through simulated circuit
 construction/transpilation, kernel estimation, prediction, labels and
-benchmark conclusion, plus the calibrated, information-aware
-`allow/hold/block` policy layer evaluated on the frozen outputs. Exact
+benchmark conclusion, plus the conformally calibrated, information-aware
+`allow/hold/block` policy layer evaluated offline on the frozen outputs and
+the adaptive cluster-preserving attacker executed against it. Exact
 blind-region claims use constructed raw invariance; non-zero sensor responses
 are calibrated against clean draws within the frozen design and are not
 presented as deployment-level detector power. Split-cluster intervals describe

@@ -1,21 +1,31 @@
 \begin{table}[!t]
-\caption{Gate F: decision-level false-alarm rate on the 12,000 disjoint clean evaluation draws (nominal $\alpha=0.05$ per decision) of the union of per-sensor rules (1.1.0) and of the family-calibrated rule. Pooled rates are descriptive because draws within a cell overlap; the last column is the range of the eight per-environment cluster means (five split clusters each).}
+\caption{Gate F: decision-level false-alarm rate on the disjoint clean evaluation draws (12,000 in the primary aggregate; nominal $\alpha=0.05$ per decision; exact level of the conformal rule $10/201=0.0498$) of the union of per-sensor rules (1.1.0), of the superseded asymmetric family rule (1.2.0) and of the adopted conformal family rule (1.3.0). Pooled rates are descriptive because draws within a cell overlap; the last column is the range of the per-environment cluster means of the conformal rule (five split clusters each). E1 is never excluded from the primary aggregate.}
 \label{tab:s-family-fpr}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}llrrl@{}}
+\begin{tabular}{@{}lrrrl@{}}
 \toprule
-Regime & Rule & Fires & Pooled & Env.\ cluster means \\
+Regime & Union & 1.2.0 rule & Conformal & Env.\ cluster means (conformal) \\
 \midrule
-$\mathcal I_X$ & union & 1,500 & 0.125 & 0.063--0.215 \\
-$\mathcal I_X$ & family & 733 & 0.061 & 0.025--0.133 \\
-$\mathcal I_{XF}$ & union & 2,438 & 0.203 & 0.135--0.280 \\
-$\mathcal I_{XF}$ & family & 871 & 0.073 & 0.045--0.125 \\
-$\mathcal I_{Y_m}$ & union & 570 & 0.048 & 0.025--0.070 \\
-$\mathcal I_{Y_m}$ & family & 570 & 0.048 & 0.025--0.070 \\
-$\mathcal I_{XFY}$ & union & 3,113 & 0.259 & 0.181--0.358 \\
-$\mathcal I_{XFY}$ & family & 942 & 0.079 & 0.046--0.146 \\
+\multicolumn{5}{@{}l}{\emph{All eight environments (primary)}} \\
+$\mathcal I_X$ & 0.125 & 0.061 & 0.056 & 0.023--0.125 \\
+$\mathcal I_{XF}$ & 0.203 & 0.073 & 0.058 & 0.023--0.115 \\
+$\mathcal I_{Y_m}$ & 0.048 & 0.048 & 0.048 & 0.025--0.070 \\
+$\mathcal I_{XFY}$ & 0.259 & 0.079 & 0.053 & 0.034--0.123 \\
+\addlinespace[1pt]
+\multicolumn{5}{@{}l}{\emph{Seven environments, E1 excluded (sensitivity)}} \\
+$\mathcal I_X$ & 0.116 & 0.053 & 0.048 & 0.023--0.092 \\
+$\mathcal I_{XF}$ & 0.199 & 0.067 & 0.052 & 0.023--0.081 \\
+$\mathcal I_{Y_m}$ & 0.048 & 0.048 & 0.048 & 0.025--0.070 \\
+$\mathcal I_{XFY}$ & 0.251 & 0.071 & 0.045 & 0.034--0.065 \\
+\addlinespace[1pt]
+\multicolumn{5}{@{}l}{\emph{E1 only (256-row draws from 322-row halves)}} \\
+$\mathcal I_X$ & 0.203 & 0.133 & 0.125 & 0.125--0.125 \\
+$\mathcal I_{XF}$ & 0.245 & 0.125 & 0.115 & 0.115--0.115 \\
+$\mathcal I_{Y_m}$ & 0.045 & 0.045 & 0.045 & 0.045--0.045 \\
+$\mathcal I_{XFY}$ & 0.331 & 0.146 & 0.123 & 0.123--0.123 \\
+\addlinespace[1pt]
 \bottomrule
 \end{tabular}
 \end{table}

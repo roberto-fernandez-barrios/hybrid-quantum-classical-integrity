@@ -1,9 +1,9 @@
 {
   "title": "Observational Indistinguishability and Integrity Blind Regions Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows",
-  "description": "Version 1.2.0 reproducibility artifact: code, tests, compact derived evidence (frozen 1.0.0 gates, the preregistered 1.1.0 reinforcement gates and the preregistered 1.2.0 policy gates: family-wise regime calibration and end-to-end allow/hold/block evaluation on frozen outputs), figures, six SHA-256 evidence manifests, formal core, adversary model and manuscript sources. No kernel, model or draw was re-executed with respect to 1.1.1; the 1.0.0 evidence tables are byte-identical except for repository-relative paths in the two gate-completeness tables.",
+  "description": "Version 1.3.0 reproducibility artifact (final scientific closure of Paper 1.5): code, tests, compact derived evidence (frozen 1.0.0 gates, the preregistered 1.1.0 reinforcement gates, the regenerated policy gates with the conformal family rule that replaces the 1.2.0 rule whose stated guarantee was false (amendment A2), and the preregistered adversarial Gate A: adaptive cluster-preserving perturbation, 240 exact-statevector jobs), figures, seven SHA-256 evidence manifests, formal core with its statement-by-statement review, adversary model and manuscript sources. Gates F and D were regenerated from the frozen 1.1.1 outputs without re-executing any kernel, model or draw; the 1.0.0 evidence tables are byte-identical except for repository-relative paths in the two gate-completeness tables.",
   "upload_type": "software",
   "publication_date": "2026-09-07",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "creators": [
     {
       "name": "Fernández-Barrios, Roberto",
@@ -36,12 +36,12 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.2.0",
+      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.3.0",
       "relation": "isSupplementTo",
       "scheme": "url"
     },
     {
-      "identifier": "10.5281/zenodo.22552643",
+      "identifier": "10.5281/zenodo.22644529",
       "relation": "isNewVersionOf",
       "scheme": "doi"
     }

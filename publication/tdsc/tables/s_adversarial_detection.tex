@@ -1,0 +1,31 @@
+\begin{table*}[!t]
+\caption{Gate A: detection rate of the executed drift mechanisms (matched controls) and of their adaptive cluster-preserving variants (F5), 600 observations per row pooled over the eight environments, as union / 1.2.0 rule / conformal rule in the batch-level regimes, and exact item-aligned detection (prediction disagreement or confusion-profile delta) under $\mathcal I_{XFY}^{\star}$.}
+\label{tab:s-adversarial-detection}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+Mechanism & Strength & $\mathcal I_X$ & $\mathcal I_{XF}$ & $\mathcal I_{XFY}$ & $\mathcal I_{XFY}^{\star}$ exact \\
+\midrule
+Mean shift (executed) & 0.02 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 0.97 & 1.00 / 0.99 / 0.97 & 0.36 \\
+Mean shift (executed) & 0.05 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 1.00 & 0.50 \\
+Mean shift (executed) & 0.10 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 1.00 & 0.62 \\
+Mean shift (F5) & 0.02 & 0.01 / 0.01 / 0.01 & 0.10 / 0.06 / 0.06 & 0.10 / 0.06 / 0.06 & 0.32 \\
+Mean shift (F5) & 0.05 & 0.10 / 0.08 / 0.08 & 0.31 / 0.26 / 0.24 & 0.31 / 0.24 / 0.22 & 0.45 \\
+Mean shift (F5) & 0.10 & 0.40 / 0.34 / 0.34 & 0.60 / 0.52 / 0.48 & 0.60 / 0.50 / 0.45 & 0.60 \\
+Mean shift (F5) & 0.25 & 0.82 / 0.79 / 0.79 & 0.87 / 0.82 / 0.80 & 0.87 / 0.81 / 0.79 & 0.74 \\
+Mean shift (F5) & 0.50 & 0.91 / 0.89 / 0.89 & 0.94 / 0.91 / 0.90 & 0.94 / 0.91 / 0.89 & 0.79 \\
+\addlinespace[1pt]
+Scaling drift (executed) & 0.02 & 1.00 / 0.99 / 0.99 & 1.00 / 0.99 / 0.96 & 1.00 / 0.98 / 0.95 & 0.54 \\
+Scaling drift (executed) & 0.05 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 0.99 & 1.00 / 1.00 / 0.99 & 0.61 \\
+Scaling drift (executed) & 0.10 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 1.00 & 1.00 / 1.00 / 1.00 & 0.67 \\
+Scaling drift (F5) & 0.02 & 0.07 / 0.05 / 0.05 & 0.28 / 0.24 / 0.23 & 0.28 / 0.23 / 0.22 & 0.47 \\
+Scaling drift (F5) & 0.05 & 0.39 / 0.35 / 0.35 & 0.57 / 0.50 / 0.47 & 0.57 / 0.47 / 0.45 & 0.57 \\
+Scaling drift (F5) & 0.10 & 0.61 / 0.56 / 0.56 & 0.71 / 0.67 / 0.66 & 0.71 / 0.66 / 0.65 & 0.64 \\
+Scaling drift (F5) & 0.25 & 0.79 / 0.76 / 0.76 & 0.85 / 0.81 / 0.79 & 0.85 / 0.80 / 0.77 & 0.77 \\
+Scaling drift (F5) & 0.50 & 0.91 / 0.88 / 0.88 & 0.95 / 0.90 / 0.88 & 0.95 / 0.89 / 0.86 & 0.87 \\
+\addlinespace[1pt]
+\bottomrule
+\end{tabular}
+\end{table*}

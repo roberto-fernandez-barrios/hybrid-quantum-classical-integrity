@@ -20,7 +20,7 @@ import pandas as pd
 
 
 TOL = 1e-12
-EXPECTED_MANIFESTS = 6  # gate1, expansion, quantum_integrity, hsaas, reinforcement (1.1.0), policy (1.2.0)
+EXPECTED_MANIFESTS = 7  # gate1, expansion, quantum_integrity, hsaas, reinforcement (1.1.0), policy (1.2.0/1.3.0), adversarial (1.3.0)
 
 
 def _sha256(path: Path) -> str:
@@ -180,13 +180,14 @@ def verify_reinforcement_claims(root: Path) -> dict[str, int]:
 
 
 def verify_policy_claims(root: Path) -> dict[str, int]:
-    """Recompute the policy-level claims of artifact 1.2.0 from the manifested tables.
+    """Recompute the policy-level claims of artifacts 1.2.0/1.3.0 from the manifested tables.
 
-    The family-calibrated feature and feature-plus-prediction regimes never fire on
-    evaluation-label interventions; the serve-always baseline allows every material
-    observation; the trusted item-aligned regime allows no material observation
-    under any calibrated policy; and the family rule never exceeds the union rule
-    in pooled false-alarm rate.
+    The conformal family-calibrated feature and feature-plus-prediction regimes
+    never fire on evaluation-label interventions; the serve-always baseline allows
+    every material observation; the trusted item-aligned regime allows no material
+    observation under any calibrated policy; the conformal family rule never
+    exceeds the union rule in pooled false-alarm rate (primary aggregate); and the
+    conformal rule stays within its exact level under the exchangeable re-splits.
     """
     metrics_path = next(root.rglob("policy_metrics.csv"), None)
     label_path = next(root.rglob("family_label_path_summary.csv"), None)
@@ -210,17 +211,52 @@ def verify_policy_claims(root: Path) -> dict[str, int]:
     if int(trusted["unsafe_allow"].sum()) != 0 or int(trusted["false_hold"].sum() + trusted["false_block"].sum()) != 0:
         raise ValueError("trusted item-aligned regime has unsafe allows or false holds")
     fpr = pd.read_csv(fpr_path)
+    if "aggregate" in fpr.columns:
+        fpr = fpr[fpr["aggregate"] == "all_eight_environments"]
     for regime, block in fpr.groupby("regime"):
         family = float(block[block["rule"] == "family"]["pooled_rate"].iloc[0])
         union = float(block[block["rule"] == "union"]["pooled_rate"].iloc[0])
         if family > union + 1e-12:
             raise ValueError(f"family rule exceeds union rule in regime {regime}")
+    resplit_path = next(root.rglob("family_resplit_pooled.csv"), None)
+    if resplit_path is None:
+        raise FileNotFoundError("family_resplit_pooled.csv required (artifact 1.3.0)")
+    resplit = pd.read_csv(resplit_path)
+    level = float(resplit["conformal_level"].iloc[0])
+    if bool((resplit["resplit_rate_family"] > level + 0.005).any()):
+        raise ValueError("conformal family rule exceeds its exact level under exchangeable re-splits")
     n_material = int(serve["n_material"].iloc[0])
     return {
         "policy_material_observations": n_material,
         "policy_regimes": int(primary["regime"].nunique()),
         "policy_policies": int(primary["policy"].nunique()),
+        "policy_conformal_level_x10000": int(round(level * 10000)),
     }
+
+
+def verify_adversarial_claims(root: Path) -> dict[str, int]:
+    """Recompute the Gate A claims of artifact 1.3.0 from the manifested tables.
+
+    The matched controls and clean rows reproduce the frozen expansion within
+    1e-9; every material adaptive row is blocked under the trusted item-aligned
+    regime; the adaptive rows are scored in every environment.
+    """
+    replay_path = next(root.rglob("adversarial_replay_consistency.csv"), None)
+    metrics_path = next(root.rglob("adversarial_policy_metrics.csv"), None)
+    det_path = next(root.rglob("adversarial_detection_pooled.csv"), None)
+    if replay_path is None or metrics_path is None or det_path is None:
+        raise FileNotFoundError("adversarial evidence tables required for claim verification")
+    replay = pd.read_csv(replay_path)
+    if not bool(replay["within_1e-9"].all()):
+        raise ValueError("Gate A replay does not reproduce the frozen expansion")
+    metrics = pd.read_csv(metrics_path)
+    trusted = metrics[(metrics["regime"] == "I_XFY_trusted") & (metrics["tau"] == 0.0) & (metrics["attack_class"] == "adaptive")]
+    if int(trusted["unsafe_allow"].sum()) != 0:
+        raise ValueError("trusted regime serves a material adaptive observation")
+    det = pd.read_csv(det_path)
+    adaptive = det[(det["attack_class"] == "adaptive") & (det["rule"] == "family")]
+    n_adaptive = int(adaptive[adaptive["regime"] == "I_X"]["n"].sum())
+    return {"adversarial_adaptive_rows": n_adaptive, "adversarial_conditions": int(det["attack"].nunique())}
 
 
 def verify_release_hashes(root: Path) -> int:
@@ -245,6 +281,7 @@ def verify(root: Path) -> dict[str, int]:
     result.update(verify_claims(root))
     result.update(verify_reinforcement_claims(root))
     result.update(verify_policy_claims(root))
+    result.update(verify_adversarial_claims(root))
     result["release_files"] = verify_release_hashes(root)
     return result
 

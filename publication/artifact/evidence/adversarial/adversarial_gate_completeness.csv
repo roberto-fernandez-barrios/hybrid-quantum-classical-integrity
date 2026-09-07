@@ -1,0 +1,9 @@
+gate,raw_directory,observed_files,expected_files,complete,models,rows_raw,rows_unique,duplicate_svc_rows_removed,gate_family
+gate2_id_256,results/raw/paper15_v13_f5_gate2_id_256,30,30,True,"qsvc_zz_r1,svc_rbf",1020,1020,0,A_cluster_preserving
+gate3a_ood_tue_wed,results/raw/paper15_v13_f5_gate3a_ood_tue_wed,30,30,True,"qsvc_zz_r1,svc_rbf",1020,1020,0,A_cluster_preserving
+gate3b_ood_tue_fri_portscan,results/raw/paper15_v13_f5_gate3b_ood_tue_fri_portscan,30,30,True,"qsvc_zz_r1,svc_rbf",1020,1020,0,A_cluster_preserving
+gate3c_ood_wed_thu_webattacks,results/raw/paper15_v13_f5_gate3c_ood_wed_thu_webattacks,30,30,True,"qsvc_zz_r1,svc_rbf",1020,1020,0,A_cluster_preserving
+gate3d_ood_wed_fri_morning,results/raw/paper15_v13_f5_gate3d_ood_wed_fri_morning,30,30,True,"qsvc_zz_r1,svc_rbf",1020,1020,0,A_cluster_preserving
+gate5a_id_unsw,results/raw/paper15_v13_f5_gate5a_id_unsw,30,30,True,"qsvc_pauli_xyz_r1,qsvc_z_r1,qsvc_zz_r1,svc_rbf",2040,2040,0,A_cluster_preserving
+gate5b_id_ton_iot,results/raw/paper15_v13_f5_gate5b_id_ton_iot,30,30,True,"qsvc_pauli_xyz_r1,qsvc_z_r1,qsvc_zz_r1,svc_rbf",2040,2040,0,A_cluster_preserving
+gate6_ood_unsw,results/raw/paper15_v13_f5_gate6_ood_unsw,30,30,True,"qsvc_zz_r1,svc_rbf",1020,1020,0,A_cluster_preserving

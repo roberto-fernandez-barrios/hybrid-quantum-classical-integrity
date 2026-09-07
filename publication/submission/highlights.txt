@@ -1,7 +1,9 @@
 OPTIONAL INTERNAL SUMMARY — IEEE TDSC does not currently require highlights.
 
-Auditability is conditioned on evidence exposed at the workflow boundary.
-Label corruption creates exact blind regions for feature-based sensors.
-Blind regions recur across three datasets and eight fixed environments.
-Quantum-workflow sensors provide complementary, explicitly bounded coverage.
-An executable contract turns missing evidence into fail-closed decisions.
+Auditability is conditioned on the evidence exposed at the workflow boundary and on the trusted references the auditor holds.
+Label corruption creates exact blind regions for feature-based sensors; a trusted aggregate of the same batch closes them for material changes.
+Blind regions recur across three datasets and eight fixed environments and survive null and conformal calibration.
+A conformal family rule calibrates multi-sensor decisions to an exact finite-sample level; the earlier asymmetric rule did not.
+An adaptive attacker who preserves the feature-cluster fingerprint evades calibrated batch-level sensors while keeping most of the harm.
+Stronger provenance closes blind regions at a measured cost on benign variation; the trusted regime interrupts half of the near-null controls.
+Quantum-workflow sensors are one more chain of coarsenings of the same lattice, with an approved equivalence class and estimation noise.

@@ -1,29 +1,29 @@
 \begin{table}[!t]
-\caption{End-to-end decisions on the frozen observations (primary materiality $|\Delta_R|>0$; 7,008 material of 10,800 intervened observations; decision false-alarm rate on 12,000 clean draws, or on the 1,200 exact-zero rows for $\mathcal I_{XFY}^{\star}$). P0 serve-always allows all 7,008 material observations in every regime. Residual blind: material observations structurally indistinguishable from the reference under the regime.}
+\caption{Offline end-to-end decisions on the frozen observations (primary materiality $|\Delta_R|>0$; 7,008 material of 10,800 intervened observations). FPR: clean false-action rate on 12,000 disjoint clean draws, or on the 1,200 exact-zero rows for $\mathcal I_{XFY}^{\star}$ (a different denominator). Benign: fraction of the 1,200 near-null in-place shams held or blocked (same rows for every regime). P0 serve-always allows all 7,008 material observations in every regime. Blind: material observations structurally indistinguishable from the reference under the regime.}
 \label{tab:policy}
 \centering
 \scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}llrrrr@{}}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}llrrrrr@{}}
 \toprule
-Regime & Policy & Dec.\ FPR & Unsafe allow & Contain. & Res.\ blind \\
+Regime & Policy & FPR & Benign & Unsafe & Contain. & Blind \\
 \midrule
-$\mathcal I_X$ & P1 union & 0.125 & 4,429 & 0.37 & 2,617 \\
-$\mathcal I_X$ & P2 family & 0.061 & 4,494 & 0.36 & 2,617 \\
-$\mathcal I_X$ & P3 strict & 1.000 & 0 & 1.00 & 2,617 \\
+$\mathcal I_X$ & P1 union & 0.125 & 0.76 & 4,429 & 0.37 & 2,617 \\
+$\mathcal I_X$ & P2 conf. & 0.056 & 0.55 & 4,496 & 0.36 & 2,617 \\
+$\mathcal I_X$ & P3 strict & 1.000 & 1.00 & 0 & 1.00 & 2,617 \\
 \addlinespace[1pt]
-$\mathcal I_{XF}$ & P1 union & 0.203 & 4,231 & 0.40 & 2,617 \\
-$\mathcal I_{XF}$ & P2 family & 0.073 & 4,327 & 0.38 & 2,617 \\
-$\mathcal I_{XF}$ & P3 strict & 1.000 & 0 & 1.00 & 2,617 \\
+$\mathcal I_{XF}$ & P1 union & 0.203 & 0.76 & 4,231 & 0.40 & 2,617 \\
+$\mathcal I_{XF}$ & P2 conf. & 0.058 & 0.52 & 4,365 & 0.38 & 2,617 \\
+$\mathcal I_{XF}$ & P3 strict & 1.000 & 1.00 & 0 & 1.00 & 2,617 \\
 \addlinespace[1pt]
-$\mathcal I_{Y_m}$ & P1 union & 0.048 & 7,008 & 0.00 & 5,450 \\
-$\mathcal I_{Y_m}$ & P2 family & 0.048 & 7,008 & 0.00 & 5,450 \\
-$\mathcal I_{Y_m}$ & P3 strict & 1.000 & 0 & 1.00 & 5,450 \\
+$\mathcal I_{Y_m}$ & P1 union & 0.048 & 0.00 & 7,008 & 0.00 & 5,450 \\
+$\mathcal I_{Y_m}$ & P2 conf. & 0.048 & 0.00 & 7,008 & 0.00 & 5,450 \\
+$\mathcal I_{Y_m}$ & P3 strict & 1.000 & 1.00 & 0 & 1.00 & 5,450 \\
 \addlinespace[1pt]
-$\mathcal I_{XFY}$ & P1 union & 0.259 & 4,180 & 0.40 & 0 \\
-$\mathcal I_{XFY}$ & P2 family & 0.079 & 4,322 & 0.38 & 0 \\
+$\mathcal I_{XFY}$ & P1 union & 0.259 & 0.76 & 4,180 & 0.40 & 0 \\
+$\mathcal I_{XFY}$ & P2 conf. & 0.053 & 0.49 & 4,390 & 0.37 & 0 \\
 \addlinespace[1pt]
-$\mathcal I_{XFY}^{\star}$ & P2/P3 (exact block) & 0.000 & 0 & 1.00 & 0 \\
+$\mathcal I_{XFY}^{\star}$ & P2/P3 (exact) & 0.000 & 0.52 & 0 & 1.00 & 0 \\
 \bottomrule
 \end{tabular}
 \end{table}

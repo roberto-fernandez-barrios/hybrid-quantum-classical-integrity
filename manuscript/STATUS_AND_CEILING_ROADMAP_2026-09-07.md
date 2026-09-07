@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-09-07, tarde).** Estado tras 1.2.0. El estado vigente tras el cierre definitivo 1.3.0 esta en `STATUS_AND_CEILING_ROADMAP_2026-09-07_v130.md`.
+
 # Estado del proyecto y hoja de ruta hacia el techo — actualización tras el artefacto 1.2.0
 
 Fecha: **2026-09-07**  

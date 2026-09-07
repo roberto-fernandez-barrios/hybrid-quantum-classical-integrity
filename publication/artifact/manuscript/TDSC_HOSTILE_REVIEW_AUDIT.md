@@ -1,8 +1,72 @@
 # Hostile-review audit — IEEE TDSC candidate
 
-This file keeps the audits in reverse chronological order. Audit 4 (release
-build) supersedes the verdicts below it; the earlier audits are retained as
-history.
+This file keeps the audits in reverse chronological order. Audit 5 (final
+scientific closure, artifact 1.3.0) supersedes the verdicts below it; the
+earlier audits are retained as history. Audit 4's verdict "SCIENTIFICALLY
+CLOSED" for 1.2.0 was withdrawn on the same day by amendment A2
+(`manuscript/paper15_v13_prereg.md`): its Proposition 5(b) was false.
+
+# Audit 5 — final hostile review, artifact 1.3.0 (2026-09-07, scientific closure)
+
+Scope of this pass: the replacement of Proposition 5(b) and its exhaustive
+tests, amendment A2 and the regenerated Gates F and D, the executed adversarial
+Gate A, the policy taxonomy and wording, the quantum branch as an instance of
+the view lattice, every headline number of the abstract against the generated
+macros and CSV tables, layout, and release hygiene. Standard: attempt to
+reject; only a BLOCKER or a reasonable MAJOR objection within the declared
+scope can stop the release; MINOR objections are fixed or recorded.
+
+## Executive verdict
+
+**SCIENTIFICALLY CLOSED.** The one false statement of 1.2.0 (Proposition 5(b),
+asymmetric family rule; five-vector counterexample 0.60 against the claimed
+0.40) is replaced by the full conformal max-rank p-value, whose level
+⌊α(n+1)⌋/(n+1) = 10/201 is exact under exchangeability including ties
+(proof in the supplement, weak-ordering enumeration and the counterexample as
+permanent tests). The regenerated results are reported as executed, including
+the parts that got worse for the earlier narrative (most of the 1.2.0 excess
+was rule bias, not the design; E1 stays at 0.12 in every regime with feature
+evidence). This pass found one MAJOR headline-number error and four MINOR
+issues, all fixed before the release build; no BLOCKER or MAJOR objection
+remains within scope. Release 1.3.0 proceeds; the paper is reopened only for
+an objective error that invalidates a claim, an editorial requirement or a
+reviewer request.
+
+## 1. Defects found in this pass and their disposition
+
+| ID | Objection | Class | Disposition |
+|---|---|---|---|
+| H1 | The abstract, supplement, README, changelog, release notes, cover letter, claims table, result summary, adversary model and status note said the adaptive attacker keeps "88–95 %" of the conclusion changes. The generated table `adversarial_evasion_ratios.csv` gives material-fraction ratios adaptive/control of 0.883 / 0.862 / 0.907 (mean shift 0.02 / 0.05 / 0.10) and 0.831 / 0.907 / 0.907 (scaling drift): the range is **83–91 %**. | **MAJOR (headline number)** | **Fixed everywhere.** The range is now generated as macros (`\AdvMatRetentionMinPct`, `\AdvMatRetentionMaxPct`) from the CSV and used in the article and supplement; the Markdown documents were corrected by hand and the slip is recorded in the result summary. |
+| H2 | The abstract said the conformal rule calibrates "the multi-sensor regimes to 0.056–0.058", but the four regimes are 0.056 / 0.058 / 0.048 / 0.053; the label-marginal regime is already at the level and I_XFY is below 0.056. | MINOR (imprecise range) | **Fixed.** "Calibrates the regimes with feature evidence to 0.053–0.058" (macros `\FprFamilyIXFY`–`\FprFamilyIXF`); cover letter aligned. |
+| H3 | The adaptive scaling-drift detection at strength 0.10 in I_X is exactly 339/600 = 0.565; the generated tables print 0.56 while the adversary table of the article, the adversary model, the threat-model card and the result summary said 0.57. | MINOR (rounding inconsistency) | **Fixed.** Prose aligned to the generated value; the article's adversary table now uses the macro. |
+| H4 | The main article reached 13 pages after §II-C, Proposition 7, the Gate A methodology and the three-panel policy figure were added; a table* and the coverage heatmap sat in the main text while the supplement duplicated neither. | MINOR (layout, 12-page ceiling) | **Fixed.** Heatmap figure and adversarial table moved to the supplement (a coverage-only heatmap remains referenced from the supplement), text compressed without removing any number or boundary statement, premature column trigger removed; build passes with 12 + 16 pages and no overfull box above 1 pt. |
+| H5 | The artifact README template still described the Gate D evaluation as "end-to-end" without "offline"; the supplement's environment tables overflowed the column. | MINOR (wording, layout) | **Fixed.** "Offline end-to-end" in the template; environment codes and compact intervals in the supplement tables. |
+
+## 2. Re-verification of the formal core and of the executed numbers
+
+- Proposition 5(b) (adopted rule): re-derived from scratch; the deterministic counting bound #{j : N_j ≤ k} ≤ k with k = ⌊α(n+1)⌋ holds for every weak ordering of the n+1 augmented scores, hence the level is exact under exchangeability of the calibration draws and the audited batch, with ties, marginally over the calibration set. No conditional guarantee is claimed. `tests/test_family_calibration_exhaustive.py` enumerates all weak orderings for small n and re-runs the five-vector counterexample against both rules; `tests/test_formal_core.py` brute-forces Lemma 1, Propositions 1–4, 6 and Corollaries 1–3 on finite state spaces (`manuscript/FORMAL_REVIEW_1.3.0.md`).
+- Proposition 7 (quantum branch): the refinement chain provenance ⊐ semantic ⊐ algebraic ⊐ output is checked against the 165 simulator cells; the shot-noise statement (exact anchor has false-alarm rate 1 under any non-degenerate shot noise) is checked by the 256/1,024-shot rows of the gate.
+- Gate F: 0.056 / 0.058 / 0.048 / 0.053 (conformal) against 0.061 / 0.073 / 0.048 / 0.079 (1.2.0) and 0.125 / 0.203 / 0.048 / 0.259 (union); rule bias +0.005 / +0.015 / 0 / +0.025, design effect +0.006 / +0.008 / −0.003 / +0.003; exchangeable re-splits 0.044 / 0.042 / 0.040 / 0.036 (conformal) and 0.052 / 0.058 / 0.040 / 0.059 (1.2.0); the verifier recomputes the level 10/201 from the frozen family scores and requires the re-split rates to lie within 0.005 of the level.
+- Gate D: unsafe allows 4,496 / 4,365 / 7,008 / 4,390 / 0 of 7,008 under P2; trusted regime 544 held + 85 blocked of 1,200 benign controls (52 %); P3 holds everything in I_X, I_XF, I_Ym and coincides with P2 in I_XFY and I_XFY*; the six frozen envelopes reproduce their contract actions under the lattice maximum.
+- Gate A: 240/240 jobs; the matched controls replay the frozen 1.1.1 observations exactly (max |Δ| = 0 on 4,200 rows); detection at matched strengths 0.01–0.34 (I_X) and 0.06–0.66 (I_XF) against 0.96–1.00; material retention 83–91 %; P2 serves 1,328 / 959 / 1,006 of 3,418 material adaptive rows, the trusted regime 0; classical branch more evasive than the quantum branch (0.30 / 0.34 against 0.37 / 0.58 at strength 0.10); perturbed-entry fraction 0.32 (0.12–0.55).
+- Every number of the abstract is a macro generated from a manifested CSV or a count recomputed by the verifier; the seven manifests and 83 outputs are hashed in the compact artifact.
+
+## 3. Residual objections (no action within this paper)
+
+- **"E1 is at 0.12 in three regimes."** Reported as executed in the primary aggregate, separately and without E1 (0.045–0.052); the exchangeable re-splits show the excess is the overlap of 256-row draws from 322-row halves, i.e. a design property of one environment, not a property of the rule. Removing E1 would be post-hoc; it stays.
+- **"The adversarial gate fixes one cluster rule and two mechanisms."** Declared in the limitations and in the adversary model; an attacker with a different model of the sensors is not evaluated. The gate is an existence proof of adaptive evasion against a calibrated audit, not a coverage bound.
+- **"The conformal rule is not new."** Correct and stated: the article claims the placement of a known conformal p-value in the view lattice, the exact level for the multi-sensor decision, and the measured decomposition of the earlier excess, not a new statistical rule.
+- **"Simulator-only, fixed design."** Declared throughout; QPU execution, calibrated noise, scheduling, provider security, multi-tenancy, confidentiality and operational Fleet Management belong to Paper 2.5 or other project deliverables.
+
+## 4. Reject-risk assessment
+
+- **Mathematical-validity risk: low.** The only false statement of 1.2.0 was found by the authors' own audit, replaced, proved and tested exhaustively; the remaining propositions survived a brute-force counterexample search.
+- **Statistical-validity risk: low.** The level is exact under a stated, testable premise; the premise's violation in the executed design is measured (design effect) and separated from the rule.
+- **Headline-number risk: low after H1–H3.** All ranges in the abstract are macros.
+- **Realism risk: moderate, out of scope by declaration.**
+- **Overall: a defensible TDSC regular-paper submission; the main risk is editorial taste about formal characterization versus mechanism novelty, not a correctable omission within the declared paper.**
+
+---
 
 # Audit 4 — final mathematical and release review, artifact 1.2.0 (2026-09-07, release build)
 

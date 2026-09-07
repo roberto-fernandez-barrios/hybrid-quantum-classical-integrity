@@ -1,0 +1,5 @@
+regime,n_cells,n_draws,n_fire,pooled_rate,construction
+I_X,60,12000,592,0.04933333333333333,"split conformal (reference draws 01-10, calibration draws 11-20, p-value resolution 1/101)"
+I_XF,60,12000,470,0.03916666666666667,"split conformal (reference draws 01-10, calibration draws 11-20, p-value resolution 1/101)"
+I_XFY,60,12000,403,0.03358333333333333,"split conformal (reference draws 01-10, calibration draws 11-20, p-value resolution 1/101)"
+I_Ym,60,12000,804,0.067,"split conformal (reference draws 01-10, calibration draws 11-20, p-value resolution 1/101)"

@@ -1,3 +1,5 @@
+> **Superseded in one point by artifact 1.3.0 (`paper15_v13_result_summary.md`).** The Gate F family rule reported below is the asymmetric rule of 1.2.0, whose stated guarantee was false (amendment A2). Its numbers are correct for the rule as executed and are retained as comparison columns; the adopted conformal rule gives 0.056 / 0.058 / 0.048 / 0.053 and the attribution of the residual excess to the design alone is withdrawn (most of it was rule bias).
+
 # Paper 1.5 policy gates — result summary (artifact 1.2.0)
 
 Date: 2026-09-07  

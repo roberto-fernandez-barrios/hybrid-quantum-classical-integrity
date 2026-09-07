@@ -132,3 +132,34 @@ boundary and explicit trusted references, or that evaluates an
 information-aware calibrated fail-closed policy end to end. The frozen novelty
 statement is updated to the reformulated claim above; the recheck must be
 repeated on the day of upload.
+
+
+## Addendum — recheck on 7 September 2026 (artifact 1.3.0, final closure)
+
+Searches repeated (arXiv listings and web search) for: conformal anomaly
+detection with family-wise or trials-factor calibration (2026 preprints
+found: `nonconform`, arXiv:2605.13642, a software package for conformal
+anomaly detection with FDR control; conformal calibration and the
+look-elsewhere effect in new-physics anomaly searches, arXiv:2606.13780;
+adaptive conformal anomaly detection with time-series foundation models,
+arXiv:2604.20122); quantum machine-learning pipeline integrity and provenance
+(QML-PipeGuard, arXiv:2605.25066, already positioned; nothing newer on
+evaluation-label integrity or blind regions). None of these formalizes blind
+regions of a learning workflow's evidence chain, treats the evaluation-label
+path as a protected boundary, or measures fingerprint-preserving adaptive
+evasion against a family-wise calibrated multi-sensor audit. The three 2026
+conformal preprints are complementary applications of the same order-statistic
+theory that the article cites through Vovk, Gammerman and Shafer (2005),
+Laxhammar and Falkman (2015), Bates et al. (2023) and Angelopoulos and Bates
+(2023); they are not added to the reference list because they do not change
+the argument and the article is at the page ceiling.
+
+Frozen novelty statement for 1.3.0 (supersedes the 1.2.0 wording in one
+point): the conformal family rule is an application of known conformal
+p-value theory to the multi-sensor audit decision; the article claims its
+placement in the view lattice, the exact decision-level level under a stated
+premise, and the measured decomposition of the earlier rule's excess into rule
+bias and design effect, not a new statistical rule. The adaptive
+cluster-preserving attacker is claimed as the executed instance of sensor
+insufficiency against an adaptive adversary within the same lattice, not as a
+general evasion bound. The recheck must be repeated on the day of upload.

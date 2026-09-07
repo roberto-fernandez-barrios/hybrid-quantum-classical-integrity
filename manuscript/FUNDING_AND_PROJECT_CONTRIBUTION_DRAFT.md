@@ -27,7 +27,9 @@ This artifact contributes to ATHENA-AEGIS as follows:
 - **G3.2:** validation contracts spanning data, preprocessing, simulated
   circuit/transpilation, kernel estimation, prediction, labels and reporting;
 - **G3.3:** information-set conditional auditability, integrity metrics,
-  coverage evidence and executable response rules;
+  coverage evidence, a decision-level false-alarm level with an exact premise,
+  the measured cost of enforcement on benign variation, an executed adaptive
+  attacker, and executable response rules;
 - **Result 3.1 [SOFTWARE]:** installable research package, console entry point,
   runners, builders, tests, CI, hash manifests and HSaaS contract prototype;
 - **Result 3.2 [REPORT]:** manuscript, validation notes, threat-model card,
@@ -49,5 +51,6 @@ demonstrated by this release.
 - [x] National and EU co-funding acknowledgements follow the AEI guide v09.
 - [x] Author list and CRediT roles confirmed by all contributors (2026-09-06).
 - [x] Release tag `paper15-q1-v1.1.1`, DOI 10.5281/zenodo.22552643 (concept 10.5281/zenodo.22550852).
-- [ ] Release tag `paper15-q1-v1.2.0` (scientific closure): version DOI minted by `scripts/release_pipeline.py` under the same concept DOI; recorded in `publication/DOI_STATUS.md`.
+- [x] Release tag `paper15-q1-v1.2.0` (scientific closure), DOI 10.5281/zenodo.22644529.
+- [ ] Release tag `paper15-q1-v1.3.0` (final scientific closure: conformal rule, Gate A): version DOI minted by `scripts/release_pipeline.py` under the same concept DOI; recorded in `publication/DOI_STATUS.md`.
 - [ ] Copy the final wording unchanged into manuscript and supplement.

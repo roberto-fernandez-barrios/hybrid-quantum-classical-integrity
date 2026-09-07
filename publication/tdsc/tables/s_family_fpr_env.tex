@@ -1,21 +1,21 @@
 \begin{table*}[!t]
-\caption{Gate F: per-environment false-alarm rate of the union rule (cluster mean) and of the family-calibrated rule (cluster mean with two-sided 95\% $t$ interval over the five split clusters, four degrees of freedom). $n$ is the batch size; ``disjoint'' is the number of mutually disjoint batches that one pool half can supply, an upper bound on the effective number of independent draws among the 20 per run (E1: one).}
+\caption{Gate F: per-environment false-alarm rate of the conformal family rule (cluster mean over the five split clusters with the two-sided 95\% $t$ interval, four degrees of freedom). $n$ is the batch size; ``disjoint'' is the number of mutually disjoint batches that one pool half can supply, an upper bound on the effective number of independent draws among the 20 per run (E1: one). The union and 1.2.0 cluster means are in Table~\ref{tab:s-family-fpr-env-rules}.}
 \label{tab:s-family-fpr-env}
 \centering
 \scriptsize
-\setlength{\tabcolsep}{1.8pt}
-\begin{tabular}{@{}lrrrlrlrlrl@{}}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}lrrllll@{}}
 \toprule
-Environment & $n$ & disj. & \multicolumn{2}{c}{$\mathcal I_X$: union, family [95\% CI]} & \multicolumn{2}{c}{$\mathcal I_{XF}$: union, family [95\% CI]} & \multicolumn{2}{c}{$\mathcal I_{Y_m}$: union, family [95\% CI]} & \multicolumn{2}{c}{$\mathcal I_{XFY}$: union, family [95\% CI]} \\
+Environment & $n$ & disj. & $\mathcal I_X$ & $\mathcal I_{XF}$ & $\mathcal I_{Y_m}$ & $\mathcal I_{XFY}$ \\
 \midrule
-E1 CICIDS ID 256 & 256 & 1 & 0.203 & 0.133 [-0.05, 0.31] & 0.245 & 0.125 [-0.02, 0.27] & 0.045 & 0.045 [-0.05, 0.14] & 0.331 & 0.146 [0.00, 0.29] \\
-E2 UNSW-NB15 ID & 128 & 3 & 0.063 & 0.025 [-0.02, 0.07] & 0.135 & 0.051 [0.01, 0.09] & 0.070 & 0.070 [0.01, 0.13] & 0.210 & 0.054 [0.01, 0.10] \\
-E3 ToN-IoT ID & 128 & 3 & 0.215 & 0.071 [-0.03, 0.17] & 0.280 & 0.088 [0.01, 0.17] & 0.070 & 0.070 [0.01, 0.13] & 0.358 & 0.102 [-0.00, 0.20] \\
-E4 Tue$\to$Wed & 128 & 11 & 0.150 & 0.098 [-0.01, 0.20] & 0.230 & 0.095 [0.02, 0.17] & 0.025 & 0.025 [-0.01, 0.06] & 0.254 & 0.102 [0.02, 0.18] \\
-E5 Tue$\to$Fri-PortScan & 128 & 11 & 0.066 & 0.039 [0.00, 0.08] & 0.160 & 0.045 [-0.01, 0.10] & 0.025 & 0.025 [-0.01, 0.06] & 0.197 & 0.046 [-0.00, 0.09] \\
-E6 Wed$\to$Thu-Web & 128 & 11 & 0.070 & 0.044 [0.00, 0.09] & 0.163 & 0.054 [-0.00, 0.11] & 0.025 & 0.025 [-0.01, 0.06] & 0.181 & 0.054 [0.01, 0.10] \\
-E7 Wed$\to$Fri-AM & 128 & 11 & 0.133 & 0.060 [0.02, 0.10] & 0.212 & 0.063 [0.04, 0.09] & 0.025 & 0.025 [-0.01, 0.06] & 0.257 & 0.061 [0.04, 0.09] \\
-E8 UNSW temporal OOD & 128 & 11 & 0.072 & 0.043 [-0.03, 0.12] & 0.192 & 0.065 [0.02, 0.11] & 0.050 & 0.050 [-0.01, 0.11] & 0.237 & 0.065 [0.03, 0.10] \\
+E1 CICIDS ID 256 & 256 & 1 & 0.125 [-0.05,0.30] & 0.115 [-0.03,0.26] & 0.045 [-0.05,0.14] & 0.123 [0.00,0.24] \\
+E2 UNSW-NB15 ID & 128 & 3 & 0.023 [-0.02,0.06] & 0.042 [0.01,0.07] & 0.070 [0.01,0.13] & 0.035 [0.01,0.06] \\
+E3 ToN-IoT ID & 128 & 3 & 0.065 [-0.02,0.15] & 0.075 [0.01,0.15] & 0.070 [0.01,0.13] & 0.062 [0.01,0.12] \\
+E4 CICIDS Tue$\to$Wed & 128 & 11 & 0.092 [-0.01,0.19] & 0.081 [0.01,0.15] & 0.025 [-0.01,0.06] & 0.065 [0.02,0.11] \\
+E5 CICIDS Tue$\to$Fri-PortScan & 128 & 11 & 0.032 [-0.01,0.08] & 0.023 [-0.02,0.06] & 0.025 [-0.01,0.06] & 0.037 [-0.00,0.08] \\
+E6 CICIDS Wed$\to$Thu-Web & 128 & 11 & 0.044 [0.00,0.09] & 0.036 [-0.01,0.08] & 0.025 [-0.01,0.06] & 0.037 [0.00,0.07] \\
+E7 CICIDS Wed$\to$Fri-AM & 128 & 11 & 0.049 [0.01,0.09] & 0.041 [0.02,0.06] & 0.025 [-0.01,0.06] & 0.034 [0.02,0.05] \\
+E8 UNSW temporal OOD & 128 & 11 & 0.043 [-0.03,0.12] & 0.049 [0.02,0.08] & 0.050 [-0.01,0.11] & 0.041 [0.03,0.05] \\
 \bottomrule
 \end{tabular}
 \end{table*}

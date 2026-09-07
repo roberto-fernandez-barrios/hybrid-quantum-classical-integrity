@@ -1,0 +1,5 @@
+regime,n_adaptive,n_material,unsafe_allow,true_hold_block,unsafe_allow_rate
+I_X,6000,3418,1328,2090,0.38853130485664134
+I_XF,6000,3418,959,2459,0.28057343475716795
+I_XFY,6000,3418,1006,2412,0.2943241661790521
+I_XFY_trusted,6000,3418,0,3418,0.0

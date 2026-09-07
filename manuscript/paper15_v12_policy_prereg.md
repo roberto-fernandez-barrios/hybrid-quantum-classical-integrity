@@ -210,3 +210,12 @@ observation (all 2,617), of which the 2,184 decreased-accuracy rows are a
 subset, and every intervened row with a non-zero item-aligned delta. The
 materiality definition, the policies, the endpoints and every other check are
 unchanged.
+
+**A2 — 2026-09-07 (artifact 1.3.0), recorded in `paper15_v13_prereg.md`.** The
+family rule of Gate F as specified above (calibration draws scored against the
+calibration set, audited batch against all 200, threshold at the 191st smallest
+calibration score) is asymmetric and its stated finite-sample guarantee was
+false. It is replaced by the full conformal max-rank p-value; the regenerated
+Gates F and D and the decomposition of the 1.2.0 excess are specified in the
+1.3.0 protocol. The 1.2.0 numbers remain descriptively valid for the rule as
+executed and are kept as comparison columns.

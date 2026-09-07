@@ -201,15 +201,17 @@ def main() -> None:
     manifest = {
         "figure": stem,
         "source_evidence": args.evidence.as_posix(),
-        "outputs": {p.name: {"sha256": _sha256(p)} for p in (pdf, png, values_heat, values_forest)},
+        "outputs": {p.name: {"sha256": _sha256(p)} for p in (pdf, png, main_pdf, main_png, values_heat, values_forest)},
     }
     (args.out_dir / "figure_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
     for target in (args.manuscript_figures, args.tdsc_figures):
         target.mkdir(parents=True, exist_ok=True)
         shutil.copy2(pdf, target / pdf.name)
+        shutil.copy2(main_pdf, target / main_pdf.name)
         if target == args.manuscript_figures:
             shutil.copy2(png, target / png.name)
+            shutil.copy2(main_png, target / main_png.name)
     args.manuscript_tables.mkdir(parents=True, exist_ok=True)
     shutil.copy2(values_heat, args.manuscript_tables / values_heat.name)
     shutil.copy2(values_forest, args.manuscript_tables / values_forest.name)

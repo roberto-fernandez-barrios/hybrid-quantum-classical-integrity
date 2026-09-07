@@ -1,26 +1,31 @@
-# Supplementary material README (artifact 1.2.0)
+# Supplementary material README (artifact 1.3.0)
 
 ## Description
 
 `paper15_tdsc_supplement.pdf` accompanies "Observational Indistinguishability
 and Integrity Blind Regions Across the Evidence Boundaries of Hybrid
 Quantum-Classical Kernel Workflows". It records the formal core with proofs
-(Lemma 1, Propositions 1–6, Corollaries 1–2, the counterexample witnesses),
-the adversary-model reading rule, the prespecified experimental environments,
-the 18-condition intervention suite, the information-set coverage matrix, the
-deduplication rules and the dependence structure of the statistical units,
-the exact-statevector validation, the 165-cell quantum integrity gate, the
-executable contract and its composition with the policy layer, the three
-preregistered reinforcement gates of artifact 1.1.0 (null calibration with
-disjoint clean pools, symmetric preprocessing ablation, cross-validated
-tuning), the two preregistered policy gates of artifact 1.2.0 (family-wise
-regime calibration; end-to-end allow/hold/block evaluation), the secondary
-model-impact profile, and the claims-supported/claims-excluded boundary.
+(Lemma 1, Propositions 1–7, Corollaries 1–3, the counterexample witnesses,
+the remark on metrics other than balanced accuracy), the adversary-model
+reading rule, the prespecified experimental environments with their dataset
+weights, the 18-condition intervention suite, the information-set coverage
+matrix, the deduplication rules and the dependence structure of the
+statistical units, the exact-statevector validation (including the exact
+replay check of the adversarial gate), the 165-cell quantum integrity gate
+read through the view lattice, the executable contract and its composition
+with the policy layer, the three preregistered reinforcement gates of
+artifact 1.1.0, the two policy gates of artifact 1.2.0 regenerated in 1.3.0
+with the conformal family rule (with the superseded 1.2.0 rule as comparison,
+the decomposition of its excess into rule bias and design effect, E1
+reported separately, the split construction as sensitivity, and the complete
+decision counts with the benign-interruption cost), the preregistered
+adversarial Gate A of artifact 1.3.0 in full, the secondary model-impact
+profile, and the claims-supported/claims-excluded boundary.
 
 The supplement adds audit and reproduction detail; it does not add evidence
 from a physical QPU, calibrated backend noise, scheduling, multi-tenancy,
-provider security or attestation, side channels, or operational Fleet
-Management.
+provider security or attestation, side channels, deployed runtime services,
+or operational Fleet Management.
 
 ## Files and size
 
@@ -30,7 +35,7 @@ Management.
   and SHA-256 in `publication/RELEASE_STATUS.md`);
 - `CLAIMS_TRACEABILITY.md` — claim-to-artifact map;
 - `publication/artifact/` — compact verification artifact, including code,
-  tests, locked dependencies, derived evidence, six SHA-256 evidence
+  tests, locked dependencies, derived evidence, seven SHA-256 evidence
   manifests and the artifact-wide manifest.
 
 Exact sizes and SHA-256 values are reported in `CHECKSUMS.sha256` and
@@ -66,21 +71,25 @@ On Linux or macOS, use `.venv/bin/python` and `/` path separators.
 ```
 
 The tests must pass (the collected count is recorded in
-`publication/RELEASE_STATUS.md`). The verifier must exit zero and report six
-evidence manifests, 65 manifested outputs, 3,600 expansion label rows with
-2,184 lowered / 983 unchanged / 433 raised conclusions (2,617 changed), 1,440
-Gate-1 label rows with 1,276 / 105 / 59, 60 calibrated cells, 7,008 material
-observations over 5 regimes and 4 policies, and the number of files in the
-artifact-wide manifest. A hash, schema, count or consistency mismatch causes a
-non-zero exit.
+`publication/RELEASE_STATUS.md`); they include the exhaustive counting-bound
+tests of the conformal rule, the five-vector counterexample to the 1.2.0 rule
+and the brute-force checks of the formal core. The verifier must exit zero and
+report seven evidence manifests, the manifested outputs, 3,600 expansion
+label rows with 2,184 lowered / 983 unchanged / 433 raised conclusions (2,617
+changed), 1,440 Gate-1 label rows with 1,276 / 105 / 59, 60 calibrated
+cells, 7,008 material observations over 5 regimes and 4 policies, the
+conformal level 10/201 respected under the exchangeable re-splits, 16
+adversarial conditions with an exact replay of the matched controls, and the
+number of files in the artifact-wide manifest. A hash, schema, count or
+consistency mismatch causes a non-zero exit.
 
 ## Full replay
 
 Full replay is optional and substantially more expensive. Dataset acquisition
 (official sources and expected SHA-256), staging, exact-statevector queues,
-evidence builders, the 1.2.0 policy gates and expected outputs are documented
-in `Q1_REPRODUCTION.md`. The published datasets retain their original
-licenses and are not included in the artifact.
+evidence builders, the policy gates, the adversarial gate and expected
+outputs are documented in `Q1_REPRODUCTION.md`. The published datasets retain
+their original licenses and are not included in the artifact.
 
 ## Contact
 

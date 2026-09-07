@@ -1,0 +1,23 @@
+\begin{table*}[!t]
+\caption{Gate A: per-environment detection rate of the adaptive variants under the conformal rule in $\mathcal I_{XF}$ (rows pooled over models, dimensions, splits and seeds), and mean fraction of entries the attacker perturbs in that environment.}
+\label{tab:s-adversarial-env}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrrrrrrrr@{}}
+\toprule
+ & & \multicolumn{5}{c}{Mean shift} & \multicolumn{5}{c}{Scaling drift} \\
+\cmidrule(lr){3-7}\cmidrule(lr){8-12}
+Environment & Perturbed & 0.02 & 0.05 & 0.10 & 0.25 & 0.50 & 0.02 & 0.05 & 0.10 & 0.25 & 0.50 \\
+\midrule
+E1 CICIDS ID 256 & 0.40 & 0.03 & 0.43 & 0.90 & 1.00 & 1.00 & 0.50 & 0.67 & 1.00 & 1.00 & 1.00 \\
+E2 UNSW-NB15 ID & 0.45 & 0.13 & 0.33 & 0.48 & 0.93 & 0.99 & 0.24 & 0.50 & 0.77 & 0.88 & 0.99 \\
+E3 ToN-IoT ID & 0.23 & 0.03 & 0.24 & 0.47 & 0.77 & 0.92 & 0.20 & 0.42 & 0.57 & 0.75 & 0.88 \\
+E4 CICIDS Tue$\to$Wed & 0.40 & 0.00 & 0.00 & 0.00 & 0.25 & 0.55 & 0.00 & 0.82 & 1.00 & 1.00 & 1.00 \\
+E5 CICIDS Tue$\to$Fri-PortScan & 0.19 & 0.00 & 0.02 & 0.32 & 0.65 & 0.75 & 0.00 & 0.12 & 0.25 & 0.43 & 0.60 \\
+E6 CICIDS Wed$\to$Thu-Web & 0.30 & 0.05 & 0.27 & 0.75 & 0.98 & 1.00 & 0.37 & 0.53 & 0.82 & 1.00 & 1.00 \\
+E7 CICIDS Wed$\to$Fri-AM & 0.16 & 0.00 & 0.08 & 0.37 & 0.95 & 0.88 & 0.08 & 0.18 & 0.30 & 0.50 & 0.60 \\
+E8 UNSW temporal OOD & 0.45 & 0.18 & 0.43 & 0.60 & 0.78 & 1.00 & 0.42 & 0.50 & 0.57 & 0.70 & 0.90 \\
+\bottomrule
+\end{tabular}
+\end{table*}

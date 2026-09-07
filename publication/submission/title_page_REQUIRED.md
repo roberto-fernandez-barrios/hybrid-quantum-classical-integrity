@@ -1,4 +1,4 @@
-# Title page — author-confirmed metadata (authors confirmed 2026-09-06; 1.2.0 manuscript changes recorded 2026-09-07)
+# Title page — author-confirmed metadata (authors confirmed 2026-09-06; 1.2.0 and 1.3.0 manuscript changes approved 2026-09-07, communicated by the corresponding author)
 
 ## Article metadata
 
@@ -43,9 +43,9 @@ on 2026-08-09. The wording follows the AEI publicity guide (v09, 5 February
 ## Competing interests
 
 The authors declare that they have no competing interests (confirmed by all
-authors on 2026-09-06).
+authors on 2026-09-06; reconfirmed for 1.3.0 on 2026-09-07).
 
-## CRediT author statement (confirmed by all authors on 2026-09-06)
+## CRediT author statement (confirmed by all authors on 2026-09-06; unchanged for 1.3.0)
 
 - Roberto Fernández-Barrios: Conceptualization, Methodology, Software, Data
   curation, Formal analysis, Visualization, Investigation, Writing – original
@@ -58,16 +58,21 @@ authors on 2026-09-06).
 
 ## Data and code availability
 
-The reproducibility artifact (version 1.2.0) contains source code, locked
-dependencies, tests, derived evidence for the frozen gates and the
-preregistered 1.1.0 and 1.2.0 gates, the formal core, the adversary model,
-vector figures, six SHA-256 evidence manifests and the artifact-wide manifest.
-Raw benchmark datasets are not redistributed; public sources, expected hashes
-and deterministic staging instructions are documented. Concept DOI:
-**10.5281/zenodo.22550852** (resolves to the latest version); version DOI of 1.2.0: **10.5281/zenodo.22644529**
-(repository tag `paper15-q1-v1.2.0`; 1.1.1: 10.5281/zenodo.22552643).
+The reproducibility artifact (version 1.3.0) contains source code, locked
+dependencies, tests (including the exhaustive tests of the conformal
+calibration rule and the brute-force checks of the formal core), derived
+evidence for the frozen gates, the preregistered 1.1.0, 1.2.0 and 1.3.0
+gates (with amendments A1–A3), the formal core and its statement-by-statement
+review, the adversary model, vector figures, seven SHA-256 evidence manifests
+and the artifact-wide manifest. Raw benchmark datasets are not redistributed;
+public sources, expected hashes and deterministic staging instructions are
+documented. Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest
+version); the version DOI
+of 1.3.0 is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`
+(repository tag `paper15-q1-v1.3.0`; 1.2.0: 10.5281/zenodo.22644529; 1.1.1:
+10.5281/zenodo.22552643).
 
-## Related manuscripts by the authors (disclosed in §II-D and the cover letter)
+## Related manuscripts by the authors (disclosed in §II-E and the cover letter)
 
 1. *Sharp Target-Domain Certificates for Quantum-Kernel Advantage under
    Distribution Shift* — submitted to EPJ Quantum Technology (6 September
@@ -86,8 +91,9 @@ submission.
 
 See `AI_USE_DISCLOSURE.md`: system, affected sections and level of use for
 OpenAI Codex and Anthropic Claude Code; the 1.1.0 wording was approved by all
-authors on 2026-09-06 and the 1.2.0 wording extends it to the formal core,
-adversary model, policy gates and their code.
+authors on 2026-09-06 and the 1.2.0/1.3.0 extensions (formal core, adversary
+model, policy gates, mathematical audit, conformal rule, adversarial gate,
+release automation) on 2026-09-07.
 
 ## Artifact and copyright choices
 

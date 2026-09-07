@@ -1,0 +1,5 @@
+regime,n_cells,n_resplits,seed,resplit_rate_family_v12,resplit_rate_family,conformal_level,nominal_alpha,note
+I_X,60,30,20260907,0.05221666666666666,0.04406666666666667,0.04975124378109453,0.05,roles assigned by a uniform random permutation of the 400 pooled draws: exchangeable by construction; any excess of the 1.2.0 rule is its own bias
+I_XF,60,30,20260907,0.057824999999999994,0.0417638888888889,0.04975124378109453,0.05,roles assigned by a uniform random permutation of the 400 pooled draws: exchangeable by construction; any excess of the 1.2.0 rule is its own bias
+I_Ym,60,30,20260907,0.039975,0.039975,0.04975124378109453,0.05,roles assigned by a uniform random permutation of the 400 pooled draws: exchangeable by construction; any excess of the 1.2.0 rule is its own bias
+I_XFY,60,30,20260907,0.059449999999999996,0.03563611111111111,0.04975124378109453,0.05,roles assigned by a uniform random permutation of the 400 pooled draws: exchangeable by construction; any excess of the 1.2.0 rule is its own bias
