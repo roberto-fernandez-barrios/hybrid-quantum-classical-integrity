@@ -69,8 +69,7 @@ vector figures, seven SHA-256 evidence manifests and the artifact-wide
 manifest. Raw benchmark datasets are not redistributed; public sources,
 expected hashes and deterministic staging instructions are documented.
 Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest
-version); the version DOI
-of 1.3.1 is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`
+version); version DOI of 1.3.1: **10.5281/zenodo.22651111**
 (repository tag `paper15-q1-v1.3.1`; frozen evidence 1.3.0:
 10.5281/zenodo.22648573; 1.2.0: 10.5281/zenodo.22644529; 1.1.1:
 10.5281/zenodo.22552643).

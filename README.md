@@ -216,8 +216,7 @@ journal, or a reviewer request; everything else belongs to Paper 2.5.
 This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
 Zenodo concept DOI `10.5281/zenodo.22550852` resolves to the latest archived
-version; the version DOI of 1.3.1 is recorded in `CITATION.cff` and
-`publication/DOI_STATUS.md` (1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
+version; the version DOI of 1.3.1 is `10.5281/zenodo.22651111` (1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
 `10.5281/zenodo.22644529`; 1.1.1: `10.5281/zenodo.22552643`; 1.1.0:
 `10.5281/zenodo.22550853`). Author metadata, CRediT roles and licenses were
 confirmed by all authors on 2026-09-06 and the 1.3.0 and 1.3.1 changes on
