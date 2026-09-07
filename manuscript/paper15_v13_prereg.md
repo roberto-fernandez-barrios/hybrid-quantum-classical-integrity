@@ -282,4 +282,15 @@ definition. Executing it would add a table, not evidence.
 
 ## Amendments
 
-None at freeze time.
+**A3 — 2026-09-07, implementation clarification recorded before the first
+builder run (no result seen).** Check F4 as frozen asked that the conformal
+firing fraction stay below `floor(0.05 * 201)/201 + 0.01` in *every*
+re-split. That mis-states what the counting bound guarantees: the bound
+constrains the probability over exchangeable assignments, i.e. the
+expectation of the firing fraction, while a single re-split evaluates 200
+audited draws against one fixed calibration set and its fraction fluctuates
+around the level conditionally on that set. F4 is therefore evaluated on the
+mean over the 30 re-splits of every (cell, regime) with tolerance 0.02 and on
+the pooled mean over the 60 cells with tolerance 0.005. The maximum
+per-re-split fraction is still reported (`family_resplit_by_cell.csv`). No
+other check, endpoint or parameter changed.
