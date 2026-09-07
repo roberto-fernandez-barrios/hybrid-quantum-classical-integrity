@@ -78,8 +78,7 @@ runtime services, context-conditioned runtime calibration under
 non-stationarity, or operational Fleet Management. Code, tests, derived
 evidence, vector figures, seven SHA-256 evidence manifests and the
 preregistrations accompany the manuscript and are archived at Zenodo
-under the concept DOI 10.5281/zenodo.22550852 (version 1.3.0; the version DOI
-is recorded in the artifact metadata).
+at Zenodo (version DOI 10.5281/zenodo.22648573, version 1.3.0; concept DOI 10.5281/zenodo.22550852).
 
 The manuscript is original, is not under consideration elsewhere, and has been
 approved by all authors. Author identities, affiliations, ORCIDs, CRediT

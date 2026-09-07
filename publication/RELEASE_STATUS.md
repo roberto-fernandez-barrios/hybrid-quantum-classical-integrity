@@ -13,9 +13,9 @@ Every document that quotes a count cites this file.
 | Tests collected (`pytest --collect-only`) | 76 |
 | Main article pages | 12 |
 | Supplement pages | 16 |
-| Main PDF SHA-256 | `4597883be8c7f97508470337e2adc419dd10bb8eb2de14bb7571f3741f3f444e` |
-| Supplement PDF SHA-256 | `0469bb93b9bdfa9dc3a26f92b0a89cf53f878f61bab8276cde0570c9941da1d8` |
-| Version DOI (`CITATION.cff`) | not yet minted (CITATION.cff carries the concept DOI) |
+| Main PDF SHA-256 | `b9cc35c0556940718b14e38b3ca46ff7916a6c045cab60fd74eb059cc2d63e37` |
+| Supplement PDF SHA-256 | `30c63a5e8e54621e9e2502c52a2271169e3c4bd314ce99fe38fdab9cc9908adc` |
+| Version DOI (`CITATION.cff`) | 10.5281/zenodo.22648573 |
 | Concept DOI | 10.5281/zenodo.22550852 |
 
 ## Primary counts recomputed by the verifier
