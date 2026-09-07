@@ -231,8 +231,8 @@
       "sha256": "65578b2206b1df0a2f36b4e2df7db38443c4707034ad33b25d366ac81e7d8d0a"
     },
     "counterexample_witnesses.csv": {
-      "rows": 8,
-      "sha256": "501eb983b961d15b64a3b6b549fb76a932a5d0be2b0ccf25d656f47ee12d65e1"
+      "rows": 10,
+      "sha256": "aa477a38382c1e54c31b9a479dfd69b5a299a13a1a459e12badf19dfa343be2b"
     }
   }
 }

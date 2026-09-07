@@ -1,7 +1,78 @@
 # Hostile-review audit — IEEE TDSC candidate
 
-This file keeps the audits in reverse chronological order. The 1.2.0 audit
-supersedes the verdicts below it; the earlier audits are retained as history.
+This file keeps the audits in reverse chronological order. Audit 4 (release
+build) supersedes the verdicts below it; the earlier audits are retained as
+history.
+
+# Audit 4 — final mathematical and release review, artifact 1.2.0 (2026-09-07, release build)
+
+Scope of this pass: correctness of the formal core, overclaim about trusted
+references, authentication versus self-consistency, family calibration, the
+signed-impact counts, novelty, the end-to-end policy, and release engineering.
+Standard: attempt to reject; fix what breaks a claim; publish only when no
+BLOCKER or reasonable MAJOR objection remains within scope.
+
+## Executive verdict
+
+**SCIENTIFICALLY CLOSED.** Three mathematical defects found in the 1.2.0
+draft (M1–M3) were corrected, one overclaim (M4) was replaced by a sharper
+three-level statement that strengthens the paper, and one headline-number
+imprecision (M5) was fixed. After the corrections every proposition was
+re-derived from scratch with a counterexample search (Section 2) and none
+required further weakening. Remaining objections are MINOR or belong to
+Paper 2.5. Release 1.2.0 proceeds.
+
+## 1. Defects found and their disposition
+
+| ID | Objection | Class | Disposition |
+|---|---|---|---|
+| M1 | Proposition 5 stated that the union of $m$ events each of probability $\le\alpha$ has probability in $[\alpha,\min(1,m\alpha)]$ with the upper bound attained under independence. Both parts are false in general: without some $p_j=\alpha$ the lower bound is $\max_j p_j$, which can be $0$; the upper bound $m\alpha$ is attained by disjoint events, and independence gives $1-(1-\alpha)^m$, strictly inside the bounds. | **BLOCKER (false statement)** | **Fixed.** Prop. 5(a) now states $\max_j p_j\le P(\bigcup E_j)\le\min(1,\sum_j p_j)\le\min(1,m\alpha)$, the equal-probability case with its attaining constructions (nested / disjoint), and the independence formula; main text, supplement, `FORMAL_CORE.md`. |
+| M2 | Proposition 5's family guarantee claimed $\Pr_0[U>q]\le\alpha$ under exchangeability, but the calibration rank scores are computed against the other $n-1$ draws while the audited batch is ranked against all $n$; the scores are not exactly exchangeable. | MAJOR (overstated guarantee) | **Fixed.** Prop. 5(b) now proves $\Pr_0[U(v_{n+1})>q]\le(n+2-k)/(n+1)\le\alpha+1/(n+1)$ via the augmented-set scores $\tilde U_i$ ($0.0547$ for $n=200$), notes the exact single-sensor level $10/201$, and Prop. 5(c) separates the theoretical premise from the executed design (overlapping draws, different halves) and the observed deviation (0.061–0.079). |
+| M3 | Proposition 6 claimed that a consistent rewrite of asset and reference makes the augmented view equal to the baseline view; false in general and contradicted by Prop. 3. | **BLOCKER (false statement)** | **Fixed.** Prop. 6 is now an impossibility result for local verifiers: under honest completeness and joint control, the substituted pair is observationally an honest run of the substituted state, so acceptance cannot establish authenticity relative to the baseline; the converse (an uncontrolled root separates exactly the classes it separates) is Prop. 4(ii). It is explicitly about authenticity, not consistency. |
+| M4 | "Material label corruption is detectable at will only against an item-aligned trusted reference" is too strong: a trusted confusion-matrix reference of the same batch detects every material change exactly (Prop. 3). | MAJOR (overclaim) | **Fixed and turned into a result.** Three levels (A batch-level statistical; B trusted aggregate; C trusted item-aligned) and three integrity notions (conclusion, aggregate, item-identity) are defined; Corollary 3 proves that level B suffices for conclusion and aggregate integrity and that level C is necessary for item identity (C1). Witnesses W9 (2,792 of 3,600 label rows, all 2,617 material ones, detected by the aggregate reference) and W10 (808 detected only item-wise) were added to the evidence and the table generator. Abstract, introduction, Sections III-B/III-D/V/VI, Discussion, Conclusion, README, cover letter, threat-model card, adversary model, result summaries and claims map were rewritten accordingly. |
+| M5 | The abstract summarized Gate F as lowering the false-alarm rate of "batch-level regimes" from 0.125–0.259 to 0.061–0.079, but the label-marginal regime stays at 0.048. | MAJOR (headline number) | **Fixed.** Abstract: "For regimes with feature evidence … from 0.125–0.259 to 0.061–0.079; the label-marginal regime stays at 0.048." Same wording in README, cover letter; changelog and release notes already listed the four rates. |
+| M6 | Proposition 2 called the closing condition "injective on the orbit", but only baseline separation ($V_W(a(s_0))\ne V_W(s_0)$) is required; injectivity would be an identification condition. | MINOR (terminology with mathematical content) | **Fixed.** "Baseline-separating on the intervention orbit" is defined and used; pairwise separation (identification) is defined and explicitly not claimed; all occurrences of "injective" and "separates the orbit" replaced. |
+| M7 | Release engineering: the pipeline did not realign `main`, committed release ZIPs and the draft state, and would have shown the concept DOI twice. | MAJOR (release integrity) | **Fixed.** Fail-closed Git checks (clean tree, expected branch, tag absence, remote branch ancestor, `main` fast-forwardable, no force), explicit fast-forward of `main`, post-push SHA verification, `.gitignore` for release assets, old tracked ZIPs removed from the tree, source-ZIP content check (no nested ZIP, no draft state, no token marker), RELEASE_STATUS reports "not yet minted" until the version DOI differs from the concept DOI, and the insert step aborts if they coincide. |
+
+## 2. From-scratch review of the formal core (counterexample search)
+
+| Statement | Attack tried | Outcome |
+|---|---|---|
+| Lemma 1 | randomized sensor with a fresh seed | pointwise identity fails; statement restricted to deterministic / seeded-in-view sensors, with equality in distribution for independent fresh seeds |
+| Definition 3 / sufficiency | family that separates some but not all orbit points | equality $B_{\mathcal I}=B_{\mathcal I,\mathcal S}$ holds iff baseline-separating; pairwise separation not needed; corrected wording |
+| Proposition 1 | $\mathcal I'$ that refines $\mathcal I$ but with a non-injective $\pi$ | inclusion direction is right: the refined view equal implies the coarse view equal; no counterexample |
+| Corollary 1 | stochastic predictor | hypothesis "fixed deterministic $f$" is stated and necessary; with a stochastic $f$ the prediction multiset could change even without a label change |
+| Proposition 2 | intervention that changes $\mathcal W$ but not $\mathcal I$ | separable in the join, consistent with the intersection formula; "iff" holds |
+| Corollary 2 | duplicate rows | relabelings among identical $(\tilde x,\hat y)$ items are invisible to the multiset view; stated explicitly; such relabelings are immaterial by Prop. 3 |
+| Proposition 3 | a metric that is not a function of $M$ (e.g. ROC-AUC) | hypothesis $R=g(M)$ stated; balanced accuracy satisfies it; claim not extended to score-based metrics |
+| Proposition 4(i) | auditor that uses a stored seed | seed in the view; covered by Lemma 1 |
+| Proposition 4(ii) | pseudo-metric $d$ | $d$ must satisfy $d=0$ iff equal; stated |
+| Corollary 3(a) | trusted $R_0$ only | detects material changes and nothing else; stated |
+| Corollary 3(b) | aggregate finer than $M$ (e.g. per-class score histograms) | still permutation-invariant within equal-prediction items; C1 remains invisible; stated for references that factor through $M$, hist or $R$ |
+| Proposition 5(a) | dependent events | bounds are tight only in the stated constructions; no counterexample |
+| Proposition 5(b) | ties; in-sample ranks | ties count against firing; in-sample asymmetry bounded by $1/n$ in score and $1/(n+1)$ in level; proof via augmented scores |
+| Proposition 5(c) | "the bound holds in deployment" | not claimed; the executed design violates exchangeability and the observed rates are reported as the deviation |
+| Proposition 6 | verifier with a fixed stored baseline value | that is an uncontrolled root, excluded by the joint-control assumption; covered by the converse |
+| Proposition 6 | verifier that rejects some honest states | honest completeness is an explicit assumption; without it the claim is not made |
+
+## 3. Signed-impact counts, family calibration and policy (re-verified)
+
+- Signed label-path counts 2,184 / 983 / 433 (Gate 1: 1,276 / 105 / 59) are recomputed by the verifier; all 2,617 changed conclusions have non-zero confusion evidence (W8).
+- Gate F rates 0.125 / 0.203 / 0.048 / 0.259 → 0.061 / 0.073 / 0.048 / 0.079; family ≤ union in every regime (verifier check); per-environment cluster means 0.025–0.146.
+- Gate D unsafe allows 4,494 / 4,327 / 7,008 / 4,322 / 0; trusted regime 0 false holds; composition 6/6.
+- W9 = 2,792 and W10 = 808 added; W1 = W10 by construction.
+
+## 4. Residual objections (no action)
+
+| Objection | Class |
+|---|---|
+| Formal results are elementary. | MINOR: stated as such in Section III; the contribution is the characterization and its measured consequences. |
+| Family rule exceeds nominal (0.061–0.079). | MINOR: reported as executed with its cause; Prop. 5(c) separates premise, design and deviation. |
+| Equal-weighted suite; τ = 0⁺ materiality. | MINOR: stress profile, sensitivity at 0.02 / 0.05 in the supplement. |
+| Simulator only, 128/128, fixed environments, no QPU, no scheduler, no attestation, no Fleet Management, no runtime recalibration. | OUT OF SCOPE / PAPER 2.5. |
+| Overlap with QCIVET / QML-PipeGuard / companion papers. | MINOR: positioned and disclosed. |
+
+Verdict: no BLOCKER, no reasonable MAJOR within scope. **Paper 1.5 v1.2.0 is scientifically closed.**
 
 ---
 

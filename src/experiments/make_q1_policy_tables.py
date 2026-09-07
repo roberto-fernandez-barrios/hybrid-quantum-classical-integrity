@@ -240,7 +240,7 @@ def table_witnesses(ev: Path) -> str:
     rows = [f"{r['witness']} & {r['property']} & {_n(r['count'])} / {_n(r['denominator'])} \\\\" for _, r in w.iterrows()]
     return "\n".join([
         "\\begin{table}[!t]",
-        "\\caption{Counterexample witnesses realised in the frozen expansion (count / denominator). W1--W4 are evaluation-label rows, W5--W6 feature-side rows, W7 all intervened rows, W8 material label rows.}",
+        "\\caption{Counterexample witnesses realised in the frozen expansion (count / denominator). W1--W4 are evaluation-label rows, W5--W6 feature-side rows, W7 all intervened rows, W8 material label rows; W9 and W10 count the label rows that a trusted aggregate reference, respectively only an item-aligned reference, detects (Corollary~3).}",
         "\\label{tab:s-witnesses}", "\\centering", "\\scriptsize", "\\setlength{\\tabcolsep}{3pt}",
         "\\begin{tabularx}{\\columnwidth}{@{}l>{\\raggedright\\arraybackslash}Xr@{}}", "\\toprule",
         "ID & Property & Count \\\\", "\\midrule",
@@ -300,9 +300,9 @@ def macros(ev: Path, expansion_dir: Path, gate1_dir: Path) -> str:
     lines.append(_macro("BatchFamilyLabelFires", _n(lab.loc[("material_label_interventions", "I_XFY", "family"), "n_fire"])))
     lines.append(_macro("BatchUnionLabelRate", _f(lab.loc[("material_label_interventions", "I_XFY", "union"), "detection_rate"], 3)))
     lines.append(_macro("BatchFamilyLabelRate", _f(lab.loc[("material_label_interventions", "I_XFY", "family"), "detection_rate"], 3)))
-    words = {"1": "One", "2": "Two", "3": "Three", "4": "Four", "5": "Five", "6": "Six", "7": "Seven", "8": "Eight"}
+    words = {"W1": "WOne", "W2": "WTwo", "W3": "WThree", "W4": "WFour", "W5": "WFive", "W6": "WSix", "W7": "WSeven", "W8": "WEight", "W9": "WNine", "W10": "WTen"}
     for wid in w.index:
-        name = "Witness" + "".join(words.get(ch, ch) for ch in str(wid))  # LaTeX macro names cannot contain digits
+        name = "Witness" + words[str(wid)]  # LaTeX macro names cannot contain digits
         lines.append(_macro(name, _n(w.loc[wid, "count"])))
         lines.append(_macro(name + "Den", _n(w.loc[wid, "denominator"])))
     for regime in REGIME_ORDER:

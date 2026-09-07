@@ -18,8 +18,9 @@ boundary: for a fixed predictor, label-only changes leave feature and
 prediction evidence invariant, prior-preserving changes also leave label
 marginals invariant, and any change of the reported balanced accuracy changes
 the confusion matrix, so a material label corruption is always separable in
-the joint view yet detectable at will only against an item-aligned trusted
-reference. Missing evidence is never interpreted as a pass; the executable
+the joint view; a trusted aggregate reference of the same batch detects it
+exactly, and an item-aligned reference is needed only for relabelings that
+preserve every aggregate. Missing evidence is never interpreted as a pass; the executable
 contract abstains or blocks fail-closed.
 
 The contribution is the integrated combination of (i) the observation model
@@ -27,8 +28,9 @@ with its monotonicity, closure and materiality results and minimal
 counterexamples, (ii) an explicit adversary and failure model, (iii) validation
 over CICIDS2017, UNSW-NB15 and ToN-IoT in eight fixed ID/OOD environments
 (11,400 deduplicated observations) under preregistered null calibration,
-(iv) a decision-level (family-wise) calibration that lowers the false-alarm
-rate of batch-level regimes from 0.125–0.259 to 0.061–0.079, (v) an
+(iv) a decision-level (family-wise) calibration that lowers the pooled
+false-alarm rate of the multi-sensor regimes with feature evidence from
+0.125–0.259 to 0.061–0.079 (the label-marginal regime stays at 0.048), (v) an
 end-to-end allow/hold/block evaluation on 24,000 frozen observations whose
 primary endpoint is the number of materially changed results a policy would
 serve (4,322–4,494 of 7,008 for batch-level regimes with feature evidence,

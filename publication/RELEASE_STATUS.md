@@ -12,10 +12,10 @@ Every document that quotes a count cites this file.
 | Files in `ARTIFACT_MANIFEST.sha256` | 175 |
 | Tests collected (`pytest --collect-only`) | 41 |
 | Main article pages | 11 |
-| Supplement pages | 10 |
-| Main PDF SHA-256 | `a03378ddcef027c09fbeac145b37bbf4098c4568db1bcd1e9aa3d91a9e3a4fa5` |
-| Supplement PDF SHA-256 | `921f1a5315f017af14818532e481b27aa6d4900881e80a2a4a87f9b2a98b8e30` |
-| Version DOI (`CITATION.cff`) | 10.5281/zenodo.22550852 |
+| Supplement pages | 11 |
+| Main PDF SHA-256 | `6ab752b017d261e533d76a2936e8aef6f8bfb7d350084e9656e32d31b2137236` |
+| Supplement PDF SHA-256 | `d5f3eba91f107cd0b1700538e4a737f81f8112bf5ed1a24afa611ff5b5e2d641` |
+| Version DOI (`CITATION.cff`) | not yet minted (CITATION.cff carries the concept DOI) |
 | Concept DOI | 10.5281/zenodo.22550852 |
 
 ## Primary counts recomputed by the verifier

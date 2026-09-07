@@ -57,17 +57,18 @@ intervention class. The evaluation-label path is a protected boundary: for a
 fixed predictor, label-only changes leave feature and prediction evidence
 invariant, prior-preserving changes also leave label marginals invariant, and
 any change of the reported balanced accuracy changes the confusion matrix, so
-a material label corruption is always separable in the joint item-label view
-yet detectable at will only against an item-aligned trusted reference. Across
+a material label corruption is always separable in the joint item-label view:
+a trusted aggregate reference of the same batch detects it exactly, and item
+alignment is needed only for aggregate-preserving relabelings. Across
 CICIDS2017, UNSW-NB15 and ToN-IoT in eight fixed environments (11,400
-deduplicated observations, 3,600 label interventions) the blind regions hold
-without exception and survive null calibration. A decision-level calibration
-lowers the false-alarm rate of batch-level regimes from 0.125--0.259 to
-0.061--0.079, and an end-to-end \texttt{allow/hold/block} evaluation over
-24,000 frozen observations shows that batch-level regimes with feature
-evidence serve 4,322--4,494 of 7,008 materially changed results, the
-label-marginal regime serves all of them, and the trusted item-aligned regime
-serves none. A 165-cell simulator gate maps the same lattice onto circuit,
+observations, 3,600 label interventions) the blind regions hold without
+exception and survive null calibration. For regimes with feature evidence,
+decision-level calibration lowers the pooled false-alarm rate from
+0.125--0.259 to 0.061--0.079; the label-marginal regime stays at 0.048. An end-to-end
+\texttt{allow/hold/block} evaluation over 24,000 frozen observations shows
+that batch-level regimes with feature evidence serve 4,322--4,494 of 7,008
+materially changed results, the label-marginal regime serves all of them, and
+the trusted-reference regime serves none. A 165-cell simulator gate maps the same lattice onto circuit,
 kernel and estimation evidence, and a four-contract prototype executes the
 composed fail-closed decision.
 \end{abstract}
@@ -112,9 +113,10 @@ control-theoretic literature does not: it treats the \emph{evaluation-label
 path} as a protected boundary with its own blind regions; it separates
 structural indistinguishability (the view is identical) from statistical
 undetectability (the view differs but not beyond the null variability of fresh
-batches) and shows that only an item-aligned \emph{trusted reference} converts
-the second into an exact test; and it composes the resulting coverage into an
-executable, calibrated, fail-closed decision.
+batches) and shows which \emph{trusted reference} of the same batch converts
+the second into an exact test (an aggregate for conclusion integrity, an
+item-aligned one for item identity); and it composes the resulting coverage
+into an executable, calibrated, fail-closed decision.
 
 The contribution is one package:
 \begin{itemize}
@@ -325,12 +327,20 @@ $\mathcal I\vee\mathcal W$ is the pair of views.
 
 A \emph{reference} is a stored value $\rho=V_{\mathcal J}(s_0)$ of a view of
 the baseline. It is \emph{trusted} under the assumption that no intervention
-in the class under study can alter it, and \emph{item-aligned} when
-$V_{\mathcal J}$ is indexed by item identity rather than a multiset, so that
-it supports item-wise comparison. $\mathcal I^{\star}$ denotes a regime
-augmented with a trusted item-aligned reference of its own baseline view. A
-label being available in $\IXFY$ says nothing about whether it is trusted: if
-the label store is the asset under attack, the auditor sees $y_a$, not $y_0$.
+in the class under study can alter it. Three levels of evidence are
+distinguished throughout: (A) batch-level statistical evidence, with no stored
+baseline value; (B) a trusted \emph{aggregate} reference, a permutation-
+invariant summary of the same batch such as the confusion matrix $M(s_0)$,
+$\mathrm{hist}(y_0)$ or $R(s_0)$; (C) a trusted \emph{item-aligned}
+reference, an item-indexed tuple such as $(y_{0,i})_i$. Correspondingly, for
+a label-path intervention, \emph{item-identity integrity} holds if $y_a=y_0$
+item-wise, \emph{aggregate integrity} if $M(s_a)=M(s_0)$ and
+\emph{conclusion integrity} if $R(s_a)=R(s_0)$; each implies the next and no
+converse holds. $\mathcal I^{\star}$ denotes a regime augmented with trusted
+references of its own baseline view ($\IXFYs$ holds both the aggregate
+confusion profile and the item-aligned labels of the same batch). A label
+being available in $\IXFY$ says nothing about whether it is trusted: if the
+label store is the asset under attack, the auditor sees $y_a$, not $y_0$.
 
 \subsection{Equivalence, Sensors and Blind Regions}
 
@@ -349,8 +359,12 @@ $B_{\mathcal I}(\mathcal A)=\{a\in\mathcal A: a(s_0)\sim_{\mathcal I}s_0\}$ and
 the sensor blind region of a family $\mathcal S$ is
 $B_{\mathcal I,\mathcal S}(\mathcal A)=\{a:S(a(s_0))=S(s_0)\ \forall S\in\mathcal S\}$.
 By Lemma~1, $B_{\mathcal I}\subseteq B_{\mathcal I,\mathcal S}$, with equality
-iff $\mathcal S$ separates the orbit of $\mathcal A$; sensor blindness thus
-decomposes into information-level blindness and sensor insufficiency. The
+iff $\mathcal S$ is \emph{baseline-separating} on the orbit of $\mathcal A$,
+i.e. takes a different value at $a(s_0)$ than at $s_0$ whenever the views
+differ. Baseline separation is what detection needs; identifying \emph{which}
+intervention occurred would need pairwise separation of intervened states,
+which is not claimed. Sensor blindness thus decomposes into information-level
+blindness and sensor insufficiency. The
 structural and sensor auditability gaps at level $\tau$ are
 \begin{equation}
   G_{\mathcal I}(\tau)=\{a:|\Delta_R(a)|\ge\tau,\ a\in B_{\mathcal I}\},\quad
@@ -379,16 +393,17 @@ Proposition~1.
 $B_{\mathcal I\vee\mathcal W}(\mathcal A)=B_{\mathcal I}(\mathcal A)\cap B_{\mathcal W}(\mathcal A)$.
 A class $\mathcal A\subseteq B_{\mathcal I}$ becomes completely separable after
 adding $\mathcal W$ iff $V_{\mathcal W}(a(s_0))\ne V_{\mathcal W}(s_0)$ for
-every $a\in\mathcal A$: the added evidence must be injective on the orbit of
-the class. Consequently no view factoring through
+every $a\in\mathcal A$: the added evidence must be baseline-separating on the
+orbit of the class. Consequently no view factoring through
 $(\tilde X,f(\tilde X),\mathrm{hist}(y))$ separates any $a\in T_y^{\pi}$; the
 multiset $\IXFY$ separates it unless labels are permuted only among items with
 identical $(\tilde x,\hat y)$, and $\IXFYs$ separates every non-identity
 relabeling.
 
-\textbf{Proposition 3 (materiality forces separability).} Let $R=g(M)$ be a
-function of the confusion matrix $M(s)$, as balanced accuracy is. If $a\in T_y$
-and $\Delta_R(a)\ne0$ then $M(s_a)\ne M(s_0)$; hence
+\textbf{Proposition 3 (materiality forces aggregate separability).} Let
+$R=g(M)$ be a function of the confusion matrix $M(s)$, as balanced accuracy
+is. If $a\in T_y$ and $\Delta_R(a)\ne0$ then $M(s_a)\ne M(s_0)$; hence $a$ is
+separable in the confusion view and in $\IXFY$, and
 $G_{\IXFY}(\tau)\cap T_y=\emptyset$ for every $\tau>0$.
 
 \begin{IEEEproof}
@@ -398,10 +413,10 @@ is a coarsening of the multiset of triples.
 
 \subsection{Three Auditor Classes}
 
-A \emph{reference-anchored} auditor holds a trusted item-aligned reference
-$\rho$ and computes $D(s)=d(V_{\mathcal J}(s),\rho)$; then $D(s_0)=0$ exactly,
-the rule ``fire iff $D>0$'' has zero false-alarm probability, and separability
-is sufficient for detection. An \emph{anchor-free} (batch-level) auditor holds
+A \emph{reference-anchored} auditor holds a trusted reference $\rho$ (level B
+or C) and computes $D(s)=d(V_{\mathcal J}(s),\rho)$ with a metric $d$; then
+$D(s_0)=0$ exactly, the rule ``fire iff $D>0$'' has zero false-alarm
+probability, and separability in $\mathcal J$ is sufficient for detection. An \emph{anchor-free} (batch-level) auditor holds
 only a null model of $V_{\mathcal I}$ over fresh clean batches and decides with
 a calibrated test at budget $\alpha$; for a separable $a$ its detection
 probability is the power against the shift relative to batch-to-batch
@@ -411,26 +426,51 @@ $R$ from $(\hat y,y)$) and needs trusted inputs rather than a stored value.
 
 \textbf{Proposition 4.} (i) For any auditor whose decision is a function of
 $V_{\mathcal I}(s)$, $a\in B_{\mathcal I}$ implies
-$\mathrm{fire}(s_a)=\mathrm{fire}(s_0)$: the calibrated detection rate equals
-the false-alarm rate. (ii) A reference-anchored auditor detects every
-$a\notin B_{\mathcal J}$ with probability one.
+$\mathrm{fire}(s_a)=\mathrm{fire}(s_0)$ on every batch, so the calibrated
+detection rate equals the false-alarm rate. (ii) A reference-anchored auditor
+detects every $a\notin B_{\mathcal J}$, deterministically.
 
-\textbf{Proposition 5 (union versus family calibration).} If sensors
-$S_1,\dots,S_m$ are each calibrated so that $\Pr_0[S_j>t_j]\le\alpha$, the rule
-``fire iff some $S_j>t_j$'' has null firing probability in
-$[\alpha,\min(1,m\alpha)]$. Let $U=\max_j F_j(S_j)$ with $F_j$ the
-calibration distribution of $S_j$ and $q$ the
-$\lceil(n+1)(1-\alpha)\rceil$-th smallest calibration value of $U$. If the
-calibration draws and the audited batch are exchangeable, $\Pr_0[U>q]\le\alpha$
-\cite{Vovk2005,Westfall1993,Tippett1931}.
+\textbf{Corollary 3 (which reference certifies which integrity).} Let
+$a\in T_y$ with $f$ fixed. (a) With a trusted aggregate reference $M_0=M(s_0)$
+of the same batch, ``fire iff $M(s_a)\ne M_0$'' detects every violation of
+aggregate integrity and, by Proposition~3, every material $a$: conclusion and
+aggregate integrity need only level B. (b) Every reference that factors
+through $M$, $\mathrm{hist}(y)$ or $R$ is invariant under relabelings that
+permute labels among items with equal predictions (C1), which violate
+item-identity integrity; certifying item identity needs level C, and an
+item-aligned $y_0$ detects every non-identity relabeling.
 
-\textbf{Proposition 6 (no local guarantee without an uncontrolled root).} If
-the intervention class rewrites the reference consistently with the asset,
-$a:(s,\rho)\mapsto(a(s),V_{\mathcal J}(a(s)))$, the augmented auditor is a
-function of the state alone and Lemma~1 applies to $\mathcal I\vee\mathcal J$:
-for $\mathcal J$ factoring through $(\tilde X,f(\tilde X),y)$ every
-$a\in T_y^{\pi}$ is in the joint blind region. Local identification of a
-label-path intervention requires an item-aligned root the class cannot write.
+\textbf{Proposition 5 (union versus family calibration).} (a) If $m$
+sensors fire under the null with probabilities $p_j\le\alpha$, then
+$\max_j p_j\le\Pr_0[\bigcup_j E_j]\le\min(1,\sum_j p_j)\le\min(1,m\alpha)$;
+with all $p_j=\alpha$ the lower bound is attained by nested events, the upper
+bound by disjoint events, and independence gives $1-(1-\alpha)^m$. (b) Let
+$U(v)=\max_{j}\#\{i\le n:v_{j,i}<v_j\}/n$ be the family score of a batch
+against $n$ calibration draws and $q$ the $k$-th smallest calibration score,
+$k=\lceil(n+1)(1-\alpha)\rceil$. If the $n+1$ draws are exchangeable,
+$\Pr_0[U(v_{n+1})>q]\le(n+2-k)/(n+1)\le\alpha+1/(n+1)$
+\cite{Vovk2005,Westfall1993,Tippett1931} ($0.0547$ for $n=200$; one sensor
+recovers the per-sensor rule at exact level $10/201$). (c) Gate~F applies
+(b) with $n=200$, but its draws overlap within a pool half and its two halves
+are different rows of one table, so the premise fails and the observed rates
+measure the deviation (supplement).
+
+\textbf{Proposition 6 (no local authentication without an uncontrolled
+root).} Let a local verifier be any map $\mathrm{acc}(V_{\mathcal I}(s),\rho)$
+of the observed view and a reference bundle, with honest references
+$\rho_H(s)=V_{\mathcal J}(s)$ on an honest family $\mathcal S_H$. If the
+verifier accepts every honest pair (honest completeness) and the class can
+produce $(V_{\mathcal I}(s'),\rho_H(s'))$ for some honest
+$s'\not\sim_{\mathcal I}s_0$ (joint control), the substitution is accepted:
+it is observationally an honest run of $s'$, so no function of that input
+establishes authenticity relative to $s_0$, and if $R(s')\ne R(s_0)$ a
+material change is served. Conversely, a bundle component $V_{\mathcal K}(s_0)$
+the class cannot write rejects every substitution with
+$V_{\mathcal K}(s')\ne V_{\mathcal K}(s_0)$ (Proposition~4(ii)). Authenticity
+relative to a baseline thus requires at least one root outside the declared
+class, which suffices exactly for the classes it separates; the result is
+about authenticity, not consistency, since by Proposition~3 a material
+substitution does change the joint view.
 
 \subsection{Counterexamples}
 
@@ -442,7 +482,10 @@ separate marginal invariance, confusion-matrix invariance and conclusion
 invariance; C5--C6 do the same on the feature side; C7 shows that the clipped
 ``harm'' endpoint of the earlier evidence hid \WitnessWSeven{} conclusion
 changes, \LabelIncreasedExp{} of them on the label path; C8 is the empirical
-face of Proposition~3.
+face of Proposition~3. Of the 3,600 label rows, a trusted aggregate reference
+of the same batch detects \WitnessWNine{} (every material one, Corollary~3a),
+and the remaining \WitnessWTen{} are C1 relabelings that only an item-aligned
+reference exposes (Corollary~3b).
 
 \begin{table}[!t]
 \caption{Minimal counterexamples and their witnesses in the frozen expansion
@@ -510,7 +553,7 @@ Mechanism (boundary) & Class & Capability & Roots it cannot write & Identifying 
 \midrule
 Random label flip (evaluation/report) & Integrity corruption & rewrite $r$ of $y$ at random & $X,P,C,K,f$; item-aligned $y^{\star}$ if declared & exact only; $\IYm$/$\IXFY$ batch 0.00--0.03 & invisible to $\IX,\IXF$ (Cor.~1a); not detected at budget by marginal or batch joint evidence at these rates \\
 Prior-preserving label flip (evaluation/report) & Adaptive attacker & pairwise swaps preserving class counts & as above & exact only; $\IXFY$ batch 0.005--0.012 & invisible to $\IX,\IXF,\IYm$ (Cor.~1); every material instance changes $M$ (Prop.~3) \\
-Confusion-preserving relabeling (discussed) & Adaptive attacker & swaps among equal predictions & as above & exact only & integrity violation without conclusion impact (C1) \\
+Confusion-preserving relabeling (discussed) & Adaptive attacker & swaps among equal predictions & as above & item-aligned reference only & item-identity violation without aggregate or conclusion impact (C1) \\
 Feature sign flip (acquisition/preprocessing) & Integrity corruption & negate $p$ of $\tilde X$ entries & training data, fitted model, reference features & $\IX$ 0.09--0.72; $\IXF$ 0.15--0.85; exact 0.79--0.91 & partially separable; residual is strength-dependent \\
 Mean shift, scaling drift (acquisition/preprocessing) & Fault robustness & shift or scale all features & as above & $\IX$ 1.00 by cluster fingerprint & fully detected in this design by a fragile fingerprint \\
 Feature dropout with imputation (preprocessing) & Fault robustness & impute $p$ of entries & as above & batch 0.00--0.04; exact 0.49--0.76 & separable in $\IXF$ yet statistically undetectable without a reference \\
@@ -566,9 +609,10 @@ divergence (JSD), maximum mean discrepancy (MMD) and the Kolmogorov--Smirnov
 (KS) rejection rate; prediction-aware evidence adds score JSD,
 prediction-rate shift and prediction JSD; label-marginal evidence uses prior
 shift and label JSD; joint-outcome evidence uses two confusion-profile
-statistics. Item-aligned sensors (prediction disagreement, confusion-profile
-deltas, item-level label mismatch) exist only against a reference of the same
-items and have an exact-zero null.
+statistics. Reference-anchored sensors (confusion-profile deltas against a
+trusted aggregate of the same batch; prediction disagreement and item-level
+label mismatch against item-aligned references) exist only with a trusted
+reference of the same items and have an exact-zero null.
 
 \subsection{Experimental Units and Uncertainty}
 
@@ -612,8 +656,8 @@ serve-always; P1 the uncalibrated union rule of Gate~N; P2 the
 family-calibrated rule; P3 a strict fail-closed variant that holds whenever a
 protected boundary (feature, prediction, label) is neither exactly nor
 statistically covered by the regime. Five regimes are evaluated: $\IX$,
-$\IXF$, $\IYm$, $\IXFY$ (batch-level) and $\IXFYs$ (item-aligned trusted
-reference). The observation set is frozen: \NEvalDraws{} clean evaluation
+$\IXF$, $\IYm$, $\IXFY$ (batch-level) and $\IXFYs$ (trusted aggregate and
+item-aligned references of the same batch). The observation set is frozen: \NEvalDraws{} clean evaluation
 draws, 1,200 near-null in-place controls, and the 10,800 intervened
 observations of the eight environments, \NMaterial{} of which change the
 reported balanced accuracy (primary materiality; $\tau=0.02$ and $0.05$ as
@@ -707,10 +751,14 @@ batch-level $\IXFY$ rules detect \BatchUnionLabelFires{} (union) and
 observations, \BatchUnionLabelRate{} and \BatchFamilyLabelRate{}, although
 every one of them is separable (Proposition~3, C8): a 2--10\% relabeling of a
 128-row batch shifts the confusion profile by less than its variability across
-fresh clean batches. The item-aligned auditor detects all \NMaterialLabel{}
-(Proposition~4(ii)). The contrast measures the informational value of
-item-level provenance; it is not an oracle, because it costs a trusted
-item-aligned copy of the baseline view. Feature-side coverage is
+fresh clean batches. A trusted aggregate reference of the same batch, the
+confusion profile, detects all \NMaterialLabel{} exactly (Corollary~3a) and
+\WitnessWNine{} of the 3,600 label rows in total; the \WitnessWTen{}
+relabelings that preserve every aggregate (C1) are exposed only by the
+item-aligned label reference (Corollary~3b). The contrast with the batch-level
+auditor measures the informational value of a trusted reference of the same
+batch; it is not an oracle, because it costs an uncontrolled copy of a
+baseline view, and which view depends on the integrity notion. Feature-side coverage is
 mechanism-dependent: mean shift and scaling drift are detected in every cell
 because the standardized projected features hold tight clusters (in every
 environment some feature keeps 69--87\% of rows within 0.01 standard
@@ -725,7 +773,7 @@ $\IXF$ at the primary threshold and from \ContainFiveUnionIXF{} to
 
 \begin{figure*}[!t]
   \centering
-  \includegraphics[width=0.9\textwidth]{fig_q1_calibrated_coverage.pdf}
+  \includegraphics[width=0.8\textwidth]{fig_q1_calibrated_coverage.pdf}
   \caption{Preregistered gates of artifact 1.1.0. (a) Null-calibrated
   detection rate of each information regime on the frozen interventions with
   the empirical false-alarm rate of disjoint clean evaluation draws in the
@@ -754,10 +802,12 @@ observations are served under $\IX$ and $\IXF$ (residual blind region),
 \UnsafeFamilyLabelIXFY{} of them under batch-level $\IXFY$ (statistically
 undetectable), and \UnsafeFamilyDropoutIXF{} of \NMaterialFamDropout{} material
 dropout observations under $\IXF$; $\IYm$ contains nothing in this suite. The
-trusted item-aligned regime serves none of the \NMaterial{} material
-observations with zero false holds, blocks every non-identity relabeling and
-every prediction change, and holds or blocks \BenignHBFamilyIXFYtrusted{} of
-the near-null controls through its batch-level component. The strict policy
+trusted-reference regime serves none of the \NMaterial{} material
+observations with zero false holds (the aggregate reference alone would
+suffice for that, by Corollary~3a), blocks every non-identity relabeling and
+every prediction change through its item-aligned references, and holds or
+blocks \BenignHBFamilyIXFYtrusted{} of the near-null controls through its
+batch-level component. The strict policy
 P3 makes information-set conditionality literal: in $\IX$, $\IXF$ and $\IYm$
 the label boundary is unverified, so nothing is served; in $\IXFY$ and
 $\IXFYs$ it coincides with P2. The choice between P2 and P3 is therefore a
@@ -768,7 +818,7 @@ six frozen contract envelopes reproduces their actions (supplement).
 
 \begin{figure*}[!t]
   \centering
-  \includegraphics[width=0.94\textwidth]{fig_q1_policy_decisions.pdf}
+  \includegraphics[width=0.84\textwidth]{fig_q1_policy_decisions.pdf}
   \caption{Preregistered gates of artifact 1.2.0. (a) Decision-level
   false-alarm rate on \NEvalDraws{} disjoint clean draws of the uncalibrated
   union rule and of the family-calibrated rule per regime; whiskers span the
@@ -803,7 +853,7 @@ despite a zero class-prior delta, and the approved 256-shot emulator is held.
 
 \begin{figure*}[!t]
   \centering
-  \includegraphics[width=0.91\textwidth]{fig_q1_quantum_integrity_contract.pdf}
+  \includegraphics[width=0.74\textwidth]{fig_q1_quantum_integrity_contract.pdf}
   \caption{Sensor response across clean and semantics-preserving controls,
   circuit mutations, kernel corruptions and finite-shot emulators over 165
   simulator cells. Coverage is conditional on the evidence exposed to each
@@ -857,7 +907,10 @@ the auditor holds a null tight enough to see it. The end-to-end result makes
 the consequence concrete: with the evidence a batch-level auditor normally
 has, three fifths of the materially changed results in this suite would be
 served under a calibrated policy, and the share is set by the information
-regime, not by the threshold. The lever is provenance.
+regime, not by the threshold. The lever is provenance, and its granularity
+follows the integrity notion: a trusted aggregate of the same batch certifies
+the conclusion, item alignment certifies item identity, and nothing the
+adversary can rewrite certifies anything (Proposition~6).
 
 \subsection{Validity Boundaries}
 
@@ -877,8 +930,8 @@ cluster structure that an adversary preserving it would evade. The trusted
 item-aligned regime is a trust assumption, not a stronger detector: if the
 reference can be rewritten with the asset, Proposition~6 applies. The
 prototype is a local process without authenticated provider records,
-persistence or incident operations, and its hash chain gives neither identity
-nor non-repudiation. Context-conditioned runtime calibration under
+persistence or incident operations, and its hash chain certifies consistency
+of the record, not its authenticity. Context-conditioned runtime calibration under
 non-stationarity, abstention with recovery, real-QPU execution and the
 service-level evaluation of enforcement are the subject of a separate study.
 
@@ -890,10 +943,12 @@ sensor can stay silent because its view is identical, and a separable change
 can stay undetected because the auditor holds no anchor. We formalized this as
 observational indistinguishability under explicit information sets and trusted
 references, derived monotone and exactly closable blind regions with the
-label path as a protected boundary, reproduced them across three datasets and
-eight environments under null calibration, calibrated the decision rather than
-the sensors, and measured end to end how many materially changed results each
-regime would serve. The requirement is precise: every integrity claim must
+label path as a protected boundary, showed that a trusted aggregate of the
+same batch certifies conclusion integrity while item identity needs item
+alignment and nothing rewritable certifies authenticity, reproduced the
+boundaries across three datasets and eight environments under null
+calibration, calibrated the decision rather than the sensors, and measured end
+to end how many materially changed results each regime would serve. The requirement is precise: every integrity claim must
 state its boundary, view, trusted roots, decision-level budget, residual blind
 regions and response, and assurance is granted only when the evidence the
 claim requires is present.

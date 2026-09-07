@@ -7,9 +7,9 @@
   "artifact_files": 175,
   "tests_collected": 41,
   "main_pages": 11,
-  "supplement_pages": 10,
-  "main_pdf_sha256": "a03378ddcef027c09fbeac145b37bbf4098c4568db1bcd1e9aa3d91a9e3a4fa5",
-  "supplement_pdf_sha256": "921f1a5315f017af14818532e481b27aa6d4900881e80a2a4a87f9b2a98b8e30",
+  "supplement_pages": 11,
+  "main_pdf_sha256": "6ab752b017d261e533d76a2936e8aef6f8bfb7d350084e9656e32d31b2137236",
+  "supplement_pdf_sha256": "d5f3eba91f107cd0b1700538e4a737f81f8112bf5ed1a24afa611ff5b5e2d641",
   "primary_counts": {
     "gate1_label_rows": 1440,
     "gate1_positive_impact": 1276,
@@ -25,6 +25,7 @@
     "policy_regimes": 5,
     "policy_policies": 4
   },
-  "version_doi": "10.5281/zenodo.22550852",
-  "concept_doi": "10.5281/zenodo.22550852"
+  "version_doi": "",
+  "concept_doi": "10.5281/zenodo.22550852",
+  "version_doi_state": "not yet minted (CITATION.cff carries the concept DOI)"
 }

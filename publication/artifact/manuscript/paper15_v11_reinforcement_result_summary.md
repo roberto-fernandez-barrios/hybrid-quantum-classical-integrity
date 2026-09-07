@@ -106,7 +106,9 @@ spread over the grid. Exact label-path invariance holds in both environments.
 ## Interpretation and boundary
 
 - The exact blind regions are not threshold artifacts: they are zero under
-  calibration and are closed only by item-aligned evidence, exactly as the
+  calibration and are closed only by trusted same-batch reference evidence
+  (aggregate for material changes, item-aligned for identity; see the 1.2.0
+  formal core), exactly as the
   article's contract requires.
 - Non-invariant sensors were calibrated against the nominal 5% per-sensor
   target and show pooled empirical false-alarm rates of 2.9–6.9% on disjoint

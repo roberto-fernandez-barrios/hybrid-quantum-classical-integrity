@@ -15,3 +15,12 @@ tmp/
 /journal/Computer_Society_LaTeX_template/
 /journal/Computer_Society_LaTeX_template.zip
 /journal/guidelines.txt
+
+# Release assets and Zenodo draft state (uploaded to GitHub Releases / Zenodo, never committed)
+/publication/paper15-q1-v*.zip
+/publication/paper15-q1-v*.zip.sha256
+/publication/paper15-q1-v*-source.zip
+/publication/paper15-tdsc-source-v*.zip
+/publication/paper15-tdsc-source-v*.zip.sha256
+/publication/SHA256SUMS.txt
+/publication/zenodo_draft_state.json

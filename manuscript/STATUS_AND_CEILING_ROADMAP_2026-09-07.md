@@ -23,7 +23,14 @@ frontera entre ambos. Los recuentos autoritativos están en
    monotonía por refinamiento; cierre exacto por evidencia inyectiva sobre la
    órbita; materialidad ⇒ separabilidad en la vista conjunta; tres clases de
    auditor; unión vs familia; sin raíz no controlada no hay garantía local.
-   Las Proposiciones 1–2 anteriores son corolarios.
+   Las Proposiciones 1–2 anteriores son corolarios. Revisión matemática final
+   (misma fecha): Prop. 5 corregida (cotas de la unión: max p_j ≤ P(∪) ≤
+   min(1, Σp_j); independencia da 1−(1−α)^m; garantía de familia
+   ≤ α + 1/(n+1) bajo intercambiabilidad), Prop. 6 reformulada como
+   imposibilidad de autenticación local sin raíz no controlada (completitud
+   honesta + control conjunto), "injective" sustituido por
+   "baseline-separating", y Corolario 3 nuevo: referencia agregada confiable
+   basta para integridad de conclusión; item-alineada solo para identidad.
 2. **Hallazgo de auditoría (enmienda A1).** `impact_bal_acc` era la parte
    positiva del cambio; 433 filas de etiquetas de la expansión (59 en Gate 1)
    *suben* la BA. La frase "no negative impact occurs" de 1.1.1 se retira; se

@@ -510,6 +510,8 @@ def build_witnesses(intervened: pd.DataFrame) -> pd.DataFrame:
         ("W6", "representation change without output change", "feature rows with zero prediction disagreement", int((~label & ~pred).sum()), int((~label).sum())),
         ("W7", "apparent improvement under intervention", "intervened rows whose reported balanced accuracy increased", int((delta < -TOL).sum()), int(len(f))),
         ("W8", "material conclusion change always changes the confusion profile (label path)", "material label rows with non-zero confusion-profile delta", int((label & material & conf).sum()), int((label & material).sum())),
+        ("W9", "label rows detectable by a trusted aggregate (confusion-matrix) reference of the same batch", "label rows with non-zero confusion-profile delta", int((label & conf).sum()), int(label.sum())),
+        ("W10", "label rows detectable only by an item-aligned reference", "label rows with flips and zero confusion-profile delta", int((label & flipped & ~conf).sum()), int(label.sum())),
     ]
     return pd.DataFrame.from_records([{"witness": w, "property": p, "condition": c, "count": n, "denominator": d} for w, p, c, n, d in rows])
 

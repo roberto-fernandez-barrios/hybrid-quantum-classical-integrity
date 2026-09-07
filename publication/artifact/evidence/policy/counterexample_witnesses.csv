@@ -7,3 +7,5 @@ W5,model-output change without conclusion change,feature rows with non-zero pred
 W6,representation change without output change,feature rows with zero prediction disagreement,2513,7200
 W7,apparent improvement under intervention,intervened rows whose reported balanced accuracy increased,1534,10800
 W8,material conclusion change always changes the confusion profile (label path),material label rows with non-zero confusion-profile delta,2617,2617
+W9,label rows detectable by a trusted aggregate (confusion-matrix) reference of the same batch,label rows with non-zero confusion-profile delta,2792,3600
+W10,label rows detectable only by an item-aligned reference,label rows with flips and zero confusion-profile delta,808,3600

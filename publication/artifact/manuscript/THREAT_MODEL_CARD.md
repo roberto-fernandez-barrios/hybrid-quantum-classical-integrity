@@ -111,8 +111,11 @@ automatic proof of harmful semantics.
 - Auditability is a property of (intervention class, view, trusted references).
 - Structural blind regions are monotone under refinement and closed exactly by
   added evidence that separates the class.
-- Material label-path interventions are always separable in the joint view
-  but detectable at will only with an item-aligned trusted root.
+- Material label-path interventions always change the confusion matrix and
+  are separable in the joint view; a trusted aggregate reference of the same
+  batch detects them exactly, item identity needs an item-aligned reference,
+  and no verifier whose evidence the adversary can rewrite certifies
+  authenticity (Proposition 6).
 - Per-sensor calibration does not calibrate the decision; family calibration
   restores a decision-level budget at a small detection cost.
 - The unsafe-allow count is set by the information regime; only the trusted

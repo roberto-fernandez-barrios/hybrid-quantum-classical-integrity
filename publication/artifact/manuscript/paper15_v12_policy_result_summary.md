@@ -122,8 +122,13 @@ W8 2,617/2,617.
   restores a decision-level budget at a small detection cost, and its residual
   excess over nominal is a measured property of the null design, not hidden.
 - The unsafe-allow count is set by the information regime, not by the
-  threshold: three fifths of the materially changed results are served by any
-  batch-level regime, and only the item-aligned trusted reference serves none.
+  threshold: three fifths of the materially changed results are served by the
+  batch-level regimes with feature evidence (the label-marginal regime serves
+  all of them), and only the trusted-reference regime serves none. By
+  Corollary 3 the aggregate confusion reference alone suffices for that
+  (W9: 2,792 of 3,600 label rows detected, all 2,617 material ones); the
+  item-aligned reference is needed for the 808 aggregate-preserving
+  relabelings (W10).
 - These are fixed-design, simulator-only results on frozen observations.
   Context-conditioned runtime calibration, abstention with recovery, real-QPU
   execution and service-level evaluation remain outside this article.

@@ -50,13 +50,13 @@ actually supported by the frozen evidence.
 - Objective: change the reported conclusion while leaving class counts invariant.
 - Budget: $r$ of the batch. Alterable assets: $y$. Roots it cannot control: as L1, including $y^{\star}$ when declared.
 - Identifying information: none in $\mathcal I_X$, $\mathcal I_{XF}$, $\mathcal I_{Y_m}$ (Corollary 1, exact; calibrated rules fire 0/1,800); $\mathcal I_{XFY}$ batch-level 0.005–0.012; exact under $\mathcal I_{XFY}^{\star}$. Proposition 3: every material instance changes the confusion matrix; Corollary 2: no view factoring through $(\tilde X, f(\tilde X), \mathrm{hist}(y))$ can separate it.
-- Claim: the executed instance of the exact blind region of Propositions 1–2; 1,800 rows, 1,059 with a changed conclusion; closed only by item-aligned trusted evidence.
+- Claim: the executed instance of the exact blind region of Propositions 1–2; 1,800 rows, 1,059 with a changed conclusion; closed by a trusted reference of the same batch (aggregate confusion reference for every material instance, Corollary 3a; item-aligned reference for aggregate-preserving swaps, Corollary 3b).
 
 ### L3 — Confusion-preserving relabeling (*discussed*, not executed as a suite)
 
 - Actor/cause: adaptive attacker who knows the confusion profile is monitored and swaps labels only between items with identical predictions. Class: adaptive attacker.
 - Effect: invariant marginal, confusion matrix and conclusion; only item identity changes (counterexample C1). 808 of the executed random and prior-preserving flips realise this pattern by chance (witness W1).
-- Claim: an integrity violation with no conclusion impact; visible only under $\mathcal I_{XFY}^{\star}$; it is the reason integrity violation and conclusion impact are reported as separate endpoints.
+- Claim: an item-identity violation with no aggregate or conclusion impact; visible only to an item-aligned reference (Corollary 3b); it is the reason item-identity, aggregate and conclusion integrity are reported as separate notions.
 
 ### F1 — Feature sign flip (`feature_sign_flip_p`, p ∈ {0.02, 0.05, 0.10})
 

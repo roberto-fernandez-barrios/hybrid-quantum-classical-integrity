@@ -58,9 +58,14 @@ def _doi_fields(repo: Path) -> dict[str, str]:
     text = (repo / "CITATION.cff").read_text(encoding="utf-8")
     version_doi = re.search(r'^doi:\s*"([^"]+)"', text, re.M)
     concept = re.search(r'value:\s*"(10\.5281/zenodo\.\d+)"\s*\n\s*description:\s*"Concept DOI', text)
+    version = version_doi.group(1) if version_doi else ""
+    concept_value = concept.group(1) if concept else ""
+    # Before the release pipeline mints the version DOI, CITATION.cff carries the
+    # concept DOI; report that state explicitly instead of showing it twice.
     return {
-        "version_doi": version_doi.group(1) if version_doi else "",
-        "concept_doi": concept.group(1) if concept else "",
+        "version_doi": "" if version == concept_value else version,
+        "concept_doi": concept_value,
+        "version_doi_state": "minted" if version and version != concept_value else "not yet minted (CITATION.cff carries the concept DOI)",
     }
 
 
@@ -108,7 +113,7 @@ def render(status: dict[str, object]) -> str:
         f"| Supplement pages | {status['supplement_pages']} |",
         f"| Main PDF SHA-256 | `{status['main_pdf_sha256']}` |",
         f"| Supplement PDF SHA-256 | `{status['supplement_pdf_sha256']}` |",
-        f"| Version DOI (`CITATION.cff`) | {status['version_doi'] or 'not yet minted'} |",
+        f"| Version DOI (`CITATION.cff`) | {status['version_doi'] or status['version_doi_state']} |",
         f"| Concept DOI | {status['concept_doi']} |",
         "",
         "## Primary counts recomputed by the verifier",

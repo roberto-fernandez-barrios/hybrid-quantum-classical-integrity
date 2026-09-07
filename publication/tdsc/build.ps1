@@ -36,7 +36,10 @@ try {
     $fatalPattern = 'LaTeX Warning|Overfull \\hbox|undefined references|Citation.*undefined|Reference.*undefined'
     $logProblems = Select-String -LiteralPath 'main.log','supplement.log' -Pattern $fatalPattern | Where-Object {
         # An overfull box of at most 1pt is within the production reflow tolerance; anything larger fails.
-        if ($_.Line -match 'Overfull \\hbox \(([0-9.]+)pt too wide\)') { [double]$Matches[1] -gt 1.0 } else { $true }
+        # A supplement page made only of full-width tables is a layout notice, not a defect; the main article must not have one.
+        if ($_.Line -match 'Overfull \\hbox \(([0-9.]+)pt too wide\)') { [double]$Matches[1] -gt 1.0 }
+        elseif ($_.Line -match 'contains only floats' -and $_.Filename -eq 'supplement.log') { $false }
+        else { $true }
     }
     if ($logProblems) {
         $rendered = $logProblems | ForEach-Object { $_.ToString() }

@@ -15,8 +15,10 @@ evaluation-label path is a protected boundary: for a fixed predictor,
 label-only changes leave feature and prediction evidence invariant,
 prior-preserving changes also leave label marginals invariant, and every
 change of the reported balanced accuracy changes the confusion matrix, so a
-material label corruption is always separable in the joint item-label view
-yet detectable at will only against an item-aligned trusted reference.
+material label corruption is always separable in the joint item-label view;
+a trusted aggregate reference of the same batch detects it exactly, and an
+item-aligned reference is needed only for relabelings that preserve every
+aggregate (item-identity integrity).
 
 The novelty is the integrated package: the observation model with its
 monotonicity, closure and materiality results and counterexamples; an explicit
@@ -58,9 +60,10 @@ feature/prediction evidence and predictions invariant; all 1,800
 prior-preserving observations also leave label marginals invariant. Of the
 3,600, 2,184 lower the reported balanced accuracy, 983 leave it unchanged and
 433 raise it; all 2,617 with a changed conclusion have non-zero item-aligned
-joint-outcome evidence. Batch-level regimes calibrated at the decision level
-have false-alarm rates 0.061--0.079 (union of per-sensor rules: 0.125--0.259)
-and, when they include feature evidence, serve 4,322--4,494 of the 7,008
+joint-outcome evidence. For the multi-sensor regimes with feature evidence, decision-level
+calibration lowers the pooled false-alarm rate from 0.125--0.259 to
+0.061--0.079 (the label-marginal regime stays at 0.048); batch-level regimes
+with feature evidence serve 4,322--4,494 of the 7,008
 materially changed results (the label-marginal regime serves all of them); the
 trusted item-aligned regime serves none. A fail-closed verifier recomputes these
 counts from the released derived tables.

@@ -75,8 +75,14 @@ $G_{\mathcal I}(\tau)=\{a:|\Delta_R(a)|\ge\tau, a\in B_{\mathcal I}\}$ and
 $G_{\mathcal I,\mathcal S}(\tau)$ analogously. By Lemma~1,
 $B_{\mathcal I}\subseteq B_{\mathcal I,\mathcal S}$ and
 $G_{\mathcal I}\subseteq G_{\mathcal I,\mathcal S}$, with equality iff
-$\mathcal S$ separates the orbit
-$\{V_{\mathcal I}(a(s_0)):a\in\mathcal A\}\cup\{V_{\mathcal I}(s_0)\}$.
+$\mathcal S$ is baseline-separating on the orbit of $\mathcal A$: it takes a
+different value at $a(s_0)$ than at $s_0$ whenever the views differ. Pairwise
+separation of intervened states (injectivity on the orbit), which
+identification of the intervention would need, is never assumed. A reference
+$\rho=V_{\mathcal J}(s_0)$ is an \emph{aggregate} reference (level B) when
+$V_{\mathcal J}$ is a permutation-invariant summary of the batch such as the
+confusion matrix $M$, the label histogram or $R$, and \emph{item-aligned}
+(level C) when it is an item-indexed tuple.
 
 \textbf{Proposition 1 (monotonicity).} If $\mathcal I\sqsubseteq\mathcal I'$
 then $B_{\mathcal I'}(\mathcal A)\subseteq B_{\mathcal I}(\mathcal A)$ and
@@ -129,10 +135,10 @@ permutation can only move labels among items with identical
 $(\tilde x,\hat y)$. An item-indexed tuple has no such freedom.
 \end{IEEEproof}
 
-\textbf{Proposition 3 (materiality forces separability).} If $R=g(M)$ with
-$M$ the confusion matrix, $a\in T_y$ and $\Delta_R(a)\ne0$, then
-$M(s_a)\ne M(s_0)$; hence $G_{\IXFY}(\tau)\cap T_y=\emptyset$ for
-$\tau>0$.
+\textbf{Proposition 3 (materiality forces aggregate separability).} If
+$R=g(M)$ with $M$ the confusion matrix, $a\in T_y$ and $\Delta_R(a)\ne0$, then
+$M(s_a)\ne M(s_0)$; hence $a$ is separable in the confusion view and in
+$\IXFY$, and $G_{\IXFY}(\tau)\cap T_y=\emptyset$ for $\tau>0$.
 
 \begin{IEEEproof}
 $M(s_a)=M(s_0)$ implies $R(s_a)=g(M(s_a))=g(M(s_0))=R(s_0)$. The confusion
@@ -154,43 +160,99 @@ $d(V_{\mathcal J}(s_a),\rho)>0$ iff $V_{\mathcal J}(s_a)\ne\rho$, which is
 $a\notin B_{\mathcal J}$ because $\rho$ is unaltered.
 \end{IEEEproof}
 
-\textbf{Proposition 5 (union versus family calibration).} Let
-$S_1,\dots,S_m$ satisfy $\Pr_0[S_j>t_j]\le\alpha$. The union rule fires under
-the null with probability in $[\alpha,\min(1,m\alpha)]$. Let
-$U=\max_j F_j(S_j)$ and $q$ the $\lceil(n+1)(1-\alpha)\rceil$-th smallest of
-$U$ over $n$ calibration draws. If the calibration draws and the audited
-batch are exchangeable, $\Pr_0[U>q]\le\alpha$.
+\textbf{Corollary 3 (which reference certifies which integrity).} Let
+$a\in T_y$ with $f$ fixed and deterministic. (a) With a trusted aggregate
+reference $M_0=M(s_0)$ of the same batch, ``fire iff $M(s_a)\ne M_0$'' detects
+every violation of aggregate integrity and, by Proposition~3, every material
+$a$; a trusted $R_0$ detects every material $a$ and nothing else. (b) Any
+reference that factors through $M$, $\mathrm{hist}(y)$ or $R$ is invariant
+under relabelings that permute labels among items with equal predictions
+(counterexample C1), which violate item-identity integrity; an item-aligned
+reference $y_0$ detects every non-identity relabeling.
 
 \begin{IEEEproof}
-Lower bound: the union contains each single event. Upper bound: Boole's
-inequality. For the family rule, the $n+1$ scores are exchangeable, so the
-rank of the new score among them is uniform on $\{1,\dots,n+1\}$; it exceeds
-the $\lceil(n+1)(1-\alpha)\rceil$-th smallest of the other $n$ with
-probability at most $1-\lceil(n+1)(1-\alpha)\rceil/(n+1)\le\alpha$. Ties are
-counted against firing, which can only lower the probability. The rank-score
-transform $F_j$ is monotone, so the per-sensor rules are recovered when
-$m=1$. One finite-sample remark: the plug-in rank score of a calibration draw
-is computed against the other $n-1$ calibration draws, whereas the audited
-batch is compared against all $n$; the two scores differ by at most $1/n$,
-which adds at most $1/(n+1)$ to the bound ($0.005$ for $n=200$) and is far
-below the excess actually observed.
+(a) Proposition~4(ii) with $\mathcal J$ the confusion view, then
+Proposition~3. (b) Swapping $y_i,y_j$ with $\hat y_i=\hat y_j$ moves one item
+from cell $(\hat y_i,y_i)$ to $(\hat y_i,y_j)$ and another from
+$(\hat y_j,y_j)$ to $(\hat y_j,y_i)$; the moves cancel in $M$, hence in every
+function of $M$, and the histogram is unchanged, whereas the item-indexed
+tuple differs in positions $i$ and $j$.
 \end{IEEEproof}
 
-\textbf{Proposition 6 (no local guarantee without an uncontrolled root).} If
-the class rewrites the reference consistently with the asset,
-$a:(s,\rho)\mapsto(a(s),V_{\mathcal J}(a(s)))$, then the augmented auditor is
-a function of the state through $V_{\mathcal I\vee\mathcal J}$ and Lemma~1
-applies; for $\mathcal J$ factoring through $(\tilde X,f(\tilde X),y)$ every
-$a\in T_y^{\pi}$ lies in the joint blind region.
+\textbf{Proposition 5 (union of calibrated sensors versus family
+calibration).} (a) Let $E_1,\dots,E_m$ be the null firing events of $m$
+sensors with $p_j=\Pr_0[E_j]\le\alpha$. Then
+\begin{equation}
+\max_j p_j\;\le\;\Pr_0\Big[\bigcup_j E_j\Big]\;\le\;\min\Big(1,\sum_j p_j\Big)\;\le\;\min(1,m\alpha).
+\end{equation}
+Without assuming that some $p_j=\alpha$ the universal lower bound is
+$\max_j p_j$, which can be $0$. If every $p_j=\alpha$, then
+$\alpha\le\Pr_0[\bigcup_j E_j]\le\min(1,m\alpha)$: the lower bound is attained
+by nested (coincident) events, the upper bound $m\alpha$ (when $m\alpha\le1$) by
+mutually disjoint events, and under independence
+$\Pr_0[\bigcup_j E_j]=1-\prod_j(1-p_j)=1-(1-\alpha)^m$, strictly between the
+two bounds for $m\ge2$ and $0<\alpha<1$.
+(b) Let $v_1,\dots,v_n$ be the sensor vectors of the calibration draws and
+$v_{n+1}$ that of the audited batch. For a family $F$ define the score of any
+vector $v$ as $U(v)=\max_{j\in F}\#\{i\le n:v_{j,i}<v_j\}/n$ and let $q$ be
+the $k$-th smallest of $U(v_1),\dots,U(v_n)$ with $k=\lceil(n+1)(1-\alpha)\rceil$.
+If the $n+1$ draws are exchangeable, then
+\begin{equation}
+\Pr_0[U(v_{n+1})>q]\;\le\;\frac{n+2-k}{n+1}\;\le\;\alpha+\frac{1}{n+1}.
+\end{equation}
+For $n=200$ and $\alpha=0.05$, $k=191$ and the bound is $11/201=0.0547$. For
+a single sensor the rule coincides with ``fire iff $v_{n+1}$ exceeds the
+$k$-th smallest calibration value'', whose exact exchangeable level is
+$(n+1-k)/(n+1)=10/201=0.0498$.
+(c) Gate~F uses (b) with $n=200$ per (environment, dimension, model) cell and
+evaluates it on 200 disjoint evaluation draws; the 20 draws of a run overlap
+and the two halves are different rows of one staged table, so the premise
+does not hold exactly, and the observed rates (Table~\ref{tab:s-family-fpr})
+measure that deviation rather than confirm the bound.
 
 \begin{IEEEproof}
-Substituting $\rho_a=V_{\mathcal J}(s_a)$, the augmented view of the attacked
-pair is $(V_{\mathcal I}(s_a),V_{\mathcal J}(s_a))$, and that of the baseline
-pair is $(V_{\mathcal I}(s_0),V_{\mathcal J}(s_0))$. If $\mathcal J$ factors
-through the label vector, the rewritten reference of a relabeling equals the
-relabeled view; the two pairs coincide exactly when the class is blind in
-$\mathcal I\vee\mathcal J$, which for $T_y^{\pi}$ and
-$\mathcal I\in\{\IX,\IXF,\IYm\}$ holds by Corollary~1.
+(a) The union contains each $E_j$ (lower bound); Boole's inequality gives the
+upper bound; nested, disjoint and independent events attain or realise the
+stated values, the last by inclusion--exclusion. (b) Let $\tilde U_i$ be the
+score of draw $i$ computed against the \emph{other} $n$ draws of the
+augmented set $\{1,\dots,n+1\}$. Under exchangeability the $\tilde U_i$ are
+exchangeable, so the rank of $\tilde U_{n+1}$ among the $n+1$ scores is
+uniform up to ties and $\Pr[\tilde U_{n+1}\ge\tilde U_{(k)}]\le(n+2-k)/(n+1)$,
+where $\tilde U_{(k)}$ is the $k$-th smallest of $\tilde U_1,\dots,\tilde U_n$;
+ties count against firing and only lower the probability. Now
+$U(v_{n+1})=\tilde U_{n+1}$ and, for $i\le n$,
+$U(v_i)\le\tilde U_i\le U(v_i)+1/n$, because the augmented comparison set adds
+one element; hence $q\ge\tilde U_{(k)}-1/n$ and, on the grid
+$\{0,1/n,\dots,1\}$, $\{U(v_{n+1})>q\}\subseteq\{\tilde U_{n+1}\ge\tilde U_{(k)}\}$.
+For a single sensor $U(v_i)=\tilde U_i$ exactly and the level is
+$(n+1-k)/(n+1)$.
+\end{IEEEproof}
+
+\textbf{Proposition 6 (no local authentication without an uncontrolled
+root).} Let a \emph{local verifier} be any map
+$\mathrm{acc}:\mathcal O_{\mathcal I}\times\mathrm{Ref}\to\{\text{accept},\text{reject}\}$
+of the observed view and a reference bundle, let $\mathcal S_H$ be the honest
+family of states and $\rho_H(s)=V_{\mathcal J}(s)$ the reference the honest
+process attaches to $s$. Assume (honest completeness)
+$\mathrm{acc}(V_{\mathcal I}(s),\rho_H(s))=\text{accept}$ for every
+$s\in\mathcal S_H$, and (joint control) the adversarial class can produce
+$(V_{\mathcal I}(s'),\rho_H(s'))$ for some $s'\in\mathcal S_H$ with
+$s'\not\sim_{\mathcal I}s_0$. Then the verifier accepts the substituted pair,
+which is observationally an honest run of $s'$, so no function of that input
+establishes authenticity of the served state relative to $s_0$; if
+$R(s')\ne R(s_0)$ a material change is served. Conversely, if a component
+$\rho^{\star}=V_{\mathcal K}(s_0)$ of the bundle cannot be written by the
+class, ``reject iff $V_{\mathcal K}(s)\ne\rho^{\star}$'' rejects every
+substitution with $V_{\mathcal K}(s')\ne V_{\mathcal K}(s_0)$.
+
+\begin{IEEEproof}
+The substituted input equals the honest input of $s'$; by honest completeness
+it is accepted, and acceptance is the same event as for an honest run of
+$s'$, so no function of the input distinguishes the two. The converse is
+Proposition~4(ii) applied to $\mathcal K$. The statement concerns
+authenticity, not consistency: by Proposition~3 a material substitution
+changes the joint view, but the change is invisible to a verifier all of
+whose evidence the class can rewrite.
 \end{IEEEproof}
 
 \subsection{Counterexamples}
@@ -200,7 +262,9 @@ the swap of two labels between items with equal predictions; C3 between items
 with different predictions; C4 uses two compensating flips that move the
 same number of items across the diagonal of $M$ in each class; C5 and C6
 are feature-side; C7 counts every intervened row whose balanced accuracy
-increased; C8 is Proposition~3.
+increased; C8 is Proposition~3; W9 and W10 count the label rows that a
+trusted aggregate reference of the same batch detects (every material one)
+and those that only an item-aligned reference exposes (Corollary~3).
 
 \input{tables/s_witnesses.tex}
 
@@ -636,8 +700,9 @@ monotone under refinement and closed exactly by added evidence that separates
 the class; feature/prediction sensors are exactly blind to label-only changes
 and label marginals to prior-preserving relabeling; every material label-path
 change alters the confusion matrix and is separable in the joint view, but
-batch-level auditors detect at most 1.6\% of them whereas an item-aligned
-trusted reference detects all; the blind regions persist under per-sensor and
+batch-level auditors detect at most 1.6\% of them whereas a trusted aggregate
+reference of the same batch detects all of them and an item-aligned reference
+additionally exposes the 808 aggregate-preserving relabelings; the blind regions persist under per-sensor and
 family-wise calibration; per-sensor calibration at $\alpha=0.05$ yields
 decision false-alarm rates of 0.125--0.259 that family calibration reduces to
 0.061--0.079 within the frozen design; batch-level regimes with feature evidence serve
