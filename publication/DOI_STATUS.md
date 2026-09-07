@@ -1,6 +1,6 @@
 # Zenodo/DOI status
 
-Status: **version 1.2.0 DOI reserved (10.5281/zenodo.22644529); publication in progress**; concept DOI
+Status on 7 September 2026: **version 1.2.0 published**, DOI `10.5281/zenodo.22644529` (<https://zenodo.org/records/22644529>, state `published`); concept DOI
 `10.5281/zenodo.22550852` (resolves to the latest archived version). The
 version DOI of 1.2.0 was reserved and inserted by the release pipeline
 (`scripts/release_pipeline.py`, steps `reserve-doi` → `insert-doi` →
@@ -10,7 +10,7 @@ earlier token was reused. The table below records every version.
 
 | Version | Version DOI | Tag / release commit | Deposited files |
 |---|---|---|---|
-| 1.2.0 | `10.5281/zenodo.22644529` | `paper15-q1-v1.2.0` | `paper15-q1-v1.2.0.zip` (compact review artifact), `paper15-q1-v1.2.0-source.zip`, `SHA256SUMS.txt` |
+| 1.2.0 | `10.5281/zenodo.22644529` (<https://zenodo.org/records/22644529>, published 2026-09-07) | `paper15-q1-v1.2.0` / `7cbeb37` (also `main`) | `paper15-q1-v1.2.0.zip` (compact review artifact, 6,931,094 bytes, SHA-256 `b2c8a9d0d30061ca1e043142a3ddca155395ffee2a003ecae3dd4b26cb63d78b`); `paper15-q1-v1.2.0-source.zip` (tagged source snapshot, 10,894,679 bytes, SHA-256 `f8076702467985ab11bbf54e5b6810b50d129cb002dba5058b944b50fb601c70`); `SHA256SUMS.txt` (183 bytes). GitHub release carries the artifact ZIP and its `.sha256` |
 | 1.1.1 | `10.5281/zenodo.22552643` (<https://zenodo.org/records/22552643>, published 2026-09-06) | `paper15-q1-v1.1.1` / `d765a67` | `paper15-q1-v1.1.1.zip` 6,383,247 bytes, SHA-256 `8dcd71af6809078e3f38c4d4250898c93e19b818f523c69aadd1000dd0d776e0`; `paper15-q1-v1.1.1-source.zip` 20,723,313 bytes, SHA-256 `18c52141fb02a9d1d609689c65abd4c590f5f58332e1350681524a63608f818a` |
 | 1.1.0 | `10.5281/zenodo.22550853` (<https://zenodo.org/records/22550853>) | `paper15-q1-v1.1.0` / `10a2a52` | `paper15-q1-v1.1.0.zip` 6,383,060 bytes, SHA-256 `1424ba3d0e5cf79ea1c47a370423d454c1d52e9cbf5c6682d98059345ea9aed7`; `paper15-q1-v1.1.0-source.zip` 20,721,105 bytes, SHA-256 `c83c4f5704f8bdc49ce47763f94d2a9aecd6425671b73fb67ee52cf207528338` |
 | 1.0.0 | never archived | `paper15-q1-v1.0.0` | frozen evidence tag only |
@@ -36,7 +36,7 @@ GitHub release and Zenodo record point at the same object):
    artifact ZIP and its SHA-256;
 6. artifact and source ZIPs uploaded to the reserved deposition and published;
 7. post-release documentary commit recording the file hashes and the record
-   state.
+   state (this revision).
 
 Record metadata: authors Fernández-Barrios, Pastor-López, Pikatza-Huerga,
 García Bringas (University of Deusto) with ORCIDs; license field Apache-2.0
