@@ -12,15 +12,20 @@
 # Monitor:  Get-Content results\logs\paper15_q1_queue2_console.log -Tail 20 -Wait
 
 $ErrorActionPreference = "Continue"
-$repo   = "C:\Users\masteria.DOMINE\rf\paper_HAIS"
-$python = Join-Path $repo ".venv\Scripts\python.exe"
-$log    = Join-Path $repo "results\logs\paper15_q1_queue2_console.log"
+# The script lives at the repository root; no machine-specific path is required.
+$repo   = (Resolve-Path -LiteralPath $PSScriptRoot).Path
+$python = Join-Path $repo ".venv/Scripts/python.exe"
+if (-not (Test-Path -LiteralPath $python)) { $python = Join-Path $repo ".venv/bin/python" }
+if (-not (Test-Path -LiteralPath $python)) { throw "No virtual environment found under $repo/.venv (expected Scripts/python.exe or bin/python)" }
+$log    = Join-Path $repo "results/logs/paper15_q1_queue2_console.log"
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent $log) | Out-Null
 
 Set-Location $repo
 "[QUEUE2] start $(Get-Date -Format s)  pid=$PID" | Tee-Object -FilePath $log -Append
 
 # ---- Wait for queue 1 (pwsh runner and/or its run_grid python) to finish ----
 function Test-Queue1Alive {
+    if (-not $IsWindows) { return $false }  # Win32_Process is Windows-only; on other platforms run queue 1 first
     $procs = Get-CimInstance Win32_Process -Filter "Name='pwsh.exe' or Name='python.exe'" |
         Where-Object {
             ($_.CommandLine -like "*run_paper15_q1_queue.ps1*") -or

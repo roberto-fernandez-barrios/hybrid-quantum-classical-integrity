@@ -49,4 +49,5 @@ demonstrated by this release.
 - [x] National and EU co-funding acknowledgements follow the AEI guide v09.
 - [x] Author list and CRediT roles confirmed by all contributors (2026-09-06).
 - [x] Release tag `paper15-q1-v1.1.1`, DOI 10.5281/zenodo.22552643 (concept 10.5281/zenodo.22550852).
+- [ ] Release tag `paper15-q1-v1.2.0` (scientific closure): version DOI minted by `scripts/release_pipeline.py` under the same concept DOI; recorded in `publication/DOI_STATUS.md`.
 - [ ] Copy the final wording unchanged into manuscript and supplement.

@@ -1,0 +1,7 @@
+scenario,contract_action,policy_regime,exact_invariant_violated,approved_circuit_rewrite,approved_stochastic_estimation,policy_action,policy_reasons,composed_action,agreement
+clean,allow,I_XFY_trusted,False,False,False,allow,all_protected_boundaries_covered,allow,True
+approved_transpilation,allow,I_XFY_trusted,False,True,False,allow,all_protected_boundaries_covered,allow,True
+circuit_parameter_mutation,block,I_XFY_trusted,True,False,False,block,exact_invariant_violated,block,True
+kernel_psd_preserving_substitution,block,I_XFY_trusted,True,False,False,block,exact_invariant_violated,block,True
+label_prior_preserving_corruption,block,I_XFY_trusted,True,False,False,block,exact_invariant_violated,block,True
+approved_shot_emulator_256,hold,I_XFY_trusted,False,False,True,allow,all_protected_boundaries_covered,hold,True

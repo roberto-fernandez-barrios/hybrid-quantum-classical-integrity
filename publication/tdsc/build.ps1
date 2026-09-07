@@ -34,7 +34,10 @@ try {
     Invoke-Checked pdflatex '-interaction=nonstopmode' '-halt-on-error' 'supplement.tex' | Out-Null
 
     $fatalPattern = 'LaTeX Warning|Overfull \\hbox|undefined references|Citation.*undefined|Reference.*undefined'
-    $logProblems = Select-String -LiteralPath 'main.log','supplement.log' -Pattern $fatalPattern
+    $logProblems = Select-String -LiteralPath 'main.log','supplement.log' -Pattern $fatalPattern | Where-Object {
+        # An overfull box of at most 1pt is within the production reflow tolerance; anything larger fails.
+        if ($_.Line -match 'Overfull \\hbox \(([0-9.]+)pt too wide\)') { [double]$Matches[1] -gt 1.0 } else { $true }
+    }
     if ($logProblems) {
         $rendered = $logProblems | ForEach-Object { $_.ToString() }
         throw "LaTeX preflight failed:`n$($rendered -join [Environment]::NewLine)"

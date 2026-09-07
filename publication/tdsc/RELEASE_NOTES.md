@@ -1,57 +1,59 @@
-# TDSC submission build `1.1.1-tdsc`
+# TDSC submission build `1.2.0-tdsc`
 
-Date: 2026-09-06 (editorial release). Changes only the funding acknowledgement
-wording to the AEI-prescribed formula (grant PID2024-155693NB-C43, ATHENA-AEGIS,
-funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU) and the artifact
-version/DOI references (Zenodo 10.5281/zenodo.22552643; concept 10.5281/zenodo.22550852). No scientific
-content, results, figures, data or claims changed; the derived evidence and its
-manifests are byte-identical to 1.1.0.
+Date: 2026-09-07. Scientific closure release. No kernel, model or draw was
+re-executed with respect to 1.1.1; the two new gates are computed from the
+frozen 1.1.1 outputs under a preregistered protocol
+(`manuscript/paper15_v12_policy_prereg.md`, frozen at commit `2c2e54a` before
+analysis, amendment A1 recorded on the first builder run).
 
-# TDSC submission build `1.1.0-tdsc-rc2` (superseded by 1.1.1)
+## Changed in the manuscript
 
-Date: 2026-09-06
-
-`rc2` supersedes `rc1` (2026-08-10). The frozen 1.0.0 evidence, its counts and
-the central claim are unchanged. `rc2` adds preregistered sensitivity evidence
-and closes the author-side gates that could be closed without external
-accounts.
-
-## Added
-
-- Three preregistered reinforcement gates (`manuscript/paper15_v11_reinforcement_prereg.md`,
-  frozen before execution): null calibration of the non-invariant sensors with
-  disjoint clean calibration/evaluation pools (alpha = 0.05 per sensor, 200 +
-  200 draws per cell, eight environments); symmetric preprocessing ablation of
-  the secondary ZZ-minus-SVC profile; cross-validated tuning of both learners
-  on training rows only (CICIDS ID and UNSW temporal OOD, the latter selected
-  by a rule recorded before execution).
-- Fifth evidence manifest, 22 additional derived tables, one additional figure
-  (`fig_q1_calibrated_coverage.pdf`), and verifier checks that the calibrated
-  feature and feature-plus-prediction regimes never fire on evaluation-label
-  interventions.
-- Related work: QML-PipeGuard (arXiv:2605.25066) and evaluation blindness
-  (arXiv:2608.02786); positioning table rows.
-- Section II-C "Relation to Companion Work" disclosing the three companion
-  manuscripts with an explicit non-overlap statement.
-- Confirmed author block, affiliation and funding footnote (single-anonymous
-  TDSC default); updated generative-AI disclosure (OpenAI Codex and Anthropic
-  Claude Code).
+- Title and framing: observational indistinguishability and integrity blind
+  regions across evidence boundaries, with the evaluation-label path as a
+  protected boundary, explicit trusted references, multi-environment
+  validation and executable calibrated fail-closed policy composition.
+- Section III rebuilt as an observation model (states, interventions, views,
+  refinement, trusted item-aligned references, structural versus sensor blind
+  regions, Lemma 1, Propositions 1–6, Corollaries 1–2, eight counterexamples
+  with witness counts). The earlier Propositions 1–2 are Corollary 1.
+- Section IV: adversary and failure model (Table 3) with four classes and the
+  roots each class cannot write.
+- Related work extended to stealthy-attack detectability in cyber-physical
+  systems, runtime assurance, integrity monitoring, evaluation integrity and
+  quantum provenance; positioning table rewritten as a positive delimitation.
+- Results: signed conclusion change reported (2,184 lowered / 983 unchanged /
+  433 raised label rows; all 2,617 changed conclusions carry item-aligned
+  confusion evidence); decision-level calibration (Gate F); end-to-end
+  decisions (Gate D, Table 5, Fig. 2); ZZ-versus-SVC demoted to a short
+  secondary subsection.
+- Statistics: inference unit for false-alarm rates is the (environment,
+  split) cluster; pooled rates and the 1.1.0 binomial intervals are
+  descriptive; the residual excess of the family rule over nominal is
+  reported as executed.
+- All numbers of the new gates enter through generated macros
+  (`tables/policy_macros.tex`).
 
 ## Deliberately unchanged
 
 - No QPU, calibrated-noise, scheduling, provider, multi-tenancy or Fleet
   Management experiment was added.
-- Abstract counts, Propositions 1--2, the 3,600/1,800/2,184 label-path counts,
+- Abstract counts of the exact blind regions (3,600 / 1,800; 1,440 / 720),
   the 165-cell quantum gate and the six-scenario contract are untouched.
-- No DOI, license, competing-interest statement or CRediT confirmation was
-  guessed.
+- Tags `paper15-q1-v1.1.0` and `paper15-q1-v1.1.1` and their Zenodo versions
+  are immutable.
 
 ## Release
 
-All-author approval of the manuscript, CRediT roles, competing interests,
-funding statement and AI disclosure was received on 2026-09-06. Licenses were
-added (Apache-2.0 code, CC BY 4.0 evidence/documentation, manuscript excluded),
-the version DOI `10.5281/zenodo.22550853` was reserved and inserted, the PDFs were rebuilt
-(11 + 6 pages, clean preflight), checksums regenerated and the artifact
-reassembled and verified. `rc2` is the submission release, tagged
-`paper15-q1-v1.1.0`.
+Page counts, PDF hashes, test and file counts are in
+`publication/RELEASE_STATUS.md`. The version DOI is inserted by the release
+pipeline before the annotated tag `paper15-q1-v1.2.0`
+(`publication/DOI_STATUS.md`).
+
+# Earlier builds
+
+`1.1.1-tdsc` (2026-09-06): funding acknowledgement wording only.
+`1.1.0-tdsc-rc2` (2026-09-06): three preregistered reinforcement gates, fifth
+evidence manifest, QML-PipeGuard and evaluation-blindness positioning,
+companion-work disclosure, confirmed author block, generative-AI disclosure;
+submission release tagged `paper15-q1-v1.1.0`. `1.1.0-tdsc-rc1` (2026-08-10):
+first TDSC conversion of the frozen 1.0.0 evidence.

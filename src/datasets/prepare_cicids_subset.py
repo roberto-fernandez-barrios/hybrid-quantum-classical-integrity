@@ -45,6 +45,21 @@ def _clean_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _report_path(path: Path | str) -> str:
+    """Repository-relative POSIX path for reports; relative inputs are kept as given (POSIX)."""
+
+    p = Path(path)
+    if p.is_absolute():
+        try:
+            return p.resolve().relative_to(_REPO_ROOT).as_posix()
+        except ValueError:
+            return p.as_posix()
+    return p.as_posix()
+
+
 def _sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -451,7 +466,7 @@ def _write_one_output(out_csv: Path, out_report: Path, out_df: pd.DataFrame, rep
     _ensure_parent(out_csv)
     out_df.to_csv(out_csv, index=False)
     report["output"] = {
-        "path": str(out_csv),
+        "path": _report_path(out_csv),
         "shape": list(out_df.shape),
         "n_features": _n_features_in_output(out_df),
         "sha256": _sha256_file(out_csv),
@@ -538,7 +553,7 @@ def _run_id_mode(
             "dataset_id_payload": payload,
             "mode": "id",
             "source": {
-                "indir": str(indir),
+                "indir": _report_path(indir),
                 "files_used": [f.name for f in files],
                 "file_sha256": file_hashes,
             },
@@ -691,7 +706,7 @@ def _run_ood_mode(
             "dataset_id_payload": payload,
             "mode": "ood_by_files",
             "source": {
-                "indir": str(indir),
+                "indir": _report_path(indir),
                 "train_files_used": [f.name for f in train_files],
                 "test_files_used": [f.name for f in test_files],
                 "train_file_sha256": hashes_tr,
@@ -709,7 +724,7 @@ def _run_ood_mode(
             "cleaning": {"train": rep_tr, "test": rep_te},
             "schema": rep_schema,
             "subset": {"prep_seed": int(cfg.seed), "train": info_tr, "test": info_te},
-            "outputs": {"train_csv": str(out_train), "test_csv": str(out_test)},
+            "outputs": {"train_csv": _report_path(out_train), "test_csv": _report_path(out_test)},
             "hashes": {"train_sha256": _sha256_file(out_train), "test_sha256": _sha256_file(out_test)},
             "nan_stats_outputs": {
                 "train": _nan_stats(out_tr.drop(columns=["label"], errors="ignore")),

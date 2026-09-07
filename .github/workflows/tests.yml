@@ -31,6 +31,12 @@ jobs:
           src/experiments/build_q1_reinforcement_evidence.py
           src/experiments/make_q1_reinforcement_figures.py
           src/experiments/assemble_publication_artifact.py
+          src/experiments/build_q1_policy_evidence.py
+          src/experiments/make_q1_policy_figures.py
+          src/experiments/make_q1_policy_tables.py
+          src/experiments/make_release_status.py
+          src/integrity/family_calibration.py
+          src/hsaas/policy.py
           src/hsaas/contracts.py
           src/hsaas/demo.py
       - name: Run tests

@@ -11,9 +11,13 @@
 #           (or kill the pwsh process whose PID is written at the top of the log)
 
 $ErrorActionPreference = "Continue"
-$repo   = "C:\Users\masteria.DOMINE\rf\paper_HAIS"
-$python = Join-Path $repo ".venv\Scripts\python.exe"
-$log    = Join-Path $repo "results\logs\paper15_q1_queue_console.log"
+# The script lives at the repository root; no machine-specific path is required.
+$repo   = (Resolve-Path -LiteralPath $PSScriptRoot).Path
+$python = Join-Path $repo ".venv/Scripts/python.exe"
+if (-not (Test-Path -LiteralPath $python)) { $python = Join-Path $repo ".venv/bin/python" }
+if (-not (Test-Path -LiteralPath $python)) { throw "No virtual environment found under $repo/.venv (expected Scripts/python.exe or bin/python)" }
+$log    = Join-Path $repo "results/logs/paper15_q1_queue_console.log"
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent $log) | Out-Null
 
 Set-Location $repo
 "[QUEUE] start $(Get-Date -Format s)  pid=$PID" | Tee-Object -FilePath $log -Append

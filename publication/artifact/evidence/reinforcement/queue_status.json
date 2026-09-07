@@ -8718,7 +8718,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 32.41,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split42__model42__d8",
@@ -8726,7 +8726,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 32.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split42__model43__d10",
@@ -8734,7 +8734,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 55.04,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split42__model42__d10",
@@ -8742,7 +8742,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 55.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split43__model42__d8",
@@ -8750,7 +8750,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 34.35,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split43__model42__d10",
@@ -8758,7 +8758,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.58,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split43__model43__d8",
@@ -8766,7 +8766,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 39.1,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split42__model42__d12",
@@ -8774,7 +8774,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 115.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split42__model43__d12",
@@ -8782,7 +8782,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 118.04,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split43__model43__d10",
@@ -8790,7 +8790,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 70.3,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split44__model42__d8",
@@ -8798,7 +8798,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 42.35,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split44__model43__d8",
@@ -8806,7 +8806,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 41.71,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split44__model42__d10",
@@ -8814,7 +8814,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 69.79,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split43__model42__d12",
@@ -8822,7 +8822,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 130.65,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split44__model43__d10",
@@ -8830,7 +8830,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 70.34,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split45__model42__d8",
@@ -8838,7 +8838,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 42.85,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split43__model43__d12",
@@ -8846,7 +8846,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 135.66,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split44__model42__d12",
@@ -8854,7 +8854,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 132.18,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split45__model42__d10",
@@ -8862,7 +8862,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 70.71,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split45__model43__d8",
@@ -8870,7 +8870,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 42.42,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split46__model42__d8",
@@ -8878,7 +8878,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 42.71,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split45__model43__d10",
@@ -8886,7 +8886,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 71.07,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split44__model43__d12",
@@ -8894,7 +8894,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 134.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split45__model42__d12",
@@ -8902,7 +8902,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 134.51,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split46__model42__d10",
@@ -8910,7 +8910,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 71.51,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split46__model43__d8",
@@ -8918,7 +8918,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 43.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split42__model42__d8",
@@ -8926,7 +8926,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split42__model42__d10",
@@ -8934,7 +8934,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.77,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split46__model43__d10",
@@ -8942,7 +8942,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 71.02,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate2_id_256__split45__model43__d12",
@@ -8950,7 +8950,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 134.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split42__model43__d8",
@@ -8958,7 +8958,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.04,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split42__model43__d10",
@@ -8966,7 +8966,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.17,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split43__model42__d8",
@@ -8974,7 +8974,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.0,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split42__model42__d12",
@@ -8982,7 +8982,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.76,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate2_id_256__split46__model42__d12",
@@ -8990,7 +8990,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 138.34,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split42__model43__d12",
@@ -8998,7 +8998,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.68,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split43__model43__d8",
@@ -9006,7 +9006,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.64,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split43__model42__d10",
@@ -9014,7 +9014,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.58,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split43__model43__d10",
@@ -9022,7 +9022,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.07,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split44__model42__d8",
@@ -9030,7 +9030,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.46,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate2_id_256__split46__model43__d12",
@@ -9038,7 +9038,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 136.07,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate2_id_256__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split43__model42__d12",
@@ -9046,7 +9046,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.71,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split44__model42__d10",
@@ -9054,7 +9054,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.6,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split44__model43__d8",
@@ -9062,7 +9062,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.92,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split44__model43__d10",
@@ -9070,7 +9070,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.83,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split45__model42__d8",
@@ -9078,7 +9078,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.97,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split43__model43__d12",
@@ -9086,7 +9086,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.07,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split45__model42__d10",
@@ -9094,7 +9094,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.43,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split45__model43__d8",
@@ -9102,7 +9102,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.13,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split44__model42__d12",
@@ -9110,7 +9110,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.19,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split45__model43__d10",
@@ -9118,7 +9118,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.84,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split44__model43__d12",
@@ -9126,7 +9126,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split46__model42__d8",
@@ -9134,7 +9134,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split46__model42__d10",
@@ -9142,7 +9142,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.14,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split46__model43__d8",
@@ -9150,7 +9150,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.01,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split45__model42__d12",
@@ -9158,7 +9158,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.81,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split46__model43__d10",
@@ -9166,7 +9166,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.44,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split45__model43__d12",
@@ -9174,7 +9174,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split42__model42__d8",
@@ -9182,7 +9182,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split42__model42__d10",
@@ -9190,7 +9190,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split46__model42__d12",
@@ -9198,7 +9198,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.12,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split42__model43__d8",
@@ -9206,7 +9206,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.13,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split42__model43__d10",
@@ -9214,7 +9214,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split43__model42__d8",
@@ -9222,7 +9222,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.19,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate3a_ood_tue_wed__split46__model43__d12",
@@ -9230,7 +9230,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3a_ood_tue_wed__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split43__model42__d10",
@@ -9238,7 +9238,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.68,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split42__model42__d12",
@@ -9246,7 +9246,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.54,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split43__model43__d8",
@@ -9254,7 +9254,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.55,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split43__model43__d10",
@@ -9262,7 +9262,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.84,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split42__model43__d12",
@@ -9270,7 +9270,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 69.42,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split44__model42__d8",
@@ -9278,7 +9278,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.99,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split44__model42__d10",
@@ -9286,7 +9286,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.89,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split43__model42__d12",
@@ -9294,7 +9294,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.7,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split44__model43__d8",
@@ -9302,7 +9302,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split44__model43__d10",
@@ -9310,7 +9310,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.64,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split43__model43__d12",
@@ -9318,7 +9318,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.58,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split45__model42__d8",
@@ -9326,7 +9326,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.26,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split45__model42__d10",
@@ -9334,7 +9334,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split44__model42__d12",
@@ -9342,7 +9342,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.82,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split45__model43__d8",
@@ -9350,7 +9350,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.71,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split45__model43__d10",
@@ -9358,7 +9358,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.17,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split46__model42__d8",
@@ -9366,7 +9366,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.09,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split44__model43__d12",
@@ -9374,7 +9374,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.65,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split46__model42__d10",
@@ -9382,7 +9382,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split45__model42__d12",
@@ -9390,7 +9390,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.5,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split46__model43__d8",
@@ -9398,7 +9398,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.87,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split46__model43__d10",
@@ -9406,7 +9406,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.62,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split45__model43__d12",
@@ -9414,7 +9414,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.31,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d8",
@@ -9422,7 +9422,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d10",
@@ -9430,7 +9430,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.26,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split46__model42__d12",
@@ -9438,7 +9438,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d8",
@@ -9446,7 +9446,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.18,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d10",
@@ -9454,7 +9454,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.63,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate3b_ood_tue_fri_portscan__split46__model43__d12",
@@ -9462,7 +9462,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3b_ood_tue_fri_portscan__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d8",
@@ -9470,7 +9470,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.8,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d10",
@@ -9478,7 +9478,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 38.03,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d8",
@@ -9486,7 +9486,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.03,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d12",
@@ -9494,7 +9494,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 69.8,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d10",
@@ -9502,7 +9502,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.23,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d12",
@@ -9510,7 +9510,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.95,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d8",
@@ -9518,7 +9518,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.81,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d10",
@@ -9526,7 +9526,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.32,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d12",
@@ -9534,7 +9534,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.63,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d8",
@@ -9542,7 +9542,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.67,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d10",
@@ -9550,7 +9550,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d12",
@@ -9558,7 +9558,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.7,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d8",
@@ -9566,7 +9566,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.78,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d10",
@@ -9574,7 +9574,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.74,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d12",
@@ -9582,7 +9582,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.38,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d8",
@@ -9590,7 +9590,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.3,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d10",
@@ -9598,7 +9598,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d12",
@@ -9606,7 +9606,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.34,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d8",
@@ -9614,7 +9614,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.11,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d10",
@@ -9622,7 +9622,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d12",
@@ -9630,7 +9630,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.83,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d8",
@@ -9638,7 +9638,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.74,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d10",
@@ -9646,7 +9646,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.65,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split42__model42__d8",
@@ -9654,7 +9654,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.77,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d12",
@@ -9662,7 +9662,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.31,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split42__model42__d10",
@@ -9670,7 +9670,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d12",
@@ -9678,7 +9678,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split42__model43__d8",
@@ -9686,7 +9686,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.13,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split42__model43__d10",
@@ -9694,7 +9694,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.7,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d12",
@@ -9702,7 +9702,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.03,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3c_ood_wed_thu_webattacks__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split43__model42__d8",
@@ -9710,7 +9710,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.65,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split43__model42__d10",
@@ -9718,7 +9718,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.68,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split42__model42__d12",
@@ -9726,7 +9726,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split43__model43__d8",
@@ -9734,7 +9734,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.0,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split43__model43__d10",
@@ -9742,7 +9742,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.06,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split44__model42__d8",
@@ -9750,7 +9750,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split42__model43__d12",
@@ -9758,7 +9758,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 69.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split44__model42__d10",
@@ -9766,7 +9766,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.45,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split43__model42__d12",
@@ -9774,7 +9774,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split44__model43__d8",
@@ -9782,7 +9782,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.58,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split44__model43__d10",
@@ -9790,7 +9790,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.54,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split45__model42__d8",
@@ -9798,7 +9798,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.98,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split43__model43__d12",
@@ -9806,7 +9806,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split45__model42__d10",
@@ -9814,7 +9814,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.99,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split44__model42__d12",
@@ -9822,7 +9822,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.04,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split45__model43__d8",
@@ -9830,7 +9830,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split45__model43__d10",
@@ -9838,7 +9838,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.92,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split44__model43__d12",
@@ -9846,7 +9846,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 68.35,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split46__model42__d8",
@@ -9854,7 +9854,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.03,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split46__model42__d10",
@@ -9862,7 +9862,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 37.1,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split45__model42__d12",
@@ -9870,7 +9870,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.75,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split46__model43__d8",
@@ -9878,7 +9878,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split46__model43__d10",
@@ -9886,7 +9886,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.56,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split45__model43__d12",
@@ -9894,7 +9894,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.81,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split46__model42__d12",
@@ -9902,7 +9902,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.38,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split42__model42__d8",
@@ -9910,7 +9910,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 42.47,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split42__model43__d8",
@@ -9918,7 +9918,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 39.46,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split42__model42__d10",
@@ -9926,7 +9926,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.04,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate3d_ood_wed_fri_morning__split46__model43__d12",
@@ -9934,7 +9934,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 67.69,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate3d_ood_wed_fri_morning__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split42__model43__d10",
@@ -9942,7 +9942,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 59.69,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split43__model42__d8",
@@ -9950,7 +9950,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.95,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split42__model42__d12",
@@ -9958,7 +9958,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.8,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split43__model42__d10",
@@ -9966,7 +9966,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.34,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split43__model43__d8",
@@ -9974,7 +9974,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 39.91,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split42__model43__d12",
@@ -9982,7 +9982,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.12,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split43__model43__d10",
@@ -9990,7 +9990,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split44__model42__d8",
@@ -9998,7 +9998,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.49,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split43__model42__d12",
@@ -10006,7 +10006,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.14,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split44__model42__d10",
@@ -10014,7 +10014,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 62.03,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split44__model43__d8",
@@ -10022,7 +10022,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 41.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split44__model43__d10",
@@ -10030,7 +10030,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split43__model43__d12",
@@ -10038,7 +10038,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 105.21,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split45__model42__d8",
@@ -10046,7 +10046,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.31,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split44__model42__d12",
@@ -10054,7 +10054,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.01,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split45__model43__d8",
@@ -10062,7 +10062,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 38.78,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split45__model42__d10",
@@ -10070,7 +10070,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.21,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split44__model43__d12",
@@ -10078,7 +10078,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 102.92,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split45__model43__d10",
@@ -10086,7 +10086,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.45,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split46__model42__d8",
@@ -10094,7 +10094,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.38,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split46__model42__d10",
@@ -10102,7 +10102,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.2,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split45__model42__d12",
@@ -10110,7 +10110,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 107.28,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split46__model43__d8",
@@ -10118,7 +10118,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 39.8,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split45__model43__d12",
@@ -10126,7 +10126,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.46,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split46__model43__d10",
@@ -10134,7 +10134,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.52,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split42__model42__d8",
@@ -10142,7 +10142,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split46__model42__d12",
@@ -10150,7 +10150,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.92,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split42__model42__d10",
@@ -10158,7 +10158,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 59.46,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split42__model43__d8",
@@ -10166,7 +10166,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 39.67,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split42__model43__d10",
@@ -10174,7 +10174,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.06,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate5a_id_unsw__split46__model43__d12",
@@ -10182,7 +10182,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.97,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5a_id_unsw__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split43__model42__d8",
@@ -10190,7 +10190,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.09,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split42__model42__d12",
@@ -10198,7 +10198,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split43__model42__d10",
@@ -10206,7 +10206,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 59.87,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split43__model43__d8",
@@ -10214,7 +10214,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 39.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split42__model43__d12",
@@ -10222,7 +10222,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 101.81,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split43__model43__d10",
@@ -10230,7 +10230,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.02,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split44__model42__d8",
@@ -10238,7 +10238,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split44__model42__d10",
@@ -10246,7 +10246,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.47,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split43__model42__d12",
@@ -10254,7 +10254,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.91,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split44__model43__d8",
@@ -10262,7 +10262,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.73,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split43__model43__d12",
@@ -10270,7 +10270,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split44__model43__d10",
@@ -10278,7 +10278,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.9,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split45__model42__d8",
@@ -10286,7 +10286,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.26,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split44__model42__d12",
@@ -10294,7 +10294,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 106.95,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split45__model42__d10",
@@ -10302,7 +10302,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.83,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split45__model43__d8",
@@ -10310,7 +10310,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split44__model43__d12",
@@ -10318,7 +10318,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split45__model43__d10",
@@ -10326,7 +10326,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 61.18,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split46__model42__d8",
@@ -10334,7 +10334,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.32,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split45__model42__d12",
@@ -10342,7 +10342,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split46__model42__d10",
@@ -10350,7 +10350,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.79,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split46__model43__d8",
@@ -10358,7 +10358,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 40.82,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model43__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split45__model43__d12",
@@ -10366,7 +10366,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.47,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split45__model43__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split42__model42__d8",
@@ -10374,7 +10374,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.11,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model42__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split46__model43__d10",
@@ -10382,7 +10382,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 60.24,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split42__model43__d8",
@@ -10390,7 +10390,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model43__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split42__model42__d10",
@@ -10398,7 +10398,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.08,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split43__model42__d8",
@@ -10406,7 +10406,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.6,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model42__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split46__model42__d12",
@@ -10414,7 +10414,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 104.22,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model42__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split42__model43__d10",
@@ -10422,7 +10422,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.38,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model43__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split42__model42__d12",
@@ -10430,7 +10430,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model42__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split43__model43__d8",
@@ -10438,7 +10438,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.55,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate5b_id_ton_iot__split46__model43__d12",
@@ -10446,7 +10446,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 103.55,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate5b_id_ton_iot__split46__model43__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split43__model42__d10",
@@ -10454,7 +10454,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.06,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model42__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split42__model43__d12",
@@ -10462,7 +10462,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.1,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split42__model43__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split43__model43__d10",
@@ -10470,7 +10470,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 36.11,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model43__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split44__model42__d8",
@@ -10478,7 +10478,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.24,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model42__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split43__model42__d12",
@@ -10486,7 +10486,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model42__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split44__model42__d10",
@@ -10494,7 +10494,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.85,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model42__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split44__model43__d8",
@@ -10502,7 +10502,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.56,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split44__model43__d10",
@@ -10510,7 +10510,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model43__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split43__model43__d12",
@@ -10518,7 +10518,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 64.85,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split43__model43__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split45__model42__d8",
@@ -10526,7 +10526,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.01,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model42__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split44__model42__d12",
@@ -10534,7 +10534,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 65.81,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model42__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split45__model42__d10",
@@ -10542,7 +10542,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.51,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model42__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split45__model43__d8",
@@ -10550,7 +10550,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.73,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model43__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split45__model43__d10",
@@ -10558,7 +10558,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.76,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model43__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split46__model42__d8",
@@ -10566,7 +10566,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model42__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split44__model43__d12",
@@ -10574,7 +10574,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.38,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split44__model43__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split46__model42__d10",
@@ -10582,7 +10582,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model42__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split45__model42__d12",
@@ -10590,7 +10590,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 64.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model42__d12.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split46__model43__d8",
@@ -10598,7 +10598,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.09,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split42__model42__d8",
@@ -10606,7 +10606,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.87,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split42__model42__d10",
@@ -10614,7 +10614,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model42__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split46__model43__d10",
@@ -10622,7 +10622,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 35.52,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model43__d10.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split45__model43__d12",
@@ -10630,7 +10630,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.7,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split45__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split42__model43__d8",
@@ -10638,7 +10638,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.97,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split42__model42__d12",
@@ -10646,7 +10646,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.76,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split43__model42__d8",
@@ -10654,7 +10654,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.67,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split42__model43__d10",
@@ -10662,7 +10662,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.42,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split43__model43__d8",
@@ -10670,7 +10670,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.22,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model43__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split46__model42__d12",
@@ -10678,7 +10678,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.61,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split43__model42__d10",
@@ -10686,7 +10686,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.26,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split42__model43__d12",
@@ -10694,7 +10694,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.24,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split42__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split44__model42__d8",
@@ -10702,7 +10702,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.69,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split43__model43__d10",
@@ -10710,7 +10710,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.63,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split43__model42__d12",
@@ -10718,7 +10718,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.92,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split44__model42__d10",
@@ -10726,7 +10726,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.1,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split44__model43__d8",
@@ -10734,7 +10734,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.92,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model43__d8.log"
     },
     {
       "job": "gateN__gate6_ood_unsw__split46__model43__d12",
@@ -10742,7 +10742,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 66.18,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateN__gate6_ood_unsw__split46__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split43__model43__d12",
@@ -10750,7 +10750,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split43__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split44__model43__d10",
@@ -10758,7 +10758,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.26,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split45__model42__d8",
@@ -10766,7 +10766,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.95,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split44__model42__d12",
@@ -10774,7 +10774,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.67,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split45__model43__d8",
@@ -10782,7 +10782,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.91,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split45__model42__d10",
@@ -10790,7 +10790,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split44__model43__d12",
@@ -10798,7 +10798,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split44__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split45__model43__d10",
@@ -10806,7 +10806,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split46__model42__d8",
@@ -10814,7 +10814,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.16,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split45__model42__d12",
@@ -10822,7 +10822,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.84,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split46__model42__d10",
@@ -10830,7 +10830,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split46__model43__d8",
@@ -10838,7 +10838,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split45__model43__d12",
@@ -10846,7 +10846,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.22,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split45__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split46__model43__d10",
@@ -10854,7 +10854,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.47,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d8",
@@ -10862,7 +10862,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split46__model42__d12",
@@ -10870,7 +10870,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.59,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d10",
@@ -10878,7 +10878,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.24,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d8",
@@ -10886,7 +10886,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.89,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__P0_reference__split46__model43__d12",
@@ -10894,7 +10894,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.08,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__P0_reference__split46__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d10",
@@ -10902,7 +10902,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.47,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d8",
@@ -10910,7 +10910,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.12,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d10",
@@ -10918,7 +10918,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.36,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d12",
@@ -10926,7 +10926,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.29,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d8",
@@ -10934,7 +10934,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d12",
@@ -10942,7 +10942,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.7,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split42__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d10",
@@ -10950,7 +10950,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.58,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d8",
@@ -10958,7 +10958,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.08,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d10",
@@ -10966,7 +10966,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d12",
@@ -10974,7 +10974,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.89,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d8",
@@ -10982,7 +10982,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.91,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d10",
@@ -10990,7 +10990,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.65,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d12",
@@ -10998,7 +10998,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.73,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split43__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d8",
@@ -11006,7 +11006,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.02,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d10",
@@ -11014,7 +11014,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.36,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d12",
@@ -11022,7 +11022,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.13,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d8",
@@ -11030,7 +11030,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.84,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d12",
@@ -11038,7 +11038,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split44__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d10",
@@ -11046,7 +11046,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d8",
@@ -11054,7 +11054,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.95,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d10",
@@ -11062,7 +11062,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d12",
@@ -11070,7 +11070,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d8",
@@ -11078,7 +11078,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.76,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d12",
@@ -11086,7 +11086,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.45,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split45__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d10",
@@ -11094,7 +11094,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.11,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d8",
@@ -11102,7 +11102,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.31,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d10",
@@ -11110,7 +11110,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.42,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d12",
@@ -11118,7 +11118,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.67,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d8",
@@ -11126,7 +11126,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.15,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d10",
@@ -11134,7 +11134,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.39,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d12",
@@ -11142,7 +11142,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.81,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PA_standard_standard__split46__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d8",
@@ -11150,7 +11150,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d10",
@@ -11158,7 +11158,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.68,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d12",
@@ -11166,7 +11166,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.07,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d8",
@@ -11174,7 +11174,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d10",
@@ -11182,7 +11182,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.56,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d12",
@@ -11190,7 +11190,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split42__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d8",
@@ -11198,7 +11198,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.98,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d10",
@@ -11206,7 +11206,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d8",
@@ -11214,7 +11214,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.47,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d12",
@@ -11222,7 +11222,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d10",
@@ -11230,7 +11230,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.89,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d12",
@@ -11238,7 +11238,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.25,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split43__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d8",
@@ -11246,7 +11246,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.23,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d10",
@@ -11254,7 +11254,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.48,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d12",
@@ -11262,7 +11262,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.97,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d8",
@@ -11270,7 +11270,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.95,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d10",
@@ -11278,7 +11278,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.46,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d8",
@@ -11286,7 +11286,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.93,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d12",
@@ -11294,7 +11294,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.21,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split44__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d10",
@@ -11302,7 +11302,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.42,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d10.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d12",
@@ -11310,7 +11310,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.45,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model42__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d8",
@@ -11318,7 +11318,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 7.97,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d12",
@@ -11326,7 +11326,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.48,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split45__model43__d12.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d10",
@@ -11334,7 +11334,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.35,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split42__model42__d8",
@@ -11342,7 +11342,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.63,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model42__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d12",
@@ -11350,7 +11350,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.36,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model42__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split42__model42__d10",
@@ -11358,7 +11358,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.25,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model42__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split42__model43__d8",
@@ -11366,7 +11366,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model43__d8.log"
     },
     {
       "job": "gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d12",
@@ -11374,7 +11374,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.79,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateP__gate1_id_cicids__PB_minmax2pi_minmax2pi__split46__model43__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split42__model43__d10",
@@ -11382,7 +11382,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.86,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model43__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split43__model42__d8",
@@ -11390,7 +11390,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.13,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model42__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split43__model42__d10",
@@ -11398,7 +11398,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.17,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model42__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split42__model42__d12",
@@ -11406,7 +11406,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.05,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model42__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split43__model43__d8",
@@ -11414,7 +11414,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.48,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model43__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split43__model43__d10",
@@ -11422,7 +11422,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.94,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model43__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split44__model42__d8",
@@ -11430,7 +11430,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.53,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model42__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split42__model43__d12",
@@ -11438,7 +11438,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.76,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split42__model43__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split44__model42__d10",
@@ -11446,7 +11446,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.17,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model42__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split43__model42__d12",
@@ -11454,7 +11454,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.49,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model42__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split44__model43__d8",
@@ -11462,7 +11462,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.17,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model43__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split43__model43__d12",
@@ -11470,7 +11470,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.99,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split43__model43__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split44__model43__d10",
@@ -11478,7 +11478,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.09,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model43__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split45__model42__d8",
@@ -11486,7 +11486,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.6,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model42__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split44__model42__d12",
@@ -11494,7 +11494,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.1,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model42__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split45__model43__d8",
@@ -11502,7 +11502,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.29,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model43__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split45__model42__d10",
@@ -11510,7 +11510,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.27,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model42__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split45__model43__d10",
@@ -11518,7 +11518,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.06,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model43__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split44__model43__d12",
@@ -11526,7 +11526,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.1,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split44__model43__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split46__model42__d8",
@@ -11534,7 +11534,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.14,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model42__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split46__model42__d10",
@@ -11542,7 +11542,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.0,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model42__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split45__model42__d12",
@@ -11550,7 +11550,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.35,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model42__d12.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split46__model43__d8",
@@ -11558,7 +11558,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.49,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model43__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split46__model43__d10",
@@ -11566,7 +11566,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.25,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model43__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split45__model43__d12",
@@ -11574,7 +11574,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.01,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split45__model43__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split42__model42__d8",
@@ -11582,7 +11582,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.44,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model42__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split42__model42__d10",
@@ -11590,7 +11590,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.9,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model42__d10.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split46__model42__d12",
@@ -11598,7 +11598,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.45,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model42__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split42__model43__d8",
@@ -11606,7 +11606,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.78,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model43__d8.log"
     },
     {
       "job": "gateT__gate1_id_cicids__split46__model43__d12",
@@ -11614,7 +11614,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.27,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate1_id_cicids__split46__model43__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split42__model43__d10",
@@ -11622,7 +11622,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.11,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model43__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split43__model42__d8",
@@ -11630,7 +11630,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.6,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model42__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split43__model42__d10",
@@ -11638,7 +11638,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.24,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model42__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split42__model42__d12",
@@ -11646,7 +11646,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.09,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model42__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split43__model43__d8",
@@ -11654,7 +11654,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.5,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model43__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split42__model43__d12",
@@ -11662,7 +11662,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.35,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split42__model43__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split43__model43__d10",
@@ -11670,7 +11670,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.78,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model43__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split44__model42__d8",
@@ -11678,7 +11678,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.4,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model42__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split44__model42__d10",
@@ -11686,7 +11686,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.37,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model42__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split43__model42__d12",
@@ -11694,7 +11694,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.57,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model42__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split44__model43__d8",
@@ -11702,7 +11702,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.69,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model43__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split44__model43__d10",
@@ -11710,7 +11710,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.44,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model43__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split43__model43__d12",
@@ -11718,7 +11718,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.44,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split43__model43__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split45__model42__d8",
@@ -11726,7 +11726,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.52,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model42__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split45__model42__d10",
@@ -11734,7 +11734,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.26,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model42__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split44__model42__d12",
@@ -11742,7 +11742,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.22,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model42__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split45__model43__d8",
@@ -11750,7 +11750,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.66,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model43__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split45__model43__d10",
@@ -11758,7 +11758,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.99,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model43__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split44__model43__d12",
@@ -11766,7 +11766,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.36,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split44__model43__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split46__model42__d8",
@@ -11774,7 +11774,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.33,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model42__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model42__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split46__model42__d10",
@@ -11782,7 +11782,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 13.04,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model42__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model42__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split45__model42__d12",
@@ -11790,7 +11790,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 23.56,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model42__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split46__model43__d8",
@@ -11798,7 +11798,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 8.49,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model43__d8.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model43__d8.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split46__model43__d10",
@@ -11806,7 +11806,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 12.62,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model43__d10.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model43__d10.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split45__model43__d12",
@@ -11814,7 +11814,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 22.96,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split45__model43__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split46__model42__d12",
@@ -11822,7 +11822,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 21.72,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model42__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model42__d12.log"
     },
     {
       "job": "gateT__gate6_ood_unsw__split46__model43__d12",
@@ -11830,7 +11830,7 @@
       "returncode": 0,
       "attempts": 1,
       "seconds": 20.66,
-      "log": "C:/Users/masteria.DOMINE/RF/paper_HAIS/results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model43__d12.log"
+      "log": "results/logs/paper15_v11_reinforcement/gateT__gate6_ood_unsw__split46__model43__d12.log"
     }
   ],
   "all_completed": true

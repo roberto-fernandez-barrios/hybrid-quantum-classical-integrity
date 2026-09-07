@@ -1,0 +1,9 @@
+witness,property,condition,count,denominator
+W1,identity change without joint-outcome or conclusion change,"label rows with flips, zero confusion-profile delta, zero conclusion change",808,3600
+W2,conclusion change without model-output change,label rows with non-zero conclusion change and zero prediction disagreement,2617,3600
+W3,marginal invariance with conclusion change,prior-preserving rows with zero marginal change and non-zero conclusion change,1059,1800
+W4,confusion-profile change without conclusion change,label rows with non-zero confusion-profile delta and zero conclusion change,175,3600
+W5,model-output change without conclusion change,feature rows with non-zero prediction disagreement and zero conclusion change,296,7200
+W6,representation change without output change,feature rows with zero prediction disagreement,2513,7200
+W7,apparent improvement under intervention,intervened rows whose reported balanced accuracy increased,1534,10800
+W8,material conclusion change always changes the confusion profile (label path),material label rows with non-zero confusion-profile delta,2617,2617

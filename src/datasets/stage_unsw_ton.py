@@ -28,6 +28,15 @@ RAW = REPO / "data" / "raw"
 STAGING = RAW / "staging"
 
 
+def _relative_to_repo(path: Path) -> str:
+    """Repository-relative POSIX path for reports (no machine-specific prefixes)."""
+
+    try:
+        return path.resolve().relative_to(REPO.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -65,9 +74,9 @@ def _stage(
     dst.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(dst, index=False)
     return {
-        "src": str(src),
+        "src": _relative_to_repo(src),
         "src_sha256": _sha256_file(src),
-        "dst": str(dst),
+        "dst": _relative_to_repo(dst),
         "dst_sha256": _sha256_file(dst),
         "rows": int(df.shape[0]),
         "cols": int(df.shape[1]),

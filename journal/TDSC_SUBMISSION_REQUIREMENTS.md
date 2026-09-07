@@ -1,6 +1,6 @@
 # Requisitos consolidados de envío — IEEE TDSC
 
-Fecha de contraste con fuentes oficiales: **2026-08-10**.  
+Fecha de contraste con fuentes oficiales: **2026-08-10**; estado del paquete actualizado el **2026-09-07** (artefacto 1.2.0).  
 Destino: *IEEE Transactions on Dependable and Secure Computing* (TDSC).  
 Tipo previsto: **regular research article, general submission**.
 
@@ -221,7 +221,7 @@ Cambios editoriales aplicados en el release candidate TDSC:
 
 - se reemplazó el destino anterior en el paquete de envío activo;
 - se creó una fuente LaTeX TDSC a partir de
-  `manuscript/paper15_q1_manuscript_spine_v11.md`, sin editar sobre el sample;
+  `manuscript/archive/paper15_q1_manuscript_spine_v11.md` (hoy archivado; la fuente autoritativa es `publication/tdsc/main.tex`), sin editar sobre el sample;
 - se conservó como claim principal la auditabilidad de integridad condicionada
   al information set;
 - se presentan `blind regions`, sensor coverage, validación multi-dataset/OOD,
@@ -235,21 +235,30 @@ Cambios editoriales aplicados en el release candidate TDSC:
 - el detalle no esencial se movió al suplemento después de conservar en el
   cuerpo threat model, definiciones, métodos, endpoints, resultados
   primarios y limitaciones;
-- la longitud real se compiló y midió en `compsoc`: 9 páginas principales y 3
-  páginas de suplemento en el release candidate anónimo.
+- la longitud real se compiló y midió en `compsoc`: 9 + 3 páginas en el rc1
+  anónimo (2026-08-10), 11 + 6 en la release 1.1.x y los valores vigentes de
+  1.2.0 están en `publication/RELEASE_STATUS.md` (generado; el artículo se
+  mantiene por debajo del techo interno de 12 páginas).
 
 ## 13. Frontera con el Paper 2.5
 
 El plan nuevo de ATHENA-AEGIS es coherente con esta separación:
 
-- **Paper 1.5:** qué fallos de integridad son observables bajo un information
-  set declarado; coverage, blind regions y fail-closed local en simulación.
-- **Paper 2.5:** runtime assurance condicionado al execution context, umbrales
-  calibrados, QPU real, drift, scheduling/layout, provider boundary, respuesta
-  operacional y AEGIS security slice del FMS.
+- **Paper 1.5:** qué fallos de integridad son observables bajo una vista y
+  unas referencias confiables declaradas; regiones ciegas estructurales y
+  calibradas, presupuesto de falsas alarmas a nivel de decisión, contratos,
+  hash chain y política fail-closed calibrada, todo local y en simulación.
+- **Paper 2.5:** assurance operacional longitudinal y condicionada al contexto
+  de ejecución sobre QPU real: no estacionariedad, contexto fuera de soporte y
+  abstención, garantías operacionales calibradas en ventanas múltiples,
+  recuperación/fallback/rollback, time-to-recovery, evidencia de proveedor sin
+  confundir firma local con attestation, deriva de scheduling y la AEGIS slice
+  del FMS.
 
-Paper 2.5 debe heredar y citar el coverage contract de Paper 1.5; no debe
-reclamar de nuevo la conditional auditability como novedad. Paper 1.5 no debe
+Paper 2.5 debe heredar y citar el coverage contract, la calibración por
+familia y la capa de política de Paper 1.5; no debe reclamar de nuevo la
+auditabilidad condicional, la calibración de falsas alarmas simple, los
+contratos ni la integridad por hash chain como novedad. Paper 1.5 no debe
 absorber ningún experimento previsto para 2.5 con el fin de encajar en TDSC.
 
 ## 14. Puntos que deben verificarse dentro del portal
@@ -273,15 +282,18 @@ No enviar hasta que todos estos puntos estén cerrados:
 - [x] Título, abstract y contributions pasan una lectura TDSC de desk review.
 - [x] LaTeX compila desde cero sin warnings materiales ni referencias rotas.
 - [x] PDF en US Letter, dos columnas, `compsoc`, visualmente inspeccionado.
-- [x] La versión rc1 quedaba tres páginas por debajo del techo interno de 12;
-      la versión de release compila limpia en 11 páginas de artículo y 6 de
-      suplemento (2026-09-06), una por debajo del techo interno de 12.
+- [x] El artículo se mantiene por debajo del techo interno de 12 páginas en
+      todas las builds (rc1: 9; 1.1.x: 11; 1.2.0: ver
+      `publication/RELEASE_STATUS.md`).
 - [x] Todos los claims tienen tabla/figura o argumento formal trazable.
 - [x] Supplement, tests y verificador del repositorio pasan desde el entorno
       bloqueado; el full replay conserva sus instrucciones separadas.
-- [ ] Hashes, release, tag, Zenodo/DOI y versiones coinciden.
+- [ ] Hashes, release, tag, Zenodo/DOI y versiones coinciden (1.2.0: el DOI de
+      versión lo inserta `scripts/release_pipeline.py`).
 - [x] Afiliaciones, ORCID y corresponding author confirmados (2026-09-06); financiación verificada; CRediT propuesto pendiente de confirmación de todos los autores.
-- [ ] AI-use disclosure (actualizada 2026-09-06: Codex y Claude Code) revisada por todos los autores.
+- [ ] AI-use disclosure (ampliada 2026-09-07 para el núcleo formal, el modelo
+      de adversario y las gates de política de 1.2.0) re-aprobada por todos los
+      autores.
 - [x] El paquete de envío activo ya no apunta a la revista objetivo anterior.
 - [x] No se afirma QPU real, scheduling, multi-tenancy, provider security,
       confidentiality completa ni Fleet Management operacional.

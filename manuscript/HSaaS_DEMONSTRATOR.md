@@ -1,7 +1,9 @@
-# ATHENA-AEGIS auditable HSaaS demonstrator
+# ATHENA-AEGIS auditable HSaaS demonstrator and policy layer
 
-Status: complete local research prototype; deployment and provider/QPU
-authentication remain open.
+Status: complete local research prototype (four contracts, six scenarios)
+plus the artifact 1.2.0 information-aware calibrated policy layer evaluated
+on frozen outputs; deployment and provider/QPU authentication remain open
+(Paper 2.5).
 
 ## Purpose
 
@@ -39,7 +41,7 @@ Contracts form an ordered SHA-256 chain. This makes later modification
 detectable, but does not authenticate the provider: a production deployment
 must sign the chain and bind it to backend/job/calibration identities.
 
-## Fail-closed policy
+## Fail-closed policy of the contracts
 
 | Contract state | Service action | Meaning |
 |---|---|---|
@@ -58,22 +60,47 @@ must sign the chain and bind it to backend/job/calibration identities.
 | Prior-preserving label corruption | `block` | Label marginal is invariant; item-level provenance fails |
 | Approved 256-shot emulator | `hold` | Stochastic kernel and repeated estimate require adjudication |
 
-All eight acceptance checks pass, including verification of all six hash
-chains. The result is exported to
-`manuscript/tables/hsaas_contract_summary.csv` for reviewer inspection.
+## Information-aware calibrated policy layer (artifact 1.2.0)
 
-## Security boundary
+`src/hsaas/policy.py` is a pure decision function that consumes, for one
+audited batch, the information regime (`I_X`, `I_XF`, `I_Ym`, `I_XFY`,
+`I_XFY_trusted`), whether a trusted item-aligned reference exists, the
+per-sensor calibrated fire flags (1.1.0 thresholds), the family-calibrated
+regime flag (`src/integrity/family_calibration.py`, Gate F), the exact
+item-aligned flag (defined only under a trusted reference) and the protected
+boundaries declared by the contract (feature, prediction, label). It returns
+`allow / hold / block` with reason codes:
 
-This prototype evaluates ideal-statevector kernels and one binomial shot
-emulator. It is not an HTTP deployment, a digital-signature system, a calibrated
-noise study, or a QPU run. The remaining operational tier must add:
+- `block` only for an exact invariant violated against a trusted reference;
+- `hold` for statistical evidence (family-calibrated rule) or, under the strict
+  policy, for a protected boundary the regime cannot verify
+  (`unverified_boundary:label`);
+- `allow` otherwise, declaring the residual blind region
+  (`allowed_with_residual_blind_region:label`).
 
-- authentication/authorization and signed manifests;
-- backend, provider, job, calibration, layout, scheduling, and timestamp binding;
-- noisy-backend and QPU replay;
-- multi-tenant and provider-side fault scenarios;
-- persistence, incident response, rollback, and retention policies.
+Four policies are implemented: `serve_always`, `union_uncalibrated` (the 1.1.0
+regime rule), `family_calibrated` (proposed) and `family_calibrated_strict`.
+The policy composes with the four contracts by the maximum in the lattice
+`allow < hold < block` (`compose`); on the six frozen envelopes the composed
+action reproduces the contract action in every scenario, including the `hold`
+of the approved 256-shot emulator (approved stochastic estimation is not an
+exact violation).
 
-Within that boundary, the demonstrator is evidence for ATHENA Result 3.1: it
-turns the paper's sensor taxonomy into an executable, tested, fail-closed
-software contract rather than leaving countermeasures as prose alone.
+`src/experiments/build_q1_policy_evidence.py` evaluates the four policies over
+the five regimes on 24,000 frozen observations (12,000 clean draws, 1,200
+near-null shams, 10,800 interventions of which 7,008 change the reported
+balanced accuracy) and writes 21 tables with 10 fail-closed consistency
+checks; the results are summarised in
+`manuscript/paper15_v12_policy_result_summary.md`. The key numbers: decision
+false-alarm rates 0.061 / 0.073 / 0.048 / 0.079 (family) against 0.125 /
+0.203 / 0.048 / 0.259 (union); unsafe allows 4,494 / 4,327 / 7,008 / 4,322 of
+7,008 for the batch-level regimes under the family-calibrated policy and 0
+for the trusted item-aligned regime with 0 false holds.
+
+## Boundary
+
+The prototype and the policy layer are local processes over frozen outputs:
+no network authentication, signed provider record, persistence, incident
+response, scheduler binding or QPU identity. Context-conditioned calibration
+under non-stationarity, out-of-support abstention and recovery/fallback are
+Paper 2.5.

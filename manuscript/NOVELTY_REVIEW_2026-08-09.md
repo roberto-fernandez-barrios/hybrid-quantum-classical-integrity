@@ -99,3 +99,36 @@ candidate comparability before promotion (Zenodo 10.5281/zenodo.22239106).
 
 The frozen novelty statement is unchanged. The recheck must be repeated on the
 day of upload.
+
+
+## Addendum — recheck on 7 September 2026 (artifact 1.2.0)
+
+The claim was reformulated for 1.2.0 as: *characterization of observational
+indistinguishability and integrity blind regions across the evidence
+boundaries of hybrid quantum-classical workflows, including the
+evaluation-label path as a protected boundary, with explicit trusted-reference
+assumptions, multi-environment validation and executable, calibrated,
+fail-closed policy composition.* The search was widened beyond quantum machine
+learning to the lines that already establish that detectability depends on the
+monitor's information, so that the article does not sell that insight as
+novelty and positions itself against them explicitly.
+
+| Line / work | What it already contributes | Consequence for this paper | Remaining distinction |
+|---|---|---|---|
+| Pasqualetti, Dörfler, Bullo (IEEE TAC 2013); Teixeira, Shames, Sandberg, Johansson (Automatica 2015); Liu, Ning, Reiter (CCS 2009 / TISSEC 2011) | Undetectable / stealthy attacks defined through the observability of the monitored dynamics; attack space by knowledge, disclosure and disruption resources; false-data injections in the estimator's range space | **The general insight "detectability is information-relative" is prior art.** Cited in §II-A and Table 1; the introduction states it explicitly | Object is an evidence chain of a learning workflow, blind regions derived from views rather than linear dynamics, evaluation labels as a protected boundary, trusted reference made explicit as exact-versus-statistical separation, coverage composed into a calibrated decision |
+| Bai, Pasqualetti, Gupta (Automatica 2017); Urbina et al. (CCS 2016); Giraldo et al. (ACM CSUR 2018) | ε-stealthy attacks and detectability–impact trade-offs; limiting impact of stealthy attacks; physics-based detection as the question of which residuals can be formed | Cited; the unsafe-allow / false-hold trade-off of Gate D is the analogue in this setting | Batch-level versus reference-anchored auditors; no linear-system model |
+| Sha (IEEE Software 2001, Simplex); Leucker & Schallhart (JLAP 2009, runtime verification); Kim & Spafford (CCS 1994, Tripwire) | Runtime assurance by switching to a verified controller; runtime verification against specifications; integrity checking against stored trusted digests | Cited in §II-A and Table 1; the fail-closed `hold` and the hash chain have this lineage | The decision is conditioned on the information regime and on a calibrated family statistic, with a measured unsafe-allow endpoint |
+| Northcutt, Athalye, Mueller (NeurIPS D&B 2021) | Pervasive label errors in test sets change benchmark rankings | Cited in §II-B: labels are a quality problem in prior work | Here the label path is an asset under intervention and availability is separated from trust |
+| Peltonen, Stirbu, Mikkonen, Pautasso, *Toward Standardized Quantum Provenance* (arXiv:2608.08272, 8 Aug 2026) | Cross-provider provenance schema and OpenAPI contract; no attestation or signatures | Cited in §II-C. Relevant to Paper 2.5 (provider/context evidence) | This paper's provenance is a trusted reference in the formal model, not a schema |
+| Tippett (1931); Westfall & Young (1993); Vovk, Gammerman, Shafer (2005) | Minimum-p combination; resampling-based max-statistic family-wise calibration; conformal order-statistic thresholds under exchangeability | Cited for Proposition 5; **no novelty is claimed for the family-wise calibration method** | Its application as the decision-level budget of an information regime, evaluated end to end, and the measured violation of exchangeability by overlapping draws |
+| QCIVET (arXiv:2605.13109), QML-PipeGuard (arXiv:2605.25066), Ahmed et al. (arXiv:2604.26430), Bajaj (arXiv:2608.02786), Solozobov (arXiv:2604.15740) | As recorded on 9 August and 6 September 2026 | Positions unchanged; the sentence "We found no previous study…" was removed and replaced by a positive delimitation ("prior work addresses A/B/C; this work differs in D/E/F") | Unchanged |
+
+No new work was found (arXiv, publisher records, forward citations of QCIVET
+and QML-PipeGuard, searches on "evaluation integrity", "label integrity",
+"observability" + "monitoring" + "machine learning", "quantum provenance",
+"runtime assurance" + "quantum") that formalizes blind regions of a learning
+workflow's evidence chain with the evaluation-label path as a protected
+boundary and explicit trusted references, or that evaluates an
+information-aware calibrated fail-closed policy end to end. The frozen novelty
+statement is updated to the reformulated claim above; the recheck must be
+repeated on the day of upload.

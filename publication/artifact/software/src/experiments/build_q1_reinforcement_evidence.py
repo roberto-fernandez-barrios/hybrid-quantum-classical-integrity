@@ -113,8 +113,19 @@ N_CORE_ATTACKS = 18 + 1
 # ---------------------------------------------------------------------------
 
 
+def _relative_to_repo(path: Path, repo: Path | None) -> str:
+    """Repository-relative POSIX path (artifact 1.2.0: no machine-specific paths in evidence)."""
+
+    if repo is None:
+        return path.as_posix()
+    try:
+        return path.resolve().relative_to(repo.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _load_dir(raw_dir: Path, gate_label: str, *, expected_files: int, expected_models: set[str],
-              expected_attacks: int) -> tuple[pd.DataFrame, dict[str, object], list[dict[str, object]]]:
+              expected_attacks: int, repo: Path | None = None) -> tuple[pd.DataFrame, dict[str, object], list[dict[str, object]]]:
     paths = sorted(raw_dir.glob("*qbexact_statevector*.csv"))
     complete = len(paths) == expected_files
     frames: list[pd.DataFrame] = []
@@ -143,9 +154,9 @@ def _load_dir(raw_dir: Path, gate_label: str, *, expected_files: int, expected_m
         inputs.append(
             {
                 "gate": gate_label,
-                "csv": path.as_posix(),
+                "csv": _relative_to_repo(path, repo),
                 "csv_sha256": _sha256(path),
-                "json": json_path.as_posix(),
+                "json": _relative_to_repo(json_path, repo),
                 "json_sha256": _sha256(json_path),
             }
         )
@@ -166,7 +177,7 @@ def _load_dir(raw_dir: Path, gate_label: str, *, expected_files: int, expected_m
 
     design = {
         "gate": gate_label,
-        "raw_directory": raw_dir.as_posix(),
+        "raw_directory": _relative_to_repo(raw_dir, repo),
         "observed_files": len(paths),
         "expected_files": expected_files,
         "complete": bool(complete),
@@ -366,7 +377,7 @@ def build_gate_n(repo: Path, expansion_path: Path) -> tuple[dict[str, pd.DataFra
     pools: list[dict[str, object]] = []
     for spec in NULL_GATES:
         raw_dir = repo / f"results/raw/paper15_v11_null_{spec['gate']}"
-        frame, design, files = _load_dir(raw_dir, str(spec["gate"]), expected_files=EXPECTED_FILES_PER_GATE, expected_models=set(spec["models"]), expected_attacks=N_NULL_ATTACKS)
+        frame, design, files = _load_dir(raw_dir, str(spec["gate"]), expected_files=EXPECTED_FILES_PER_GATE, expected_models=set(spec["models"]), expected_attacks=N_NULL_ATTACKS, repo=repo)
         design["gate_family"] = "N_null_calibration"
         frames.append(frame)
         designs.append(design)
@@ -505,7 +516,7 @@ def build_gate_p(repo: Path) -> tuple[dict[str, pd.DataFrame], list[dict[str, ob
     paired, clean, invariance, designs, inputs = [], [], [], [], []
     for config in PREP_CONFIGS:
         raw_dir = repo / f"results/raw/paper15_v11_prep_{config}"
-        frame, design, files = _load_dir(raw_dir, config, expected_files=EXPECTED_FILES_PER_GATE, expected_models={"svc_rbf", "qsvc_zz_r1"}, expected_attacks=N_CORE_ATTACKS)
+        frame, design, files = _load_dir(raw_dir, config, expected_files=EXPECTED_FILES_PER_GATE, expected_models={"svc_rbf", "qsvc_zz_r1"}, expected_attacks=N_CORE_ATTACKS, repo=repo)
         design["gate_family"] = "P_preprocessing_ablation"
         scales = frame[["model", "scale"]].drop_duplicates().set_index("model")["scale"].to_dict()
         design["scale_svc"] = scales.get("svc_rbf", "")
@@ -533,7 +544,7 @@ def build_gate_t(repo: Path, expansion_path: Path, prep_reference: pd.DataFrame 
     tuned_frames: dict[str, pd.DataFrame] = {}
     for env in TUNED_ENVS:
         raw_dir = repo / f"results/raw/paper15_v11_tuned_{env}"
-        frame, design, files = _load_dir(raw_dir, env, expected_files=EXPECTED_FILES_PER_GATE, expected_models={"svc_rbf", "qsvc_zz_r1"}, expected_attacks=N_CORE_ATTACKS)
+        frame, design, files = _load_dir(raw_dir, env, expected_files=EXPECTED_FILES_PER_GATE, expected_models={"svc_rbf", "qsvc_zz_r1"}, expected_attacks=N_CORE_ATTACKS, repo=repo)
         design["gate_family"] = "T_tuned_baselines"
         designs.append(design)
         inputs.extend(files)
@@ -594,7 +605,7 @@ def build(repo: Path, out_dir: Path) -> None:
     p_out, p_design, p_inputs, p_checks = build_gate_p(repo)
     outputs.update(p_out); designs.extend(p_design); inputs.extend(p_inputs); checks.update(p_checks)
 
-    p0_frame, _, _ = _load_dir(repo / "results/raw/paper15_v11_prep_P0_reference", "P0_reference", expected_files=EXPECTED_FILES_PER_GATE, expected_models={"svc_rbf", "qsvc_zz_r1"}, expected_attacks=N_CORE_ATTACKS)
+    p0_frame, _, _ = _load_dir(repo / "results/raw/paper15_v11_prep_P0_reference", "P0_reference", expected_files=EXPECTED_FILES_PER_GATE, expected_models={"svc_rbf", "qsvc_zz_r1"}, expected_attacks=N_CORE_ATTACKS, repo=repo)
     t_out, t_design, t_inputs, t_checks = build_gate_t(repo, expansion_path, p0_frame)
     outputs.update(t_out); designs.extend(t_design); inputs.extend(t_inputs); checks.update(t_checks)
 

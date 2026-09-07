@@ -1,0 +1,19 @@
+\begin{table}[!t]
+\caption{Composition of the frozen four-contract envelopes with the policy layer under $\mathcal I_{XFY}^{\star}$ (lattice maximum). Approved rewrites and approved stochastic estimation are not exact violations; the contract's own \texttt{hold} for the approved emulator is preserved.}
+\label{tab:s-composition}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Scenario & Contract & Exact viol. & Policy & Composed \\
+\midrule
+Clean & \texttt{allow} & no & \texttt{allow} & \texttt{allow} \\
+Approved transpilation & \texttt{allow} & no & \texttt{allow} & \texttt{allow} \\
+Parameterized circuit mutation & \texttt{block} & yes & \texttt{block} & \texttt{block} \\
+PSD-preserving kernel substitution & \texttt{block} & yes & \texttt{block} & \texttt{block} \\
+Prior-preserving label corruption & \texttt{block} & yes & \texttt{block} & \texttt{block} \\
+Approved 256-shot emulator & \texttt{hold} & no & \texttt{allow} & \texttt{hold} \\
+\bottomrule
+\end{tabular}
+\end{table}

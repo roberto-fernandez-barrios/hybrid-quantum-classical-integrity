@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-09-07).** Estado histórico al 6 de septiembre de 2026. El estado vigente y la hoja de ruta tras el artefacto 1.2.0 están en `STATUS_AND_CEILING_ROADMAP_2026-09-07.md`. Los recuentos citados aquí (17 tests, 4 manifiestos, 22 salidas, 96 ficheros, 9+3 páginas) son los de su fecha y no son vigentes.
+
 # Estado del proyecto y hoja de ruta hacia el techo absoluto
 
 Fecha de auditoría: **2026-09-06**  

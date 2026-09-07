@@ -98,6 +98,15 @@ def _json_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _relative_to_repo(path: Path, repo_root: Path) -> str:
+    """Repository-relative POSIX path (artifact 1.2.0: no machine-specific paths in evidence)."""
+
+    try:
+        return path.resolve().relative_to(repo_root.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def _load_expansion(
     repo_root: Path,
     *,
@@ -116,7 +125,7 @@ def _load_expansion(
         completeness.append(
             {
                 "gate": gate,
-                "raw_directory": raw_dir.as_posix(),
+                "raw_directory": _relative_to_repo(raw_dir, repo_root),
                 "observed_files": len(paths),
                 "expected_files": expected,
                 "complete": complete,
@@ -138,9 +147,9 @@ def _load_expansion(
             inputs.append(
                 {
                     "gate": gate,
-                    "csv": path.as_posix(),
+                    "csv": _relative_to_repo(path, repo_root),
                     "csv_sha256": _sha256(path),
-                    "json": json_path.as_posix(),
+                    "json": _relative_to_repo(json_path, repo_root),
                     "json_sha256": _json_sha256(json_path),
                 }
             )

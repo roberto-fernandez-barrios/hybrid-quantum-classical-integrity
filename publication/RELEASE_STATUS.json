@@ -1,0 +1,30 @@
+{
+  "generated_on": "2026-09-07",
+  "version": "1.2.0",
+  "artifact_version": "1.2.0",
+  "evidence_manifests": 6,
+  "manifested_outputs": 65,
+  "artifact_files": 175,
+  "tests_collected": 41,
+  "main_pages": 11,
+  "supplement_pages": 10,
+  "main_pdf_sha256": "a03378ddcef027c09fbeac145b37bbf4098c4568db1bcd1e9aa3d91a9e3a4fa5",
+  "supplement_pdf_sha256": "921f1a5315f017af14818532e481b27aa6d4900881e80a2a4a87f9b2a98b8e30",
+  "primary_counts": {
+    "gate1_label_rows": 1440,
+    "gate1_positive_impact": 1276,
+    "gate1_label_increased": 59,
+    "expansion_label_rows": 3600,
+    "expansion_positive_impact": 2184,
+    "expansion_label_increased": 433,
+    "expansion_label_material": 2617,
+    "reinforcement_label_rows": 3600,
+    "reinforcement_calibrated_cells": 60,
+    "reinforcement_fpr_rows": 14,
+    "policy_material_observations": 7008,
+    "policy_regimes": 5,
+    "policy_policies": 4
+  },
+  "version_doi": "10.5281/zenodo.22550852",
+  "concept_doi": "10.5281/zenodo.22550852"
+}

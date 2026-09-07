@@ -1,9 +1,9 @@
 {
-  "title": "Information-Set Conditional Integrity Auditing for Hybrid Quantum-Classical Kernel Workflows",
-  "description": "Version 1.1.1 reproducibility artifact: code, tests, compact derived evidence (frozen 1.0.0 gates plus preregistered reinforcement gates), figures, manifests and manuscript sources. Editorial release: only the funding acknowledgement wording changed with respect to 1.1.0.",
+  "title": "Observational Indistinguishability and Integrity Blind Regions Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows",
+  "description": "Version 1.2.0 reproducibility artifact: code, tests, compact derived evidence (frozen 1.0.0 gates, the preregistered 1.1.0 reinforcement gates and the preregistered 1.2.0 policy gates: family-wise regime calibration and end-to-end allow/hold/block evaluation on frozen outputs), figures, six SHA-256 evidence manifests, formal core, adversary model and manuscript sources. No kernel, model or draw was re-executed with respect to 1.1.1; the 1.0.0 evidence tables are byte-identical except for repository-relative paths in the two gate-completeness tables.",
   "upload_type": "software",
-  "publication_date": "2026-09-06",
-  "version": "1.1.1",
+  "publication_date": "2026-09-07",
+  "version": "1.2.0",
   "creators": [
     {
       "name": "Fernández-Barrios, Roberto",
@@ -28,16 +28,22 @@
   ],
   "keywords": [
     "integrity auditing",
+    "observability",
     "hybrid quantum-classical systems",
     "quantum kernels",
-    "sensor coverage",
+    "runtime assurance",
     "cybersecurity"
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.1.1",
+      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.2.0",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.22552643",
+      "relation": "isNewVersionOf",
+      "scheme": "doi"
     }
   ],
   "notes": "Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",

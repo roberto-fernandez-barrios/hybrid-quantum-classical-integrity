@@ -1,9 +1,9 @@
 gate,raw_directory,observed_files,expected_files,complete,design_valid,models,dimensions,n_split_seeds,n_model_seeds,attacks_per_cell
-gate2_id_256,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate2a_id_size256_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate3a_ood_tue_wed,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate3a_ood_tue_wed_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate3b_ood_tue_fri_portscan,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate3b_ood_tue_fri_portscan_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate3c_ood_wed_thu_webattacks,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate3c_ood_wed_thu_webattacks_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate3d_ood_wed_fri_morning,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate3d_ood_wed_fri_morning_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate5a_id_unsw,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate5a_id_unsw_fmaps,90,90,True,True,"qsvc_pauli_xyz_r1,qsvc_z_r1,qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate5b_id_ton_iot,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate5b_id_ton_iot_fmaps,90,90,True,True,"qsvc_pauli_xyz_r1,qsvc_z_r1,qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
-gate6_ood_unsw,C:/Users/masteria.DOMINE/RF/paper_HAIS/results/raw/paper15_q1_gate6_ood_unsw_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate2_id_256,results/raw/paper15_q1_gate2a_id_size256_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate3a_ood_tue_wed,results/raw/paper15_q1_gate3a_ood_tue_wed_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate3b_ood_tue_fri_portscan,results/raw/paper15_q1_gate3b_ood_tue_fri_portscan_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate3c_ood_wed_thu_webattacks,results/raw/paper15_q1_gate3c_ood_wed_thu_webattacks_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate3d_ood_wed_fri_morning,results/raw/paper15_q1_gate3d_ood_wed_fri_morning_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate5a_id_unsw,results/raw/paper15_q1_gate5a_id_unsw_fmaps,90,90,True,True,"qsvc_pauli_xyz_r1,qsvc_z_r1,qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate5b_id_ton_iot,results/raw/paper15_q1_gate5b_id_ton_iot_fmaps,90,90,True,True,"qsvc_pauli_xyz_r1,qsvc_z_r1,qsvc_zz_r1,svc_rbf","8,10,12",5,2,18
+gate6_ood_unsw,results/raw/paper15_q1_gate6_ood_unsw_zz_svc,30,30,True,True,"qsvc_zz_r1,svc_rbf","8,10,12",5,2,18

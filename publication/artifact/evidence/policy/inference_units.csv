@@ -1,0 +1,2 @@
+n_environments,n_cells,n_runs,n_env_split_clusters,n_evaluation_draws,n_calibration_draws,draws_per_cell,dependence,inferential_unit,descriptive_only
+8,60,240,40,12000,12000,200,20 draws per run are overlapping simple random subsets of one pool half; 200 draws per cell come from 10 pool halves (5 split seeds x 2 model seeds),environment x split-seed cluster (5 per environment),pooled rates over draws and Clopper-Pearson intervals of artifact 1.1.0

@@ -1,16 +1,18 @@
-# Title page — author-confirmed metadata (2026-09-06)
+# Title page — author-confirmed metadata (authors confirmed 2026-09-06; 1.2.0 manuscript changes recorded 2026-09-07)
 
 ## Article metadata
 
-Title: **Information-Set Conditional Integrity Auditing for Hybrid
-Quantum-Classical Kernel Workflows**
+Title: **Observational Indistinguishability and Integrity Blind Regions
+Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows**
+(earlier working title: *Information-Set Conditional Integrity Auditing for
+Hybrid Quantum-Classical Kernel Workflows*)
 
 Article type: **Regular Paper**
 
 Target: *IEEE Transactions on Dependable and Secure Computing*
 
-Index Terms: hybrid quantum-classical systems; integrity auditing; partial
-observability; quantum kernels; sensor coverage
+Index Terms: hybrid quantum-classical systems; integrity auditing;
+observability; quantum kernels; runtime assurance
 
 ## Authors and affiliations
 
@@ -35,10 +37,8 @@ Avda. de las Universidades 24, 48007 Bilbao, Spain.
 
 The identifier and beneficiary were verified against the AEI granted-aid record
 on 2026-08-09. The wording follows the AEI publicity guide (v09, 5 February
-2026) for Knowledge Generation projects 2021–2025, which prescribes
-`MICIU/AEI/10.13039/501100011033` and the ERDF/EU co-funding clause, with the
-MICIU and AEI acronyms kept in Spanish; it retains the project acronym and code
-requested by the principal investigator. Confirmed by all authors on 2026-09-06.
+2026) for Knowledge Generation projects 2021–2025; confirmed by all authors on
+2026-09-06.
 
 ## Competing interests
 
@@ -56,18 +56,19 @@ authors on 2026-09-06).
 - Pablo García Bringas: Supervision, Resources, Funding acquisition, Writing –
   review & editing.
 
-
 ## Data and code availability
 
-The reproducibility artifact (version 1.1.1) contains source code, locked
+The reproducibility artifact (version 1.2.0) contains source code, locked
 dependencies, tests, derived evidence for the frozen gates and the
-preregistered reinforcement gates, vector figures, and SHA-256 manifests. Raw
-benchmark datasets are not redistributed; public sources and deterministic
-staging instructions are documented. Version DOI: **10.5281/zenodo.22552643**
-(Zenodo, artifact 1.1.1; repository tag `paper15-q1-v1.1.1`; concept DOI
-10.5281/zenodo.22550852).
+preregistered 1.1.0 and 1.2.0 gates, the formal core, the adversary model,
+vector figures, six SHA-256 evidence manifests and the artifact-wide manifest.
+Raw benchmark datasets are not redistributed; public sources, expected hashes
+and deterministic staging instructions are documented. Concept DOI:
+**10.5281/zenodo.22550852** (resolves to the latest version); the version DOI
+of 1.2.0 is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`
+(repository tag `paper15-q1-v1.2.0`; 1.1.1: 10.5281/zenodo.22552643).
 
-## Related manuscripts by the authors (disclosed in §II-C and the cover letter)
+## Related manuscripts by the authors (disclosed in §II-D and the cover letter)
 
 1. *Sharp Target-Domain Certificates for Quantum-Kernel Advantage under
    Distribution Shift* — submitted to EPJ Quantum Technology (6 September
@@ -85,7 +86,9 @@ submission.
 ## Generative-AI disclosure
 
 See `AI_USE_DISCLOSURE.md`: system, affected sections and level of use for
-OpenAI Codex and Anthropic Claude Code; approved by all authors on 2026-09-06.
+OpenAI Codex and Anthropic Claude Code; the 1.1.0 wording was approved by all
+authors on 2026-09-06 and the 1.2.0 wording extends it to the formal core,
+adversary model, policy gates and their code.
 
 ## Artifact and copyright choices
 

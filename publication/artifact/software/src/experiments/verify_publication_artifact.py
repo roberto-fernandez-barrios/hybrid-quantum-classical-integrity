@@ -20,7 +20,7 @@ import pandas as pd
 
 
 TOL = 1e-12
-EXPECTED_MANIFESTS = 5  # gate1, expansion, quantum_integrity, hsaas, reinforcement (1.1.0)
+EXPECTED_MANIFESTS = 6  # gate1, expansion, quantum_integrity, hsaas, reinforcement (1.1.0), policy (1.2.0)
 
 
 def _sha256(path: Path) -> str:
@@ -76,7 +76,7 @@ def _assert_zero(frame: pd.DataFrame, columns: list[str], label: str) -> None:
         raise ValueError(f"{label} is not invariant; max absolute response={maximum}")
 
 
-def _verify_label_claims(path: Path, expected_total: int, expected_positive: int) -> None:
+def _verify_label_claims(path: Path, expected_total: int, expected_positive: int, expected_signed: tuple[int, int, int]) -> None:
     frame = pd.read_csv(path, low_memory=False)
     label_side = frame[frame["attack_family"] == "target_shift"].copy()
     if len(label_side) != expected_total:
@@ -104,15 +104,22 @@ def _verify_label_claims(path: Path, expected_total: int, expected_positive: int
     impact = label_side["impact_bal_acc"].astype(float)
     if int((impact > TOL).sum()) != expected_positive:
         raise ValueError(f"{path.name}: positive-impact count changed")
-    if bool((impact < -TOL).any()):
-        raise ValueError(f"{path.name}: negative label-side impact observed")
+    # ``impact_bal_acc`` is the positive part max(BA_clean - BA_observed, 0); the
+    # signed change is recomputed here so that apparent improvements are counted
+    # explicitly (artifact 1.2.0) instead of being folded into "zero impact".
+    signed = label_side["bal_acc_clean"].astype(float) - label_side["bal_acc"].astype(float)
+    observed_signed = (int((signed > TOL).sum()), int((signed.abs() <= TOL).sum()), int((signed < -TOL).sum()))
+    if observed_signed != expected_signed:
+        raise ValueError(f"{path.name}: signed label-path counts (decreased, unchanged, increased) {observed_signed} != {expected_signed}")
+    if not bool(((impact > TOL) == (signed > TOL)).all()):
+        raise ValueError(f"{path.name}: positive impact is not the positive part of the signed change")
 
-    positive = label_side[impact > TOL]
-    joint = positive[
+    material = label_side[signed.abs() > TOL]
+    joint = material[
         ["integrity_confusion_profile_l1_delta", "integrity_confusion_profile_jsd_delta"]
     ].astype(float).abs().max(axis=1)
     if bool((joint <= TOL).any()):
-        raise ValueError(f"{path.name}: a positive-impact label cell lacks joint-outcome evidence")
+        raise ValueError(f"{path.name}: a label cell with a changed conclusion lacks joint-outcome evidence")
 
 
 def verify_claims(root: Path) -> dict[str, int]:
@@ -120,13 +127,16 @@ def verify_claims(root: Path) -> dict[str, int]:
     expansion = next(root.rglob("expansion_unique_observations.csv"), None)
     if gate1 is None or expansion is None:
         raise FileNotFoundError("unique-observation tables required for independent claim verification")
-    _verify_label_claims(gate1, expected_total=1440, expected_positive=1276)
-    _verify_label_claims(expansion, expected_total=3600, expected_positive=2184)
+    _verify_label_claims(gate1, expected_total=1440, expected_positive=1276, expected_signed=(1276, 105, 59))
+    _verify_label_claims(expansion, expected_total=3600, expected_positive=2184, expected_signed=(2184, 983, 433))
     return {
         "gate1_label_rows": 1440,
         "gate1_positive_impact": 1276,
+        "gate1_label_increased": 59,
         "expansion_label_rows": 3600,
         "expansion_positive_impact": 2184,
+        "expansion_label_increased": 433,
+        "expansion_label_material": 2617,
     }
 
 
@@ -169,6 +179,50 @@ def verify_reinforcement_claims(root: Path) -> dict[str, int]:
     }
 
 
+def verify_policy_claims(root: Path) -> dict[str, int]:
+    """Recompute the policy-level claims of artifact 1.2.0 from the manifested tables.
+
+    The family-calibrated feature and feature-plus-prediction regimes never fire on
+    evaluation-label interventions; the serve-always baseline allows every material
+    observation; the trusted item-aligned regime allows no material observation
+    under any calibrated policy; and the family rule never exceeds the union rule
+    in pooled false-alarm rate.
+    """
+    metrics_path = next(root.rglob("policy_metrics.csv"), None)
+    label_path = next(root.rglob("family_label_path_summary.csv"), None)
+    fpr_path = next(root.rglob("family_false_alarm_overall.csv"), None)
+    if metrics_path is None or label_path is None or fpr_path is None:
+        raise FileNotFoundError("policy evidence tables required for claim verification")
+    label = pd.read_csv(label_path)
+    for regime in ("I_X", "I_XF"):
+        block = label[(label["subset"] == "all_label_interventions") & (label["regime"] == regime)]
+        if int(block["n_fire"].sum()) != 0:
+            raise ValueError(f"family-calibrated {regime} regime fired on an evaluation-label intervention")
+    prior = label[(label["subset"] == "prior_preserving_label_interventions") & (label["regime"] == "I_Ym")]
+    if int(prior["n_fire"].sum()) != 0:
+        raise ValueError("family-calibrated label-marginal regime fired on a prior-preserving intervention")
+    metrics = pd.read_csv(metrics_path)
+    primary = metrics[metrics["tau"] == 0.0]
+    serve = primary[primary["policy"] == "serve_always"]
+    if not bool((serve["unsafe_allow"] == serve["n_material"]).all()):
+        raise ValueError("serve-always baseline does not allow every material observation")
+    trusted = primary[(primary["regime"] == "I_XFY_trusted") & (primary["policy"] != "serve_always")]
+    if int(trusted["unsafe_allow"].sum()) != 0 or int(trusted["false_hold"].sum() + trusted["false_block"].sum()) != 0:
+        raise ValueError("trusted item-aligned regime has unsafe allows or false holds")
+    fpr = pd.read_csv(fpr_path)
+    for regime, block in fpr.groupby("regime"):
+        family = float(block[block["rule"] == "family"]["pooled_rate"].iloc[0])
+        union = float(block[block["rule"] == "union"]["pooled_rate"].iloc[0])
+        if family > union + 1e-12:
+            raise ValueError(f"family rule exceeds union rule in regime {regime}")
+    n_material = int(serve["n_material"].iloc[0])
+    return {
+        "policy_material_observations": n_material,
+        "policy_regimes": int(primary["regime"].nunique()),
+        "policy_policies": int(primary["policy"].nunique()),
+    }
+
+
 def verify_release_hashes(root: Path) -> int:
     manifest = root / "ARTIFACT_MANIFEST.sha256"
     if not manifest.exists():
@@ -190,6 +244,7 @@ def verify(root: Path) -> dict[str, int]:
     result = verify_embedded_manifests(root)
     result.update(verify_claims(root))
     result.update(verify_reinforcement_claims(root))
+    result.update(verify_policy_claims(root))
     result["release_files"] = verify_release_hashes(root)
     return result
 

@@ -1,0 +1,238 @@
+{
+  "analysis": "paper15_v12_policy",
+  "status": "complete",
+  "preregistration": {
+    "file": "manuscript/paper15_v12_policy_prereg.md",
+    "sha256": "31860b4d233db730492839be289112cd5ec445fb78d7d690b19ae7e2d0efa8a8"
+  },
+  "gate_f": {
+    "alpha_per_decision": 0.05,
+    "statistic": "maximum calibration rank score over the regime (one minus the minimum calibration p-value); ties count against firing",
+    "threshold": "191th smallest calibration family score per (environment, dimension, model) cell",
+    "regimes": {
+      "I_X": [
+        "integrity_jsd_vs_clean_eval",
+        "integrity_mmd_vs_clean_eval",
+        "integrity_ks_reject05_vs_clean_eval"
+      ],
+      "I_XF": [
+        "integrity_jsd_vs_clean_eval",
+        "integrity_mmd_vs_clean_eval",
+        "integrity_ks_reject05_vs_clean_eval",
+        "integrity_score_jsd_vs_clean_eval",
+        "integrity_pred_pos_rate_shift",
+        "integrity_pred_jsd"
+      ],
+      "I_Ym": [
+        "integrity_label_prior_shift",
+        "integrity_label_jsd"
+      ],
+      "I_XFY": [
+        "integrity_jsd_vs_clean_eval",
+        "integrity_mmd_vs_clean_eval",
+        "integrity_ks_reject05_vs_clean_eval",
+        "integrity_score_jsd_vs_clean_eval",
+        "integrity_pred_pos_rate_shift",
+        "integrity_pred_jsd",
+        "integrity_label_prior_shift",
+        "integrity_label_jsd",
+        "integrity_confusion_profile_l1",
+        "integrity_confusion_profile_jsd"
+      ]
+    },
+    "inferential_unit": "environment x split-seed cluster; pooled rates descriptive"
+  },
+  "gate_d": {
+    "policies": [
+      "serve_always",
+      "union_uncalibrated",
+      "family_calibrated",
+      "family_calibrated_strict"
+    ],
+    "regimes": {
+      "I_X": {
+        "trusted_reference": false,
+        "coverage": {
+          "feature": "calibrated",
+          "prediction": "blind",
+          "label": "blind"
+        }
+      },
+      "I_XF": {
+        "trusted_reference": false,
+        "coverage": {
+          "feature": "calibrated",
+          "prediction": "calibrated",
+          "label": "blind"
+        }
+      },
+      "I_Ym": {
+        "trusted_reference": false,
+        "coverage": {
+          "feature": "blind",
+          "prediction": "blind",
+          "label": "marginal"
+        }
+      },
+      "I_XFY": {
+        "trusted_reference": false,
+        "coverage": {
+          "feature": "calibrated",
+          "prediction": "calibrated",
+          "label": "calibrated"
+        }
+      },
+      "I_XFY_trusted": {
+        "trusted_reference": true,
+        "coverage": {
+          "feature": "exact",
+          "prediction": "exact",
+          "label": "exact"
+        }
+      }
+    },
+    "materiality": {
+      "primary": "|delta balanced accuracy| > 1e-12",
+      "sensitivity": [
+        0.02,
+        0.05
+      ]
+    },
+    "observation_classes": {
+      "clean": "12,000 disjoint clean evaluation draws (exact-zero rows for the trusted regime)",
+      "benign": "near-null in-place shams",
+      "intervened": "frozen paper_core observations of the eight Gate N environments"
+    },
+    "composition": "max in the lattice allow < hold < block over the six frozen HSaaS envelopes"
+  },
+  "acceptance_checks": {
+    "F0_frozen_per_sensor_thresholds_reproduced": true,
+    "F3_family_I_X_zero_on_label_rows": true,
+    "F3_family_I_XF_zero_on_label_rows": true,
+    "F3_family_I_Ym_zero_on_prior_preserving_rows": true,
+    "D1_serve_always_unsafe_allow_equals_material": true,
+    "D2_structural_blindness_reproduced_by_decisions": true,
+    "D3_trusted_regime_blocks_all_material_label_rows_and_exact_violations": true,
+    "D4_decisions_total_with_reason_codes": true,
+    "D5_contract_composition_consistent": true,
+    "W8_material_label_rows_all_change_confusion_profile": true
+  },
+  "input_files": [
+    {
+      "role": "null",
+      "path": "results/paper_digest/paper15_v11_reinforcement/null_unique_observations.csv",
+      "sha256": "5f2f28b0b1e61260c62b4331d3fa05bb3ae74ac1e5409f63d9ad8bb1aef7b901"
+    },
+    {
+      "role": "thresholds",
+      "path": "results/paper_digest/paper15_v11_reinforcement/null_calibration_thresholds.csv",
+      "sha256": "cb2f1a101c0ccce1c549cd7acc6cd12e592edfec83fad5a3e78bfec2a7bc948f"
+    },
+    {
+      "role": "pool",
+      "path": "results/paper_digest/paper15_v11_reinforcement/null_pool_design.csv",
+      "sha256": "e07cff7a7b0149ec5b12008ace1116456ce6e6563df2752c0cfa62392445ba67"
+    },
+    {
+      "role": "expansion",
+      "path": "results/paper_digest/paper15_q1_expansion/expansion_unique_observations.csv",
+      "sha256": "58370ac938988ff98b4c4348eef60c7b80888a967cec6e9fc8c03d215efa2764"
+    },
+    {
+      "role": "envelopes",
+      "path": "results/paper_digest/paper15_hsaas_demo/hsaas_audit_envelopes.jsonl",
+      "sha256": "9a27f93583c78300b22e40f7df36bb2b07581807064b0f2c877e543a155aa134"
+    },
+    {
+      "role": "prereg",
+      "path": "manuscript/paper15_v12_policy_prereg.md",
+      "sha256": "31860b4d233db730492839be289112cd5ec445fb78d7d690b19ae7e2d0efa8a8"
+    }
+  ],
+  "outputs": {
+    "family_calibration_thresholds.csv": {
+      "rows": 240,
+      "sha256": "8b2161a25241de3bf8589315ea9f6ec77b2ffae6b052f98170cc07ec52b5c719"
+    },
+    "family_false_alarm_by_cell.csv": {
+      "rows": 480,
+      "sha256": "3579500e7d0425bcc7503345b3cac5dbe0d8bc72ccf8fa367c89e36b36d76bb4"
+    },
+    "family_false_alarm_by_cluster.csv": {
+      "rows": 320,
+      "sha256": "7fae8794364f0fe6dcdc92807c0134629fe5cd9bc0484ac0e80c3cc1a828c729"
+    },
+    "family_false_alarm_by_environment.csv": {
+      "rows": 64,
+      "sha256": "23c4f37dc1c121f62022123c0942b4e74127bfc3f6dd58c36fd29fa017b6afbc"
+    },
+    "family_false_alarm_overall.csv": {
+      "rows": 8,
+      "sha256": "e6984c3c3bfa884eaece96a871e6f1501f811915160d1f4b6a03c92af751213a"
+    },
+    "family_detection_pooled.csv": {
+      "rows": 144,
+      "sha256": "7323939356da59fb54c9aa1e50e84c67269e4745bc7bc80ad7bfbaf333d3c19a"
+    },
+    "family_detection_by_environment.csv": {
+      "rows": 1152,
+      "sha256": "752cdf7c54e91566da05efeff0e025a34d53fc3cfed0ad0b8b74f6b1fef9fac9"
+    },
+    "family_benign_control_response.csv": {
+      "rows": 24,
+      "sha256": "2ec23cd8d4ff73850c896e4a5543e3b8f490a397ecae4ad43a74475cb520b3cb"
+    },
+    "family_label_path_summary.csv": {
+      "rows": 27,
+      "sha256": "908abdd76756bc80598657fb632255cbd819fa528b4e9f97fe712fac55868510"
+    },
+    "inference_units.csv": {
+      "rows": 1,
+      "sha256": "0a3d1e3e70d455145ef121afcf0c8f9f8fe62a36a72427e6e131f43933310b2c"
+    },
+    "policy_metrics.csv": {
+      "rows": 60,
+      "sha256": "26e55cf764d5920efda3bc81e4a2f9f5f5ced7ade844527f29f8eaa05f8c7a3f"
+    },
+    "policy_metrics_by_family.csv": {
+      "rows": 240,
+      "sha256": "fe960beb45e5f320e1eff6583e79f41339b06b8c95fdc4372deb67f627ba9347"
+    },
+    "policy_metrics_by_environment.csv": {
+      "rows": 160,
+      "sha256": "68dedd3afc46c743e8444eaf07d99419f0a4819a3eaadf62deac65c9c2e650ac"
+    },
+    "policy_decision_counts.csv": {
+      "rows": 180,
+      "sha256": "38d7c0054339e0f3bbffe6f56ded0ae2ea0efa185a8464d9fee3379303c7366a"
+    },
+    "policy_reason_counts.csv": {
+      "rows": 111,
+      "sha256": "5d3995130ae4ae0444c599f265f602a8e871ee406883eaf5b62ddbc7c5d0cb12"
+    },
+    "policy_regime_coverage.csv": {
+      "rows": 5,
+      "sha256": "7c6d4abd034edf90c61953196d1d08ccc60891f0bb385b30d4f66ac0f7fce2c3"
+    },
+    "policy_intervened_decisions.csv": {
+      "rows": 10800,
+      "sha256": "acf86cc6b57334fde7f689cdafb56e37ad8ec5ebf64c4d46bdc6044f42cce096"
+    },
+    "policy_null_decisions.csv": {
+      "rows": 12000,
+      "sha256": "c698717a7458178f774c2bd94e3a49ec6d662d28a287be9b691eb71605c35718"
+    },
+    "policy_benign_decisions.csv": {
+      "rows": 1200,
+      "sha256": "386c345ea682b996dbfd03538e6a2690e79f60afefd44cb2ffad8c8b018534d1"
+    },
+    "policy_contract_composition.csv": {
+      "rows": 6,
+      "sha256": "65578b2206b1df0a2f36b4e2df7db38443c4707034ad33b25d366ac81e7d8d0a"
+    },
+    "counterexample_witnesses.csv": {
+      "rows": 8,
+      "sha256": "501eb983b961d15b64a3b6b549fb76a932a5d0be2b0ccf25d656f47ee12d65e1"
+    }
+  }
+}
