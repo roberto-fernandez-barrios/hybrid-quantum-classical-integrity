@@ -1,17 +1,18 @@
-# IEEE TDSC manuscript package (artifact 1.3.1; experimental evidence frozen at 1.3.0)
+# IEEE TDSC manuscript package (artifact 1.3.2; experimental evidence frozen at 1.3.0)
 
 This directory contains the submission sources for the regular-paper candidate
-"Observational Indistinguishability and Integrity Blind Regions Across the
-Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows". The
+"Observational Indistinguishability and Integrity Blind Regions in Hybrid
+Quantum-Classical Workflows". The
 manuscript is formatted with `IEEEtran` in Computer Society journal mode.
 
 ## Source inventory
 
-- `main.tex` — complete article: abstract (at most 250 words, CI-checked),
-  introduction with a concrete threat scenario, related work and a nine-axis
-  positioning table (including VAMP and the axes on which QCIVET,
-  QML-PipeGuard and VAMP exceed this work), observation model with primitive
-  and derived artifacts, reference levels A/B/C and the quantum branch as an
+- `main.tex` — complete article: abstract (170–200 words, CI-checked),
+  introduction with a concrete threat scenario and compact related-work
+  positioning (including VAMP, authenticated provenance, verifiable logs,
+  software-supply-chain attestation and remote attestation), observation model with primitive
+  and derived artifacts, audited three-axis reference profile with A/B/C
+  shorthand and the quantum branch as an
   instance of the view lattice (semantic, estimated and observed kernels;
   Proposition 7 corrected for finite-shot estimation), adversary and failure
   model with the executed adaptive attacker, methodology (policy P3 as
@@ -79,7 +80,7 @@ Python 3.10 is the frozen reference interpreter. From the repository root:
   --root publication\artifact
 ```
 
-The verifier checks the artifact-wide SHA-256 manifest, seven evidence
+The verifier checks the artifact-wide SHA-256 manifest, eight evidence
 manifests, the manifested outputs, table shapes, the primary count claims
 including the signed label-path counts, the calibrated label-path checks, the
 policy-level claims (including the level of the conformal rule under
@@ -112,13 +113,10 @@ profile is secondary evidence reported in the supplement.
 
 All authors confirmed authorship, ORCIDs, CRediT roles, competing interests,
 funding wording, the AI-use disclosure and the licensing scheme on
-2026-09-06; the 1.2.0, 1.3.0 and 1.3.1 changes to the manuscript (formal
-core, adversary model, policy gates, amendment A2, adversarial gate,
-retitling, framing, the 1.3.1 formal and editorial corrections) and the
-extended AI-use disclosure were approved on 2026-09-07 (communicated by the
-corresponding author). The version DOI of 1.3.1 is inserted by the release
+2026-09-06; all changes through 1.3.2 and the extended AI-use disclosure were
+approved (communicated by the corresponding author). The version DOI of 1.3.2 is inserted by the release
 pipeline (`publication/DOI_STATUS.md`). IEEE Computer Society author
-guidance verified on 2026-09-07: regular Transactions papers are limited to
+guidance verified on 2026-09-08: regular Transactions papers are limited to
 12 formatted pages including references and biographies (USD 220 per
 overlength page); author biographies are not required for journal
 submissions; the article is at 12 pages without biographies.

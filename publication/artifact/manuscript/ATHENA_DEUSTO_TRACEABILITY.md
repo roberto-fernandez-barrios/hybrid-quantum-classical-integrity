@@ -1,11 +1,9 @@
 # Matriz de trazabilidad ATHENA-AEGIS — contribución Deusto
 
-Fecha de corte: 7 de septiembre de 2026 (artefacto 1.3.0, cierre científico
-definitivo del Paper 1.5)  
+Fecha de corte: 8 de septiembre de 2026 (versión 1.3.2; evidencia
+experimental congelada en el artefacto 1.3.0)
 Artefacto científico: *Observational Indistinguishability and Integrity Blind
-Regions Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel
-Workflows* (Paper 1.5; título anterior *Information-Set Conditional Integrity
-Auditing for Hybrid Quantum-Classical Kernel Workflows*).
+Regions in Hybrid Quantum-Classical Workflows* (Paper 1.5).
 
 ## Propósito y regla de lectura
 
@@ -46,8 +44,9 @@ salidas, ficheros, tests, páginas, hashes) están en
 | E13 | `manuscript/paper15_v11_reinforcement_prereg.md`, `src/experiments/build_q1_reinforcement_evidence.py` y su manifiesto | Gates de refuerzo preregistrados (1.1.0): calibración nula por sensor, ablación de preprocesado, baselines ajustados |
 | E14 | `manuscript/ADVERSARY_MODEL.md`, `manuscript/THREAT_MODEL_CARD.md` | Modelo de adversario/fallo por clase de intervención, raíces de confianza, exclusiones; F5 ejecutado |
 | E15 | `pyproject.toml`, `.github/workflows/tests.yml`, `manuscript/HSaaS_DEMONSTRATOR.md` | CLI instalable, CI y documentación del prototipo |
-| E16 | `publication/artifact/`, `src/experiments/verify_publication_artifact.py`, `src/experiments/make_release_status.py` | Artefacto compacto con siete manifiestos, verificador fail-closed y fuente única de recuentos |
+| E16 | `publication/artifact/`, `src/experiments/verify_publication_artifact.py`, `src/experiments/make_release_status.py` | Artefacto compacto con ocho manifiestos, verificador fail-closed y fuente única de recuentos |
 | E17 | `manuscript/paper15_v13_prereg.md`, `src/attacks/cluster_preserving.py`, `src/experiments/run_v13_f5_queue.py`, `src/experiments/build_q1_adversarial_evidence.py` y su manifiesto | Gate A preregistrado: atacante adaptativo que preserva el fingerprint (240 jobs, réplica exacta de controles) |
+| E18 | `manuscript/METHODOLOGICAL_AMENDMENT_1.3.2.md`, `src/experiments/build_v132_amendment_evidence.py` y su manifiesto | Auditoría sensor→referencia→trust→clase; reparación taxonómica B; coste trusted bruto/neto y perfil adaptativo por intensidad, todo derivado de outputs congelados |
 
 ## Trazabilidad por objetivo y subtarea
 
@@ -62,8 +61,8 @@ salidas, ficheros, tests, páginas, hashes) están en
 | 3.2.1 — V&V en diseño | Clean contract, canonical OpenQASM 3 hash, parámetros y equivalencia semántica | E5, E7, E10 | Parcial alto | Especificación formal y mayor diversidad de circuitos/algoritmos |
 | 3.2.2 — V&V en transpilation y scheduling | Diferencia de provenance con preservación semántica bajo transpilation benigna; clase "equivalencia aprobada" en la política | E5, E10, E12 | Parcial | Scheduling ausente; faltan layouts, hardware constraints y ataques de compiler pass |
 | 3.2.3 — V&V durante ejecución | Repetición estocástica controlada y comprobación de discrepancias | E5, E10 | Parcial | Ejecución en backend sampler/noisy calibrado y QPU |
-| 3.2.4 — validación end-to-end de integración híbrida | Cuatro contratos ejecutables, hash chain, política calibrada e information-aware `allow/hold/block` evaluada **offline** sobre 24.000 observaciones congeladas; composición con los seis escenarios | E1, E11, E12, E15 | Parcial alto | Endpoint desplegado, firma/autenticación, persistencia y flujo operacional QPU |
-| G3.3 — métricas, identificación de amenazas y enforcement | Auditabilidad como propiedad de (clase, vista, referencias); regiones ciegas estructurales, calibradas y adaptativas; **nivel de falsas alarmas a nivel de decisión con premisa exacta** (regla conformal, 10/201 bajo intercambiabilidad; 0,056/0,058/0,048/0,053 en el diseño ejecutado; la regla 1.2.0 tenía una garantía falsa y su exceso era mayoritariamente sesgo de regla); **coste de enforcement medido en ambos lados**: unsafe allows, false holds, interrupción benigna (el régimen confiable interrumpe el 52 % de la variación benigna), containment por régimen y política (Gate D); **atacante adaptativo ejecutado** que evade los sensores calibrados (Gate A); modelo de adversario explícito | E1, E2, E12, E13, E14, E17 | **Cubierto como contribución metodológica en diseño fijo y simulador** | Calibración condicionada al contexto de ejecución bajo no estacionariedad, abstención por fuera de soporte, recuperación y evaluación a nivel de servicio (Paper 2.5) |
+| 3.2.4 — validación end-to-end de integración híbrida | Cuatro contratos ejecutables, hash chain, política calibrada e information-aware `allow/hold/block` evaluada **offline** sobre 24.000 filas de política derivadas de la rejilla congelada; la independencia inferencial reside en clústeres entorno/split, no en cada fila; composición con los seis escenarios | E1, E11, E12, E15, E18 | Parcial alto | Endpoint desplegado, firma/autenticación, persistencia y flujo operacional QPU |
+| G3.3 — métricas, identificación de amenazas y enforcement | Auditabilidad como propiedad de (clase, vista, referencia); regiones ciegas estructurales, calibradas y adaptativas; **nivel de falsas alarmas a nivel de decisión con premisa exacta** (regla conformal, 10/201 bajo intercambiabilidad; tasas ejecutadas descriptivas); **granularidad mínima de evidencia**: compromiso agregado confiable para conclusión, alineación item-wise para identidad; **coste de enforcement**: resultados de auditoría materialmente alterados servidos, false holds e interrupción near-null, distinguiendo 85 bloques exactos brutos de 39 interrupciones netas adicionales; atacante adaptativo ejecutado y perfil completo por intensidad | E1, E2, E12–E14, E17, E18 | **Cubierto como contribución metodológica en diseño fijo y simulador** | Calibración condicionada al contexto, abstención OOS, recuperación, contramedida preventiva medida y evaluación a nivel de servicio (Paper 2.5) |
 | 3.3.1 — métricas de calidad, fiabilidad y seguridad en diseño | Cambio de conclusión con signo (incl. mejoras aparentes), impact locus, semantic kernel delta, provenance, cobertura por familia, checks algebraicos, interrupción benigna y no material | E1, E5, E6, E12 | Cubierto en el caso de estudio | Validación externa en otras familias de algoritmos cuánticos |
 | 3.3.2 — criterios para transpilation, scheduling y post-processing | Política de transpilation aprobada, semantic probes, simetría/diagonal/PSD, repeated estimation y composición `max` en el retículo `allow<hold<block` | E1, E5, E10, E12 | Parcial alto | Criterios de scheduling y calibración con umbrales operacionales en hardware |
 | 3.3.3 — métodos de security assessment para QPU | Ninguna medición física; los shots son un emulador binomial explícito | E1, E10 | No cubierto | Campaña QPU reproducible con calibración, incertidumbre y provenance (Paper 2.5) |
@@ -116,18 +115,18 @@ sin cerrar la obligación. La estrategia queda así:
 - Región ciega replicada: 3.600/3.600 intervenciones de etiquetas invariantes para evidencia de features+predicción; 1.800/1.800 prior-preserving también invariantes para el marginal.
 - Cambio de conclusión con signo (etiquetas, expansión): 2.184 bajan, 983 no cambian, 433 suben; las 2.617 con cambio tienen evidencia conjunta item-alineada no nula (Gate 1: 1.276/105/59).
 - Calibración a nivel de decisión (regla conformal, nivel exacto 10/201): FPR 0,056 / 0,058 / 0,048 / 0,053 (I_X / I_XF / I_Ym / I_XFY) frente a 0,061 / 0,073 / 0,048 / 0,079 (regla 1.2.0, garantía falsa) y 0,125 / 0,203 / 0,048 / 0,259 (unión); sesgo de regla +0,005 / +0,015 / 0 / +0,025; efecto de diseño +0,006 / +0,008 / −0,003 / +0,003; unidad de inferencia = clúster (entorno, split).
-- Evaluación offline end-to-end: 7.008 observaciones materiales; unsafe allows bajo P2 conformal 4.496 / 4.365 / 7.008 / 4.390 (regímenes batch) y 0 bajo la referencia item-alineada confiable, que interrumpe 544 + 85 de 1.200 controles benignos (52 %).
-- Gate A: 240/240 jobs; réplica exacta de controles; detección conformal del atacante adaptativo 0,01–0,34 (I_X) y 0,06–0,66 (I_XF) a intensidades iguales frente a 0,96–1,00; 3.418 filas materiales de 6.000; P2 sirve 1.328 / 959 / 1.006; régimen confiable 0.
+- Evaluación offline end-to-end: 7.008 observaciones materiales; resultados de auditoría materialmente alterados servidos bajo P2 conformal 4.496 / 4.365 / 7.008 / 4.390 (regímenes batch) y 0 bajo anclas B/C. En 1.200 controles near-null, `I_XFY`/P2 interrumpe 590 y el régimen trusted 629; éste produce 85 bloques exactos brutos, 46 solapados y solo 39 interrupciones netas adicionales (3,25 puntos porcentuales).
+- Gate A: 240/240 jobs; réplica exacta de controles; detección conformal adaptativa 0,01–0,34 (`I_X`) y 0,06–0,66 (`I_XF`) a intensidades matched frente a 0,96–1,00; 3.418 filas materiales de 6.000; P2 sirve 1.328 / 959 / 1.006 (tasas agregadas 0,39 / 0,28 / 0,29). En `I_XFY`, por intensidad 0,02/0,05/0,10, sirve 0,90/0,67/0,46 para mean shift y 0,55/0,36/0,22 para scaling; la tabla completa incluye 0,25/0,50, materialidad y detección en los tres regímenes.
 - Gate cuántico de simulador: 165/165 celdas y 9/9 comprobaciones de aceptación.
 - Demostrador HSaaS: 6/6 escenarios, 8/8 comprobaciones, composición con la política reproducida 6/6.
-- Artefacto: siete manifiestos de evidencia, verificador fail-closed; recuento de tests, salidas y ficheros en `publication/RELEASE_STATUS.md`.
+- Artefacto: ocho manifiestos de evidencia, incluido el amendment frozen-only 1.3.2, y verificador fail-closed; recuento de tests, salidas y ficheros en `publication/RELEASE_STATUS.md`.
 
 Estas cifras describen el diseño ejecutado. No son repeticiones poblacionales ni
 evidencia de hardware cuántico.
 
 ## Frontera entre Paper 1.5 y Paper 2.5
 
-**Paper 1.5 (este artefacto, cerrado en 1.3.0):** auditabilidad de integridad
+**Paper 1.5 (cerrado metodológicamente en 1.3.2):** auditabilidad de integridad
 condicionada a la información y a las referencias confiables, con regiones
 ciegas exactas, calibradas y adaptativas; nivel de falsas alarmas a nivel de
 decisión con premisa exacta (regla conformal); política calibrada y
@@ -165,3 +164,12 @@ justifica diseminación científica (Task 5.2) una vez enviado o publicado; no
 justifica Task 5.1/Result 5.1 ni una cobertura integral de ATHENA-AEGIS.
 Esta limitación de atribución no reduce el claim científico del artículo:
 evita que se use para probar trabajo operacional que no contiene.
+
+En conjunto, Paper 1.5 + Paper 2.5 pueden justificar de sobra la contribución
+científica de Deusto/AEGIS si el segundo cierra ejecución QPU real,
+intervenciones controladas, ventanas temporales, contexto/OOS,
+recovery/fallback, consecuencia de servicio, la AEGIS slice del FMS, una
+contramedida preventiva medida y la matriz de exposición de metadatos. Los dos
+papers **no sustituyen** el software release, los Result 3.x, la validación del
+consorcio, la integración FMS ni los entregables del proyecto; son evidencia
+científica que debe enlazarse con esos artefactos contractuales.

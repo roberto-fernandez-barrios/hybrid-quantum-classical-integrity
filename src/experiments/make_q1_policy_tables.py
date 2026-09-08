@@ -123,8 +123,8 @@ def table_main_policy(ev: Path) -> str:
         if regime != "I_XFY_trusted":
             rows.append("\\addlinespace[1pt]")
     n_mat = int(m["n_material"].iloc[0])
-    caption = ("Offline end-to-end decisions on the frozen observations (primary materiality $|\\Delta_R|>0$; " + _n(n_mat) + " material of 10,800 intervened observations). P1 union, P2 conformal (calibrated, risk-tolerant), P3 abst.\\ (coverage-complete abstaining). FPR: clean false-action rate on 12,000 disjoint clean draws, or on the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$ (a different denominator). Benign: fraction of the 1,200 near-null synthetic controls held or blocked (same rows for every regime). P0 serve-always allows all " + _n(n_mat) + " material observations in every regime. Blind: material observations structurally indistinguishable from the reference under the regime.")
-    return _table("table", caption, "tab:policy", "@{}llrrrrr@{}", "Regime & Policy & FPR & Benign & Unsafe & Contain. & Blind \\\\", rows, colsep="2pt", placement="!t")
+    caption = ("Offline decisions on frozen observations at the structural-sensitivity endpoint $|\\Delta_R|>0$ (" + _n(n_mat) + " materially altered audit results among 10,800 interventions). P1: union; P2: conformal, risk-tolerant; P3: coverage-complete abstaining. FPR is estimated on 12,000 disjoint clean draws for batch regimes; the starred row instead reports an exact-zero invariant check on 1,200 rows and is not the same estimand. Benign is interruption of the same 1,200 near-null synthetic controls. Served: undetected materially altered audit results served, not malicious network events. Blind: structurally indistinguishable material rows.")
+    return _table("table", caption, "tab:policy", "@{}llrrrrr@{}", "Regime & Policy & FPR/check & Benign & Served & Contain. & Blind \\\\", rows, colsep="2pt", placement="!t")
 
 
 def table_main_adversarial(adv: Path) -> str:
@@ -149,11 +149,61 @@ def table_main_adversarial(adv: Path) -> str:
                 cells.append(f"{_f(dx, 2)} & {_f(dxf, 2)} & {_f(mf, 2)} & {_n(ua)}/{_n(nm)}")
             rows.append(f"{ADV_MECH_LABEL[mech]} & {s:.2f} & " + " & ".join(cells) + " \\\\")
         rows.append("\\addlinespace[1pt]")
-    caption = ("Gate A: executed drift mechanisms (matched controls, frozen strengths) against their adaptive cluster-preserving variants (class F5), 600 observations per row pooled over the eight environments. Detection under the conformal family rule in $\\mathcal I_X$ and $\\mathcal I_{XF}$; material: fraction of rows with a changed balanced accuracy; unsafe: material rows served by P2 in $\\mathcal I_{XF}$ over material rows. The attacker leaves the clustered entries untouched and perturbs the remaining 32\\% of entries on average.")
+    caption = ("Gate A: executed drift mechanisms (matched controls, frozen strengths) against their adaptive cluster-preserving variants (class F5), 600 observations per row pooled over the eight environments. Detection uses the conformal family rule in $\\mathcal I_X$ and $\\mathcal I_{XF}$; material is the fraction with changed balanced accuracy; served is the number of undetected materially altered audit results served by P2 in $\\mathcal I_{XF}$ over material rows. The attacker leaves clustered entries untouched and perturbs the remaining 32\\% on average.")
     header = (" & & \\multicolumn{4}{c}{Executed mechanism (control)} & \\multicolumn{4}{c}{Cluster-preserving (adaptive, F5)} \\\\" + NL +
               "\\cmidrule(lr){3-6}\\cmidrule(lr){7-10}" + NL +
-              "Mechanism & Strength & Det.\\ $\\mathcal I_X$ & Det.\\ $\\mathcal I_{XF}$ & Material & Unsafe P2 & Det.\\ $\\mathcal I_X$ & Det.\\ $\\mathcal I_{XF}$ & Material & Unsafe P2 \\\\")
+              "Mechanism & Strength & Det.\\ $\\mathcal I_X$ & Det.\\ $\\mathcal I_{XF}$ & Material & Served P2 & Det.\\ $\\mathcal I_X$ & Det.\\ $\\mathcal I_{XF}$ & Material & Served P2 \\\\")
     return _table("table*", caption, "tab:adversarial", "@{}lrrrrrrrrr@{}", header, rows, colsep="4pt")
+
+
+def table_sensor_reference_audit(amendment: Path) -> str:
+    frame = pd.read_csv(amendment / "sensor_reference_audit.csv")
+    rows = []
+    for _, r in frame.iterrows():
+        sensor = str(r["sensor"])
+        current = str(r["current_value"]).replace("_", "\\_")
+        reference = str(r["reference_value"]).replace("_", "\\_")
+        rule = "statistical" if r["compatible_reference_class"] == "A" else "exact"
+        historical_statistical = str(r["historical_or_statistical"])
+        if historical_statistical == "statistical=yes; historical=no":
+            historical_statistical = "no / yes"
+        elif historical_statistical == "no":
+            historical_statistical = "no / no"
+        rows.append(
+            f"\\path{{{sensor}}} & {current} & {reference} & "
+            f"{r['item_correspondence_used']} & {r['same_batch_item_set']} & "
+            f"{r['protected_in_executed_harness']} & {r['deployed_authentication_demonstrated']} & "
+            f"{historical_statistical} & "
+            f"{rule} / {r['compatible_reference_class']} \\\\"
+        )
+    caption = ("Audited reference semantics of every selected sensor in v1.3.2. "
+               "Pairing means that item correspondence enters the statistic; same set means the runner uses the clean version of the audited item set. "
+               "Harness protected means that the benchmark keeps the reference outside the executed attack API; trusted means that the threat model grants deployed authentication. Hist./stat. reports historical and statistical reference semantics in that order. "
+               "Class A is statistical comparison; B and C are trusted aggregate and trusted item-aligned exact invariants.")
+    return _table("table*", caption, "tab:s-sensor-reference-audit",
+                  "@{}p{0.18\\textwidth}p{0.15\\textwidth}p{0.16\\textwidth}cccccp{0.07\\textwidth}@{}",
+                  "Sensor & Current value & Reference value & \\shortstack{Item\\\\pair} & \\shortstack{Same\\\\set} & \\shortstack{Harness\\\\protected} & \\shortstack{Threat-model\\\\trusted} & \\shortstack{Hist. /\\\\stat.} & Rule / class \\\\",
+                  rows, size="\\scriptsize", colsep="1.2pt")
+
+
+def table_adaptive_strength_profile(amendment: Path) -> str:
+    frame = pd.read_csv(amendment / "adaptive_strength_profile.csv")
+    rows = []
+    for _, r in frame.iterrows():
+        label = ADV_MECH_LABEL[str(r["mechanism"])]
+        rows.append(
+            f"{label} & {r['strength']:.2f} & {_n(r['n_material'])}/{_n(r['n_rows'])} & "
+            f"{_f(r['detection_I_X'], 2)} & {_f(r['detection_I_XF'], 2)} & {_f(r['detection_I_XFY'], 2)} & "
+            f"{_f(r['material_served_rate_I_X'], 2)} & {_f(r['material_served_rate_I_XF'], 2)} & {_f(r['material_served_rate_I_XFY'], 2)} \\\\"
+        )
+    caption = ("Adaptive F5 profile by nominal strength, derived without rerunning any experiment. Material is changed balanced accuracy at the structural-sensitivity endpoint. "
+               "Detection is the conformal family firing rate over all 600 rows; served is the P2 fraction among material rows. "
+               "The first three strengths have matched executed controls; 0.25 and 0.50 are the preregistered extended adaptive grid.")
+    header = (" & & & \\multicolumn{3}{c}{Detection, all rows} & \\multicolumn{3}{c}{Material served by P2} \\\\" + NL +
+              "\\cmidrule(lr){4-6}\\cmidrule(lr){7-9}" + NL +
+              "Mechanism & Strength & Material & $\\mathcal I_X$ & $\\mathcal I_{XF}$ & $\\mathcal I_{XFY}$ & $\\mathcal I_X$ & $\\mathcal I_{XF}$ & $\\mathcal I_{XFY}$ \\\\")
+    return _table("table*", caption, "tab:s-adaptive-strength-profile",
+                  "@{}lrrrrrrrr@{}", header, rows, colsep="3pt")
 
 
 # ---------------------------------------------------------------------------
@@ -260,7 +310,7 @@ def table_policy_full(ev: Path) -> str:
     n_mat = int(m["n_material"].iloc[0])
     n_imm = int(m["n_immaterial"].iloc[0])
     caption = ("Gate D: complete decision counts at the primary materiality threshold ($|\\Delta_R|>0$; " + _n(n_mat) + " material and " + _n(n_imm) + " non-material intervened observations; 1,200 near-null synthetic controls). P0 serve-always, P1 union, P2 conformal, P3 coverage-complete abstaining. Clean rows: 12,000 disjoint draws for batch-level regimes; the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$. B.\\ hold/block: near-null controls held (statistical) or blocked (exact-reference violation). Integ.: non-material intervened observations held or blocked. Safe allow: clean, benign and non-material observations allowed. Interr.: non-material interruption rate, (false hold + false block + benign hold + benign block + integrity-only hold/block) over all non-material observations.")
-    return _table("table*", caption, "tab:s-policy-full", "@{}llrrrrrrrrrrrr@{}", "Regime & Pol. & Clean & F.\\ hold & F.\\ block & B.\\ hold & B.\\ block & Unsafe & T.\\ hold & T.\\ block & Integ. & Imm.\\ allow & Safe allow & Interr. \\\\", rows, colsep="2pt")
+    return _table("table*", caption, "tab:s-policy-full", "@{}llrrrrrrrrrrrr@{}", "Regime & Pol. & Clean & F.\\ hold & F.\\ block & B.\\ hold & B.\\ block & Served & T.\\ hold & T.\\ block & Integ. & Imm.\\ allow & Safe allow & Interr. \\\\", rows, colsep="2pt")
 
 
 def table_policy_rule_comparison(ev: Path) -> str:
@@ -275,7 +325,7 @@ def table_policy_rule_comparison(ev: Path) -> str:
         rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + " \\\\")
     caption = ("Gate D: the calibrated risk-tolerant policy P2 under the superseded 1.2.0 family rule and under the adopted conformal rule, on identical observations ($|\\Delta_R|>0$). The 1.2.0 columns reproduce the published 1.2.0 numbers and are retained for comparison only.")
     header = (" & \\multicolumn{4}{c}{1.2.0 rule (superseded)} & \\multicolumn{4}{c}{Conformal rule (adopted)} \\\\" + NL + "\\cmidrule(lr){2-5}\\cmidrule(lr){6-9}" + NL +
-              "Regime & Clean FPR & Benign & Unsafe & Contain. & Clean FPR & Benign & Unsafe & Contain. \\\\")
+              "Regime & Clean FPR & Benign & Served & Contain. & Clean FPR & Benign & Served & Contain. \\\\")
     return _table("table*", caption, "tab:s-policy-rule-comparison", "@{}lrrrrrrrr@{}", header, rows, colsep="4pt")
 
 
@@ -290,7 +340,7 @@ def table_policy_tau(ev: Path) -> str:
                 cells.append(f"{_n(r['unsafe_allow'])} ({_f(r['containment'], 2)})")
             rows.append(f"{REGIME_LABEL[regime]} & {'P1' if policy == 'union_uncalibrated' else 'P2'} & " + " & ".join(cells) + " \\\\")
     n_tau = {tau: int(m[m["tau"] == tau]["n_material"].iloc[0]) for tau in (0.0, 0.02, 0.05)}
-    caption = ("Gate D: unsafe allows (containment in parentheses) under three materiality thresholds on $|\\Delta_R|$; material observations " + _n(n_tau[0.0]) + ", " + _n(n_tau[0.02]) + " and " + _n(n_tau[0.05]) + ". P1 union, P2 conformal.")
+    caption = ("Gate D: materially altered audit results served (containment in parentheses) under three materiality thresholds on $|\\Delta_R|$; material observations " + _n(n_tau[0.0]) + ", " + _n(n_tau[0.02]) + " and " + _n(n_tau[0.05]) + ". The $\\tau\\to0^{+}$ column is a structural-sensitivity endpoint, whereas 0.02 and 0.05 are larger-effect sensitivity analyses. P1 union, P2 conformal.")
     return _table("table", caption, "tab:s-policy-tau", "@{}llrrr@{}", "Regime & Pol. & $\\tau=0^{+}$ & $\\tau=0.02$ & $\\tau=0.05$ \\\\", rows, colsep="2.5pt")
 
 
@@ -305,7 +355,7 @@ def table_policy_family(ev: Path) -> str:
             r = f[(f["regime"] == regime) & (f["attack_family"] == fam)].iloc[0]
             cells.append(f"{_n(r['unsafe_allow'])}/{_n(r['n_material'])}")
         rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + " \\\\")
-    caption = "Gate D: unsafe allows / material observations by intervention mechanism under the conformal calibrated policy P2 ($|\\Delta_R|>0$)."
+    caption = "Gate D: materially altered audit results served / material observations by intervention mechanism under the conformal calibrated policy P2 (structural-sensitivity endpoint $|\\Delta_R|>0$)."
     return _table("table", caption, "tab:s-policy-family", "@{}lrrrr@{}", "Regime & " + " & ".join(FAMILY_LABEL[x] for x in fams) + " \\\\", rows, placement="H")
 
 
@@ -375,7 +425,7 @@ def table_adversarial_policy(adv: Path) -> str:
             cells = [f"{_n(g.loc[(cls, regime, p), 'unsafe_allow'])}" for p in ("union_uncalibrated", "family_calibrated", "family_calibrated_strict")]
             rows.append(f"{REGIME_LABEL[regime]} & {_n(nm)} & " + " & ".join(cells) + " \\\\")
         rows.append("\\addlinespace[1pt]")
-    caption = ("Gate A: unsafe allows (material rows served) under P1 union, P2 conformal and P3 coverage-complete abstaining per regime, summed over mechanisms and strengths ($|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
+    caption = ("Gate A: materially altered audit results served under P1 union, P2 conformal and P3 coverage-complete abstaining per regime, summed over mechanisms and strengths (structural-sensitivity endpoint $|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
     return _table("table", caption, "tab:s-adversarial-policy", "@{}lrrrr@{}", "Regime & Material & P1 union & P2 conformal & P3 abst. \\\\", rows, colsep="4pt", placement="H")
 
 
@@ -413,7 +463,7 @@ def table_adversarial_branch(adv: Path) -> str:
 # ---------------------------------------------------------------------------
 
 
-def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
+def macros(ev: Path, adv: Path, amendment: Path, expansion_dir: Path, gate1_dir: Path) -> str:
     fpr_all = pd.read_csv(ev / "family_false_alarm_overall.csv")
     fpr = fpr_all[fpr_all["aggregate"] == "all_eight_environments"].set_index(["regime", "rule"])
     fpr_ex = fpr_all[fpr_all["aggregate"] == "excluding_E1"].set_index(["regime", "rule"])
@@ -431,7 +481,7 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
     fam = fam[(fam["tau"] == 0.0) & (fam["policy"] == "family_calibrated") & (fam["family_rule"] == "conformal")].set_index(["regime", "attack_family"])
     units = pd.read_csv(ev / "inference_units.csv").iloc[0]
     env = pd.read_csv(ev / "family_false_alarm_by_environment.csv")
-    lines = ["% Generated by make_q1_policy_tables.py from the manifested tables of the frozen 1.3.0 evidence; do not edit."]
+    lines = ["% Generated by make_q1_policy_tables.py from manifested frozen evidence and the 1.3.2 frozen-only amendment; do not edit."]
     for regime in BATCH_REGIMES:
         key = _key(regime)
         lines.append(_macro(f"FprUnion{key}", _f(fpr.loc[(regime, "union"), "pooled_rate"])))
@@ -447,6 +497,11 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
         lines.append(_macro(f"ResplitFamily{key}", _f(dec.loc[regime, "resplit_conformal_rate"])))
         lines.append(_macro(f"FprSplit{key}", _f(split.loc[regime, "pooled_rate"])))
     lines.append(_macro("ConformalLevel", _f(dec["conformal_exact_level"].iloc[0], 4)))
+    cost = pd.read_csv(amendment / "trusted_interruption_decomposition.csv").set_index("quantity")
+    lines.append(_macro("TrustedGrossExactBlocks", _n(cost.loc["gross_exact_reference_blocks", "n"])))
+    lines.append(_macro("TrustedExactOverlap", _n(cost.loc["exact_blocks_overlapping_batch_interruptions", "n"])))
+    lines.append(_macro("TrustedNetAdditional", _n(cost.loc["net_additional_interruptions_vs_batch_I_XFY_P2", "n"])))
+    lines.append(_macro("TrustedNetAdditionalPct", _f(100 * cost.loc["net_additional_interruptions_vs_batch_I_XFY_P2", "rate"], 2)))
     for regime in REGIME_ORDER:
         key = _key(regime)
         for policy, pk in (("union_uncalibrated", "Union"), ("family_calibrated", "Family"), ("family_calibrated_strict", "Strict")):
@@ -467,6 +522,7 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
     lines.append(_macro("NMaterial", _n(m0.iloc[0]["n_material"])))
     lines.append(_macro("NMaterialFive", _n(m5.iloc[0]["n_material"])))
     lines.append(_macro("NImmaterial", _n(m0.iloc[0]["n_immaterial"])))
+    lines.append(_macro("ResidualBlindFamilyIYm", _n(m0.loc[("I_Ym", "family_calibrated"), "residual_blind_material"])))
     lines.append(_macro("NMaterialLabel", _n(lab.loc[("material_label_interventions", "I_XFY", "union"), "n"])))
     lines.append(_macro("BatchUnionLabelFires", _n(lab.loc[("material_label_interventions", "I_XFY", "union"), "n_fire"])))
     lines.append(_macro("BatchLegacyLabelFires", _n(lab.loc[("material_label_interventions", "I_XFY", "family_v12"), "n_fire"])))
@@ -521,6 +577,8 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
             lines.append(_macro(f"AdvNMaterial{cw}{key}", _n(totals.loc[(cls, regime, "family_calibrated"), "n_material"])))
             for policy, pk in (("union_uncalibrated", "Union"), ("family_calibrated", "Family"), ("family_calibrated_strict", "Strict")):
                 lines.append(_macro(f"AdvUnsafe{cw}{pk}{key}", _n(totals.loc[(cls, regime, policy), "unsafe_allow"])))
+                served_rate = totals.loc[(cls, regime, policy), "unsafe_allow"] / totals.loc[(cls, regime, policy), "n_material"]
+                lines.append(_macro(f"AdvServedOverall{cw}{pk}{key}", _f(served_rate, 2)))
     evasion = pd.read_csv(adv / "adversarial_evasion_ratios.csv")
     retention = evasion[(evasion["rule"] == "family") & (evasion["regime"] == "I_X") & (evasion["strength"] <= 0.10)]["material_ratio_adaptive_over_control"]
     lines.append(_macro("AdvMatRetentionMinPct", str(int(round(100 * float(retention.min()))))))
@@ -538,6 +596,12 @@ def macros(ev: Path, adv: Path, expansion_dir: Path, gate1_dir: Path) -> str:
             for s in (0.10,):
                 for regime in ("I_X", "I_XF"):
                     lines.append(_macro(f"AdvDet{bw}{mw}{STRENGTH_WORD[s]}{_key(regime)}", _f(branch.loc[(b, mech, s, regime), "detection_rate"], 2)))
+    profile = pd.read_csv(amendment / "adaptive_strength_profile.csv").set_index(["mechanism", "strength"])
+    for mech, mw in MECH_WORD.items():
+        for s, sw in STRENGTH_WORD.items():
+            r = profile.loc[(mech, s)]
+            for regime in ("I_X", "I_XF", "I_XFY"):
+                lines.append(_macro(f"AdvServedRate{mw}{sw}{_key(regime)}", _f(r[f"material_served_rate_{regime}"], 2)))
     return NL.join(lines) + NL
 
 
@@ -545,6 +609,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evidence", type=Path, default=Path("results/paper_digest/paper15_v12_policy"))
     parser.add_argument("--adversarial", type=Path, default=Path("results/paper_digest/paper15_v13_adversarial"))
+    parser.add_argument("--amendment", type=Path, default=Path("results/paper_digest/paper15_v132_amendment"))
     parser.add_argument("--expansion", type=Path, default=Path("results/paper_digest/paper15_q1_expansion"))
     parser.add_argument("--gate1", type=Path, default=Path("results/paper_digest/paper15_q1_gate1_id_seeds_20_q1"))
     parser.add_argument("--out-dir", type=Path, default=Path("publication/tdsc/tables"))
@@ -553,6 +618,8 @@ def main() -> None:
     tables = {
         "m_policy.tex": table_main_policy(args.evidence),
         "m_adversarial.tex": table_main_adversarial(args.adversarial),
+        "s_sensor_reference_audit.tex": table_sensor_reference_audit(args.amendment),
+        "s_adaptive_strength_profile.tex": table_adaptive_strength_profile(args.amendment),
         "s_family_fpr.tex": table_family_fpr(args.evidence),
         "s_family_decomposition.tex": table_family_decomposition(args.evidence),
         "s_family_split.tex": table_family_split(args.evidence),
@@ -570,7 +637,7 @@ def main() -> None:
         "s_adversarial_policy.tex": table_adversarial_policy(args.adversarial),
         "s_adversarial_env.tex": table_adversarial_env(args.adversarial),
         "s_adversarial_branch.tex": table_adversarial_branch(args.adversarial),
-        "policy_macros.tex": macros(args.evidence, args.adversarial, args.expansion, args.gate1),
+        "policy_macros.tex": macros(args.evidence, args.adversarial, args.amendment, args.expansion, args.gate1),
     }
     for name, text in tables.items():
         (args.out_dir / name).write_text(text, encoding="utf-8", newline="\n")

@@ -63,30 +63,37 @@ JOINT_OUTCOME_SENSORS = ["integrity_confusion_profile_l1", "integrity_confusion_
 
 CALIBRATED_SENSORS = FEATURE_SENSORS + PREDICTION_SENSORS + LABEL_MARGINAL_SENSORS + JOINT_OUTCOME_SENSORS
 
-# Batch-level auditor: receives a new batch without item correspondence, so only
-# calibrated distributional sensors apply (prereg amendment A1).
+# Batch-level statistical auditor.  The executed scores below are aggregate
+# comparisons with a benchmark-held clean batch drawn from the same item set;
+# they do not use item correspondence and are thresholded against clean-draw
+# variability.  Version 1.3.2 records that reference semantics explicitly.
 REGIMES: dict[str, list[str]] = {
     "I_X": FEATURE_SENSORS,
     "I_XF": FEATURE_SENSORS + PREDICTION_SENSORS,
     "I_Ym": LABEL_MARGINAL_SENSORS,
     "I_XFY": FEATURE_SENSORS + PREDICTION_SENSORS + LABEL_MARGINAL_SENSORS + JOINT_OUTCOME_SENSORS,
 }
-# Item-aligned auditor: compares the same items against trusted references, so
-# the null is exactly zero and any non-zero delta is a detection.
-EXACT_ITEM_ALIGNED_SENSORS = [
-    "integrity_pred_disagreement",
+# Trusted-reference auditor: aggregate class-B and item-aligned class-C
+# invariants have an exact-zero null.  Keep the two granularities separate;
+# the combined I_XFY auditor holds both.
+EXACT_AGGREGATE_SENSORS = [
     "integrity_confusion_profile_l1_delta",
     "integrity_confusion_profile_jsd_delta",
+]
+EXACT_ITEM_ALIGNED_SENSORS = [
+    "integrity_pred_disagreement",
     "label_flip_rate",
 ]
+EXACT_REFERENCE_SENSORS = EXACT_AGGREGATE_SENSORS + EXACT_ITEM_ALIGNED_SENSORS
 EXACT_REGIMES: dict[str, list[str]] = {
     "I_XF_item_aligned": ["integrity_pred_disagreement"],
-    "I_XFY_item_aligned": EXACT_ITEM_ALIGNED_SENSORS,
+    "I_XFY_item_aligned": EXACT_REFERENCE_SENSORS,
 }
 SENSOR_REGIME = {
     **{s: "feature" for s in FEATURE_SENSORS},
     **{s: "prediction" for s in PREDICTION_SENSORS},
-    **{s: "item_aligned_exact" for s in ["integrity_pred_disagreement", "integrity_confusion_profile_l1_delta", "integrity_confusion_profile_jsd_delta", "label_flip_rate"]},
+    **{s: "aggregate_exact" for s in EXACT_AGGREGATE_SENSORS},
+    **{s: "item_aligned_exact" for s in EXACT_ITEM_ALIGNED_SENSORS},
     **{s: "label_marginal" for s in LABEL_MARGINAL_SENSORS},
     **{s: "joint_outcome" for s in JOINT_OUTCOME_SENSORS},
 }
@@ -163,7 +170,7 @@ def _load_dir(raw_dir: Path, gate_label: str, *, expected_files: int, expected_m
     if not complete:
         raise RuntimeError(f"{gate_label}: observed {len(paths)} of {expected_files} exact-statevector CSVs")
     raw = pd.concat(frames, ignore_index=True, sort=False)
-    _require_columns(raw, KEY_COLS + ["gate", "attack_family", "attack_priority_group", "impact_bal_acc", "bal_acc_clean"] + CALIBRATED_SENSORS + EXACT_ITEM_ALIGNED_SENSORS)
+    _require_columns(raw, KEY_COLS + ["gate", "attack_family", "attack_priority_group", "impact_bal_acc", "bal_acc_clean"] + CALIBRATED_SENSORS + EXACT_REFERENCE_SENSORS)
     dedup, dup_audit = _deduplicate(raw)
 
     models = set(dedup["model"].astype(str))
@@ -235,7 +242,7 @@ def _thresholds(null_frame: pd.DataFrame) -> pd.DataFrame:
                     "rule": "fire if value > threshold",
                 }
             )
-        for sensor in EXACT_ITEM_ALIGNED_SENSORS:
+        for sensor in EXACT_REFERENCE_SENSORS:
             records.append(
                 {
                     "gate": gate,
@@ -276,7 +283,7 @@ def _fire_matrix(frame: pd.DataFrame, thresholds: pd.DataFrame, *, item_aligned:
     for regime, sensors in REGIMES.items():
         out[f"fire__{regime}"] = out[[f"fire__{s}" for s in sensors]].any(axis=1)
     if item_aligned:
-        for sensor in EXACT_ITEM_ALIGNED_SENSORS:
+        for sensor in EXACT_REFERENCE_SENSORS:
             v = pd.to_numeric(out[sensor], errors="coerce").fillna(0.0).to_numpy(dtype=float)
             out[f"fire__{sensor}"] = np.abs(v) > TOL
         for regime, sensors in EXACT_REGIMES.items():
@@ -288,7 +295,7 @@ def _rate_records(frame: pd.DataFrame, group_cols: list[str], *, label: str, ite
     records: list[dict[str, object]] = []
     targets = [(s, "sensor") for s in CALIBRATED_SENSORS] + [(r, "regime") for r in REGIMES]
     if item_aligned:
-        targets += [(s, "sensor_exact") for s in EXACT_ITEM_ALIGNED_SENSORS] + [(r, "regime_exact") for r in EXACT_REGIMES]
+        targets += [(s, "sensor_exact") for s in EXACT_REFERENCE_SENSORS] + [(r, "regime_exact") for r in EXACT_REGIMES]
     for key, group in frame.groupby(group_cols, sort=True, dropna=False):
         key_tuple = key if isinstance(key, tuple) else (key,)
         base = dict(zip(group_cols, key_tuple, strict=True))
@@ -448,7 +455,7 @@ def build_gate_n(repo: Path, expansion_path: Path) -> tuple[dict[str, pd.DataFra
     pool_frame = pd.DataFrame.from_records(pools).sort_values(["gate", "svd_dim", "split_seed", "model_seed"]).reset_index(drop=True)
     checks["N_pool_halves_disjoint_and_sufficient"] = bool(((pool_frame["n_calibration_half"] >= pool_frame["n_test"]) & (pool_frame["n_evaluation_half"] >= pool_frame["n_test"]) & (pool_frame["n_calibration_half"] + pool_frame["n_evaluation_half"] == pool_frame["n_pool"])).all())
 
-    keep = ["gate", "protocol", "dataset_tag", "svd_dim", "split_seed", "model_seed", "model", "attack", "attack_family", "attack_priority_group", "impact_bal_acc", "bal_acc", "bal_acc_clean"] + CALIBRATED_SENSORS + EXACT_ITEM_ALIGNED_SENSORS + [c for c in null.columns if c.startswith("atk_")]
+    keep = ["gate", "protocol", "dataset_tag", "svd_dim", "split_seed", "model_seed", "model", "attack", "attack_family", "attack_priority_group", "impact_bal_acc", "bal_acc", "bal_acc_clean"] + CALIBRATED_SENSORS + EXACT_REFERENCE_SENSORS + [c for c in null.columns if c.startswith("atk_")]
     outputs = {
         "null_unique_observations.csv": null[[c for c in keep if c in null.columns]].reset_index(drop=True),
         "null_pool_design.csv": pool_frame,
@@ -639,6 +646,7 @@ def build(repo: Path, out_dir: Path) -> None:
             "rule": "per (environment, dimension, model) cell; fire if value > threshold; thresholds from calibration half only",
             "regimes": REGIMES,
             "exact_regimes": EXACT_REGIMES,
+            "exact_aggregate_sensors": EXACT_AGGREGATE_SENSORS,
             "exact_item_aligned_sensors": EXACT_ITEM_ALIGNED_SENSORS,
         },
         "acceptance_checks": checks,

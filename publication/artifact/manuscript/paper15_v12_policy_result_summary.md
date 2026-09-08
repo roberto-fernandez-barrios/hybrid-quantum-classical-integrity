@@ -95,8 +95,11 @@ under I_X and I_XF (structural blind region), 2,601 under batch I_XFY
 (statistically undetectable), 0 under I_XFY*. Feature dropout: 1,079 material,
 1,079 served under I_X, 1,053 under I_XF, 1,055 under batch I_XFY. Sign flip:
 1,464 material, 798 / 655 / 663 served. Mean shift and scaling: 1,848
-material, 0 / 2 / 3 served. I_Ym contains nothing in this suite (random flips
-at r ≤ 0.10 do not move the prior beyond the batch null at n = 128/256).
+material, 0 / 2 / 3 served. More precisely, I_Ym provides zero containment of
+material interventions in this suite: all 7,008 material cases are served,
+and 5,450 remain in its residual blind region at the structural endpoint
+(random flips at r ≤ 0.10 do not move the prior beyond the batch null at
+n = 128/256).
 
 **Costs.** Benign near-null shams held: P1 0.76, P2 0.53–0.59 (batch
 regimes); trusted regime 0.55 (hold via the batch component) with prediction

@@ -1,6 +1,10 @@
-# Adversary and failure model — Paper 1.5 (artifact 1.3.1; evidence frozen at 1.3.0)
+# Adversary and failure model — Paper 1.5 (artifact 1.3.2; evidence frozen at 1.3.0)
 
-Version 1.2 (2026-09-07, artifact 1.3.1: reference levels named, quantum
+Version 1.3 (2026-09-08, artifact 1.3.2) audits the reference semantics:
+Class-A selected sensors use statistical aggregate comparisons against a
+benchmark-protected clean same-item-set oracle without item pairing or
+demonstrated deployed authentication; B/C are trusted aggregate/item-aligned
+exact invariants. Version 1.2 (2026-09-07, artifact 1.3.1: reference levels named, quantum
 rows annotated with the intervention class of Proposition 7 and the
 observed-kernel anchor, Q5 aligned with the corrected Proposition 7(iii);
 version 1.1 of the same day for artifact 1.3.0; version 1.0 for 1.2.0).
@@ -94,7 +98,7 @@ actually supported by the frozen evidence.
 
 - Actor/cause: harmless numerical variation. Class: fault robustness (specificity control).
 - Identifying information: the KS sensor reacts in 40–64% of cells (conformal rule) through the cluster fingerprint; predictions change in 4–10% of cells.
-- Claim: a specificity cost of the cluster fingerprint, reported as the interruption rate of every policy and regime on these near-null synthetic controls (Gate D); not an attack and not operational benign traffic. The trusted same-batch regime under the calibrated policy interrupts 629 of these 1,200 rows: 544 statistical holds (a cost P2 already pays in the batch regimes, 590–654 holds) and 85 exact-reference blocks.
+- Claim: a specificity cost of the cluster fingerprint, reported as the interruption rate of every policy and regime on these near-null synthetic controls (Gate D); not an attack and not operational benign traffic. The trusted same-batch regime under P2 interrupts 629/1,200. It produces 85 gross exact-reference blocks; 46 overlap the 590 batch `I_XFY`/P2 interruptions, so the net increase is 39/1,200 (3.25 percentage points).
 
 ### F5 — Cluster-preserving mean shift and scaling drift (`cluster_preserving_*`, executed in Gate A, artifact 1.3.0)
 
@@ -125,7 +129,8 @@ actually supported by the frozen evidence.
 - Actor/cause: faulty aggregation or malicious post-processing of the estimated kernel. Class: integrity corruption (non-adaptive).
 - Access: B6 kernel/post-processing. Alterable assets: $K_{\mathrm{obs}}$ after estimation ($C$, $K_{\mathrm{sem}}$ and $\hat K$ fixed). Roots: reference kernel, algebraic invariants.
 - Identifying information: algebraic checks (symmetry, unit diagonal) detect 15/15; the circuit hash is unchanged; no prediction changes at the tested severity.
-- Claim: detected by structural invariants of the observed kernel with a level-A reference only (no same-batch anchor needed for these malformed edits).
+- Claim: detected by structural algebraic invariants of the observed kernel;
+  no trusted same-batch anchor is needed for these malformed edits.
 
 ### Q4 — PSD-preserving kernel substitution (`kernel_psd_preserving_mix`; class (c))
 

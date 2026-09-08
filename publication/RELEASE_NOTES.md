@@ -4,6 +4,24 @@ The authoritative counts of every release (manifests, outputs, files, tests,
 pages, hashes, DOIs) are generated into `publication/RELEASE_STATUS.md`;
 the notes below describe scope only.
 
+## 1.3.2 — 2026-09-08 (methodological alignment; evidence frozen at 1.3.0)
+
+- Audited every selected sensor through runner, builders, frozen CSVs and
+  policy API; repair B corrects Class A to the executed statistical
+  same-item-set aggregate comparisons against a benchmark-protected oracle.
+- No experiment/job/model/kernel/attack/seed/dataset/draw rerun. New evidence
+  consists only of derived reference, trusted-cost and strength-profile tables.
+- Trusted cost: 85 gross exact blocks, 46 overlapping batch interruptions,
+  39 net additional / 1,200 (3.25 percentage points).
+- Adaptive P2 served rates: aggregate 0.39/0.28/0.29 for I_X/I_XF/I_XFY;
+  complete profile by strength, materiality and detection, including matched
+  I_XFY range 0.22–0.90.
+- Corollaries contiguous; `I_Ym` zero containment / 5,450 residual-blind
+  material cases; audit-corruption endpoint, structural tau→0+, clustered
+  units and unequal denominators explicitly framed.
+- Abstract 188 words; bounded simulator-only quantum branch; eight evidence
+  manifests; submission package and ATHENA/2.5 traceability updated.
+
 ## 1.3.1 — 2026-09-07 (formal and editorial correction; evidence frozen at 1.3.0)
 
 - No new science: no kernel, job, dataset, seed, model, QPU, noise or attacker

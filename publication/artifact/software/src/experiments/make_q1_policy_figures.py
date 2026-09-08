@@ -4,8 +4,10 @@ Panel (a): decision-level false-alarm rate of the uncalibrated union rule, of
 the superseded asymmetric 1.2.0 family rule and of the adopted conformal
 family rule per information regime, with the range of the eight
 per-environment cluster means, the nominal level and the exact level of the
-conformal rule. Panel (b): the unsafe-allow / clean-false-action trade-off of
-every policy and regime at the primary materiality threshold. Panel (c): the
+conformal rule. Panel (b): the materially-altered-report-served /
+clean-false-action trade-off of the batch policies only; the trusted
+exact-zero invariant check is stated separately because it is a different
+estimand and denominator. Panel (c): the
 benign interruption cost (near-null in-place shams held or blocked, the same
 1,200 rows for every regime) of every policy and regime, so that the trusted
 regime's zero unsafe allows are shown together with what they cost on benign
@@ -125,15 +127,15 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
 
     axb = fig.add_subplot(grid[0, 1])
     for policy, (label, color, marker) in POLICY_STYLE.items():
-        block = b[b["policy"] == policy]
+        block = b[(b["policy"] == policy) & b["regime"].isin(BATCH)]
         axb.scatter(block["decision_fpr"], block["unsafe_allow_rate"], s=26, color=color, marker=marker, label=label.split(" (")[0], zorder=4, edgecolor="white", linewidth=0.6)
-    for regime in REGIME_ORDER:
+    for regime in BATCH:
         block = b[(b["regime"] == regime) & (b["policy"].isin(["union_uncalibrated", "family_calibrated"]))].sort_values("decision_fpr")
         if len(block) == 2:
             axb.plot(block["decision_fpr"], block["unsafe_allow_rate"], color=HAIRLINE, linewidth=0.9, zorder=2)
-    offsets = {"I_X": (-4, 7), "I_XF": (10, -13), "I_Ym": None, "I_XFY": None, "I_XFY_trusted": (8, 4)}
+    offsets = {"I_X": (-4, 7), "I_XF": (10, -13), "I_Ym": None, "I_XFY": None}
     labels = {"I_XF": REGIME_LABEL["I_XF"] + ", " + REGIME_LABEL["I_XFY"]}
-    for regime in REGIME_ORDER:
+    for regime in BATCH:
         if offsets[regime] is None:
             continue
         row = b[(b["regime"] == regime) & (b["policy"] == "family_calibrated")].iloc[0]
@@ -143,14 +145,19 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
     axb.annotate("P0 (every regime); P1, P2 in " + REGIME_LABEL["I_Ym"], (p0["decision_fpr"], p0["unsafe_allow_rate"]), xytext=(16, -12), textcoords="offset points", fontsize=6.0, color=INK)
     strict = b[(b["policy"] == "family_calibrated_strict") & (b["regime"] == "I_X")].iloc[0]
     axb.annotate("P3 in $\\mathcal{I}_X$, $\\mathcal{I}_{XF}$, $\\mathcal{I}_{Y_m}$:\nnothing served", (strict["decision_fpr"], strict["unsafe_allow_rate"]), xytext=(-7, 6), textcoords="offset points", fontsize=5.6, color=INK_SECONDARY, ha="right", va="bottom")
+    trusted = b[(b["regime"] == "I_XFY_trusted") & (b["policy"] == "family_calibrated")].iloc[0]
+    axb.text(0.98, 0.96,
+             f"Trusted invariant check (separate estimand):\n0/{int(trusted['n_clean']):,} exact-zero false actions;\n0/{int(trusted['n_material']):,} material reports served",
+             transform=axb.transAxes, fontsize=5.5, color=INK_SECONDARY,
+             ha="right", va="top", bbox=dict(facecolor="white", edgecolor=HAIRLINE, boxstyle="round,pad=0.25"))
     axb.set_xlim(-0.03, 1.05)
     axb.set_ylim(-0.04, 1.08)
-    axb.set_xlabel("Clean false-action rate (trusted: 1,200 exact-zero rows)", fontsize=6.4, color=INK_SECONDARY)
-    axb.set_ylabel("Unsafe-allow rate (material served)", fontsize=6.6, color=INK_SECONDARY)
+    axb.set_xlabel("Clean false-action rate (12,000 batch draws)", fontsize=6.4, color=INK_SECONDARY)
+    axb.set_ylabel("Materially altered audit result served", fontsize=6.6, color=INK_SECONDARY)
     axb.tick_params(labelsize=6.5, colors=INK_SECONDARY, length=2)
     _style_axis(axb)
     axb.grid(color=HAIRLINE, linewidth=0.8)
-    axb.set_title("(b) Unsafe allow vs. clean false action", fontsize=7.6, color=INK, loc="left")
+    axb.set_title("(b) Batch policy trade-off", fontsize=7.6, color=INK, loc="left")
     # The data occupy the left edge and the two corners; the lower centre-right is empty.
     axb.legend(fontsize=5.6, frameon=False, loc="center right", bbox_to_anchor=(1.02, 0.31), handletextpad=0.4)
 
@@ -165,9 +172,11 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
         for xi, v in zip(xs, block["benign_interruption_rate"]):
             if v > 0:
                 axc.text(xi, v + 0.012, f"{v:.2f}", ha="center", va="bottom", fontsize=5.2, color=INK, rotation=90)
-    trusted = b[(b["regime"] == "I_XFY_trusted") & (b["policy"] == "family_calibrated")].iloc[0]
     total = int(trusted["benign_hold"]) + int(trusted["benign_block"])
-    axc.annotate(f"{int(trusted['benign_hold'])} statistical holds +\n{int(trusted['benign_block'])} exact-reference blocks\n= {total} of 1,200", (xr[-1], trusted["benign_interruption_rate"] + 0.2), xytext=(xr[-1] + 0.35, 1.04), textcoords="data", fontsize=5.6, color=INK_SECONDARY, ha="right", va="bottom", arrowprops=dict(arrowstyle="-", color=BASELINE, lw=0.7))
+    batch_p2 = b[(b["regime"] == "I_XFY") & (b["policy"] == "family_calibrated")].iloc[0]
+    batch_total = int(batch_p2["benign_hold"]) + int(batch_p2["benign_block"])
+    net = total - batch_total
+    axc.annotate(f"{int(trusted['benign_hold'])} statistical holds +\n{int(trusted['benign_block'])} gross exact blocks\n= {total}; net +{net} vs. batch P2", (xr[-1], trusted["benign_interruption_rate"] + 0.2), xytext=(xr[-1] + 0.35, 1.04), textcoords="data", fontsize=5.6, color=INK_SECONDARY, ha="right", va="bottom", arrowprops=dict(arrowstyle="-", color=BASELINE, lw=0.7))
     axc.set_xticks(xr)
     axc.set_xticklabels([REGIME_LABEL[r] for r in REGIME_ORDER], fontsize=7.2, color=INK)
     axc.set_ylim(0, 1.34)

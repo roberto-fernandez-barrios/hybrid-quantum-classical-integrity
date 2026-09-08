@@ -1,10 +1,8 @@
-# Observational indistinguishability and integrity blind regions in hybrid quantum-classical kernel workflows
+# Observational indistinguishability and integrity blind regions in hybrid quantum-classical workflows
 
 Reproducibility artifact for Paper 1.5:
-*Observational Indistinguishability and Integrity Blind Regions Across the
-Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows*
-(IEEE TDSC candidate; earlier title *Information-Set Conditional Integrity
-Auditing for Hybrid Quantum-Classical Kernel Workflows*).
+*Observational Indistinguishability and Integrity Blind Regions in Hybrid
+Quantum-Classical Workflows* (IEEE TDSC candidate).
 
 The central claim is deliberately bounded: **auditability is a property of
 the pair (intervention class, information set) refined by explicit trusted
@@ -18,14 +16,13 @@ change of the reported balanced accuracy changes the confusion matrix, so a
 material label corruption is always separable in the joint item-label view;
 a trusted aggregate reference of the same batch detects it exactly, and an
 item-aligned reference is needed only for relabelings that preserve every
-aggregate (item-identity integrity). Three reference levels are
-distinguished: Level A, a statistical or historical reference (null
-distribution, training or reference population, calibration sample) with no
-authenticated value of the same batch, which every batch-level sensor holds;
-Level B, a trusted aggregate same-batch reference; Level C, a trusted
-item-aligned same-batch reference. The results turn on the distinction
-between a statistical baseline and an authenticated same-batch anchor, not on
-"having" a reference.
+aggregate (item-identity integrity). Reference provenance, granularity and
+decision semantics are kept separate. Class A is statistical aggregate
+comparison; the selected sensors execute against a benchmark-protected clean
+same-item-set oracle without item pairing, which is not deployed
+authentication. Classes B and C are trusted same-batch exact invariants at
+aggregate and item-aligned granularity. The result is the minimum evidence
+granularity required by the protected integrity claim.
 
 The novelty is the integrated package: the observation model (primitive and
 derived artifacts, explicit intervention semantics) with its monotonicity,
@@ -42,9 +39,18 @@ variation; a bounded quantum-kernel integrity layer; and an executable
 contract. No constituent is presented as standalone novelty, and the
 ZZ-versus-SVC comparison is secondary evidence only (supplement).
 
-## Version 1.3.1 in one paragraph
+## Version 1.3.2 in one paragraph
 
-Version 1.3.1 is a formal and editorial correction of version 1.3.0; the
+Version 1.3.2 is a controlled methodological/editorial correction of 1.3.1.
+It changes no experimental result and reruns no experiment, job, model,
+kernel, attack, seed or draw. The sensor-to-reference audit resolves the
+Level-A mismatch described above; frozen-output reanalysis adds the trusted
+cost decomposition (85 gross exact blocks, 46 overlaps, 39 net additional
+interruptions out of 1,200) and the complete adaptive per-strength profile.
+The abstract is 170--200 words, Corollaries 1--3 are contiguous, and permanent
+tests guard the corrected semantics and headlines.
+
+Version 1.3.1 was a formal and editorial correction of version 1.3.0; the
 experimental evidence is frozen at 1.3.0 and no kernel, job, seed, model or
 draw was re-executed. It restates Proposition 7(iii) for finite-shot
 estimation (exact equality has false-alarm probability
@@ -59,12 +65,12 @@ P3 *coverage-complete abstaining* (fail-closed on missing coverage; no
 minimum-power guarantee), prints the adaptive attacker's material retention
 everywhere from the generated macros (83–91 %), decomposes the trusted-regime
 interruption (544 statistical holds + 85 exact-reference blocks = 629 of
-1,200 near-null synthetic controls), reframes the zero-response cells as
+1,200 near-null synthetic controls), reframed the zero-response cells as
 validation checks, shortens the abstract to at most 250 words, adds a concrete
 threat scenario and VAMP to related work, and makes the figures legible. New
 tests: `tests/test_workflow_state.py`, `tests/test_manuscript_consistency.py`.
 Only the textual `policy_class` label of P3 in the policy and adversarial
-tables differs from 1.3.0; every number is unchanged.
+tables differs from 1.3.0; every experimental number is unchanged.
 
 ## Authoritative sources
 
@@ -90,8 +96,9 @@ tables differs from 1.3.0; every number is unchanged.
 | Quantum integrity | 165/165 cells; 9/9 acceptance checks | semantic, provenance, algebraic, repeated-estimation and output coverage (Proposition 7) |
 | HSaaS contract | 6/6 scenarios; 8/8 acceptance checks | hash-chained four-contract `allow/hold/block` prototype |
 | Reinforcement (1.1.0) | 390/390 preregistered jobs; null calibration over 8 environments (alpha = 0.05 per sensor, 200 calibration and 200 disjoint evaluation draws per cell), 3 preprocessing configurations, 2 tuned environments | per-sensor calibrated false-alarm/detection rates; symmetric-preprocessing and tuned-baseline sensitivity of the secondary profile |
-| Policy (1.2.0, regenerated in 1.3.0) | preregistered; computed from the frozen 1.1.1 outputs, no re-execution; 60 cells x 4 regimes calibrated with the conformal family rule; 4 policies x 5 regimes on 24,000 frozen observations | decision-level false-alarm rates with the 1.2.0 rule as comparison, rule-bias / design-effect decomposition, unsafe allows, containment, benign interruption, residual blind cases, counterexample witnesses, contract composition |
-| Adversarial (1.3.0) | preregistered; 240/240 exact-statevector jobs; 8 environments; cluster-preserving mean shift and scaling at 5 strengths with matched controls | detection, materiality and unsafe allows of an adaptive attacker who preserves the batch-level fingerprint |
+| Policy (1.2.0, regenerated in 1.3.0) | preregistered; computed from frozen outputs; 60 cells x 4 regimes calibrated with the conformal family rule; 4 policies x 5 regimes on 24,000 policy rows, with inference at environment/split clusters rather than row level | decision-level false-action rates, results of materially altered audits served, containment, near-null interruption, residual blind cases, counterexample witnesses and contract composition |
+| Adversarial (1.3.0) | preregistered; 240/240 exact-statevector jobs; 8 environments; cluster-preserving mean shift and scaling at 5 strengths with matched controls | detection, materiality and material audit results served by strength |
+| Amendment (1.3.2) | no experimental rerun; three tables derived from manifested frozen CSVs | sensor-reference semantics, trusted cost gross/overlap/net and complete adaptive strength profile |
 
 The expansion contains 3,600 evaluation-label observations. All 3,600 leave
 feature/prediction evidence and predictions invariant; all 1,800
@@ -109,12 +116,14 @@ evidence serve 4,365--4,496 of the 7,008 materially changed results under the
 calibrated risk-tolerant policy (the label-marginal regime serves all of
 them); the trusted item-aligned regime serves none, with zero clean false
 actions on its 1,200 exact-zero rows, but interrupts 629 of the 1,200
-near-null synthetic controls (544 statistical holds that the calibrated
-batch-level policy also pays, 85 exact-reference blocks). The adaptive
+near-null synthetic controls. The 85 exact-reference blocks are gross; 46
+overlap the 590 batch `I_XFY`/P2 interruptions, so the net increase is 39/1,200
+(3.25 percentage points). The adaptive
 cluster-preserving attacker cuts the detection of feature drift from
 0.96--1.00 to 0.01--0.66 at matched strengths while keeping 83--91 % of the
 conclusion changes, and is served by the calibrated policy in 28--39 % of its
-material rows. A fail-closed verifier recomputes these counts from the
+material rows in aggregate; the matched-strength `I_XFY` profile spans
+0.22--0.90. A fail-closed verifier recomputes these counts from the
 released derived tables.
 
 ## Quick verification
@@ -131,7 +140,7 @@ python -m venv .venv
 ```
 
 Linux/macOS: use `.venv/bin/python` and `/` separators. The verifier checks
-the artifact-wide SHA-256 manifest, seven embedded evidence manifests, the
+the artifact-wide SHA-256 manifest, eight embedded evidence manifests, the
 manifested outputs, CSV row counts, the primary label-boundary counts
 including the signed decreased / unchanged / increased counts, the calibrated
 label-path consistency checks, the policy-level claims (including the exact
@@ -203,20 +212,22 @@ those and the operational assurance layer belong to Paper 2.5
 
 ## Version, funding and citation
 
-Artifact version: `1.3.1` (frozen 1.0.0 evidence, tag `paper15-q1-v1.0.0`;
+Artifact version: `1.3.2` (experimental evidence frozen at 1.3.0;
 reinforcement gates of 1.1.0; editorial 1.1.1; policy gates of 1.2.0,
 regenerated in 1.3.0 with the conformal rule; adversarial gate of 1.3.0;
-formal and editorial correction 1.3.1 with the evidence frozen at 1.3.0;
-release tag `paper15-q1-v1.3.1`). Tags `paper15-q1-v1.1.0`,
-`paper15-q1-v1.1.1`, `paper15-q1-v1.2.0` and `paper15-q1-v1.3.0` and their
-Zenodo versions are immutable. After 1.3.1 the article is reopened only for
+formal/editorial correction 1.3.1; methodological alignment 1.3.2;
+release tag `paper15-q1-v1.3.2`). Tags `paper15-q1-v1.1.0`,
+`paper15-q1-v1.1.1`, `paper15-q1-v1.2.0`, `paper15-q1-v1.3.0` and
+`paper15-q1-v1.3.1`, together with all historical Zenodo versions, are
+immutable. After
+1.3.2 the article is reopened only for
 an objective error that invalidates a claim, an editorial requirement of the
 journal, or a reviewer request; everything else belongs to Paper 2.5.
 
 This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
 Zenodo concept DOI `10.5281/zenodo.22550852` resolves to the latest archived
-version; the version DOI of 1.3.1 is `10.5281/zenodo.22651111` (1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
+version; the version DOI of 1.3.2 is `10.5281/zenodo.22664417` (1.3.1: `10.5281/zenodo.22651111`; 1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
 `10.5281/zenodo.22644529`; 1.1.1: `10.5281/zenodo.22552643`; 1.1.0:
 `10.5281/zenodo.22550853`). Author metadata, CRediT roles and licenses were
 confirmed by all authors on 2026-09-06 and the 1.3.0 and 1.3.1 changes on

@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.3.2 — 2026-09-08 (methodological/editorial alignment; evidence frozen at 1.3.0)
+
+- Audited the actual reference semantics of all 14 selected sensors from the
+  runner through the policy API. Adopted repair B: Class A is statistical
+  aggregate comparison and, in the executed benchmark, uses a protected clean
+  same-item-set oracle without item correspondence or demonstrated deployed
+  authentication; B/C are trusted aggregate/item-aligned exact invariants.
+- Added one frozen-only amendment builder and manifest. No experiment, job,
+  model, kernel, attack, seed, dataset or draw was rerun.
+- Generated sensor-reference, trusted-cost and adaptive-strength tables and
+  macros. Verified 85 gross exact blocks, 46 overlaps and 39 net additional
+  interruptions / 1,200; complete adaptive profile by strength.
+- Restored contiguous Corollaries 1–3; corrected `I_Ym` to zero containment
+  with 5,450 residual-blind material cases; clarified the audit-corruption
+  endpoint, structural materiality, clustered units, conformal premise and
+  unequal batch/trusted denominators.
+- Reframed the constructive contribution as minimum evidence granularity
+  relative to the integrity claim; bounded the quantum evidence to
+  ideal-statevector and finite-shot emulation; expanded provenance/attestation
+  related work and companion-paper disclosure.
+- Abstract reduced to 188 words; permanent closing guards, eight-manifest
+  verifier, submission package and ATHENA/Paper-2.5 traceability updated.
+
 ## 1.3.1 — 2026-09-07 (formal and editorial correction; evidence frozen at 1.3.0)
 
 Final corrective version of Paper 1.5 for IEEE TDSC. No kernel, job, dataset,

@@ -1,0 +1,15 @@
+sensor,current_value,reference_value,item_correspondence_used,same_batch_item_set,protected_in_executed_harness,deployed_authentication_demonstrated,historical_or_statistical,compatible_reference_class
+integrity_jsd_vs_clean_eval,empirical feature distributions of X_eval,X_te_f clean feature distributions,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_mmd_vs_clean_eval,feature multiset X_eval,feature multiset X_te_f,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_ks_reject05_vs_clean_eval,per-feature distributions of X_eval,per-feature distributions of X_te_f,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_score_jsd_vs_clean_eval,score distribution f(X_eval),score distribution f(X_te_f),no,yes,yes,no,statistical=yes; historical=no,A
+integrity_pred_pos_rate_shift,mean predicted-positive rate on X_eval,mean predicted-positive rate on X_te_f,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_pred_jsd,predicted-class distribution on X_eval,predicted-class distribution on X_te_f,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_label_prior_shift,mean positive-label rate of y_eval,mean positive-label rate of y_te_f,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_label_jsd,binary label distribution of y_eval,binary label distribution of y_te_f,no,yes,yes,no,statistical=yes; historical=no,A
+integrity_confusion_profile_l1,"aggregate confusion PMF of (y_eval,f(X_eval))","aggregate confusion PMF of (y_te_f,f(X_te_f))",no,yes,yes,no,statistical=yes; historical=no,A
+integrity_confusion_profile_jsd,"aggregate confusion PMF of (y_eval,f(X_eval))","aggregate confusion PMF of (y_te_f,f(X_te_f))",no,yes,yes,no,statistical=yes; historical=no,A
+integrity_confusion_profile_l1_delta,aggregate confusion-profile L1 delta,trusted aggregate confusion profile of the same batch,no,yes,yes,yes,no,B
+integrity_confusion_profile_jsd_delta,aggregate confusion-profile JSD delta,trusted aggregate confusion profile of the same batch,no,yes,yes,yes,no,B
+integrity_pred_disagreement,item-indexed predictions f(X_eval),trusted item-indexed predictions f(X_te_f),yes,yes,yes,yes,no,C
+label_flip_rate,item-indexed labels y_eval,trusted item-indexed labels y_te_f,yes,yes,yes,yes,no,C

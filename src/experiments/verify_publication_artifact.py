@@ -20,7 +20,7 @@ import pandas as pd
 
 
 TOL = 1e-12
-EXPECTED_MANIFESTS = 7  # gate1, expansion, quantum_integrity, hsaas, reinforcement (1.1.0), policy (1.2.0/1.3.0), adversarial (1.3.0)
+EXPECTED_MANIFESTS = 8  # prior seven frozen evidence packages plus the 1.3.2 frozen-only amendment
 
 
 def _sha256(path: Path) -> str:
@@ -268,6 +268,67 @@ def verify_adversarial_claims(root: Path) -> dict[str, int]:
     return {"adversarial_adaptive_rows": n_adaptive, "adversarial_conditions": int(det["attack"].nunique())}
 
 
+def verify_v132_amendment(root: Path) -> dict[str, int]:
+    """Verify the taxonomy audit and both derived 1.3.2 headline profiles."""
+    audit_path = next(root.rglob("sensor_reference_audit.csv"), None)
+    cost_path = next(root.rglob("trusted_interruption_decomposition.csv"), None)
+    profile_path = next(root.rglob("adaptive_strength_profile.csv"), None)
+    if audit_path is None or cost_path is None or profile_path is None:
+        raise FileNotFoundError("v1.3.2 amendment evidence tables required")
+
+    audit = pd.read_csv(audit_path, keep_default_na=False)
+    if len(audit) != 14 or set(audit["compatible_reference_class"]) != {"A", "B", "C"}:
+        raise ValueError("unexpected v1.3.2 sensor audit shape or classes")
+    class_a = audit[audit["compatible_reference_class"] == "A"]
+    if len(class_a) != 10:
+        raise ValueError("expected ten selected statistical Class-A sensors")
+    if not bool(
+        (class_a["item_correspondence_used"] == "no").all()
+        and (class_a["same_batch_item_set"] == "yes").all()
+        and (class_a["protected_in_executed_harness"] == "yes").all()
+        and (class_a["deployed_authentication_demonstrated"] == "no").all()
+    ):
+        raise ValueError("Class-A reference semantics contradict the executed implementation")
+
+    cost = pd.read_csv(cost_path).set_index("quantity")
+    expected_cost = {
+        "batch_statistical_interruptions": 590,
+        "gross_exact_reference_blocks": 85,
+        "exact_blocks_overlapping_batch_interruptions": 46,
+        "net_additional_interruptions_vs_batch_I_XFY_P2": 39,
+        "trusted_statistical_holds": 544,
+        "trusted_exact_reference_blocks": 85,
+        "trusted_total_interruptions": 629,
+    }
+    for quantity, expected in expected_cost.items():
+        if int(cost.loc[quantity, "n"]) != expected:
+            raise ValueError(f"v1.3.2 trusted-cost quantity changed: {quantity}")
+    if abs(float(cost.loc["net_additional_interruptions_vs_batch_I_XFY_P2", "rate"]) - 0.0325) > TOL:
+        raise ValueError("v1.3.2 trusted-cost net percentage changed")
+
+    profile = pd.read_csv(profile_path).set_index(["mechanism", "strength"])
+    if len(profile) != 10:
+        raise ValueError("adaptive strength profile must contain all ten mechanism-strength cells")
+    matched = {
+        ("mean_shift", 0.02): 156 / 174,
+        ("mean_shift", 0.05): 159 / 237,
+        ("mean_shift", 0.10): 148 / 322,
+        ("scaling_drift", 0.02): 132 / 241,
+        ("scaling_drift", 0.05): 114 / 313,
+        ("scaling_drift", 0.10): 78 / 350,
+    }
+    for key, expected in matched.items():
+        if abs(float(profile.loc[key, "material_served_rate_I_XFY"]) - expected) > TOL:
+            raise ValueError(f"adaptive served-rate profile changed: {key}")
+    return {
+        "v132_sensor_audit_rows": len(audit),
+        "v132_trusted_gross_exact_blocks": 85,
+        "v132_trusted_exact_overlap": 46,
+        "v132_trusted_net_additional": 39,
+        "v132_adaptive_strength_cells": len(profile),
+    }
+
+
 def verify_release_hashes(root: Path) -> int:
     manifest = root / "ARTIFACT_MANIFEST.sha256"
     if not manifest.exists():
@@ -291,6 +352,7 @@ def verify(root: Path) -> dict[str, int]:
     result.update(verify_reinforcement_claims(root))
     result.update(verify_policy_claims(root))
     result.update(verify_adversarial_claims(root))
+    result.update(verify_v132_amendment(root))
     result["release_files"] = verify_release_hashes(root)
     return result
 

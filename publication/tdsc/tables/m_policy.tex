@@ -1,12 +1,12 @@
 \begin{table}[!t]
-\caption{Offline end-to-end decisions on the frozen observations (primary materiality $|\Delta_R|>0$; 7,008 material of 10,800 intervened observations). P1 union, P2 conformal (calibrated, risk-tolerant), P3 abst.\ (coverage-complete abstaining). FPR: clean false-action rate on 12,000 disjoint clean draws, or on the 1,200 exact-zero rows for $\mathcal I_{XFY}^{\star}$ (a different denominator). Benign: fraction of the 1,200 near-null synthetic controls held or blocked (same rows for every regime). P0 serve-always allows all 7,008 material observations in every regime. Blind: material observations structurally indistinguishable from the reference under the regime.}
+\caption{Offline decisions on frozen observations at the structural-sensitivity endpoint $|\Delta_R|>0$ (7,008 materially altered audit results among 10,800 interventions). P1: union; P2: conformal, risk-tolerant; P3: coverage-complete abstaining. FPR is estimated on 12,000 disjoint clean draws for batch regimes; the starred row instead reports an exact-zero invariant check on 1,200 rows and is not the same estimand. Benign is interruption of the same 1,200 near-null synthetic controls. Served: undetected materially altered audit results served, not malicious network events. Blind: structurally indistinguishable material rows.}
 \label{tab:policy}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{@{}llrrrrr@{}}
 \toprule
-Regime & Policy & FPR & Benign & Unsafe & Contain. & Blind \\
+Regime & Policy & FPR/check & Benign & Served & Contain. & Blind \\
 \midrule
 $\mathcal I_X$ & P1 union & 0.125 & 0.76 & 4,429 & 0.37 & 2,617 \\
 $\mathcal I_X$ & P2 conf. & 0.056 & 0.55 & 4,496 & 0.36 & 2,617 \\

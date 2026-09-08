@@ -1,6 +1,11 @@
-# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.1; evidence frozen at 1.3.0)
+# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.2; evidence frozen at 1.3.0)
 
-Version 1.3 (2026-09-07, artifact 1.3.1). Version 1.2 of the same day
+Version 1.3.2 (2026-09-08) adds one controlled methodological correction to
+the 1.3.1 formal core: the reference shorthand now separates provenance,
+granularity and decision semantics, and describes the actual batch sensors as
+statistical same-item-set comparisons against a benchmark-protected oracle,
+not as purely historical references or deployed-authenticated anchors. No
+experimental result changes. Version 1.3 (2026-09-07, artifact 1.3.1). Version 1.2 of the same day
 (artifact 1.3.0) is corrected in four places and otherwise unchanged: (i) the
 workflow state is split into primitive (stored) and derived artifacts and an
 intervention is defined by the nodes it overwrites, the non-descendants it
@@ -15,12 +20,9 @@ false-alarm rate of one), which is false on the discrete support of the estimato
 ($p = 1/2$, $N = 2$ gives $\Pr[\hat p = p] = 1/2$), and states the correct
 consequence (exact equality is not an acceptance criterion; the discrepancy
 needs a calibrated null; without one no statistical integrity claim is made);
-(iv) the reference taxonomy is Level A = statistical or historical reference
-(null distribution, training or reference population, calibration sample,
-baseline score distribution; no authenticated value of the same batch),
-Level B = trusted aggregate same-batch reference, Level C = trusted
-item-aligned same-batch reference, so that a batch-level auditor is never
-described as having "no reference" (Section 2). Version 1.1 (artifact 1.2.0)
+(iv) the earlier reference taxonomy distinguished statistical/historical,
+trusted aggregate and trusted item-aligned references. Version 1.3.2 corrects
+the epistemic description of its executed instance (Section 2). Version 1.1 (artifact 1.2.0)
 was superseded in Proposition 5, which was false as stated (Section 4 and
 amendment A2 of `paper15_v13_prereg.md`). This document is the complete
 statement, with proofs, of the formal section of the TDSC article. The
@@ -98,8 +100,11 @@ $R : \mathcal S \to \mathbb R$, here balanced accuracy of $\hat y$ against $y$,
 which is a function $R = g(M)$ of the confusion matrix
 $M(s) = (\#\{i : \hat y_i = u, y_i = v\})_{u,v}$. The signed conclusion change
 is $\Delta_R(a) = R(s_0) - R(s_a)$. An intervention is *material at level*
-$\tau$ if $|\Delta_R(a)| \ge \tau$; $\tau \to 0^{+}$ means "any change of the
-reported conclusion". The positive part $\max(\Delta_R, 0)$ is the "harm"
+$\tau$ if $|\Delta_R(a)| \ge \tau$; $\tau \to 0^{+}$ is the
+*structural-sensitivity endpoint* ("any change of the reported conclusion"),
+not a claim that every epsilon has the same operational consequence. The
+fixed $\tau=0.02$ and $0.05$ analyses are larger-effect sensitivities. The
+positive part $\max(\Delta_R, 0)$ is the "harm"
 endpoint of artifacts 1.0.0–1.1.1; the signed definition is used from 1.2.0
 because an apparent improvement caused by an integrity failure is a
 conclusion change (witness W7).
@@ -134,21 +139,30 @@ comparable with $\mathcal I_X$ or $\mathcal I_{XF}$, and $\mathcal I_Q$ is a
 separate branch. The join $\mathcal I \vee \mathcal W$ of two views is the
 pair $(V_{\mathcal I}, V_{\mathcal W})$.
 
-**References and their three levels.** A reference is stored information
+**References and their three axes.** A reference is stored information
 about the baseline against which the audited batch is compared. It is
 *trusted* under assumption $\mathsf T(\rho)$: no intervention in the class
 under study can alter it (it is authenticated, or held by a party outside the
-adversary's reach). Three levels are distinguished throughout:
+adversary's reach). We keep three dimensions explicit:
 
-- **Level A, statistical or historical reference.** A null distribution, a
-  training or reference population, a calibration sample or a baseline score
-  distribution: information about clean batches in general, with **no
-  authenticated value of the same batch**. Every batch-level sensor of the
-  study holds a Level-A reference (the 200 clean calibration draws of its
-  cell and the training-fitted projection and scaler); detection is a
-  statistical test with power below one. "No reference" is never the right
-  description of a batch-level auditor; "no authenticated same-batch anchor"
-  is.
+- **Provenance:** historical, benchmark-protected, or deployed authenticated.
+- **Granularity:** aggregate or item-aligned.
+- **Decision:** statistical (calibrated tolerance) or exact (zero invariant).
+
+The A/B/C names are compact reference classes, not a one-dimensional scale
+that conflates these dimensions:
+
+- **Level A, statistically thresholded aggregate comparison.** Its reference
+  may be historical or may be a clean version of the same item set. In the
+  executed benchmark, the selected feature, prediction, label-marginal and
+  confusion-profile sensors compare aggregate current values with
+  benchmark-protected clean arrays for the same item set, without using item
+  correspondence; thresholds come from 200 calibration draws per cell. The
+  benchmark oracle is outside the executed attack API, but no deployed
+  authentication or delivery mechanism is demonstrated. Only the three raw
+  feature distribution variants also have a training-population reference;
+  there is no complete, prespecified historical counterpart for
+  $\mathcal I_{XF}$, $\mathcal I_{Y_m}$ and $\mathcal I_{XFY}$.
 - **Level B, trusted aggregate same-batch reference.** A stored, uncontrolled
   value $\rho = V_{\mathcal J}(s_0)$ of a permutation-invariant aggregate of
   the *same batch*, such as $M(s_0)$, $\mathrm{hist}(y_0)$ or $R(s_0)$.
@@ -157,15 +171,22 @@ adversary's reach). Three levels are distinguished throughout:
   uncontrolled item-indexed tuple of the same items, such as $(y_{0,i})_i$ or
   $(\hat y_{0,i})_i$; comparison is item-wise with an exact-zero null.
 
-The distinction that carries the results is between a historical or
-statistical baseline (Level A) and an authenticated same-batch anchor
-(Levels B and C), not between having and lacking a reference. We write
+The distinction that carries the results is between statistical aggregate
+comparison without demonstrated deployed authentication (Level A) and an
+authenticated same-batch exact anchor (Levels B and C), then between
+aggregate and item-aligned integrity. We write
 $\mathcal I^{\star}$ for a regime augmented with same-batch references of its
 own baseline view; $\mathcal I_{XFY}^{\star}$ in the evidence holds both the
 aggregate confusion profile (Level B) and the item-aligned labels and
 predictions (Level C) of the same batch. A label being *available* in
 $\mathcal I_{XFY}$ says nothing about whether it is *trusted*: if the label
 store is the asset under attack, the auditor sees $y_a$, not $y_0$.
+
+The runtime policy API consumes only union/family firing flags and an exact
+reference flag; it never consumes $X_{te}$, $y_{te}$ or the clean item set
+directly. Those arrays are required upstream to produce the executed Level-A
+scores. Thus “experimental oracle used to measure a statistic” and “trusted
+evidence available to a deployed auditor” are different claims.
 
 ## 3. Observational equivalence, sensors and blind regions
 
@@ -316,10 +337,12 @@ $D(s) = d(V_{\mathcal J}(s), \rho)$ with a metric $d$ ($d = 0$ iff equal).
 Then $D(s_0) = 0$ exactly, the rule "fire iff $D > 0$" has false-alarm
 probability zero, and it detects every $a$ with $V_{\mathcal J}(s_a) \ne \rho$.
 
-(b) A *batch-level auditor* holds a Level-A reference only: a null model
-$P_0$ of $V_{\mathcal I}$ over clean batches (the calibration draws of Gate N)
-and no authenticated value of the audited batch. It decides with a calibrated
-test at budget $\alpha$. For a separable $a$ the detection probability is the
+(b) A *batch-level auditor* performs a Level-A statistical aggregate
+comparison. In the executed instance its current/reference statistic uses a
+benchmark-protected clean same-item set without item pairing, and the null
+model $P_0$ comes from the Gate-N calibration draws. The benchmark does not
+demonstrate deployed authentication of that reference. It decides with a
+calibrated test at budget $\alpha$. For a separable $a$ the detection probability is the
 power of the test against the shift $V_{\mathcal I}(s_a)$ relative to the
 null variability of fresh batches; it is generally below one, and it is *not*
 implied by separability.

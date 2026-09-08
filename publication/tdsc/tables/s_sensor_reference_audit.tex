@@ -1,0 +1,27 @@
+\begin{table*}[!tbp]
+\caption{Audited reference semantics of every selected sensor in v1.3.2. Pairing means that item correspondence enters the statistic; same set means the runner uses the clean version of the audited item set. Harness protected means that the benchmark keeps the reference outside the executed attack API; trusted means that the threat model grants deployed authentication. Hist./stat. reports historical and statistical reference semantics in that order. Class A is statistical comparison; B and C are trusted aggregate and trusted item-aligned exact invariants.}
+\label{tab:s-sensor-reference-audit}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.2pt}
+\begin{tabular}{@{}p{0.18\textwidth}p{0.15\textwidth}p{0.16\textwidth}cccccp{0.07\textwidth}@{}}
+\toprule
+Sensor & Current value & Reference value & \shortstack{Item\\pair} & \shortstack{Same\\set} & \shortstack{Harness\\protected} & \shortstack{Threat-model\\trusted} & \shortstack{Hist. /\\stat.} & Rule / class \\
+\midrule
+\path{integrity_jsd_vs_clean_eval} & empirical feature distributions of X\_eval & X\_te\_f clean feature distributions & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_mmd_vs_clean_eval} & feature multiset X\_eval & feature multiset X\_te\_f & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_ks_reject05_vs_clean_eval} & per-feature distributions of X\_eval & per-feature distributions of X\_te\_f & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_score_jsd_vs_clean_eval} & score distribution f(X\_eval) & score distribution f(X\_te\_f) & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_pred_pos_rate_shift} & mean predicted-positive rate on X\_eval & mean predicted-positive rate on X\_te\_f & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_pred_jsd} & predicted-class distribution on X\_eval & predicted-class distribution on X\_te\_f & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_label_prior_shift} & mean positive-label rate of y\_eval & mean positive-label rate of y\_te\_f & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_label_jsd} & binary label distribution of y\_eval & binary label distribution of y\_te\_f & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_confusion_profile_l1} & aggregate confusion PMF of (y\_eval,f(X\_eval)) & aggregate confusion PMF of (y\_te\_f,f(X\_te\_f)) & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_confusion_profile_jsd} & aggregate confusion PMF of (y\_eval,f(X\_eval)) & aggregate confusion PMF of (y\_te\_f,f(X\_te\_f)) & no & yes & yes & no & no / yes & statistical / A \\
+\path{integrity_confusion_profile_l1_delta} & aggregate confusion-profile L1 delta & trusted aggregate confusion profile of the same batch & no & yes & yes & yes & no / no & exact / B \\
+\path{integrity_confusion_profile_jsd_delta} & aggregate confusion-profile JSD delta & trusted aggregate confusion profile of the same batch & no & yes & yes & yes & no / no & exact / B \\
+\path{integrity_pred_disagreement} & item-indexed predictions f(X\_eval) & trusted item-indexed predictions f(X\_te\_f) & yes & yes & yes & yes & no / no & exact / C \\
+\path{label_flip_rate} & item-indexed labels y\_eval & trusted item-indexed labels y\_te\_f & yes & yes & yes & yes & no / no & exact / C \\
+\bottomrule
+\end{tabular}
+\end{table*}

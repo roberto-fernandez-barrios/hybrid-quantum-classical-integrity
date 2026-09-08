@@ -101,17 +101,20 @@ composed action reproduces the contract action in every scenario, including
 the `hold` of the approved 256-shot emulator.
 
 `src/experiments/build_q1_policy_evidence.py` evaluates the four policies
-over the five regimes offline on 24,000 frozen observations (12,000 clean
+over the five regimes offline on 24,000 policy rows derived from the frozen
+grid, with inferential independence at environment/split clusters (12,000 clean
 draws, 1,200 near-null shams, 10,800 interventions of which 7,008 change the
 reported balanced accuracy) and writes 27 tables with 12 fail-closed
 consistency checks; the results are summarised in
 `manuscript/paper15_v13_result_summary.md`. Key numbers (1.3.0, conformal
 rule): decision false-alarm rates 0.056 / 0.058 / 0.048 / 0.053 against
-0.125 / 0.203 / 0.048 / 0.259 (union); unsafe allows 4,496 / 4,365 / 7,008 /
+0.125 / 0.203 / 0.048 / 0.259 (union); materially altered audit results
+served (internal variable `unsafe_allow`) are 4,496 / 4,365 / 7,008 /
 4,390 of 7,008 for the batch-level regimes under P2 and 0 for the trusted
 item-aligned regime, which however interrupts 629 of the 1,200 near-null
-synthetic controls (544 statistical holds that P2 also pays in the batch
-regimes, 85 exact-reference blocks). The adversarial gate of 1.3.0
+synthetic controls. Its 85 exact-reference blocks are gross; 46 overlap batch
+`I_XFY`/P2 interruptions, leaving 39 net additional interruptions. The
+adversarial gate of 1.3.0
 (`build_q1_adversarial_evidence.py`) shows that P2 serves 959–1,328 of 3,418
 material rows of an attacker who preserves the batch-level fingerprint; the
 trusted regime blocks all of them.

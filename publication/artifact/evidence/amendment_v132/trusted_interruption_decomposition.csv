@@ -1,0 +1,8 @@
+quantity,n,denominator,rate
+batch_statistical_interruptions,590,1200,0.49166666666666664
+gross_exact_reference_blocks,85,1200,0.07083333333333333
+exact_blocks_overlapping_batch_interruptions,46,1200,0.03833333333333333
+net_additional_interruptions_vs_batch_I_XFY_P2,39,1200,0.0325
+trusted_statistical_holds,544,1200,0.4533333333333333
+trusted_exact_reference_blocks,85,1200,0.07083333333333333
+trusted_total_interruptions,629,1200,0.5241666666666667

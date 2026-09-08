@@ -1,10 +1,10 @@
-"""Manuscript consistency gates (artifact 1.3.1).
+"""Manuscript consistency gates (artifact 1.3.2).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
 correction removed, so that they cannot reappear silently:
 
-* the abstract of the main article has at most 250 words after macro expansion;
+* the abstract of the main article has 170--200 words after macro expansion;
 * no active document carries the superseded hand-typed range ``88--95`` of the
   adaptive attacker's material retention (the generated range is 83--91 %);
 * no sentence states that the executed Gate F has an exact level without the
@@ -47,6 +47,7 @@ ACTIVE_DOCUMENTS = [
     "manuscript/THREAT_MODEL_CARD.md",
     "manuscript/FORMAL_CORE.md",
     "manuscript/HSaaS_DEMONSTRATOR.md",
+    "manuscript/METHODOLOGICAL_AMENDMENT_1.3.2.md",
     "CITATION.cff",
     ".zenodo.json",
 ]
@@ -102,13 +103,13 @@ def _sentences(text: str) -> list[str]:
 
 
 class TestAbstract:
-    def test_abstract_has_at_most_250_words(self) -> None:
+    def test_abstract_has_170_to_200_words(self) -> None:
         words = abstract_words()
-        assert 150 <= len(words) <= 250, f"abstract has {len(words)} words"
+        assert 170 <= len(words) <= 200, f"abstract has {len(words)} words"
 
     def test_abstract_carries_the_required_elements(self) -> None:
         text = " ".join(abstract_words()).lower()
-        for needle in ("indistinguishability", "information set", "trusted references", "evaluation-label", "aggregate", "item-aligned", "conformal", "exchangeability", "allow/hold/block", "adaptive attacker", "simulator gate"):
+        for needle in ("indistinguishability", "minimum evidence granularity", "trusted aggregate", "item-aligned", "conformal", "exchangeability", "materially altered audit results", "adaptive", "ideal-statevector", "hardware claim"):
             assert needle in text, needle
 
 
@@ -131,6 +132,10 @@ class TestActiveNumbers:
         assert holds + blocks == total
         assert macros["BenignHBFamilyIXFYtrusted"] == f"{total / 1200:.2f}"
         assert macros["BenignHBPctFamilyIXFYtrusted"] == str(round(100 * total / 1200))
+        assert macros["TrustedGrossExactBlocks"] == "85"
+        assert macros["TrustedExactOverlap"] == "46"
+        assert macros["TrustedNetAdditional"] == "39"
+        assert macros["TrustedNetAdditionalPct"] == "3.25"
 
     def test_main_text_uses_macros_for_the_headline_numbers(self) -> None:
         text = _read("publication/tdsc/main.tex")
@@ -172,12 +177,16 @@ class TestClaimWording:
 
     def test_reference_taxonomy_is_named_consistently(self) -> None:
         main = _read("publication/tdsc/main.tex")
-        assert "statistical or\nhistorical reference" in main or "statistical or historical reference" in re.sub(r"\s+", " ", main)
+        flat = re.sub(r"\s+", " ", main)
+        assert "statistically thresholded aggregate" in flat
+        assert "protected clean same-item-set oracle" in flat
+        assert "no deployed authentication mechanism is demonstrated" in flat
         assert "with no stored\nbaseline value" not in main
-        assert "no stored baseline" not in re.sub(r"\s+", " ", main)
+        assert "no stored baseline" not in flat
         assert "coverage-complete abstaining" in main
         for rel in ("manuscript/FORMAL_CORE.md", "publication/tdsc/supplement.tex"):
-            assert "no authenticated value of the same batch" in re.sub(r"\s+", " ", _read(rel)), rel
+            text = re.sub(r"\s+", " ", _read(rel))
+            assert "benchmark-protected" in text and "deployed authentication" in text, rel
 
 
 class TestPolicyTaxonomyInCode:
@@ -186,3 +195,85 @@ class TestPolicyTaxonomyInCode:
 
         strict = POLICY_CLASS["family_calibrated_strict"]
         assert "coverage-complete abstaining" in strict and "missing coverage" in strict and "no minimum-power guarantee" in strict
+
+
+class TestV132ClosingGuards:
+    def test_all_selected_sensor_references_have_compatible_semantics(self) -> None:
+        from src.experiments.build_v132_amendment_evidence import sensor_reference_audit
+
+        audit = sensor_reference_audit()
+        assert len(audit) == 14
+        class_a = audit[audit["compatible_reference_class"] == "A"]
+        assert len(class_a) == 10
+        assert (class_a["item_correspondence_used"] == "no").all()
+        assert (class_a["same_batch_item_set"] == "yes").all()
+        assert (class_a["protected_in_executed_harness"] == "yes").all()
+        assert (class_a["deployed_authentication_demonstrated"] == "no").all()
+        assert class_a["historical_or_statistical"].str.contains("statistical=yes").all()
+        assert set(audit[audit["compatible_reference_class"] == "B"]["item_correspondence_used"]) == {"no"}
+        assert set(audit[audit["compatible_reference_class"] == "C"]["item_correspondence_used"]) == {"yes"}
+
+    @pytest.mark.parametrize("rel", ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"))
+    def test_corollary_numbering_is_contiguous(self, rel: str) -> None:
+        numbers = [int(x) for x in re.findall(r"\\textbf\{Corollary\s+(\d+)", _read(rel))]
+        assert numbers == [1, 2, 3], (rel, numbers)
+
+    def test_adaptive_aggregate_and_strength_profile_macros(self) -> None:
+        macros = _macros()
+        assert (
+            macros["AdvServedOverallAdaptFamilyIX"],
+            macros["AdvServedOverallAdaptFamilyIXF"],
+            macros["AdvServedOverallAdaptFamilyIXFY"],
+        ) == ("0.39", "0.28", "0.29")
+        assert (
+            macros["AdvServedRateMSTwoPctIXFY"],
+            macros["AdvServedRateMSFivePctIXFY"],
+            macros["AdvServedRateMSTenPctIXFY"],
+            macros["AdvServedRateSDTwoPctIXFY"],
+            macros["AdvServedRateSDFivePctIXFY"],
+            macros["AdvServedRateSDTenPctIXFY"],
+        ) == ("0.90", "0.67", "0.46", "0.55", "0.36", "0.22")
+
+    @pytest.mark.parametrize("rel", ACTIVE_DOCUMENTS)
+    def test_iym_contains_nothing_phrase_is_retired(self, rel: str) -> None:
+        assert "contains nothing" not in _read(rel).lower(), rel
+
+    def test_iym_containment_and_residual_blind_count_are_explicit(self) -> None:
+        macros = _macros()
+        assert macros["ResidualBlindFamilyIYm"] == "5,450"
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "provides zero containment" in main
+        assert r"\ResidualBlindFamilyIYm{}" in main
+
+    def test_structural_materiality_endpoint_is_not_operational_threshold(self) -> None:
+        for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex", "manuscript/FORMAL_CORE.md"):
+            text = re.sub(r"\s+", " ", _read(rel)).lower()
+            assert "structural-sensitivity endpoint" in text, rel
+            assert "not an operational risk threshold" in text or "not a claim that every epsilon" in text or "not imply equal operational consequence" in text, rel
+
+    def test_24000_are_policy_rows_not_independent_episodes(self) -> None:
+        corpus = "\n".join(_read(rel) for rel in ACTIVE_DOCUMENTS)
+        assert not re.search(r"24,?000\s+(?:independent\s+)?episodes", corpus, re.I)
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        supplement = re.sub(r"\s+", " ", _read("publication/tdsc/supplement.tex"))
+        for text in (main, supplement):
+            assert "24,000 policy rows derived from the frozen intervention grid" in text
+            assert "environment/split clusters rather than at row level" in text
+
+    def test_batch_and_trusted_denominators_are_different_estimands(self) -> None:
+        for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"):
+            text = re.sub(r"\s+", " ", _read(rel))
+            assert "12,000" in text and "1,200" in text
+            assert "different" in text and "estimand" in text
+
+    def test_unsafe_allow_is_never_a_network_event_claim(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex")).lower()
+        assert "not necessarily changing the classifier's live prediction" in main
+        assert "not malicious network events" in _read("publication/tdsc/tables/m_policy.tex").lower()
+        corpus = "\n".join(_read(rel).lower() for rel in ACTIVE_DOCUMENTS)
+        assert "unsafe network event" not in corpus
+
+    def test_gate_d_policy_api_accepts_flags_not_clean_arrays(self) -> None:
+        policy = _read("src/hsaas/policy.py")
+        assert "union_fire" in policy and "family_fire" in policy and "exact_fire" in policy
+        assert "X_te_f" not in policy and "y_te_f" not in policy

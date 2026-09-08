@@ -1,5 +1,5 @@
 \begin{table*}[!tbp]
-\caption{Gate A: executed drift mechanisms (matched controls, frozen strengths) against their adaptive cluster-preserving variants (class F5), 600 observations per row pooled over the eight environments. Detection under the conformal family rule in $\mathcal I_X$ and $\mathcal I_{XF}$; material: fraction of rows with a changed balanced accuracy; unsafe: material rows served by P2 in $\mathcal I_{XF}$ over material rows. The attacker leaves the clustered entries untouched and perturbs the remaining 32\% of entries on average.}
+\caption{Gate A: executed drift mechanisms (matched controls, frozen strengths) against their adaptive cluster-preserving variants (class F5), 600 observations per row pooled over the eight environments. Detection uses the conformal family rule in $\mathcal I_X$ and $\mathcal I_{XF}$; material is the fraction with changed balanced accuracy; served is the number of undetected materially altered audit results served by P2 in $\mathcal I_{XF}$ over material rows. The attacker leaves clustered entries untouched and perturbs the remaining 32\% on average.}
 \label{tab:adversarial}
 \centering
 \scriptsize
@@ -8,7 +8,7 @@
 \toprule
  & & \multicolumn{4}{c}{Executed mechanism (control)} & \multicolumn{4}{c}{Cluster-preserving (adaptive, F5)} \\
 \cmidrule(lr){3-6}\cmidrule(lr){7-10}
-Mechanism & Strength & Det.\ $\mathcal I_X$ & Det.\ $\mathcal I_{XF}$ & Material & Unsafe P2 & Det.\ $\mathcal I_X$ & Det.\ $\mathcal I_{XF}$ & Material & Unsafe P2 \\
+Mechanism & Strength & Det.\ $\mathcal I_X$ & Det.\ $\mathcal I_{XF}$ & Material & Served P2 & Det.\ $\mathcal I_X$ & Det.\ $\mathcal I_{XF}$ & Material & Served P2 \\
 \midrule
 Mean shift & 0.02 & 1.00 & 0.97 & 0.33 & 4/197 & 0.01 & 0.06 & 0.29 & 155/174 \\
 Mean shift & 0.05 & 1.00 & 1.00 & 0.46 & 0/275 & 0.08 & 0.24 & 0.40 & 151/237 \\

@@ -1,4 +1,4 @@
-# Generative-AI disclosure (1.1.0 wording approved by all authors on 2026-09-06; extended for 1.2.0, 1.3.0 and 1.3.1 on 2026-09-07, approval communicated by the corresponding author)
+# Generative-AI disclosure (wording through 1.3.2 approved by all authors; approval communicated by the corresponding author)
 
 Text used in the manuscript Acknowledgment and in the submission portal:
 
@@ -21,7 +21,10 @@ Text used in the manuscript Acknowledgment and in the submission portal:
 > formal review that corrected the finite-shot statement of Proposition 7,
 > the workflow-state semantics and the reference taxonomy, the executable
 > state model and its tests, the manuscript consistency tests, the figure
-> layout and the editorial corrections. The authors specified the protocols,
+> layout and the editorial corrections. OpenAI Codex (September 2026) also
+> assisted with the controlled 1.3.2 implementation/reference audit,
+> frozen-output-derived tables and macros, manuscript alignment, permanent
+> regression tests, PDF verification and release preparation. The authors specified the protocols,
 > verified the primary sources, proofs, numerical results, code and generated
 > text, and retain full responsibility for the article.
 
@@ -31,10 +34,10 @@ AI-generated content requires:
 | System | Period | Sections / components | Level of use |
 |---|---|---|---|
 | OpenAI Codex | May–August 2026 | Markdown manuscript drafting and editing, TDSC conversion, code inspection, 1.0.0 evidence builders, verifier, tests | Drafting and implementation under author specification; authors verified sources, code and numbers |
+| OpenAI Codex | September 2026 | 1.3.2 sensor/reference audit; frozen-derived trusted-cost and adaptive-strength tables; taxonomy, manuscript and submission-package alignment; guards and release verification | Implementation audit and controlled editorial correction under author specification; no new experiment; authors verified the interpretation, code, numbers and text |
 | Anthropic Claude Code | September 2026 | Related work (§II), formal section (§III) and counterexamples, adversary model (§IV), abstract, results, limitations, conclusion; supplement sections on Gates N/P/T, F/D and A; artifact 1.1.0–1.3.1 code; release automation; 1.3.1 formal and editorial corrections | Drafting, implementation, mathematical audit (found the false Proposition 5(b) of 1.2.0; corrected the finite-shot statement of Proposition 7(iii), the state semantics and the reference taxonomy in 1.3.1), statistical correction (conformal rule, exhaustive tests, rule-bias decomposition), experimental design of Gate A (preregistered by the authors), manuscript revision, consistency tests and figure layout; authors specified protocols, re-derived proofs, verified numbers, code and text |
 
 Neither system is an author. The preregistrations of the three gate sets,
 their amendment records (A1, A2, A3) and the numerical results were reviewed
-by the authors before inclusion. The 1.3.0 and 1.3.1 extensions of this
-statement were approved by all authors on 2026-09-07 (communicated by the
-corresponding author).
+by the authors before inclusion. The extensions through 1.3.2 were approved
+by all authors (communicated by the corresponding author).

@@ -51,6 +51,7 @@ CONCEPT_DOI = "10.5281/zenodo.22550852"
 RELEASE_SUMMARY = {
     "1.3.0": "scientific closure of Paper 1.5 for IEEE TDSC",
     "1.3.1": "formal and editorial correction of Paper 1.5 for IEEE TDSC (experimental evidence frozen at 1.3.0)",
+    "1.3.2": "methodological alignment of Paper 1.5 with its frozen evidence for IEEE TDSC",
 }
 ZENODO_API = "https://zenodo.org/api"
 SCIENCE_BRANCH = "paper15-q1-expansion"
@@ -125,6 +126,10 @@ def _fail(message: str) -> None:
 
 def preflight() -> None:
     py = _python()
+    # The 1.3.2 outputs are derived exclusively from already-frozen CSVs.
+    _run([py, "-m", "src.experiments.build_v132_amendment_evidence"])
+    _run([py, "-m", "src.experiments.make_q1_policy_tables"])
+    _run([py, "-m", "src.experiments.make_q1_policy_figures"])
     # Build first, then assemble the compact artifact (the PDFs are part of it),
     # then verify it and run the tests, which check the assembled artifact.
     _run(["pwsh", "-NoProfile", "-File", "publication/tdsc/build.ps1"])
@@ -294,7 +299,7 @@ def finalize(doi: str) -> None:
         forbidden = [f for f in staged if f.endswith(".zip") or f.endswith("SHA256SUMS.txt") or f.endswith("zenodo_draft_state.json")]
         if forbidden:
             _fail(f"release assets staged for commit: {forbidden}")
-        _run(["git", "commit", "-q", "-m", f"Release {tag}: {_summary()} (version DOI {doi})\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01KWdy8kq2aH9hjFa8cMvd5D"])
+        _run(["git", "commit", "-q", "-m", f"Release {tag}: {_summary()} (version DOI {doi})"])
     _git_checks(tag)
     head = _out(["git", "rev-parse", "HEAD"])
 

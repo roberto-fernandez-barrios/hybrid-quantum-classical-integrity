@@ -40,7 +40,7 @@ from src.experiments.build_q1_policy_evidence import (
 from src.experiments.build_q1_reinforcement_evidence import (
     CALIBRATED_SENSORS,
     DIMS,
-    EXACT_ITEM_ALIGNED_SENSORS,
+    EXACT_REFERENCE_SENSORS,
     EXPECTED_FILES_PER_GATE,
     MODEL_SEEDS,
     NULL_GATES,
@@ -265,7 +265,7 @@ def build(repo: Path, out_dir: Path) -> None:
     summary["true_hold_block"] = p2.groupby("regime")[["true_hold", "true_block"]].sum().sum(axis=1).to_numpy()
     summary["unsafe_allow_rate"] = summary["unsafe_allow"] / summary["n_material"]
 
-    keep = ["gate", "protocol", "dataset_tag", "svd_dim", "split_seed", "model_seed", "model", "attack", "attack_family", "attack_priority_group", "attack_class", "mechanism", "strength", "impact_bal_acc", "bal_acc", "bal_acc_clean", "delta_bal_acc"] + CALIBRATED_SENSORS + EXACT_ITEM_ALIGNED_SENSORS + [c for c in scored.columns if c.startswith("atk_")]
+    keep = ["gate", "protocol", "dataset_tag", "svd_dim", "split_seed", "model_seed", "model", "attack", "attack_family", "attack_priority_group", "attack_class", "mechanism", "strength", "impact_bal_acc", "bal_acc", "bal_acc_clean", "delta_bal_acc"] + CALIBRATED_SENSORS + EXACT_REFERENCE_SENSORS + [c for c in scored.columns if c.startswith("atk_")]
     unique = scored[[c for c in keep if c in scored.columns]].reset_index(drop=True)
     clean_rows = f5[f5["attack"] == "clean"][[c for c in ["gate", "protocol", "dataset_tag", "svd_dim", "split_seed", "model_seed", "model", "attack", "bal_acc", "bal_acc_clean"] if c in f5.columns]]
 

@@ -1,10 +1,37 @@
-# TDSC submission build `1.3.1-tdsc`
+# TDSC submission build `1.3.2-tdsc`
 
-Date: 2026-09-07. Formal and editorial correction of the 1.3.0 build; the
-experimental evidence is frozen at artifact 1.3.0 and no kernel, job, seed,
-model or draw was re-executed. All co-authors approved the changes.
+Date: 2026-09-08. Controlled methodological/editorial correction of 1.3.1;
+the experimental evidence is frozen at artifact 1.3.0 and no experiment,
+kernel, job, attack, seed, model, dataset or draw was rerun. All co-authors
+approved the changes.
 
-## Changed in the manuscript
+## Closing changes in 1.3.2
+
+- Repair B after a source-to-policy audit: Class A now accurately denotes the
+  statistically thresholded aggregate comparisons against a
+  benchmark-protected clean same-item-set oracle that were executed, without
+  item pairing or demonstrated deployed authentication. B/C remain trusted
+  aggregate/item-aligned exact invariants.
+- Reference provenance, granularity and statistical/exact decision semantics
+  are distinct; the headline is minimum evidence granularity relative to the
+  protected integrity claim.
+- Corollaries 1–3 are contiguous. `I_Ym` is reported as zero containment with
+  5,450 residual-blind material cases at the structural endpoint.
+- Trusted cost distinguishes 85 gross exact blocks, 46 overlaps and 39 net
+  additional near-null interruptions / 1,200 (3.25 percentage points).
+- Adaptive results retain aggregate material served rates and add the complete
+  per-strength materiality/detection/served profile (matched I_XFY range
+  0.22–0.90).
+- `unsafe_allow` remains an internal CSV identifier; manuscript terminology is
+  materially altered audit result served, never an allowed malicious network
+  event. The 24,000 rows, materiality endpoint, conformal premise and
+  batch/trusted denominators are explicitly bounded.
+- Abstract is 188 words. Quantum validation remains ideal-statevector and
+  finite-shot emulation only. Eight evidence manifests and permanent closing
+  guards are included.
+
+## Inherited 1.3.1 corrections
+
 
 - Abstract shortened to at most 250 words (CI test) with the conformal claim
   stated as a property under exchangeability and the executed rates

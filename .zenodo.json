@@ -1,50 +1,19 @@
 {
-  "title": "Observational Indistinguishability and Integrity Blind Regions Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows",
-  "description": "Version 1.3.1 reproducibility artifact of Paper 1.5 (formal and editorial correction; the experimental evidence is frozen at version 1.3.0, DOI 10.5281/zenodo.22648573, and no kernel, job, seed, model or draw was re-executed). Corrections: Proposition 7(iii) restated for finite-shot estimation (exact equality has false-alarm probability 1 - Pr[K_hat = K_0], not universally one; the discrepancy needs a calibrated null), the workflow state split into primitive and derived artifacts with explicit intervention semantics, the semantic / estimated / observed kernel notions separated by intervention class, the reference taxonomy (level A statistical or historical reference; level B trusted aggregate same-batch reference; level C trusted item-aligned same-batch reference), the conformal claim stated as a property under exchangeability with the executed rates reported separately, policy P3 renamed coverage-complete abstaining with no minimum-power guarantee, the adaptive attacker's material retention printed everywhere from the generated macros (83-91 %), the trusted-regime interruption decomposed (544 statistical holds + 85 exact-reference blocks = 629 of 1,200 near-null synthetic controls), zero-response cells reframed as validation checks, the abstract shortened to at most 250 words, a concrete threat scenario, VAMP positioned in related work, and the figures made legible. Contents: code, tests (including the new manuscript consistency gates), compact derived evidence (frozen 1.0.0 gates, the preregistered 1.1.0 reinforcement gates, the 1.3.0 policy gates with the conformal family rule, and the preregistered adversarial Gate A), figures, seven SHA-256 evidence manifests, formal core with its statement-by-statement reviews, adversary model and manuscript sources. Only the textual policy_class label of P3 in the policy and adversarial tables differs from 1.3.0; every number is unchanged.",
+  "title": "Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows",
+  "description": "Version 1.3.2 reproducibility artifact of Paper 1.5. This controlled methodological/editorial correction leaves the experimental evidence frozen at version 1.3.0 (DOI 10.5281/zenodo.22648573): no experiment, job, model, kernel, attack, seed, dataset or draw was rerun. The sensor audit establishes that the selected Class-A sensors execute statistically thresholded aggregate comparisons against a benchmark-protected clean same-item-set oracle without item pairing; this is neither a purely historical reference nor demonstrated deployed authentication. Classes B and C are trusted same-batch exact invariants at aggregate and item-aligned granularity. Frozen-output-derived additions report the complete sensor-to-reference mapping, the trusted near-null cost (85 gross exact blocks, 46 overlapping batch interruptions, 39 net additional interruptions out of 1,200), and adaptive materiality/detection/served rates at every preregistered strength. The paper foregrounds minimum evidence granularity relative to the protected integrity claim, uses materially altered audit result served for the internal unsafe_allow endpoint, defines tau to zero-plus as structural sensitivity, distinguishes row counts from clustered inferential units and exact-zero from clean-decision denominators, restores contiguous Corollaries 1--3, and bounds the quantum branch to ideal-statevector and finite-shot emulation. Contents include code, tests, eight SHA-256 evidence manifests, compact derived evidence, figures, formal core, amendment audit, adversary model, manuscript sources and submission PDFs.",
   "upload_type": "software",
-  "publication_date": "2026-09-07",
-  "version": "1.3.1",
+  "publication_date": "2026-09-08",
+  "version": "1.3.2",
   "creators": [
-    {
-      "name": "Fernández-Barrios, Roberto",
-      "affiliation": "Faculty of Engineering, University of Deusto",
-      "orcid": "0009-0003-5312-2634"
-    },
-    {
-      "name": "Pastor-López, Iker",
-      "affiliation": "Faculty of Engineering, University of Deusto",
-      "orcid": "0000-0002-3068-6248"
-    },
-    {
-      "name": "Pikatza-Huerga, Amaia",
-      "affiliation": "Faculty of Engineering, University of Deusto",
-      "orcid": "0009-0003-9080-6242"
-    },
-    {
-      "name": "García Bringas, Pablo",
-      "affiliation": "Faculty of Engineering, University of Deusto",
-      "orcid": "0000-0003-3594-9534"
-    }
+    {"name": "Fernández-Barrios, Roberto", "affiliation": "Faculty of Engineering, University of Deusto", "orcid": "0009-0003-5312-2634"},
+    {"name": "Pastor-López, Iker", "affiliation": "Faculty of Engineering, University of Deusto", "orcid": "0000-0002-3068-6248"},
+    {"name": "Pikatza-Huerga, Amaia", "affiliation": "Faculty of Engineering, University of Deusto", "orcid": "0009-0003-9080-6242"},
+    {"name": "García Bringas, Pablo", "affiliation": "Faculty of Engineering, University of Deusto", "orcid": "0000-0003-3594-9534"}
   ],
-  "keywords": [
-    "integrity auditing",
-    "observability",
-    "hybrid quantum-classical systems",
-    "quantum kernels",
-    "runtime assurance",
-    "cybersecurity"
-  ],
+  "keywords": ["integrity auditing", "observability", "hybrid quantum-classical systems", "quantum kernels", "runtime assurance", "cybersecurity"],
   "related_identifiers": [
-    {
-      "identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.3.1",
-      "relation": "isSupplementTo",
-      "scheme": "url"
-    },
-    {
-      "identifier": "10.5281/zenodo.22648573",
-      "relation": "isNewVersionOf",
-      "scheme": "doi"
-    }
+    {"identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.3.2", "relation": "isSupplementTo", "scheme": "url"},
+    {"identifier": "10.5281/zenodo.22651111", "relation": "isNewVersionOf", "scheme": "doi"}
   ],
   "notes": "Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",
   "license": "apache-2.0",

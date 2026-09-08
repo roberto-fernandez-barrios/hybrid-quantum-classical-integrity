@@ -10,7 +10,7 @@
 \usepackage{stfloats}
 \usepackage{float}
 
-% Supplement layout (artifact 1.3.1): the supplement tables are generated with
+% Supplement layout (artifact 1.3.2): the supplement tables are generated with
 % [!tbp] placement (the main article's tables keep [!t]) and the float fractions
 % below let the Gate A tables and the secondary-profile figures pack instead of
 % spilling onto near-empty trailing pages.
@@ -36,7 +36,7 @@
 \newcommand{\IQ}{\mathcal I_Q}
 \hfuzz=1pt
 
-\title{Supplementary Material for ``Observational Indistinguishability and Integrity Blind Regions Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows''}
+\title{Supplementary Material for ``Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows''}
 \author{Roberto~Fern\'andez-Barrios, Iker~Pastor-L\'opez, Amaia~Pikatza-Huerga,
 and~Pablo~Garc\'ia~Bringas\\ Faculty of Engineering, University of Deusto,
 Bilbao, Spain}
@@ -53,10 +53,12 @@ preregistered gates of artifacts 1.1.0, 1.2.0 and 1.3.0 (including the
 amendment that replaced the calibration rule and the adversarial
 cluster-preserving gate), the secondary model-impact profile and the
 reproduction mapping behind the main article. The experimental evidence is
-frozen at artifact 1.3.0; version 1.3.1 corrects the formal statements
+frozen at artifact 1.3.0; version 1.3.1 corrected the formal statements
 (state semantics, the three kernel notions, Proposition~7 under finite-shot
-estimation, the reference taxonomy) and the editorial framing without
-re-executing any kernel, job or draw. It adds no QPU,
+estimation and the initial reference taxonomy) and editorial framing without
+re-executing any kernel, job or draw. Version 1.3.2 audits the actual sensor
+references, adopts repair B and adds only tables derived from frozen outputs;
+it changes no experimental result. It adds no QPU,
 calibrated-noise, scheduling, provider-security, multi-tenancy, deployed
 runtime-service or operational Fleet Management evidence. The exact claims
 remain bounded to data-to-evaluation interventions, ideal-statevector quantum
@@ -87,21 +89,30 @@ estimation-variation (overwrite $\xi$ or $E$) and post-processing (overwrite
 $g$ or $K_{\mathrm{obs}}$) interventions. The executable counterpart of
 these semantics is \path{src/integrity/workflow_state.py}. The conclusion
 is $R(s)$ (balanced accuracy) and $\Delta_R(a)=R(s_0)-R(s_a)$; $a$ is
-material at level $\tau$ if $|\Delta_R(a)|\ge\tau$. An information set
+material at level $\tau$ if $|\Delta_R(a)|\ge\tau$. The limit
+$\tau\to0^{+}$ is a structural-sensitivity endpoint (any conclusion change),
+not an operational risk threshold; $\tau=0.02$ and $0.05$ are the fixed
+larger-effect sensitivity analyses. An information set
 $\mathcal I$ is a view $V_{\mathcal I}:\mathcal S\to\mathcal O_{\mathcal I}$;
 refinement $\mathcal I\sqsubseteq\mathcal I'$ means
 $V_{\mathcal I}=\pi\circ V_{\mathcal I'}$; the join $\mathcal I\vee\mathcal W$
 is the pair of views. A reference is stored information about the baseline
 that the auditor compares the audited batch with; it is trusted when no
-intervention of the class can alter it. Level~A is a statistical or
-historical reference (null distribution, training or reference population,
-calibration sample, baseline score distribution) with no authenticated
-value of the same batch; level~B is a trusted aggregate same-batch reference
-$\rho=V_{\mathcal J}(s_0)$ with $V_{\mathcal J}$ a permutation-invariant
-summary of the batch; level~C is a trusted item-aligned same-batch reference
-with $V_{\mathcal J}$ item-indexed. Every batch-level sensor of the study
-holds a level-A reference; ``no reference'' is never the right description of
-a batch-level auditor.
+intervention of the class can alter it. We describe references on three
+separate axes: provenance (historical, benchmark-protected, or deployed
+authenticated), granularity (aggregate or item-aligned), and decision
+(statistical or exact). The compact classes are not a one-dimensional trust
+scale. Class/Level~A denotes statistically thresholded aggregate comparison
+and may use a historical population or a clean version of the same item set.
+The executed A sensors use the latter as a benchmark-protected oracle without
+item-wise pairing; no deployed authentication mechanism is demonstrated.
+Level~B is a deployed-trusted aggregate same-batch reference
+$\rho=V_{\mathcal J}(s_0)$ with $V_{\mathcal J}$ permutation-invariant;
+Level~C is a deployed-trusted item-aligned same-batch reference with
+$V_{\mathcal J}$ item-indexed. Thus same items in a benchmark computation
+does not imply a trusted deployed anchor. Every selected batch sensor in the
+executed policy belongs to Class A; the sensor-level audit below records the
+exact current and reference values.
 
 \subsection{Statements and Proofs}
 
@@ -505,6 +516,21 @@ construction; it is stronger and narrower than observing zero empirical
 response in a finite sample, and both are distinct from calibrated
 detectability and from adaptive evasion.
 
+\input{tables/s_sensor_reference_audit.tex}
+
+The implementation chain is explicit. The runner constructs feature,
+prediction, label-marginal and confusion-profile scores from the current
+batch and the clean benchmark-held arrays; the statistics consume aggregate
+distributions and not item correspondence. Calibration converts those
+scores to family flags. Gate D and \path{src/hsaas/policy.py} consume only
+the union flag, family flags and exact-reference flag---never raw
+\path{X_te_f}, \path{y_te_f}, or a clean batch. Producing the selected Class-A
+scores upstream nevertheless requires the benchmark oracle shown in
+Table~\ref{tab:s-sensor-reference-audit}. The benchmark protects that oracle
+from its executed attack API, but the artifact neither authenticates nor
+delivers it to a deployed auditor. By contrast, Class B/C exact flags
+presuppose a deployed-authenticated commitment at the declared granularity.
+
 \begin{table*}[!t]
 \caption{Evidence regimes, implemented sensors, demonstrated blind regions and calibrated status (conformal family rule).}
 \label{tab:regimes}
@@ -516,9 +542,9 @@ Regime & Evidence & Implemented sensor family & Structural blind region & Calibr
 \midrule
 $\IX$ & Features & Feature JSD, MMD, KS rejection & Every label-only change & Conformal decision FPR \FprFamilyIX; label path 0/3,600; evaded by cluster-preserving drift at matched strengths \\
 $\IXF$ & Features, scores, predictions & $\IX$ plus score JSD, prediction-rate shift, prediction JSD & Every label-only change for a fixed predictor & Conformal FPR \FprFamilyIXF; label path 0/3,600; partially evaded by cluster-preserving drift \\
-$\IYm$ & Label class counts & Prior delta and label JSD & Prior-preserving relabeling; every feature-side change & FPR \FprFamilyIYm; contains nothing in this suite \\
-$\IXFY$ (batch) & Item triples; level-A (statistical) reference only & Confusion-profile statistics added & None for material label changes (Proposition~3) but statistically undetectable: \BatchFamilyLabelFires{}--\BatchUnionLabelFires{} of \NMaterialLabel & Conformal FPR \FprFamilyIXFY \\
-$\IXFYs$ & Same items against trusted same-batch references (levels B and C) & Prediction disagreement, confusion-profile deltas, item-level label mismatch (exact-zero null) & None & Exact: \NMaterialLabel/\NMaterialLabel{} material label rows and every material adaptive row; 0 unsafe allows; 0 clean false actions on exact-zero rows; interrupts \BenignInterruptFamilyIXFYtrusted{} of 1,200 near-null controls (\BenignHoldFamilyIXFYtrusted{} holds, \BenignBlockFamilyIXFYtrusted{} blocks) \\
+$\IYm$ & Label class counts & Prior delta and label JSD & Prior-preserving relabeling; every feature-side change & FPR \FprFamilyIYm; zero containment; \ResidualBlindFamilyIYm{} residual-blind material cases at $\tau\to0^{+}$ \\
+$\IXFY$ (batch) & Item triples; Class-A statistical comparison & Confusion-profile statistics added & None for material label changes (Proposition~3) but statistically undetectable: \BatchFamilyLabelFires{}--\BatchUnionLabelFires{} of \NMaterialLabel & Conformal FPR \FprFamilyIXFY \\
+$\IXFYs$ & Deployed-trusted same-batch references (B aggregate; C item-aligned) & Aggregate confusion-profile deltas; item-aligned prediction disagreement and label mismatch (exact-zero null) & None & Exact: \NMaterialLabel/\NMaterialLabel{} material label rows and every material adaptive row; 0 material corruptions served; 0 invariant violations on 1,200 exact-zero rows; \TrustedGrossExactBlocks{} gross exact blocks and \TrustedNetAdditional{} net additional near-null interruptions versus batch $\IXFY$/P2 \\
 $\IQ$ & Circuit, parameters, kernel, estimation evidence & Hashes, semantic probes, algebra, repeated estimation, output changes & Composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes (Proposition~7) & 165/165 cells; nine acceptance checks \\
 \bottomrule
 \end{tabularx}
@@ -837,17 +863,25 @@ boundaries that are covered) are evaluated over five regimes on
 \NEvalDraws{} clean evaluation draws (the 1,200 exact-zero rows for
 $\IXFYs$), 1,200 near-null synthetic controls and the 10,800 frozen
 intervened observations, of which \NMaterial{} are material at
-$|\Delta_R|>0$ (\NMaterialFive{} at $\tau=0.05$). \texttt{block} is reserved
+$|\Delta_R|>0$ (\NMaterialFive{} at $\tau=0.05$). These form 24,000 policy
+rows derived from the frozen intervention grid; inferential independence
+resides at the prespecified environment/split clusters rather than at row
+level. The 12,000 batch clean-decision draws and 1,200 trusted exact-zero
+invariant rows are different estimands and are never pooled. \texttt{block} is reserved
 for exact violations against a trusted reference; the interruption of the
 near-null controls is therefore decomposed into statistical holds and
-exact-reference blocks (trusted regime under P2:
-\BenignHoldFamilyIXFYtrusted{} holds $+$ \BenignBlockFamilyIXFYtrusted{}
-blocks $=$ \BenignInterruptFamilyIXFYtrusted{} of 1,200). Table~\ref{tab:s-policy-full}
+exact-reference blocks. In the trusted regime P2 produces
+\TrustedGrossExactBlocks{} gross exact blocks, of which
+\TrustedExactOverlap{} overlap the batch $\IXFY$/P2 interruptions; its net
+increment is \TrustedNetAdditional{}/1,200
+(\TrustedNetAdditionalPct{} percentage points), and the trusted total is
+\BenignInterruptFamilyIXFYtrusted{} of 1,200. Table~\ref{tab:s-policy-full}
 gives the complete decision counts including the hold and block counts on the
 near-null controls and the non-material interruption rate, Table~\ref{tab:s-policy-rule-comparison}
 the calibrated policy under the superseded and the adopted rule,
 Table~\ref{tab:s-policy-tau} the materiality sensitivity and
-Table~\ref{tab:s-policy-family} the unsafe allows by mechanism under P2. The
+Table~\ref{tab:s-policy-family} the materially altered audit results served
+by mechanism under P2. The
 five consistency checks D1--D5 (serve-always allows every material
 observation; structural blindness is reproduced by the decisions; the
 trusted regime blocks every material label row and every exact violation;
@@ -879,8 +913,11 @@ Table~\ref{tab:adversarial} gives the compact overview at matched strengths,
 Table~\ref{tab:s-adversarial-detection} the detection rates under the
 three rules and the exact item-aligned detection,
 Table~\ref{tab:s-adversarial-materiality} the prediction-change and material
-fractions with the attacker's budget, Table~\ref{tab:s-adversarial-policy}
-the unsafe allows under P1--P3, Table~\ref{tab:s-adversarial-env} the
+fractions with the attacker's budget,
+Table~\ref{tab:s-adaptive-strength-profile} the complete per-strength
+materiality, detection and P2 served profile,
+Table~\ref{tab:s-adversarial-policy} the materially altered audit results
+served under P1--P3, Table~\ref{tab:s-adversarial-env} the
 per-environment detection in $\IXF$ and Table~\ref{tab:s-adversarial-branch}
 the classical and quantum branches separately. The expectation recorded
 before execution (detection below 0.30 at matched strengths) held for the
@@ -889,6 +926,7 @@ $\IX$ at 0.02 and 0.05, and did not hold at 0.10 (0.34--0.66); it is reported
 as executed. No parameter was changed after the results were seen.
 
 \input{tables/m_adversarial.tex}
+\input{tables/s_adaptive_strength_profile.tex}
 \input{tables/s_adversarial_detection.tex}
 \input{tables/s_adversarial_materiality.tex}
 \input{tables/s_adversarial_policy.tex}
@@ -928,7 +966,7 @@ python -m src.experiments.verify_publication_artifact
        --root publication/artifact
 \end{verbatim}
 }
-It verifies the artifact-wide SHA-256 manifest, the seven embedded evidence
+It verifies the artifact-wide SHA-256 manifest, the eight embedded evidence
 manifests and their outputs, row counts, the primary-claim counts including
 the signed label-path counts, the calibrated label-path consistency checks of
 the reinforcement gate, the policy-level claims of the regenerated gates
@@ -960,8 +998,8 @@ hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
 and expected outputs. The experimental evidence is frozen at artifact 1.3.0
 (version DOI 10.5281/zenodo.22648573, tag \texttt{paper15-q1-v1.3.0}).
-Version 1.3.1 is archived at Zenodo, version DOI 10.5281/zenodo.22651111 (concept
-DOI 10.5281/zenodo.22550852), with repository tag \texttt{paper15-q1-v1.3.1};
+Version 1.3.2 is archived at Zenodo, version DOI 10.5281/zenodo.22664417 (concept
+DOI 10.5281/zenodo.22550852), with repository tag \texttt{paper15-q1-v1.3.2};
 source code is licensed under Apache-2.0, derived evidence, figures and
 documentation under CC~BY~4.0, and the manuscript files are author preprints
 excluded from both licenses.
@@ -975,7 +1013,8 @@ monotone under refinement and closed exactly by added evidence that separates
 the class; feature/prediction sensors are exactly blind to label-only changes
 and label marginals to prior-preserving relabeling; every material label-path
 change alters the confusion matrix and is separable in the joint view, but
-batch-level auditors with a statistical (level-A) reference detect at most
+batch-level Class-A auditors with a benchmark-protected, non-authenticated
+same-item-set statistical oracle detect at most
 1.6\% of them whereas a trusted aggregate reference of the same batch detects
 all of them and an item-aligned reference additionally exposes the 808
 aggregate-preserving relabelings; the calibrated rules reproduce the
@@ -991,12 +1030,15 @@ rule bias; batch-level regimes with feature evidence serve
 results under the calibrated risk-tolerant policy, the label-marginal regime
 serves all of them, and the trusted item-aligned regime serves none while
 interrupting \BenignInterruptFamilyIXFYtrusted{} of 1,200 near-null
-synthetic controls (\BenignHoldFamilyIXFYtrusted{} statistical holds,
-\BenignBlockFamilyIXFYtrusted{} exact-reference blocks); an adaptive
+synthetic controls (\TrustedGrossExactBlocks{} gross exact-reference blocks,
+but only \TrustedNetAdditional{} net additional interruptions versus batch
+$\IXFY$/P2); an adaptive
 attacker who preserves the tight feature clusters cuts the batch-level
 detection of drift from 0.96--1.00 to 0.01--0.66 at matched strengths while
-keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes, and is served by the calibrated
-policy in 28--39\% of its material instances; the secondary ZZ-minus-SVC
+keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes, and its materially
+altered audit results are served by the calibrated policy in 28--39\% of its
+material instances in aggregate, with the full profile reported by strength;
+the secondary ZZ-minus-SVC
 profile is direction-stable but scaler- and headroom-dependent; complementary
 quantum-workflow sensors close different simulator-gate blind regions as
 instances of one view lattice; and the local prototype executes policy-aware

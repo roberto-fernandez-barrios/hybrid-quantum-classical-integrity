@@ -1,11 +1,53 @@
 # Hostile-review audit — IEEE TDSC candidate
 
-This file keeps the audits in reverse chronological order. Audit 6 (formal and
-editorial correction, artifact 1.3.1) is the final pass; Audit 5 (final
-scientific closure, artifact 1.3.0) remains the scientific verdict; the earlier
-audits are retained as history. Audit 4's verdict "SCIENTIFICALLY CLOSED" for
+This file keeps the audits in reverse chronological order. Audit 7 is the
+single final hostile pass for artifact 1.3.2; Audit 6 records the 1.3.1
+formal/editorial correction and Audit 5 the frozen 1.3.0 scientific closure.
+The earlier audits are retained as history. Audit 4's verdict
+"SCIENTIFICALLY CLOSED" for
 1.2.0 was withdrawn on the same day by amendment A2
 (`manuscript/paper15_v13_prereg.md`): its Proposition 5(b) was false.
+
+# Audit 7 — final evidence-alignment check, artifact 1.3.2 (2026-09-08)
+
+Scope was fixed before this pass: taxonomy versus implementation; headlines
+versus manifested evidence; reference trust assumptions; structural versus
+statistical claims; aggregate versus item-aligned granularity; the adaptive
+results; and TDSC formatting. New datasets, attacks, models, seeds, metrics,
+QPU runs, hardware noise and conceptual extensions were excluded.
+
+## Executive verdict
+
+**ACCEPTABLE FOR TDSC SUBMISSION; NO OBJECTIVE BLOCKER REMAINS.** The 1.3.1
+objection was correct: every selected Class-A result sensor uses the clean
+version of the audited item set as a benchmark-protected oracle, although its
+statistic is aggregate and does not use item pairing. The repository contains
+historical training-reference feature sensors, but not a complete,
+prespecified historical family for all four regimes. Repair B is therefore
+the only defensible correction: Class A is a statistically thresholded
+aggregate comparison with no demonstrated deployed authentication; B and C
+are trusted exact invariants at aggregate and item-aligned granularity.
+Version 1.3.2 changes no experimental result and reruns no experiment, job,
+model, kernel, attack, seed or draw.
+
+## Fixed-scope checks
+
+| Check | Evidence and disposition |
+|---|---|
+| Taxonomy ↔ implementation | Fourteen selected sensors traced through runner, builders, selected lists, frozen CSVs and policy builders. The generated sensor-reference table records current/reference values, pairing, same-set use, harness protection, threat-model trust, historical/statistical semantics and compatible class. **Pass.** |
+| Policy API and trust | Gate D / src/hsaas/policy.py consumes union, family and exact flags plus regime—not clean arrays. Upstream scoring needs the audited references. Benchmark protection is explicitly not deployed authentication. **Pass.** |
+| Structural/statistical boundary | Corollaries 1–3 are contiguous; structural blind-region statements are separated from calibrated decision rates; τ→0+ is a structural-sensitivity endpoint. **Pass.** |
+| Trusted-reference cost | Generated and verified: 85/1,200 gross exact blocks, 46 overlapping batch interruptions, and 39/1,200 net additional interruptions (3.25 percentage points); total trusted interruption 629. **Pass.** |
+| Adaptive headline | Aggregate served rates are 38.85%, 28.06% and 29.43% in I_X/I_XF/I_XFY; the complete I_XFY matched-strength profile spans 22%–90%, with materiality and detection for every strength in the supplement. **Pass.** |
+| Endpoint and I_Ym | “Unsafe allow” is retained only as a code/CSV variable and defined as a materially corrupted audit/report result served, not a malicious network event; I_Ym has zero containment and 5,450 residual-blind material cases. **Pass.** |
+| Evidence granularity | The main constructive result is the minimum authenticated evidence granularity relative to the protected claim: a trusted aggregate can protect conclusion integrity; item-identity integrity requires item alignment. The external trust-root necessity is not presented as eliminated. **Pass.** |
+| Units and denominators | The 24,000 observations are derived policy rows; inference resides at prespecified environment/split clusters. Batch clean decision FPR (12,000), trusted exact-zero checks (1,200) and near-null interruption (1,200) are separated. **Pass.** |
+| Conformal and quantum claims | Finite-sample conformal level remains conditional on exchangeability; executed non-exchangeable FPR is descriptive. Quantum validation is ideal-statevector plus finite-shot emulation, with no hardware claim. **Pass.** |
+| TDSC format | Authorful IEEEtran regular paper, 184-word abstract after macro expansion, 12-page main article, separate supplement, complete declarations and companion-paper disclosure. **Pass.** |
+
+This is the final generative review of Paper 1.5. After publication, reopening
+is limited to a portal/editor/reviewer requirement or an objective demonstrated
+error; new science belongs to Paper 2.5.
 
 # Audit 6 — final formal and editorial check, artifact 1.3.1 (2026-09-07)
 

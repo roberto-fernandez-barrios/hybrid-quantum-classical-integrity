@@ -5,11 +5,12 @@ artifact 1.2.0, ``manuscript/paper15_v12_policy_prereg.md``).
 
 The layer consumes, for one audited batch,
 
-* the information regime available to the auditor and whether it includes a
-  trusted item-aligned reference;
+* the information regime available to the auditor and whether it includes
+  trusted aggregate and/or item-aligned references;
 * the per-sensor calibrated fire flags (1.1.0 thresholds) and the
   family-calibrated regime flag (Gate F, conformal max-rank p-value);
-* the exact item-aligned fire flag, defined only under a trusted reference;
+* the exact-reference fire flag, defined only under a trusted reference and
+  combining the declared aggregate and item-aligned invariants;
 * the protected boundaries declared by the contract;
 
 and returns an ``allow / hold / block`` decision with reason codes.
@@ -77,8 +78,8 @@ POLICY_CLASS: Final[dict[str, str]] = {
 class RegimeSpec:
     """What an information regime can establish about each protected boundary.
 
-    ``coverage`` maps a boundary to one of ``exact`` (item-aligned trusted
-    reference; exact-zero null), ``calibrated`` (batch-level statistical
+    ``coverage`` maps a boundary to one of ``exact`` (trusted aggregate or
+    item-aligned reference; exact-zero null), ``calibrated`` (batch-level statistical
     coverage), ``marginal`` (only the class marginal; structurally blind to
     prior-preserving relabeling) or ``blind`` (structurally indistinguishable).
     """
@@ -96,7 +97,9 @@ REGIMES: Final[dict[str, RegimeSpec]] = {
     "I_XF": RegimeSpec("I_XF", False, {"feature": "calibrated", "prediction": "calibrated", "label": "blind"}),
     "I_Ym": RegimeSpec("I_Ym", False, {"feature": "blind", "prediction": "blind", "label": "marginal"}),
     "I_XFY": RegimeSpec("I_XFY", False, {"feature": "calibrated", "prediction": "calibrated", "label": "calibrated"}),
-    "I_XFY_trusted": RegimeSpec("I_XFY_trusted", True, {"feature": "exact", "prediction": "exact", "label": "exact"}),
+    # No exact feature-value sensor was executed. Feature coverage remains
+    # calibrated; conclusion/aggregate and item identity use exact references.
+    "I_XFY_trusted": RegimeSpec("I_XFY_trusted", True, {"feature": "calibrated", "prediction": "exact", "label": "exact"}),
 }
 
 

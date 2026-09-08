@@ -1,4 +1,40 @@
-# IEEE TDSC submission checklist (artifact 1.3.1; experimental evidence frozen at 1.3.0)
+# IEEE TDSC submission checklist (artifact 1.3.2; experimental evidence frozen at 1.3.0)
+
+## Methodologically aligned and editorially closed (1.3.2)
+
+- [x] Repair B adopted after tracing runner, selected sensor lists, frozen
+      CSVs, builders and policy API: Class A is statistical aggregate
+      comparison against a benchmark-protected clean same-item-set oracle
+      without pairing; this does not demonstrate deployed authentication.
+- [x] Provenance, granularity and decision exactness separated; B is trusted
+      aggregate same-batch exact evidence and C trusted item-aligned exact
+      evidence. Minimum evidence granularity relative to the protected claim
+      is the constructive headline.
+- [x] Gate D consumes only union/family/exact flags; its upstream scorer's
+      reference dependency is disclosed.
+- [x] Corollaries 1–3 contiguous in main and supplement.
+- [x] Trusted cost separated: 85 gross exact blocks, 46 overlaps, 39 net
+      additional interruptions / 1,200 (3.25 percentage points).
+- [x] Adaptive aggregate rates and complete per-strength materiality,
+      detection and served profile reported; matched I_XFY range 0.22–0.90.
+- [x] `I_Ym` wording corrected: zero containment and 5,450 residual-blind
+      material cases at the structural endpoint.
+- [x] The CSV variable `unsafe_allow` is defined as a materially corrupted
+      audit/report conclusion served, not a malicious network event.
+- [x] tau→0+ is a structural-sensitivity endpoint; 0.02/0.05 are larger-effect
+      sensitivities, not equivalent operational-risk thresholds.
+- [x] The 24,000 headline identifies derived policy rows and cluster-level
+      inferential independence; batch clean (12,000) and trusted exact-zero
+      (1,200) denominators are separate estimands.
+- [x] Conformal theory remains conditional on exchangeability; executed FPR
+      is descriptive. Quantum evidence remains ideal-statevector plus
+      finite-shot emulation, with no hardware claim.
+- [x] Abstract contains 170–200 words. Permanent regression tests cover every
+      closing fact above.
+- [x] Current IEEE Computer Society guidance checked on 2026-09-08: regular
+      Transactions paper limit 12 formatted pages; journal abstract 100–200
+      words; TDSC does not offer double-anonymous review, so the authorful
+      IEEEtran manuscript is the correct review file.
 
 ## Formally and editorially closed (1.3.1)
 
@@ -98,25 +134,27 @@
       amendment A2, Gate A, framing changes), of the 1.3.1 corrections and of
       the extended AI-use disclosure (2026-09-07, communicated by the
       corresponding author).
-- [ ] Version DOI of 1.3.1 minted with a fresh Zenodo token and inserted by the
+- [ ] Version DOI of 1.3.2 minted with a fresh Zenodo token and inserted by the
       release pipeline (`publication/DOI_STATUS.md`).
 - [x] Originality/not-under-review statement in the cover letter.
 - [x] Closely related papers disclosed with a difference statement (§II-E,
       title page, cover letter); attach copies if the portal asks.
-- [ ] Recheck the TDSC portal on submission day for article type, page limit,
-      biographies, template, supplement designation and current special issues.
+- [x] Current TDSC/IEEE Computer Society author guidance rechecked on
+      2026-09-08 for article type, page limit, abstract, review anonymity,
+      biographies, template and supplement handling; recheck only if the
+      manual-upload portal presents a changed requirement.
 
 ## Automated preflight immediately before upload
 
-- [ ] Run `pwsh -File publication/tdsc/build.ps1` from the repository root.
-- [ ] Run the complete test suite and the artifact verifier.
-- [ ] Regenerate `publication/RELEASE_STATUS.md` and confirm PDF hashes match
+- [x] Run `pwsh -File publication/tdsc/build.ps1` from the repository root.
+- [x] Run the complete test suite and the artifact verifier.
+- [x] Regenerate `publication/RELEASE_STATUS.md` and confirm PDF hashes match
       `publication/tdsc/CHECKSUMS.sha256`.
-- [ ] Search the active package for `INSERT`, `DOI PENDING`, `Anonymous Author`
+- [x] Search the active package for `INSERT`, `DOI PENDING`, `Anonymous Author`
       and any obsolete journal name; none may remain.
-- [ ] Inspect every final PDF page at submission size.
+- [x] Inspect every final PDF page at submission size.
 
-## Reopening rule after 1.3.1
+## Reopening rule after 1.3.2
 
 The article is reopened only for an objective error, a portal or editor
 requirement, or a reviewer request. New scientific ideas (more datasets,

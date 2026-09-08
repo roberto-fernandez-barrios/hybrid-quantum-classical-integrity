@@ -37,7 +37,7 @@ import pandas as pd
 from src.experiments.build_q1_gate1_evidence import _mean_ci, _sha256
 from src.experiments.build_q1_reinforcement_evidence import (
     CALIBRATED_SENSORS,
-    EXACT_ITEM_ALIGNED_SENSORS,
+    EXACT_REFERENCE_SENSORS,
     NULL_GATES,
     REGIMES as BATCH_REGIMES,
     SPLIT_SEEDS,
@@ -221,7 +221,7 @@ def _score_frames(
 def _exact_fire(frame: pd.DataFrame) -> pd.Series:
     if len(frame) == 0:
         return pd.Series(dtype=bool)
-    vals = frame[EXACT_ITEM_ALIGNED_SENSORS].apply(pd.to_numeric, errors="coerce").fillna(0.0).abs()
+    vals = frame[EXACT_REFERENCE_SENSORS].apply(pd.to_numeric, errors="coerce").fillna(0.0).abs()
     return vals.max(axis=1) > TOL
 
 

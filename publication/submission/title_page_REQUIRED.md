@@ -1,11 +1,9 @@
-# Title page — author-confirmed metadata (authors confirmed 2026-09-06; 1.2.0, 1.3.0 and 1.3.1 manuscript changes approved 2026-09-07, communicated by the corresponding author)
+# Title page — author-confirmed metadata (authors confirmed 2026-09-06; changes through 1.3.2 approved, communicated by the corresponding author)
 
 ## Article metadata
 
-Title: **Observational Indistinguishability and Integrity Blind Regions
-Across the Evidence Boundaries of Hybrid Quantum-Classical Kernel Workflows**
-(earlier working title: *Information-Set Conditional Integrity Auditing for
-Hybrid Quantum-Classical Kernel Workflows*)
+Title: **Observational Indistinguishability and Integrity Blind Regions in
+Hybrid Quantum-Classical Workflows**
 
 Article type: **Regular Paper**
 
@@ -58,19 +56,18 @@ authors on 2026-09-06; reconfirmed for 1.3.0 on 2026-09-07).
 
 ## Data and code availability
 
-The reproducibility artifact (version 1.3.1; experimental evidence frozen at
+The reproducibility artifact (version 1.3.2; experimental evidence frozen at
 version 1.3.0) contains source code, locked dependencies, tests (including
 the exhaustive tests of the conformal calibration rule, the brute-force
 checks of the formal core, the intervention-semantics and finite-shot tests
 and the manuscript consistency gates), derived evidence for the frozen gates,
 the preregistered 1.1.0, 1.2.0 and 1.3.0 gates (with amendments A1–A3), the
 formal core and its statement-by-statement reviews, the adversary model,
-vector figures, seven SHA-256 evidence manifests and the artifact-wide
+vector figures, eight SHA-256 evidence manifests and the artifact-wide
 manifest. Raw benchmark datasets are not redistributed; public sources,
 expected hashes and deterministic staging instructions are documented.
-Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest
-version); version DOI of 1.3.1: **10.5281/zenodo.22651111**
-(repository tag `paper15-q1-v1.3.1`; frozen evidence 1.3.0:
+Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest version); version DOI of 1.3.2: **10.5281/zenodo.22664417**
+(repository tag `paper15-q1-v1.3.2`; 1.3.1: 10.5281/zenodo.22651111; frozen evidence 1.3.0:
 10.5281/zenodo.22648573; 1.2.0: 10.5281/zenodo.22644529; 1.1.1:
 10.5281/zenodo.22552643).
 
@@ -86,8 +83,11 @@ version); version DOI of 1.3.1: **10.5281/zenodo.22651111**
    Adaptive Network Intrusion Detection* — manuscript; artifact DOI
    10.5281/zenodo.22239106.
 
-None shares propositions, interventions, tables or experiments with this
-submission.
+These manuscripts share some datasets, kernels, monitors or vocabulary, but
+not this submission's propositions, intervention evidence, tables or
+experiments. Planned Paper 2.5 addresses longitudinal operational QPU/context
+assurance; it is not part of this submission. Copies can be supplied to the
+editor on request.
 
 ## Generative-AI disclosure
 
@@ -95,8 +95,10 @@ See `AI_USE_DISCLOSURE.md`: system, affected sections and level of use for
 OpenAI Codex and Anthropic Claude Code; the 1.1.0 wording was approved by all
 authors on 2026-09-06 and the 1.2.0/1.3.0/1.3.1 extensions (formal core,
 adversary model, policy gates, mathematical audit, conformal rule,
-adversarial gate, release automation, the 1.3.1 formal and editorial
-corrections) on 2026-09-07.
+adversarial gate, release automation and the 1.3.1 formal/editorial
+corrections) on 2026-09-07; the 1.3.2 sensor audit, frozen-derived tables,
+manuscript alignment and release verification are covered by the same
+disclosure and author responsibility.
 
 ## Artifact and copyright choices
 

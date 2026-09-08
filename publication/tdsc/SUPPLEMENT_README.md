@@ -1,10 +1,10 @@
-# Supplementary material README (artifact 1.3.1; experimental evidence frozen at 1.3.0)
+# Supplementary material README (artifact 1.3.2; experimental evidence frozen at 1.3.0)
 
 ## Description
 
 `paper15_tdsc_supplement.pdf` accompanies "Observational Indistinguishability
-and Integrity Blind Regions Across the Evidence Boundaries of Hybrid
-Quantum-Classical Kernel Workflows". It records the formal core with proofs
+and Integrity Blind Regions in Hybrid Quantum-Classical Workflows". It
+records the formal core with proofs
 (Lemma 1, Propositions 1–7, Corollaries 1–3, the counterexample witnesses,
 the remark on metrics other than balanced accuracy, the primitive/derived
 state semantics and the finite-shot counterexample of Proposition 7(iii)
@@ -37,7 +37,7 @@ or operational Fleet Management.
   and SHA-256 in `publication/RELEASE_STATUS.md`);
 - `CLAIMS_TRACEABILITY.md` — claim-to-artifact map;
 - `publication/artifact/` — compact verification artifact, including code,
-  tests, locked dependencies, derived evidence, seven SHA-256 evidence
+  tests, locked dependencies, derived evidence, eight SHA-256 evidence
   manifests and the artifact-wide manifest.
 
 Exact sizes and SHA-256 values are reported in `CHECKSUMS.sha256` and
@@ -77,13 +77,14 @@ The tests must pass (the collected count is recorded in
 tests of the conformal rule, the five-vector counterexample to the 1.2.0
 rule, the brute-force checks of the formal core, the intervention-semantics
 and finite-shot tests and the manuscript consistency gates. The verifier
-must exit zero and report seven evidence manifests, the manifested outputs,
+must exit zero and report eight evidence manifests, the manifested outputs,
 3,600 expansion label rows with 2,184 lowered / 983 unchanged / 433 raised
 conclusions (2,617 changed), 1,440 Gate-1 label rows with 1,276 / 105 / 59,
 60 calibrated cells, 7,008 material observations over 5 regimes and 4
 policies, the conformal level 10/201 respected under the exchangeable
-re-splits, the trusted-regime interruption decomposition (544 holds + 85
-blocks = 629), 16 adversarial conditions with an exact replay of the matched
+re-splits, the trusted-regime interruption decomposition (85 gross exact
+blocks, 46 overlaps, 39 net additions; total 629), 16 adversarial conditions
+with an exact replay of the matched
 controls, and the number of files in the artifact-wide manifest. A hash,
 schema, count or consistency mismatch causes a non-zero exit.
 
