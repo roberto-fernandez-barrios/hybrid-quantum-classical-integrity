@@ -164,8 +164,9 @@
       amendment A2, Gate A, framing changes), of the 1.3.1 corrections and of
       the extended AI-use disclosure (2026-09-07, communicated by the
       corresponding author).
-- [ ] Version DOI of 1.3.3 minted with a fresh environment-only Zenodo token
-      and inserted by the release pipeline (`publication/DOI_STATUS.md`).
+- [x] Version DOI `10.5281/zenodo.22666931` of 1.3.3 minted with a fresh
+      environment-only Zenodo token, inserted by the release pipeline and
+      published on 2026-09-08 (`publication/DOI_STATUS.md`).
 - [x] Originality/not-under-review statement in the cover letter.
 - [x] Closely related papers disclosed with a difference statement (§II-E,
       title page, cover letter); attach copies if the portal asks.
