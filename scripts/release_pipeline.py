@@ -52,6 +52,7 @@ RELEASE_SUMMARY = {
     "1.3.0": "scientific closure of Paper 1.5 for IEEE TDSC",
     "1.3.1": "formal and editorial correction of Paper 1.5 for IEEE TDSC (experimental evidence frozen at 1.3.0)",
     "1.3.2": "methodological alignment of Paper 1.5 with its frozen evidence for IEEE TDSC",
+    "1.3.3": "bibliographic and editorial closure of Paper 1.5 for IEEE TDSC (scientific evidence frozen)",
 }
 ZENODO_API = "https://zenodo.org/api"
 SCIENCE_BRANCH = "paper15-q1-expansion"
@@ -126,10 +127,14 @@ def _fail(message: str) -> None:
 
 def preflight() -> None:
     py = _python()
-    # The 1.3.2 outputs are derived exclusively from already-frozen CSVs.
-    _run([py, "-m", "src.experiments.build_v132_amendment_evidence"])
-    _run([py, "-m", "src.experiments.make_q1_policy_tables"])
-    _run([py, "-m", "src.experiments.make_q1_policy_figures"])
+    # Version 1.3.3 is bibliography/editorial only. Its preflight consumes the
+    # frozen, already-manifested evidence and generated tables verbatim.
+    if _version() != "1.3.3":
+        _run([py, "-m", "src.experiments.build_v132_amendment_evidence"])
+        _run([py, "-m", "src.experiments.make_q1_policy_tables"])
+        _run([py, "-m", "src.experiments.make_q1_policy_figures"])
+    else:
+        print("1.3.3 frozen-evidence guard: skipping all evidence/table/figure builders")
     # Build first, then assemble the compact artifact (the PDFs are part of it),
     # then verify it and run the tests, which check the assembled artifact.
     _run(["pwsh", "-NoProfile", "-File", "publication/tdsc/build.ps1"])
@@ -141,6 +146,7 @@ def preflight() -> None:
     checksums = ROOT / "publication/tdsc/CHECKSUMS.sha256"
     lines = [f"{_sha256(ROOT / 'output/pdf' / name)}  output/pdf/{name}" for name in ("paper15_tdsc_submission.pdf", "paper15_tdsc_supplement.pdf")]
     checksums.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    _run(["pwsh", "-NoProfile", "-File", "publication/tdsc/make_submission_package.ps1"])
     print("preflight passed; checksums written to", checksums)
 
 

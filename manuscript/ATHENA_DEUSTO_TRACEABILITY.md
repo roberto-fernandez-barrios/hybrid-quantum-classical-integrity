@@ -1,6 +1,7 @@
 # Matriz de trazabilidad ATHENA-AEGIS — contribución Deusto
 
-Fecha de corte: 8 de septiembre de 2026 (versión 1.3.2; evidencia
+Fecha de corte: 8 de septiembre de 2026 (versión 1.3.3, corrección
+bibliográfica/editorial; metodología sin cambios desde 1.3.2; evidencia
 experimental congelada en el artefacto 1.3.0)
 Artefacto científico: *Observational Indistinguishability and Integrity Blind
 Regions in Hybrid Quantum-Classical Workflows* (Paper 1.5).
@@ -126,7 +127,7 @@ evidencia de hardware cuántico.
 
 ## Frontera entre Paper 1.5 y Paper 2.5
 
-**Paper 1.5 (cerrado metodológicamente en 1.3.2):** auditabilidad de integridad
+**Paper 1.5 (cerrado metodológicamente en 1.3.2 y editorialmente en 1.3.3):** auditabilidad de integridad
 condicionada a la información y a las referencias confiables, con regiones
 ciegas exactas, calibradas y adaptativas; nivel de falsas alarmas a nivel de
 decisión con premisa exacta (regla conformal); política calibrada y

@@ -1,11 +1,30 @@
-# TDSC submission build `1.3.2-tdsc`
+# TDSC submission build `1.3.3-tdsc`
 
-Date: 2026-09-08. Controlled methodological/editorial correction of 1.3.1;
-the experimental evidence is frozen at artifact 1.3.0 and no experiment,
-kernel, job, attack, seed, model, dataset or draw was rerun. All co-authors
-approved the changes.
+Date: 2026-09-08. Bibliographic/editorial correction only. No experiment,
+kernel, draw, model, seed, intervention, policy decision or scientific
+evidence was rerun or changed. Scientific evidence remains frozen at artifact
+1.3.0 and methodology is unchanged from 1.3.2.
 
-## Closing changes in 1.3.2
+## Closing changes in 1.3.3
+
+- Verified and cited Hinder--Vaquet--Hammer, Max-Rank and QProv; added the
+  original Simplex paper, TESSERACT and RFC 9334/RATS.
+- Upgraded the quantum-security primer, QEMI and Design by Contract entries to
+  their published versions; corrected Quantum Leak and Qiskit metadata.
+- Repositioned VAMP as authentication prior art for attackable evaluation
+  artifacts; Gate A as a concrete cluster-preserving instance rather than the
+  first adaptive drift-evasion attack; and QCIVET/QML-PipeGuard as stronger on
+  QPU/hardware, drift and runtime/provider evidence.
+- Preserved the central result: claim-relative minimum evidence granularity.
+  Trusted same-batch aggregates suffice for conclusion/aggregate integrity;
+  item-identity integrity requires item-aligned trusted evidence; an external
+  trust root is unavoidable.
+- Applied one syntax/transition readability pass. Science, claims, results,
+  structure, abstract and 12-page count are unchanged.
+- Added non-fragile bibliographic regression guards and retained all eight
+  frozen evidence manifests unchanged.
+
+## Inherited 1.3.2 corrections
 
 - Repair B after a source-to-policy audit: Class A now accurately denotes the
   statistically thresholded aggregate comparisons against a

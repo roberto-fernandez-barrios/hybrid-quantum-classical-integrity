@@ -1,4 +1,4 @@
-"""Manuscript consistency gates (artifact 1.3.2).
+"""Manuscript consistency gates (artifact 1.3.3).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
@@ -14,6 +14,8 @@ correction removed, so that they cannot reappear silently:
   ``false-alarm probability one'' of the earlier version;
 * the trusted-regime interruption decomposition printed through the macros sums
   correctly (statistical holds + exact-reference blocks = total interruptions).
+* the bibliographic-ceiling patch and its conservative prior-art positioning
+  cannot silently regress.
 
 The tests run on a fresh checkout without the derived evidence: they need
 only the repository text files.
@@ -22,6 +24,8 @@ only the repository text files.
 from __future__ import annotations
 
 import re
+import shutil
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -43,6 +47,9 @@ ACTIVE_DOCUMENTS = [
     "publication/submission/cover_letter.md",
     "publication/submission/highlights.txt",
     "publication/submission/title_page_REQUIRED.md",
+    "publication/submission/RELATED_WORK_DISCLOSURE.md",
+    "publication/submission/submission_checklist.md",
+    "publication/submission/AI_USE_DISCLOSURE.md",
     "manuscript/ADVERSARY_MODEL.md",
     "manuscript/THREAT_MODEL_CARD.md",
     "manuscript/FORMAL_CORE.md",
@@ -100,6 +107,22 @@ def _sentences(text: str) -> list[str]:
     # Markdown list item never inherits the words of its neighbour.
     pieces = re.split(r"(?<=[.!?])\s+|\n(?=\s*[-*|])|\n\s*\n", text)
     return [re.sub(r"\s+", " ", piece) for piece in pieces if piece.strip()]
+
+
+def _bib_entry(key: str) -> str:
+    bib = _read("publication/tdsc/references.bib")
+    match = re.search(rf"@[A-Za-z]+\{{{re.escape(key)},(.*?)(?=\n@|\Z)", bib, re.S)
+    assert match, f"missing BibTeX entry {key}"
+    return match.group(0)
+
+
+def _citation_keys(text: str) -> set[str]:
+    return {
+        key.strip()
+        for group in re.findall(r"\\cite\{([^}]*)\}", text)
+        for key in group.split(",")
+        if key.strip()
+    }
 
 
 class TestAbstract:
@@ -187,6 +210,120 @@ class TestClaimWording:
         for rel in ("manuscript/FORMAL_CORE.md", "publication/tdsc/supplement.tex"):
             text = re.sub(r"\s+", " ", _read(rel))
             assert "benchmark-protected" in text and "deployed authentication" in text, rel
+
+
+class TestBibliographicCeiling:
+    def test_required_prior_art_is_present_and_cited(self) -> None:
+        cited = _citation_keys(_read("publication/tdsc/main.tex"))
+        for key in ("Hinder2025", "Timans2025", "Weder2021"):
+            assert key in cited, key
+            assert _bib_entry(key)
+
+    def test_selective_prior_art_is_present_and_cited(self) -> None:
+        cited = _citation_keys(_read("publication/tdsc/main.tex"))
+        for key in ("Seto1998", "Pendlebury2019", "Birkholz2023"):
+            assert key in cited, key
+            assert _bib_entry(key)
+
+    def test_bibliography_and_citations_are_bidirectionally_complete(self) -> None:
+        bib = _read("publication/tdsc/references.bib")
+        bib_keys = set(re.findall(r"@[A-Za-z]+\{([^,]+),", bib))
+        cited = _citation_keys(_read("publication/tdsc/main.tex"))
+        assert cited == bib_keys, {
+            "uncited_bibliography_entries": sorted(bib_keys - cited),
+            "missing_bibliography_entries": sorted(cited - bib_keys),
+        }
+
+    def test_published_versions_and_corrected_metadata(self) -> None:
+        primer = _bib_entry("Ghosh2025")
+        assert "Proceedings of the IEEE" in primer
+        assert "10.1109/JPROC.2025.3630989" in primer
+        assert "arXiv preprint" not in primer
+
+        quantum_leak = _bib_entry("Lu2025")
+        assert "Great Lakes Symposium" in quantum_leak
+        assert "Chao Lu" in quantum_leak and "Esha Telang" in quantum_leak
+        assert "SIGSAC" not in quantum_leak and "CCS" not in quantum_leak
+
+        qemi = _bib_entry("Luo2026")
+        assert "Lecture Notes in Computer Science" in qemi and "16504" in qemi
+        assert "10.1007/978-3-032-22774-4_8" in qemi
+        assert "arXiv preprint" not in qemi
+
+        dbc = _bib_entry("Yamaguchi2023")
+        assert "Masaomi Yamaguchi" in dbc and "Q-SE" in dbc
+        assert "10.1109/Q-SE59154.2023.00010" in dbc
+        assert "arXiv preprint" not in dbc
+
+        qiskit = _bib_entry("JavadiAbhari2024")
+        assert "Jay M. Gambetta" in qiskit
+
+    def test_no_generic_priority_claim_for_adaptive_drift_evasion(self) -> None:
+        corpus = re.sub(
+            r"\s+",
+            " ",
+            "\n".join(
+                _read(rel).lower()
+                for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex")
+            ),
+        )
+        for forbidden in (
+            "first adaptive attacker",
+            "first adaptive drift",
+            "first monitor-aware",
+            "novel monitor-aware attack",
+            "novel adaptive drift",
+            "new idea that an attacker models the detector",
+        ):
+            assert forbidden not in corpus, forbidden
+        assert "without claiming priority for adaptive drift evasion" in corpus
+
+    def test_vamp_positioning_recognizes_attacked_evaluation_artifacts(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "explicitly treats evaluation artifacts as authenticated assets" in main
+        assert "may be poisoned or substituted" in main
+        assert "not that evaluation data can be attacked" in main
+        assert "claim-relative" in main and "trusted-reference granularity" in main
+
+    def test_quantum_prior_art_positioning_is_fair(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "QProv records provider-independent provenance" in main
+        assert "stronger here on QPU/hardware and runtime/provider evidence" in main
+        assert "Our orthogonal contribution" in main
+
+    def test_release_scope_is_bibliographic_editorial_only(self) -> None:
+        notes = re.sub(r"\s+", " ", _read("publication/tdsc/RELEASE_NOTES.md"))
+        assert "Bibliographic/editorial correction only" in notes
+        assert "methodology is unchanged from 1.3.2" in notes
+        for noun in (
+            "experiment",
+            "kernel",
+            "draw",
+            "model",
+            "seed",
+            "intervention",
+            "policy decision",
+            "scientific evidence",
+        ):
+            assert noun in notes
+
+    def test_bibtex_has_no_duplicate_keys_or_dois(self) -> None:
+        bib = _read("publication/tdsc/references.bib")
+        keys = re.findall(r"@[A-Za-z]+\{([^,]+),", bib)
+        assert len(keys) == len(set(keys)), "duplicate BibTeX key"
+        dois = [doi.lower() for doi in re.findall(r"\bdoi\s*=\s*\{([^}]+)\}", bib, re.I)]
+        assert len(dois) == len(set(dois)), "duplicate DOI"
+
+    def test_tracked_main_pdf_is_within_page_budget(self) -> None:
+        pdf = ROOT / "output/pdf/paper15_tdsc_submission.pdf"
+        pdfinfo = shutil.which("pdfinfo")
+        if not pdf.exists() or not pdfinfo:
+            pytest.skip("tracked PDF or pdfinfo unavailable")
+        out = subprocess.run(
+            [pdfinfo, str(pdf)], capture_output=True, text=True, check=True
+        ).stdout
+        match = re.search(r"^Pages:\s+(\d+)$", out, re.M)
+        assert match and int(match.group(1)) <= 12
 
 
 class TestPolicyTaxonomyInCode:

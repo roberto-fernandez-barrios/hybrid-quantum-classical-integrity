@@ -13,6 +13,24 @@ They do not share its propositions, intervention evidence, tables or
 experiments. Paper 1.5 contributes workflow integrity, observational
 indistinguishability, minimum evidence granularity and integrity policy.
 
+The cutoff-complete bibliography for artifact 1.3.3 also makes the nearest
+external prior art explicit. Observation-relative detectability and generic
+monitor-aware drift evasion are prior art; Hinder et al. construct drifts that
+evade drift detectors. VAMP authenticates evaluation artifacts that may be
+poisoned or substituted. Max-Rank uses dependence-aware rank structure for
+family-wise conformal multiple testing. QProv records provider-independent
+quantum provenance, while QCIVET and QML-PipeGuard provide stronger evidence
+on QPU/hardware, drift and runtime/provider dimensions than this paper.
+
+Paper 1.5 does not claim those ingredients. Its distinct contribution is
+claim-relative minimum evidence granularity within a workflow-wide
+information-set lattice that includes the evaluation-label path: trusted
+same-batch aggregate evidence can certify conclusion or aggregate integrity,
+item-identity integrity requires item-aligned trusted evidence, and a trust
+root outside the declared adversarial rewrite class is unavoidable. Gate A is
+a concrete preregistered, cluster-preserving instantiation against the declared
+sensor fingerprint, not a priority claim for adaptive drift evasion.
+
 Planned Paper 2.5 will address longitudinal operational QPU/context assurance,
 including real-QPU controlled interventions, temporal calibration, OOS
 validity, recovery/fallback, service consequences, an AEGIS FMS slice, a

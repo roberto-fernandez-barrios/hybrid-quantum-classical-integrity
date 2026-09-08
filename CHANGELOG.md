@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.3 — 2026-09-08 (bibliographic/editorial closure; evidence frozen)
+
+- Bibliographic/editorial correction only; no experiment, kernel, draw,
+  model, seed, intervention, policy decision or scientific evidence was rerun
+  or changed. Methodology is unchanged from 1.3.2.
+- Added verified Hinder et al., Max-Rank, QProv, Simplex, TESSERACT and RATS;
+  upgraded three entries to published versions and corrected Quantum Leak and
+  Qiskit metadata.
+- Corrected VAMP, adaptive-evasion and QCIVET/QML-PipeGuard positioning around
+  the claim-relative minimum-evidence-granularity result.
+- Completed one readability pass, permanent bibliographic guards, clean
+  article/supplement builds and release/submission-package alignment.
+
 ## 1.3.2 — 2026-09-08 (methodological/editorial alignment; evidence frozen at 1.3.0)
 
 - Audited the actual reference semantics of all 14 selected sensors from the

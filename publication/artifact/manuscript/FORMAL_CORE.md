@@ -1,6 +1,7 @@
-# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.2; evidence frozen at 1.3.0)
+# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.3; evidence frozen at 1.3.0)
 
-Version 1.3.2 (2026-09-08) adds one controlled methodological correction to
+Artifact 1.3.3 changes bibliography and editorial positioning only; the formal
+core and methodology are unchanged from 1.3.2. Version 1.3.2 (2026-09-08) adds one controlled methodological correction to
 the 1.3.1 formal core: the reference shorthand now separates provenance,
 granularity and decision semantics, and describes the actual batch sensors as
 statistical same-item-set comparisons against a benchmark-protected oracle,

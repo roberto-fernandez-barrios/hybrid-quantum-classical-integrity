@@ -1,4 +1,4 @@
-# Claim-to-evidence traceability (artifact 1.3.2; experimental evidence frozen at 1.3.0)
+# Claim-to-evidence traceability (artifact 1.3.3; experimental evidence frozen at 1.3.0)
 
 This map is the reviewer-facing preflight for the TDSC manuscript. "Exact"
 denotes a consequence of the declared view and construction; "empirical"
@@ -8,6 +8,9 @@ the article about the 1.2.0/1.3.0 gates enters through
 tables; `tests/test_manuscript_consistency.py` fails if a superseded
 hand-typed headline number, a conformal-level claim without its premise, a
 minimum-power claim for P3 or an abstract above 200 words reappears.
+Artifact 1.3.3 changes bibliography/editorial positioning only and adds guards
+for the verified references and prior-art boundaries; no claim or evidence row
+changes.
 
 | Manuscript claim | Type | Primary evidence | Verification |
 |---|---|---|---|

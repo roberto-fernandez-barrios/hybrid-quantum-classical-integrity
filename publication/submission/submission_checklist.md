@@ -1,4 +1,34 @@
-# IEEE TDSC submission checklist (artifact 1.3.2; experimental evidence frozen at 1.3.0)
+# IEEE TDSC submission checklist (artifact 1.3.3; experimental evidence frozen at 1.3.0)
+
+## Bibliographically and editorially closed (1.3.3)
+
+- [x] Bibliographic cutoff fixed at 2026-09-08; only the closed audit set was
+      verified against publisher/proceedings/DOI primary records.
+- [x] Hinder--Vaquet--Hammer, Max-Rank and QProv are cited and positioned
+      without attributing Paper 1.5's experiment or formal result to them.
+- [x] VAMP is credited with authenticating evaluation artifacts subject to
+      poisoning/substitution; novelty is not claimed for attackable evaluation
+      data.
+- [x] Gate A is a concrete cluster-preserving, declared-fingerprint,
+      preregistered instantiation; no generic adaptive-drift priority claim.
+- [x] QCIVET/QML-PipeGuard are credited with quantum-stage behavioural
+      evidence and their stronger QPU/hardware, drift and runtime/provider
+      dimensions; Paper 1.5's contribution is orthogonal and claim-relative.
+- [x] Quantum-security primer, QEMI and quantum Design by Contract use their
+      verified published versions; Quantum Leak venue/authors/pages and the
+      complete Qiskit author list are corrected.
+- [x] Original Simplex, TESSERACT and RFC 9334/RATS added; Acharya--Zhang and
+      Reproducible Builds not added under the strict, text-neutral selection.
+- [x] BibTeX has no duplicate keys or duplicate DOIs; every citation key is
+      bidirectionally complete; published versions precede the cutoff.
+- [x] One readability pass completed. It changed syntax and transitions only,
+      preserving science, claims, results, structure and page count.
+- [x] Release statement: bibliographic/editorial correction only; no
+      experiment, kernel, draw, model, seed, intervention, policy decision or
+      scientific evidence was rerun or changed. Methodology is unchanged from
+      1.3.2 and scientific evidence remains frozen.
+- [x] Main article 12 pages; abstract at most 200 words; supplement separate.
+- [x] Permanent bibliographic regression guards added.
 
 ## Methodologically aligned and editorially closed (1.3.2)
 
@@ -50,7 +80,7 @@
       definitions, Props. 3/4/Cor. 3, discussion, README, cover letter, threat
       model.
 - [x] Conformal claim: property under exchangeability stated separately from
-      the executed rates (0.048–0.058); no "exactly calibrated" wording (test).
+      the executed rates (0.048–0.058); no claim of exact executed calibration.
 - [x] P3 renamed coverage-complete abstaining (fail-closed on missing coverage;
       no minimum-power guarantee) in code, `POLICY_CLASS`, evidence label,
       tables, figures, article, supplement, README, cover letter, release notes.
@@ -134,8 +164,8 @@
       amendment A2, Gate A, framing changes), of the 1.3.1 corrections and of
       the extended AI-use disclosure (2026-09-07, communicated by the
       corresponding author).
-- [x] Version DOI of 1.3.2 minted with a fresh Zenodo token and inserted by the
-      release pipeline (`publication/DOI_STATUS.md`).
+- [ ] Version DOI of 1.3.3 minted with a fresh environment-only Zenodo token
+      and inserted by the release pipeline (`publication/DOI_STATUS.md`).
 - [x] Originality/not-under-review statement in the cover letter.
 - [x] Closely related papers disclosed with a difference statement (§II-E,
       title page, cover letter); attach copies if the portal asks.
@@ -154,9 +184,9 @@
       and any obsolete journal name; none may remain.
 - [x] Inspect every final PDF page at submission size.
 
-## Reopening rule after 1.3.2
+## Reopening rule after 1.3.3
 
-The article is reopened only for an objective error, a portal or editor
-requirement, or a reviewer request. New scientific ideas (more datasets,
+The article is reopened only for an objective demonstrated error, a portal
+requirement, an editor request or a real reviewer request. New scientific ideas (more datasets,
 attacks, QPU, noise, FMS, alternative models, more seeds, continuous datasets,
 optimized adversaries, new statistical methods) go to Paper 2.5 or other work.

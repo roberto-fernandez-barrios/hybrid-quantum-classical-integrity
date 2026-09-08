@@ -25,7 +25,7 @@
 
 \title{Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows}
 
-% TDSC does not offer double-anonymous review. Author block and changes through 1.3.2 are author-approved.
+% TDSC does not offer double-anonymous review. Author block and changes through 1.3.3 are author-approved.
 \author{Roberto~Fern\'andez-Barrios,
         Iker~Pastor-L\'opez,
         Amaia~Pikatza-Huerga,
@@ -79,51 +79,49 @@ kernels, runtime assurance
 \section{Introduction}
 
 \IEEEPARstart{H}{ybrid} quantum-classical software distributes one reported
-result across heterogeneous computational and evidential boundaries: classical
-records are acquired, cleaned, projected and encoded; a circuit and an
-execution stack produce quantum evidence; a classical learner turns a kernel
-into a decision; and an evaluation layer aligns that decision with reference
-outcomes and reports a metric. A plausible final number may therefore coexist
-with a failure in the data, circuit, kernel, prediction, label or reporting
-path, and security analyses of hybrid systems call for lifecycle-aware controls
-rather than trust in an isolated algorithm \cite{Volya2023,Ghosh2023}.
+result across heterogeneous computational and evidential boundaries. Classical
+records are acquired, cleaned, projected and encoded; a circuit and execution
+stack produce quantum evidence; a learner turns a kernel into a decision; and
+an evaluation layer aligns that decision with reference outcomes and reports a
+metric. A plausible final number may therefore coexist with a failure in the
+data, circuit, kernel, prediction, label or reporting path. Security analyses
+of hybrid systems consequently call for lifecycle-aware controls rather than
+trust in an isolated algorithm \cite{Volya2023,Ghosh2025}.
 
-Robustness benchmarking collapses this chain into a performance change, an
-endpoint that cannot say what changed or whether the available evidence could
-have revealed it. Consider the evaluation boundary of a hybrid security
-service that scores each batch with a fixed predictor and joins the
-predictions with a ground-truth feed from a separate subsystem (analyst
-verdicts, incident tickets, a delayed label store). The predictions are
-intact; the join or the store is stale, corrupted or rewritten by whoever can
-write to it, and balanced accuracy moves although the model has not. Feature
-and prediction monitors cannot observe the event because their inputs are
-identical; label counts expose an unbalanced corruption but not a balanced
-exchange of class identities; a signature on the label file authenticates the
-signed object, not the item-level correspondence between labels and the
-predictions being scored, so a correctly signed but stale or misaligned file
-passes. Calling the event stealthy omits the decisive qualifier: stealthy to
-which auditor, holding which evidence, trusting which reference? The
-constructive result is not to store another copy of every label. A trusted
-aggregate commitment to the same batch certifies that the reported conclusion
-is the one the honest labels would give; only item-identity integrity requires
-item alignment. If one party controls both the label store and its checking
-reference, no local verifier can tell a substituted honest pair from the
-original (Proposition~6). The paper therefore identifies the minimum external
-root and its granularity for the protected claim; it does not remove the need
-for a root. The scenario is a reading aid, not an incidence estimate.
+Robustness benchmarking collapses this chain into a performance change. That
+endpoint cannot identify what changed or whether the auditor could have seen
+it. Consider a hybrid security service that scores each batch with a fixed
+predictor, then joins the predictions to a ground-truth feed from another
+subsystem (analyst verdicts, incident tickets or a delayed label store). The
+predictor is intact, but the join or store is stale, corrupted or rewritten,
+so balanced accuracy moves although the model has not. Feature and prediction
+monitors cannot see the event because their inputs are unchanged. Label counts
+expose an unbalanced corruption but not a balanced exchange of class identities.
+A signature authenticates the label file, not its item-level alignment with the
+predictions, so a correctly signed stale or misaligned file still passes.
 
-That qualifier has a long history outside machine learning: control theory
-characterizes stealthy attacks as inputs indistinguishable from nominal
-behaviour through the monitor's outputs
-\cite{Pasqualetti2013,Teixeira2015,Liu2011}, quantifies the
-detectability--impact trade-off \cite{Bai2017,Urbina2016} and treats
-observability as a property of the monitored system \cite{Giraldo2018}. This
-article transports that discipline to the evidence chain of a hybrid learning
-workflow: it treats the \emph{evaluation-label path} as a protected boundary,
-separates structural indistinguishability from statistical insufficiency, and
-derives the minimum trusted-reference granularity for conclusion, aggregate
-and item-identity integrity. It then composes coverage into a calibrated
-decision whose costs are measured on both sides.
+Calling the event stealthy therefore requires a qualifier: stealthy to which
+auditor, holding which evidence and trusting which reference? The constructive
+result is not to store another copy of every label. A trusted aggregate
+commitment to the same batch certifies that the honest labels give the reported
+conclusion; only item-identity integrity requires item alignment. If one party
+controls both the label store and its checking reference, no local verifier can
+distinguish a substituted honest pair from the original (Proposition~6). The
+paper identifies the minimum external root and its granularity for the
+protected claim; it does not remove the need for that root. The scenario is a
+reading aid, not an incidence estimate.
+
+Prior art already establishes observation-relative detectability
+\cite{Pasqualetti2013,Teixeira2015,Liu2011}, authenticates evaluation artifacts
+through VAMP \cite{Stokes2021}, constructs drifts that evade their detectors
+\cite{Hinder2025}, and verifies quantum-stage contracts and behavioural
+evidence on hardware \cite{YeniarasKarimov2026,Yeniaras2026PipeGuard}. We claim
+none of these ingredients. Our result derives claim-relative minimum evidence
+granularity within a workflow-wide information-set lattice that includes the
+evaluation-label path. The experiments validate its structural predictions,
+measure calibrated policy consequences, instantiate residual adaptive evasion
+against a declared fingerprint, and map the distinctions onto a bounded quantum
+branch.
 
 The contribution is one package, led by the claim-relative granularity result:
 \begin{itemize}
@@ -160,116 +158,93 @@ and operational Fleet Management are outside the claim.
 
 \subsection{Stealth, Detectability and Observability in Secure Systems}
 
-The idea that detectability depends on what the monitor can see is
-established. Pasqualetti \emph{et al.} characterize undetectable and
-unidentifiable attacks on cyber-physical systems through the observability of
-the monitored dynamics \cite{Pasqualetti2013}; Teixeira \emph{et al.} derive
-zero-dynamics and replay attacks that are stealthy to residual detectors
-\cite{Teixeira2015}; Liu \emph{et al.} exhibit false-data injections that lie
-in the estimator's range space \cite{Liu2011}; later work quantifies how much
-an $\varepsilon$-stealthy attacker can degrade performance
-\cite{Bai2017,Urbina2016} and surveys physics-based detection as a question of
-which residuals a monitor can form \cite{Giraldo2018}. Runtime assurance
-routes a decision through a verified simple controller when a monitor flags
-the complex one \cite{Sha2001}, runtime verification checks executions against
-specifications \cite{Leucker2009}, and integrity checkers compare stored
-digests against trusted baselines \cite{Kim1994}. This article does not claim
-the general insight that detectability is information-relative; it differs in
-the object: an evidence chain whose protected boundaries include the ground
-truth used to score the model, blind regions derived from views rather than
-linear dynamics, the trusted reference made explicit as the difference
-between statistical and exact separation, and a calibrated decision evaluated
-end to end on frozen outputs, including against an adaptive attacker.
+Observation-relative detectability is established: cyber-physical attacks can
+be unobservable, residual-stealthy or confined to an estimator's range space
+\cite{Pasqualetti2013,Teixeira2015,Liu2011}; later work quantifies the
+detectability--impact trade-off and the residuals a monitor can form
+\cite{Bai2017,Urbina2016,Giraldo2018}. Hinder \emph{et al.} construct drifts
+designed to evade drift detectors \cite{Hinder2025}. Gate~A is a concrete
+cluster-preserving instance against our declared batch fingerprint; it measures
+materiality, policy consequences and evidence regimes without claiming priority
+for adaptive drift evasion. Simplex supplies the canonical decision/fallback
+pattern \cite{Seto1998,Sha2001}, runtime verification checks executions
+\cite{Leucker2009}, and integrity checkers compare digests with trusted
+baselines \cite{Kim1994}. Our claim is not generic information-relative
+detectability, but blind regions and calibrated decisions for workflow views
+whose protected boundaries include evaluation ground truth.
 
 \subsection{Monitoring, Labels and Evaluation Integrity}
 
-Label shift estimation targets a changed class prior under source-target
-assumptions \cite{Lipton2018}; MLDemon and uncertainty-aware monitoring
-combine unlabeled observations with selectively acquired labels
-\cite{Ginart2022,Koebler2025}; an evidence-sufficiency framework maps proxy
-coverage under delayed ground truth and formalizes the inability of feature
-proxies to expose concept drift \cite{Solozobov2026}. Northcutt \emph{et al.}
-document pervasive label errors in test sets \cite{Northcutt2021}; Arp
-\emph{et al.} catalogue sampling, labeling, metric and threat-model pitfalls
-in security benchmarks \cite{Arp2022}; Bajaj names \emph{evaluation
-blindness}, a measurement indistinguishable from a healthy state while the
-system fails \cite{Bajaj2026}. These works treat labels as available, noisy
-or late; here the label path is an asset under intervention, availability is
-separated from trust, and the evidence needed to identify a corruption is
-derived, not assumed. VAMP \cite{Stokes2021} extends
-media-provenance manifests to machine learning: datasets, software, models
-and evaluation sets are signed and bound by manifests so that a poisoned or
-substituted artifact fails authentication. It supplies exactly the
-uncontrolled root that Proposition~6 requires and protects the artifact as an
-object; it does not ask which interventions stay indistinguishable without
-that root, whether an aggregate or an item-level reference suffices for a
-given integrity notion, whether a passing substitution changes the
-conclusion, how to calibrate the decision when only a statistical baseline
-exists, or what an adaptive attacker can hide from a calibrated sensor. Those
-questions are treated here; a VAMP-style manifest is one way to instantiate
-the trusted references this article assumes.
+Monitoring work treats shifted priors, selective labels and proxy sufficiency
+under delayed ground truth \cite{Lipton2018,Ginart2022,Koebler2025,
+Solozobov2026}. Benchmark-quality work treats label error, evaluation pitfalls,
+spatial/temporal sampling bias and measurement blindness
+\cite{Northcutt2021,Arp2022,Pendlebury2019,Bajaj2026}. These lines primarily
+model labels as shifted, delayed, noisy, erroneous or measurement-limited.
+VAMP \cite{Stokes2021}, by contrast, explicitly treats evaluation artifacts as
+authenticated assets that may be poisoned or substituted. Our distinction is
+therefore not that evaluation data can be attacked, but that auditability and
+trusted-reference granularity are derived relative to the protected claim and
+the auditor's view.
 
-VAMP also sits within a broader provenance line. In-toto binds signed
-statements to the steps and actors of a software supply chain
-\cite{TorresArias2019}; SLSA standardizes build provenance
-\cite{SLSA2026}; and Sigstore couples identity-bound signing with a
-transparency log \cite{Newman2022}. Remote attestation instead supplies fresh
-evidence about a remote target to an appraiser \cite{Coker2011}. These
-mechanisms can establish who produced or served a reference; they do not
-determine whether an aggregate or item-aligned reference is sufficient for
-the claim. This paper addresses that local sufficiency question. Provider and
-runtime authentication remain the operational scope of Paper~2.5.
+VAMP protects named datasets, software, models and evaluation sets through
+authenticated provenance, providing a concrete external root of the kind
+required by Proposition~6. Its focus is artifact authentication; our
+complementary question is which view and granularity suffice for conclusion,
+aggregate or item-identity integrity, and what remains indistinguishable with
+weaker evidence. A VAMP-style manifest can instantiate the references assumed
+here.
+
+In-toto, SLSA and Sigstore bind supply-chain steps, build provenance, identity
+and transparency \cite{TorresArias2019,SLSA2026,Newman2022}. Remote attestation
+supplies fresh evidence to an appraiser \cite{Coker2011}; RATS names Attesters,
+Verifiers, Evidence, Reference Values and appraisal policy \cite{Birkholz2023}.
+These mechanisms establish provenance or appraisal, not whether aggregate or
+item-aligned evidence suffices for a claim. Provider/runtime authentication is
+the operational scope of Paper~2.5.
 
 \subsection{Calibration of Multi-Sensor Decisions}
 
-The family rule of Section~III-D is a conformal $p$-value \cite{Vovk2005,
-Angelopoulos2023} built on the maximum of per-sensor rank scores, i.e.\ on
-Tippett's minimum-$p$ combination \cite{Tippett1931} with the max-statistic
-calibration of Westfall and Young \cite{Westfall1993}; its finite-sample
-level under exchangeability follows the standard argument, which holds with
-ties when ties count against rejection \cite{Vovk2005,Lei2018}. Conformal
-anomaly detection applies the construction to novelty scores
-\cite{Laxhammar2015}, and Bates \emph{et al.} analyse conformal $p$-values
-that share one calibration set \cite{Bates2023}. We claim no novelty for the
-rule: its role is to give the decision of an information regime a false-alarm
-level that holds under a stated premise and to make the executed design's
-violation of that premise measurable; the asymmetric variant used by an
-earlier version of this evidence had no such guarantee (Proposition~5(c)).
+The family rule of Section~III-D is a conformal $p$-value
+\cite{Vovk2005,Angelopoulos2023}: it combines per-sensor ranks by Tippett's
+minimum-$p$ statistic and calibrates the maximum as in Westfall--Young
+\cite{Tippett1931,Westfall1993}. The standard exchangeability argument remains
+valid with ties counted against rejection \cite{Vovk2005,Lei2018}. Conformal
+anomaly detection, shared-calibration $p$-values and dependence-aware Max-Rank
+provide the closest statistical context \cite{Laxhammar2015,Bates2023,
+Timans2025}. We claim no novelty for the rule: the leave-one-out family score
+calibrates an information-regime decision under its stated premise and exposes
+the executed design's premise violation. The earlier asymmetric variant had no
+such guarantee (Proposition~5(c)).
 
 \subsection{Hybrid and Quantum Software Integrity}
 
-Volya \emph{et al.} decompose classical-quantum systems into control,
-compilation, execution and measurement surfaces \cite{Volya2023}; surveys
-extend the threat space to malicious compilation, hardware faults, cloud
-exposure and side channels \cite{Ghosh2023,Saki2022}; Quantum Vulnerability
-Factor scores circuit-output sensitivity to faults \cite{Oliveira2024} and
-Quantum Leak demonstrates timing leakage in cloud services \cite{Lu2025}.
-QCIVET combines stage contracts, hash-chained traces, behavioural subtyping
-and calibrated observable-deviation tests with QPU validation
-\cite{YeniarasKarimov2026}; QML-PipeGuard fingerprints the quantum stage
-through expectation values under a structured measurement family, absorbs
-benign calibration drift within a calibrated tolerance and detects channel
-substitution on an IBM Heron processor \cite{Yeniaras2026PipeGuard}; a
-multi-level framework evaluates circuit-integrity metrics \cite{Ahmed2026};
-and a cross-provider analysis proposes a unified provenance contract for
-quantum jobs \cite{Peltonen2026}. Quantum software testing addresses the
-oracle problem through differential, metamorphic and equivalence-modulo-input
-relations \cite{Wang2021,Paltenghi2023,Luo2026}, and compiler verification,
-program logics and runtime assertions supply formal and runtime mechanisms
-\cite{Shi2019,Ying2011,Zhou2019,Li2020,Yamaguchi2023}. We make no priority
-claim for contracts, hash chains, stage decomposition, semantic probes or
-fail-closed verification: their unit is the quantum stage or the pipeline
-trace; ours is the information set that makes a changed asset
-distinguishable, with the evaluation-label path as a first-class boundary.
+Hybrid-system analyses decompose control, compilation, execution and
+measurement surfaces and cover malicious compilation, hardware faults, cloud
+exposure and side channels \cite{Volya2023,Ghosh2025,Saki2022}. Quantum
+Vulnerability Factor scores fault sensitivity, while Quantum Leak demonstrates
+cloud timing leakage \cite{Oliveira2024,Lu2025}. QCIVET combines stage
+contracts, hash-chained traces, behavioural subtyping, calibrated observable
+tests and QPU validation \cite{YeniarasKarimov2026}. QML-PipeGuard uses a
+structured observable family and calibrated drift tolerance to detect channel
+substitution on IBM hardware \cite{Yeniaras2026PipeGuard}; multi-level work
+evaluates circuit-integrity metrics \cite{Ahmed2026}.
 
-Across the closest lines of work, QCIVET and QML-PipeGuard carry hardware or
-drift evidence, VAMP carries authenticated object provenance, and classical
-stealth analysis supplies model-aware residual reasoning. This work instead
-derives blind regions from views of a learning workflow whose protected
-boundaries include evaluation labels, identifies minimum reference
-granularity, and measures the resulting decision and near-null cost. Its
-quantum evidence remains simulator-only, its hash chain unsigned, and its
-policy offline.
+QProv records provider-independent provenance across circuit, compilation,
+execution and hardware context \cite{Weder2021}; recent cross-provider work
+extends this line toward unified quantum-job provenance \cite{Peltonen2026}.
+Differential, metamorphic and equivalence-modulo-input tests address the oracle
+problem \cite{Wang2021,Paltenghi2023,Luo2026}; compiler verification, program
+logics and runtime assertions supply other formal/runtime mechanisms
+\cite{Shi2019,Ying2011,Zhou2019,Li2020,Yamaguchi2023}. We claim no priority for
+these mechanisms. QCIVET and QML-PipeGuard reason directly about quantum-stage
+contracts and behavioural evidence, including calibrated observables, drift
+and hardware validation; QProv and cross-provider work address provenance.
+They are stronger here on QPU/hardware and runtime/provider evidence. Our
+orthogonal contribution is a workflow-wide, claim-relative information-set
+lattice that protects the evaluation-label path and distinguishes conclusion,
+aggregate and item-identity integrity. Its quantum evidence is simulator-only,
+its hash chain unsigned, and its policy offline.
 
 \subsection{Relation to Companion Work}
 
@@ -697,20 +672,18 @@ sensors per (environment, dimension, model) cell at a nominal per-sensor
 $\alpha=0.05$: the threshold is the 191st of 200 clean calibration draws from
 one half of the held-out evaluation pool, and false alarms are measured on
 200 draws from the disjoint other half. Gate~F calibrates each regime as a
-family with the conformal rule of Proposition~5(b) at $\alpha=0.05$ per
-decision on the calibration draws only; the earlier asymmetric rule
-(Proposition~5(c)) and the union rule are computed on the same draws for
-comparison, the pooled excess of the earlier rule over the nominal level is
-decomposed into rule bias (its rate minus the conformal rate on identical
-draws) and design effect (the conformal rate minus nominal), and both rules
-are also evaluated under 30 exchangeable random re-splits of the 400 pooled
-draws of every cell; the protocol, its amendment and the expectations
-recorded before regeneration are in the artifact. Because the 20 draws of a
-run are overlapping subsets of one pool half, the inferential unit for
-false-alarm rates is the (environment, split-seed) cluster: pooled rates are
-descriptive and intervals are five-cluster $t$ intervals per environment. E1
-(256-row draws from 322-row halves) is kept in the primary aggregate as
-preregistered and also reported separately.
+family with Proposition~5(b)'s conformal rule at $\alpha=0.05$ per decision,
+using only the calibration draws. The same draws also evaluate the union and
+earlier asymmetric rules (Proposition~5(c)). The earlier rule's pooled excess
+over nominal is decomposed into rule bias (its rate minus the conformal rate
+on identical draws) and design effect (the conformal rate minus nominal).
+Both rules are also evaluated under 30 exchangeable re-splits of the 400 pooled
+draws per cell; the artifact records the protocol, amendment and preregistered
+expectations. Because a run's 20 draws overlap within one pool half, false-alarm
+inference uses (environment, split-seed) clusters. Pooled rates are descriptive;
+intervals are five-cluster $t$ intervals per environment. E1 (256-row draws
+from 322-row halves) remains in the preregistered primary aggregate and is also
+reported separately.
 
 \subsection{Decision Layer and Offline End-to-End Evaluation}
 
@@ -758,8 +731,8 @@ generated from the manifested outputs.
 
 \subsection{Adversarial Gate: Cluster-Preserving Perturbation}
 
-Gate~A (preregistered before execution) executes the adaptive attacker that
-the earlier version only discussed. The standardized projected features hold
+Gate~A executes the preregistered cluster-preserving attacker. The standardized
+projected features hold
 tight clusters of rows (in every environment some feature keeps 69--87\% of
 the rows within 0.01 standard deviations) that a fresh clean batch reproduces
 and any in-place displacement smears, which is why mean shift and scaling
@@ -1038,30 +1011,26 @@ abstains on missing coverage but promises no minimum power.
 
 \subsection{Security Interpretation}
 
-A metric can move while predictor output is bit-for-bit unchanged, and it can
-move upward; calling either model degradation assigns failure to the wrong
-component and suggests the wrong defence, since input robustness cannot
-repair corrupted ground truth while provenance and joint validation can. Zero
-sensor response is informative only if the sensor receives evidence capable
-of distinguishing the states, and non-zero separability only if the auditor
-holds a null tight enough to see it. The offline end-to-end result makes the
-consequence concrete: with the evidence a batch-level auditor normally has,
-about three fifths of the materially changed results in this suite would be
-served under a calibrated policy, and the share is set by the information
-regime, not by the threshold. The adversarial gate adds the second half of
-the lesson: a calibrated sensor family controls false alarms but not what an
-adaptive attacker can hide from it, so the ``fully detected'' mechanisms of
-the frozen suite are served in 28--39\% of their material instances in the
-aggregate, with the strength-specific heterogeneity reported above, once the
-attacker preserves the fingerprint. The contribution is not the familiar
-act of storing and comparing a reference; it is the claim-relative minimum
-granularity of that evidence. A trusted aggregate of the same batch certifies
-the reported conclusion, whereas item alignment is needed to certify item
-identity. This also answers the objection that the defence assumes away a
-compromised label store: conclusion integrity does not necessarily require a
-second item-wise label store, but any guarantee does require some external
-root outside the adversary's rewrite class (Proposition~6). We identify the
-minimum granularity of that root rather than claiming to eliminate it.
+A metric can change, or even improve, while predictor output is bit-for-bit
+unchanged. Calling this model degradation assigns failure to the wrong
+component: input robustness cannot repair corrupted ground truth, whereas
+provenance and joint validation can. Zero sensor response is informative only
+when its evidence could distinguish the states; separability yields practical
+detection only with a sufficiently tight null. The offline result makes the
+consequence concrete: with typical batch-level evidence, a calibrated policy
+serves about three fifths of this suite's materially changed results, and the
+information regime sets that share. The adversarial gate adds that calibration
+controls false alarms, not what an attacker can hide: after the declared
+fingerprint is preserved, 28--39\% of material instances are served in
+aggregate, with the full strength-specific profile reported above.
+
+The contribution is not storing and comparing a reference, but deriving its
+claim-relative minimum granularity. A trusted same-batch aggregate certifies
+the reported conclusion; item identity needs item alignment. Conclusion
+integrity need not duplicate the item-wise label store, but every guarantee
+requires an external root outside the adversary's rewrite class
+(Proposition~6). We identify that root's minimum granularity rather than claim
+to eliminate it.
 
 The trusted cost is likewise claim-relative. Its
 \TrustedGrossExactBlocks{} exact-reference blocks are a gross mechanism
@@ -1074,39 +1043,37 @@ quantity is an operational traffic false-positive rate.
 
 \subsection{Validity Boundaries}
 
-Three datasets and eight fixed scale/temporal settings, six of the nine
-environments from CICIDS2017, are not sampled deployments; five split
-clusters measure within-environment resampling only; most gates use 128/128
-samples; balanced numeric-only staging does not reproduce operational
-prevalence. Both quantum evaluators are ideal statevector simulators with
-finite-shot emulation; this is a bounded quantum-path validation, not a
-hardware claim. The formal semantic-versus-observed anchor distinction is
-established, but empirical separation under hardware noise belongs to the
-companion operational study. SVC and QSVC keep pipeline-specific scalers, so their
-comparison does not isolate kernel geometry, and the same scalers govern how
-far an adaptive attacker's unclustered entries move. Exact blindness is a
-capability result under constructed perturbations and estimates no
-prevalence. The conformal level is marginal and holds under exchangeability
-of the calibration draws and the audited batch; the executed design violates
-that premise (draws overlap within a pool half, the calibration and
-evaluation halves are different rows of one table, and E1's pool half
-supplies one disjoint batch), the residual excess is reported as executed,
-and no conditional guarantee given a calibration set is claimed. The high
-naive drift response, the near-null interruption and the adaptive F5 evasion
-are not independent validations: they expose different consequences of the
-same local duplicate/cluster structure in these benchmarks. No environment
-in the current study removes that structure while preserving the rest of the
-design. The adversarial gate fixes one cluster rule and two mechanisms; an attacker with
-a different model of the sensors is not evaluated. The trusted item-aligned
-regime is a trust assumption, not a stronger detector: if the reference can
-be rewritten with the asset, Proposition~6 applies, and its interruption cost
-is measured on near-null synthetic controls, not on operational traffic. P3
-abstains on missing coverage only; a boundary nominally covered by a
-low-power sensor remains a limitation of every policy here, and abstention
-conditioned on the validity of the calibration itself is not part of this
-layer. The prototype is a local process without authenticated provider
-records, and its hash chain certifies consistency of the record, not its
-authenticity. Every policy result is offline, on frozen outputs.
+The three datasets and eight fixed scale/temporal settings are not sampled
+deployments; six of nine environments use CICIDS2017, five split clusters
+measure within-environment resampling only, most gates use 128/128 samples,
+and numeric-only balanced staging does not reproduce operational prevalence.
+Both quantum evaluators are ideal statevector simulators with finite-shot
+emulation, not hardware evidence. The semantic-versus-observed anchor
+distinction is formal; empirical separation under hardware noise belongs to
+the companion operational study. SVC and QSVC retain pipeline-specific
+scalers, so their comparison does not isolate kernel geometry; those scalers
+also govern how far the attacker's unclustered entries move. Exact blindness
+is a capability result under constructed perturbations, not a prevalence
+estimate.
+
+The conformal level is marginal and requires exchangeability of calibration
+draws and the audited batch. The executed design violates that premise because
+draws overlap within a pool half, calibration and evaluation use different rows
+of one table, and E1's pool half supplies one disjoint batch. We report the
+residual excess as executed and claim no conditional guarantee given a fixed
+calibration set. Naive drift response, near-null interruption and adaptive F5
+evasion reflect the same local duplicate/cluster structure, not independent
+validations. No study environment removes that structure while preserving the
+rest of the design. Gate~A fixes one cluster rule and two mechanisms; other
+attacker models are unevaluated.
+
+The trusted item-aligned regime is an assumption, not a stronger detector. If
+the reference can be rewritten with the asset, Proposition~6 applies; its cost
+is measured on near-null controls, not operational traffic. P3 abstains only on
+missing coverage, so a nominally covered low-power sensor remains a limitation,
+and calibration-validity abstention is outside this layer. The local prototype
+lacks authenticated provider records; its hash chain establishes consistency,
+not authenticity. Every policy result is offline on frozen outputs.
 Context-conditioned runtime calibration under non-stationarity,
 out-of-support abstention with recovery, real-QPU execution and the
 service-level evaluation of enforcement are the subject of a separate study.
@@ -1132,8 +1099,8 @@ and replay commands. Raw CICIDS2017, UNSW-NB15 and ToN-IoT data are not
 redistributed; sources, hashes and staging are documented. Experimental
 evidence is frozen at artifact 1.3.0
 (version DOI 10.5281/zenodo.22648573). Version
-1.3.2 is archived at Zenodo, version DOI 10.5281/zenodo.22664417 (concept DOI
-10.5281/zenodo.22550852); code is released under Apache-2.0,
+1.3.3 is archived at Zenodo under the concept DOI 10.5281/zenodo.22550852
+(version DOI in the artifact metadata); code is released under Apache-2.0,
 derived evidence, figures and documentation under CC~BY~4.0. The study uses
 previously released benchmarks and involves no new human-participant or
 personal-data collection.
@@ -1144,7 +1111,7 @@ During manuscript and artifact preparation the authors used OpenAI Codex and
 Anthropic Claude Code for literature discovery, drafting and language
 editing, code inspection, formal audits, evidence builders, tests, figures
 and release preparation. Codex also assisted with the controlled 1.3.2
-implementation audit and frozen-output-derived tables. The authors specified
+implementation audit and the 1.3.3 bibliographic/editorial correction. The authors specified
 the protocols, verified the primary sources, proofs, numerical results, code
 and generated text, and retain full responsibility; the submission package
 contains the full system-by-section disclosure.

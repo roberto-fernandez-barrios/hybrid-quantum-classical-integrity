@@ -1,6 +1,7 @@
 # Threat-model card — Paper 1.5 / ATHENA-AEGIS
 
-Version: 3.2 (2026-09-08, artifact 1.3.2: audited reference semantics and
+Version: 3.2 (2026-09-08; unchanged in bibliographic/editorial artifact 1.3.3;
+artifact 1.3.2 audited reference semantics and
 gross/net trusted-cost distinction; 3.1 was the 1.3.1 reference taxonomy, P3 name and
 definition, trusted-cost decomposition, quantum kernel notions; version 3.0 of
 the same day for 1.3.0; version 2.0 for 1.2.0; version 1.0 dated 2026-08-09)  

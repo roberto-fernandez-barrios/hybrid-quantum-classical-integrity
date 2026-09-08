@@ -188,3 +188,73 @@ attacker can hide from a calibrated sensor (Gate A). No artificial difference
 is constructed: the article states that a VAMP-style manifest is one way to
 instantiate the trusted references it assumes, and the positioning table
 credits VAMP with the provider/authentication evidence this work lacks.
+
+## Addendum — cutoff-complete bibliographic closure (artifact 1.3.3, 8 September 2026)
+
+This addendum records the single, closed patch arising from the final deep
+bibliographic audit. It supersedes only outdated metadata and overly broad
+positioning in the earlier dated entries; it does not reopen the scientific
+review. Every inserted or modified record was checked against a publisher,
+official proceedings, DOI/Crossref, PMLR, USENIX, RFC Editor or arXiv primary
+record. The bibliographic cutoff is 2026-09-08.
+
+Mandatory additions:
+
+- Fabian Hinder, Valerie Vaquet and Barbara Hammer, “Adversarial Attacks for
+  Drift Detection,” ESANN 2025, pp. 555--560,
+  DOI 10.14428/esann/2025.ES2025-82. This establishes generic monitor-aware
+  drift evasion; Gate A is positioned only as the concrete cluster-preserving
+  instantiation against the declared fingerprint, with materiality, evidence
+  regimes and policy consequences.
+- Alexander Timans, Christoph-Nikolas Straehle, Kaspar Sakmann, Christian A.
+  Naesseth and Eric Nalisnick, “Max-Rank: Efficient Multiple Testing for
+  Conformal Prediction,” AISTATS 2025, PMLR 258, pp. 3898--3906. No DOI is
+  asserted because the primary PMLR record gives none. The paper continues to
+  claim no novelty for its multiple-testing rule.
+- Benjamin Weder, Johanna Barzen, Frank Leymann, Marie Salm and Karoline Wild,
+  “QProv: A Provenance System for Quantum Computing,” IET Quantum
+  Communication 2(4), pp. 171--181, 2021, DOI 10.1049/qtc2.12012. QProv
+  establishes the pre-2026 quantum-provenance lineage; it is not attributed
+  the information lattice or the evidence-granularity result.
+
+Selective additions are the original Simplex paper (ACC 1998,
+DOI 10.1109/ACC.1998.703255), TESSERACT (USENIX Security 2019, pp. 729--746;
+no DOI asserted) and RFC 9334/RATS (2023, DOI 10.17487/RFC9334). The optional
+Acharya--Zhang preprint is not added: Hinder supplies the peer-reviewed prior
+art needed for the generic adaptive-drift premise, and a second preprint would
+not materially improve the positioning under the 12-page budget.
+“Reproducible Builds for Quantum Computing” is likewise not added because
+QProv, cross-provider provenance and the existing supply-chain sources already
+cover the relevant context.
+
+Publication/metadata corrections:
+
+- the quantum-security primer is cited as the 2025 Proceedings of the IEEE
+  article (113(7), 640--667; DOI 10.1109/JPROC.2025.3630989);
+- Quantum Leak is correctly assigned to GLSVLSI 2025, pp. 252--257
+  (DOI 10.1145/3716368.3735264), with the publisher's author list;
+- QEMI is cited as FASE 2026, LNCS 16504, pp. 149--169
+  (DOI 10.1007/978-3-032-22774-4_8);
+- Design by Contract for quantum software is cited as IEEE/ACM Q-SE 2023,
+  pp. 24--25 (DOI 10.1109/Q-SE59154.2023.00010); and
+- the Qiskit record carries the complete primary arXiv author list, including
+  Jay M. Gambetta.
+
+Final positioning: VAMP already authenticates evaluation artifacts subject to
+poisoning or substitution; QCIVET and QML-PipeGuard reason about calibrated
+quantum-stage behavioural evidence and are stronger on real QPU/hardware,
+drift and runtime/provider dimensions; Hinder establishes the generic
+monitor-aware drift premise. The distinct contribution is therefore not that
+evaluation data can be attacked, that detection is observation-relative, or
+that an adversary can model a monitor. It is **claim-relative minimum evidence
+granularity** in a workflow-wide information-set lattice that includes the
+evaluation-label path: a trusted same-batch aggregate can certify conclusion
+or aggregate integrity, item-identity integrity requires item-aligned trusted
+evidence, and some trust root outside the declared rewrite class is
+unavoidable.
+
+No mandatory work makes essentially the same central contribution, and no
+objective prior-art collision was found. Further searching would add variants
+of already represented lines rather than change the defense of priority.
+
+**BIBLIOGRAPHIC CEILING REACHED.**

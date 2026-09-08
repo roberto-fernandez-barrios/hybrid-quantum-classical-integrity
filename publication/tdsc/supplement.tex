@@ -10,7 +10,7 @@
 \usepackage{stfloats}
 \usepackage{float}
 
-% Supplement layout (artifact 1.3.2): the supplement tables are generated with
+% Supplement layout (artifact 1.3.3): the supplement tables are generated with
 % [!tbp] placement (the main article's tables keep [!t]) and the float fractions
 % below let the Gate A tables and the secondary-profile figures pack instead of
 % spilling onto near-empty trailing pages.
@@ -24,6 +24,13 @@
 \setcounter{bottomnumber}{3}
 \setcounter{totalnumber}{6}
 \setcounter{dbltopnumber}{3}
+
+% IEEEtran forces \flushbottom in two-column mode, so on a page whose column is
+% largely occupied by floats LaTeX stretches the flexible glue around the section
+% headings until the column reaches the bottom margin; that is what opened the
+% blank band between a section title and its first paragraph (Sec. 12 of the
+% 1.3.2 build). The supplement lets its columns end short instead.
+\raggedbottom
 
 \graphicspath{{figures/}}
 \input{tables/policy_macros.tex}
@@ -58,7 +65,9 @@ frozen at artifact 1.3.0; version 1.3.1 corrected the formal statements
 estimation and the initial reference taxonomy) and editorial framing without
 re-executing any kernel, job or draw. Version 1.3.2 audits the actual sensor
 references, adopts repair B and adds only tables derived from frozen outputs;
-it changes no experimental result. It adds no QPU,
+it changes no experimental result. Version 1.3.3 is a bibliographic/editorial
+correction only: no experiment, kernel, draw, model, seed, intervention, policy
+decision or scientific evidence was rerun or changed. It adds no QPU,
 calibrated-noise, scheduling, provider-security, multi-tenancy, deployed
 runtime-service or operational Fleet Management evidence. The exact claims
 remain bounded to data-to-evaluation interventions, ideal-statevector quantum
@@ -417,8 +426,9 @@ increased; C8 is Proposition~3; W9 and W10 count the label rows that a
 trusted aggregate reference of the same batch detects (every material one)
 and those that only an item-aligned reference exposes (Corollary~3). The
 cluster-preserving drift of Gate~A (C9 in the artifact's formal core) is not
-a structural blind region but sensor insufficiency against an adaptive
-attacker; it is measured in Section~\ref{sec:gate-a}, not proved.
+a structural blind region but a concrete stress test of sensor insufficiency
+against an adaptive attacker. It is measured in Section~\ref{sec:gate-a}, not
+proved or presented as priority for generic monitor-aware drift evasion.
 
 \input{tables/s_witnesses.tex}
 
@@ -485,8 +495,9 @@ The paper-core suite crosses six mechanisms with nominal strengths 0.02, 0.05
 and 0.10 (Table~\ref{tab:attacks}). Artifact identifiers retain the historical
 family string \texttt{target\_shift}; the scientific text uses
 \emph{evaluation-label intervention} because these rows do not instantiate the
-statistical label-shift problem. Gate~A adds the adaptive cluster-preserving
-variants of mechanisms 4--9 at strengths 0.02, 0.05, 0.10, 0.25 and 0.50
+statistical label-shift problem. Gate~A adds cluster-preserving variants of
+mechanisms 4--9 at strengths 0.02, 0.05, 0.10, 0.25 and 0.50 as a concrete
+monitor-aware stress test of the declared fingerprint
 (Section~\ref{sec:gate-a}).
 
 \begin{table}[!t]
@@ -998,8 +1009,8 @@ hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
 and expected outputs. The experimental evidence is frozen at artifact 1.3.0
 (version DOI 10.5281/zenodo.22648573, tag \texttt{paper15-q1-v1.3.0}).
-Version 1.3.2 is archived at Zenodo, version DOI 10.5281/zenodo.22664417 (concept
-DOI 10.5281/zenodo.22550852), with repository tag \texttt{paper15-q1-v1.3.2};
+Version 1.3.3 is archived at Zenodo under the concept
+DOI 10.5281/zenodo.22550852 with repository tag \texttt{paper15-q1-v1.3.3};
 source code is licensed under Apache-2.0, derived evidence, figures and
 documentation under CC~BY~4.0, and the manuscript files are author preprints
 excluded from both licenses.

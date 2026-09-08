@@ -39,6 +39,28 @@ variation; a bounded quantum-kernel integrity layer; and an executable
 contract. No constituent is presented as standalone novelty, and the
 ZZ-versus-SVC comparison is secondary evidence only (supplement).
 
+Prior work already establishes observation-relative detectability,
+monitor-aware drift evasion, authenticated evaluation artifacts, conformal
+multiple testing, quantum provenance and hardware-backed quantum-stage
+contracts. Version 1.3.3 therefore positions the contribution narrowly as
+**claim-relative minimum evidence granularity** across the workflow: VAMP can
+instantiate an external authentication root; QCIVET and QML-PipeGuard are
+stronger on QPU/hardware, drift and runtime/provider evidence; the present
+paper instead derives which view and trusted-reference granularity suffice for
+conclusion, aggregate or item-identity integrity.
+
+## Version 1.3.3 in one paragraph
+
+Version 1.3.3 is a bibliographic/editorial correction only. No experiment,
+kernel, draw, model, seed, intervention, policy decision or scientific
+evidence was rerun or changed; methodology is unchanged from 1.3.2. A
+cutoff-complete audit adds Hinder et al., Max-Rank and QProv, plus the original
+Simplex paper, TESSERACT and RATS; upgrades three works to their published
+versions; corrects Quantum Leak and Qiskit metadata; and makes the VAMP,
+adaptive-evasion and QCIVET/QML-PipeGuard positioning explicit. A single
+readability pass simplified syntax and transitions without changing science,
+claims, results, structure or the 12-page count.
+
 ## Version 1.3.2 in one paragraph
 
 Version 1.3.2 is a controlled methodological/editorial correction of 1.3.1.
@@ -81,7 +103,7 @@ tables differs from 1.3.0; every experimental number is unchanged.
 | Formal core with proofs; statement-by-statement reviews; executable state semantics | `manuscript/FORMAL_CORE.md`, `manuscript/FORMAL_REVIEW_1.3.0.md`, `manuscript/FORMAL_REVIEW_1.3.1.md`, `src/integrity/workflow_state.py` |
 | Adversary and failure model; threat-model card | `manuscript/ADVERSARY_MODEL.md`, `manuscript/THREAT_MODEL_CARD.md` |
 | Preregistrations and result summaries | `manuscript/paper15_v11_reinforcement_prereg.md`, `..._result_summary.md`, `manuscript/paper15_v12_policy_prereg.md`, `..._result_summary.md`, `manuscript/paper15_v13_prereg.md` (amendments A2, A3; Gate A), `manuscript/paper15_v13_result_summary.md` |
-| Literature and overlap audit | `manuscript/NOVELTY_REVIEW_2026-08-09.md` (with the 6 and 7 September 2026 rechecks) |
+| Literature and overlap audit | `manuscript/NOVELTY_REVIEW_2026-08-09.md` (with the 6, 7 and cutoff-complete 8 September 2026 rechecks) |
 | ATHENA-AEGIS traceability and the Paper 1.5 / 2.5 boundary | `manuscript/ATHENA_DEUSTO_TRACEABILITY.md` |
 | Reproduction (verify the frozen artifact; recompute everything) | `Q1_REPRODUCTION.md`, `scripts/verify_datasets.py` |
 | Hostile review and claims map | `publication/TDSC_HOSTILE_REVIEW_AUDIT.md`, `publication/tdsc/CLAIMS_TRACEABILITY.md` |
@@ -212,22 +234,22 @@ those and the operational assurance layer belong to Paper 2.5
 
 ## Version, funding and citation
 
-Artifact version: `1.3.2` (experimental evidence frozen at 1.3.0;
+Artifact version: `1.3.3` (experimental evidence frozen at 1.3.0;
 reinforcement gates of 1.1.0; editorial 1.1.1; policy gates of 1.2.0,
 regenerated in 1.3.0 with the conformal rule; adversarial gate of 1.3.0;
 formal/editorial correction 1.3.1; methodological alignment 1.3.2;
-release tag `paper15-q1-v1.3.2`). Tags `paper15-q1-v1.1.0`,
+bibliographic/editorial closure 1.3.3; release tag `paper15-q1-v1.3.3`). Tags `paper15-q1-v1.1.0`,
 `paper15-q1-v1.1.1`, `paper15-q1-v1.2.0`, `paper15-q1-v1.3.0` and
-`paper15-q1-v1.3.1`, together with all historical Zenodo versions, are
-immutable. After
-1.3.2 the article is reopened only for
-an objective error that invalidates a claim, an editorial requirement of the
-journal, or a reviewer request; everything else belongs to Paper 2.5.
+`paper15-q1-v1.3.1` and `paper15-q1-v1.3.2`, together with all historical
+Zenodo versions, are immutable. After 1.3.3 the article is reopened only for
+an objective demonstrated error, a portal requirement, an editor request or a
+real reviewer request; everything else belongs to Paper 2.5 or later work.
 
 This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
 Zenodo concept DOI `10.5281/zenodo.22550852` resolves to the latest archived
-version; the version DOI of 1.3.2 is `10.5281/zenodo.22664417` (1.3.1: `10.5281/zenodo.22651111`; 1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
+version; the version DOI of 1.3.3 is recorded in `CITATION.cff` and
+`publication/DOI_STATUS.md` (1.3.2: `10.5281/zenodo.22664417`; 1.3.1: `10.5281/zenodo.22651111`; 1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
 `10.5281/zenodo.22644529`; 1.1.1: `10.5281/zenodo.22552643`; 1.1.0:
 `10.5281/zenodo.22550853`). Author metadata, CRediT roles and licenses were
 confirmed by all authors on 2026-09-06 and the 1.3.0 and 1.3.1 changes on

@@ -59,17 +59,20 @@ executable response.
 
 This positioning fits TDSC's interest in foundations, methodologies,
 monitoring and measurement, experimental evaluation, software validation and
-dependable and secure emerging technologies. Prior work establishes
-information-relative detectability for controlled dynamics, proxy monitoring
-under delayed labels, contract-based integrity for quantum stages and
-conformal calibration of anomaly scores; our distinction is deriving blind
-regions from views of a learning workflow whose protected boundaries include
-the evaluation labels, separating structural from statistical blindness
-through explicit reference profiles, and composing the coverage into a
-decision whose false-action level, materially altered audit results served,
-near-null interruption cost and adaptive residual are measured. The internal
-CSV name `unsafe_allow` denotes corrupted audit/report conclusions served; it
-does not mean that the NIDS allowed a malicious network event.
+dependable and secure emerging technologies. We do not claim priority for
+observation-relative detectability, monitor-aware drift evasion, authenticated
+evaluation artifacts, conformal multiple testing, quantum provenance or
+hardware-backed quantum-stage contracts. Hinder et al. establish the generic
+adaptive-drift premise; VAMP authenticates evaluation artifacts; Max-Rank
+provides dependence-aware conformal family control; QProv, QCIVET and
+QML-PipeGuard cover quantum provenance and, for the latter two, stronger
+QPU/hardware and runtime evidence. Our complementary result is
+claim-relative minimum evidence granularity: which view and trusted reference
+suffice for conclusion, aggregate or item-identity integrity, and what remains
+indistinguishable under weaker evidence. Gate A is a concrete preregistered,
+cluster-preserving instance against the declared sensor fingerprint. The
+internal CSV name `unsafe_allow` denotes corrupted audit/report conclusions
+served; it does not mean that the NIDS allowed a malicious network event.
 
 All three preregistered gate sets (artifacts 1.1.0, 1.2.0 and 1.3.0) were
 frozen before execution and are reported as executed, including two
@@ -84,7 +87,11 @@ corrected the finite-shot statement of the quantum proposition, the
 workflow-state semantics and the reference taxonomy without touching the
 evidence. Version 1.3.2 then audited every selected sensor and corrected the
 epistemic taxonomy; only reference/cost/profile tables were derived from the
-already frozen outputs, and no experiment was rerun.
+already frozen outputs, and no experiment was rerun. Version 1.3.3 is a
+bibliographic/editorial correction only: it verifies and updates bibliography,
+metadata and positioning and applies one readability pass. No experiment,
+kernel, draw, model, seed, intervention, policy decision or scientific
+evidence was rerun or changed; methodology is unchanged from 1.3.2.
 
 Three companion manuscripts by the authors are disclosed in Section II-E and
 listed on the title page: Paper 1 studies target-domain quantum-kernel
@@ -103,7 +110,8 @@ authentication, scheduling security, multi-tenancy protection, deployed
 runtime services, context-conditioned runtime calibration under
 non-stationarity, or operational Fleet Management. Code, tests, derived
 evidence, vector figures, eight SHA-256 evidence manifests and the
-preregistrations accompany the manuscript and are archived at Zenodo (version DOI 10.5281/zenodo.22664417, version 1.3.2; concept DOI 10.5281/zenodo.22550852); the experimental evidence is frozen at version
+preregistrations accompany the manuscript and are archived under the concept DOI 10.5281/zenodo.22550852 (version 1.3.3; the version DOI
+is recorded in the artifact metadata); the experimental evidence is frozen at version
 1.3.0 (version DOI 10.5281/zenodo.22648573).
 
 The manuscript is original, is not under consideration elsewhere, and has been

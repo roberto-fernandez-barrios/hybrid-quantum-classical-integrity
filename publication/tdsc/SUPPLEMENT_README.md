@@ -1,4 +1,4 @@
-# Supplementary material README (artifact 1.3.2; experimental evidence frozen at 1.3.0)
+# Supplementary material README (artifact 1.3.3; experimental evidence frozen at 1.3.0)
 
 ## Description
 

@@ -1,17 +1,20 @@
 cff-version: 1.2.0
-message: "If you use this artifact, cite the archived release; the version DOI 10.5281/zenodo.22664417; concept DOI 10.5281/zenodo.22550852 resolves to the latest version. Code is Apache-2.0; derived evidence and documentation are CC BY 4.0; see LICENSING.md."
+message: "If you use this artifact, cite the archived release; the concept DOI below resolves to the latest version; the version DOI of 1.3.3 is recorded in publication/DOI_STATUS.md once minted. Code is Apache-2.0; derived evidence and documentation are CC BY 4.0; see LICENSING.md."
 type: software
 title: "Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows"
-version: 1.3.2
+version: 1.3.3
 date-released: 2026-09-08
-doi: "10.5281/zenodo.22664417"
+doi: "10.5281/zenodo.22550852"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22550852"
     description: "Concept DOI (resolves to the latest archived version)"
   - type: url
-    value: "https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.3.2"
+    value: "https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.3.3"
     description: "GitHub release of the tagged source"
+  - type: doi
+    value: "10.5281/zenodo.22664417"
+    description: "Version 1.3.2 (methodological alignment; experimental evidence frozen at 1.3.0)"
   - type: doi
     value: "10.5281/zenodo.22651111"
     description: "Version 1.3.1 (formal and editorial correction; experimental evidence frozen at 1.3.0)"
@@ -29,7 +32,7 @@ identifiers:
     description: "Version 1.1.0 (identical evidence to 1.1.1; funding acknowledgement wording differs)"
 repository-code: "https://github.com/roberto-fernandez-barrios/paper_HAIS"
 license: Apache-2.0
-license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.3.2/LICENSING.md"
+license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.3.3/LICENSING.md"
 authors:
   - family-names: "Fernández-Barrios"
     given-names: "Roberto"

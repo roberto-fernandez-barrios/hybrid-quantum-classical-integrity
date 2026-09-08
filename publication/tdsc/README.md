@@ -1,4 +1,4 @@
-# IEEE TDSC manuscript package (artifact 1.3.2; experimental evidence frozen at 1.3.0)
+# IEEE TDSC manuscript package (artifact 1.3.3; experimental evidence frozen at 1.3.0)
 
 This directory contains the submission sources for the regular-paper candidate
 "Observational Indistinguishability and Integrity Blind Regions in Hybrid
@@ -9,8 +9,8 @@ manuscript is formatted with `IEEEtran` in Computer Society journal mode.
 
 - `main.tex` — complete article: abstract (170–200 words, CI-checked),
   introduction with a concrete threat scenario and compact related-work
-  positioning (including VAMP, authenticated provenance, verifiable logs,
-  software-supply-chain attestation and remote attestation), observation model with primitive
+  positioning (including VAMP, Hinder et al., Max-Rank, QProv, QCIVET,
+  QML-PipeGuard, authenticated provenance, Simplex, TESSERACT and RATS), observation model with primitive
   and derived artifacts, audited three-axis reference profile with A/B/C
   shorthand and the quantum branch as an
   instance of the view lattice (semantic, estimated and observed kernels;
@@ -44,6 +44,8 @@ manuscript is formatted with `IEEEtran` in Computer Society journal mode.
 - `SUPPLEMENT_README.md` — IEEE-oriented description and execution guide;
 - `CLAIMS_TRACEABILITY.md` — claim-to-evidence map;
 - `build.ps1` — clean, checked LaTeX build;
+- `make_submission_package.ps1` — creates the self-contained, versioned TDSC
+  source ZIP under `publication/`;
 - `RELEASE_NOTES.md` — submission-build scope;
 - `CHECKSUMS.sha256` — hashes of the rendered submission PDFs;
 - `VERSION` — submission build identifier.
@@ -113,10 +115,15 @@ profile is secondary evidence reported in the supplement.
 
 All authors confirmed authorship, ORCIDs, CRediT roles, competing interests,
 funding wording, the AI-use disclosure and the licensing scheme on
-2026-09-06; all changes through 1.3.2 and the extended AI-use disclosure were
-approved (communicated by the corresponding author). The version DOI of 1.3.2 is inserted by the release
+2026-09-06; the bibliographic/editorial 1.3.3 correction is covered by the
+AI-use disclosure and remains subject to author responsibility. The version DOI of 1.3.3 is inserted by the release
 pipeline (`publication/DOI_STATUS.md`). IEEE Computer Society author
 guidance verified on 2026-09-08: regular Transactions papers are limited to
 12 formatted pages including references and biographies (USD 220 per
 overlength page); author biographies are not required for journal
 submissions; the article is at 12 pages without biographies.
+
+Version 1.3.3 changes bibliography, bibliographic metadata, prior-art
+positioning and readability only. It reruns or changes no experiment, kernel,
+draw, model, seed, intervention, policy decision or scientific evidence, and
+the methodology remains unchanged from 1.3.2.

@@ -4,6 +4,25 @@ The authoritative counts of every release (manifests, outputs, files, tests,
 pages, hashes, DOIs) are generated into `publication/RELEASE_STATUS.md`;
 the notes below describe scope only.
 
+## 1.3.3 — 2026-09-08 (bibliographic/editorial closure; evidence frozen)
+
+- Bibliographic/editorial correction only; no experiment, kernel, draw,
+  model, seed, intervention, policy decision or scientific evidence was rerun
+  or changed. Methodology is unchanged from 1.3.2.
+- Verified and added Hinder et al. on adaptive drift evasion, Max-Rank on
+  dependence-aware conformal multiple testing and QProv on quantum provenance.
+- Added the original Simplex paper, TESSERACT and RFC 9334/RATS under a strict
+  text-neutral space budget; did not add the optional Acharya--Zhang or
+  reproducible-quantum-build preprints.
+- Upgraded the quantum-security primer, QEMI and quantum Design by Contract to
+  verified publications; corrected Quantum Leak and Qiskit metadata.
+- Corrected positioning against VAMP, adaptive-drift prior art, QCIVET and
+  QML-PipeGuard. The central claim remains claim-relative minimum evidence
+  granularity, not novelty for any constituent technique.
+- Completed one readability pass without changing science, claims, results,
+  structure or page count; main remains 12 pages and abstract at most 200 words.
+- Added permanent bibliographic guards. Bibliographic cutoff: 2026-09-08.
+
 ## 1.3.2 — 2026-09-08 (methodological alignment; evidence frozen at 1.3.0)
 
 - Audited every selected sensor through runner, builders, frozen CSVs and

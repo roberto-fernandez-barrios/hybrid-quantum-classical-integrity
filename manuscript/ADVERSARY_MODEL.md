@@ -1,6 +1,7 @@
-# Adversary and failure model — Paper 1.5 (artifact 1.3.2; evidence frozen at 1.3.0)
+# Adversary and failure model — Paper 1.5 (artifact 1.3.3; evidence frozen at 1.3.0)
 
-Version 1.3 (2026-09-08, artifact 1.3.2) audits the reference semantics:
+Artifact 1.3.3 changes bibliography and editorial positioning only; this model
+and all evidence are unchanged from 1.3.2. Version 1.3 (2026-09-08, artifact 1.3.2) audits the reference semantics:
 Class-A selected sensors use statistical aggregate comparisons against a
 benchmark-protected clean same-item-set oracle without item pairing or
 demonstrated deployed authentication; B/C are trusted aggregate/item-aligned
