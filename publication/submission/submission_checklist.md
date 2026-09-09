@@ -81,18 +81,18 @@ decisions are unchanged.
       documented without layout/hash hacks.
 - [x] DOI fields in BibTeX, rendered BBL and visible PDF have been counted; the
       official IEEEtran behavior is documented without modifying the BST.
-- [ ] Final artifact/source ZIPs and `SHA256SUMS.txt` verify locally and on Zenodo.
+- [x] Final artifact/source ZIPs and `SHA256SUMS.txt` verify locally and on Zenodo.
 
 ## Release and stop rule
 
-- [ ] Fresh version DOI reserved through `ZENODO_TOKEN` without logging it.
-- [ ] DOI inserted; full checks rerun; release commit and annotated immutable tag
+- [x] Fresh version DOI reserved through `ZENODO_TOKEN` without logging it.
+- [x] DOI inserted; full checks rerun; release commit and annotated immutable tag
       `paper15-q1-v1.3.4` created and pushed.
-- [ ] GitHub Release and Zenodo version published; version/concept DOI relation,
+- [x] GitHub Release and Zenodo version published; version/concept DOI relation,
       assets, sizes and hashes verified.
-- [ ] Documentary post-release commit pushed; `main` and
+- [x] Documentary post-release commit pushed; `main` and
       `paper15-q1-expansion` synchronized; final tree clean.
-- [ ] Portal-facing files reviewed, but nothing submitted automatically.
+- [x] Portal-facing files reviewed, but nothing submitted automatically.
 
 After v1.3.4 the article is reopened only for a portal requirement, editor,
 real reviewer, or a later objectively demonstrated error. There is no

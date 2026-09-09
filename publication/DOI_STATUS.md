@@ -1,18 +1,19 @@
 # Zenodo/DOI status
 
-Status: **version 1.3.4 DOI reserved (10.5281/zenodo.22672505); publication in progress** (final corrective bibliographic/editorial
+Status: **version 1.3.4 published** at <https://zenodo.org/records/22672505>
+(DOI `10.5281/zenodo.22672505`; final corrective bibliographic/editorial
 release; experimental evidence frozen at 1.3.0; methodology unchanged from
 1.3.2). Derived metadata/coverage artifacts were regenerated from frozen
 code/evidence to correct an inconsistency; scientific observations and
 decisions are unchanged. The release pipeline (`scripts/release_pipeline.py`,
-steps `reserve-doi` → `insert-doi` → `finalize`) will mint and publish the
+steps `reserve-doi` → `insert-doi` → `finalize`) minted and published the
 version DOI using a fresh Zenodo personal access token supplied at run time
-through the environment only; no token is stored in the repository. The
+through the environment only; no token was stored in the repository. The
 concept DOI `10.5281/zenodo.22550852` relates the immutable archived versions.
 
 | Version | Version DOI | Tag / release commit | Deposited files |
 |---|---|---|---|
-| 1.3.4 | `10.5281/zenodo.22672505` | `paper15-q1-v1.3.4` / pending release commit | Pending deposit: compact artifact ZIP, tagged source ZIP and `SHA256SUMS.txt`; corrective bibliographic/editorial release only; no experiment, kernel, model, dataset, seed, attack, draw, intervention, policy decision, scientific result or formal theorem re-executed or changed; one frozen-derived coverage CSV and its binding manifests corrected |
+| 1.3.4 | `10.5281/zenodo.22672505` (<https://zenodo.org/records/22672505>, published 2026-09-09) | `paper15-q1-v1.3.4` / `c2381f484b822a3664191eb4bf7c5ec1d131f6b2` | `paper15-q1-v1.3.4.zip` (8,291,288 bytes, SHA-256 `7a70558253f73456bd790fbba2f98dcf7c19d3e2ecfb8a35dfa8fe5544c28ede`); `paper15-q1-v1.3.4-source.zip` (14,699,333 bytes, SHA-256 `d49a8c64113a9e508b0fcf93705da76c69e92538c53088d28ab42ff05aa6a2d0`); `SHA256SUMS.txt` (183 bytes, SHA-256 `d4635e6871721ec9ef72cffeca88563ab02e5b0fdbec577f398fded04166e723`); GitHub release <https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.3.4>; corrective bibliographic/editorial release only; no experiment, kernel, model, dataset, seed, attack, draw, intervention, policy decision, scientific result or formal theorem re-executed or changed; one frozen-derived coverage CSV and its binding manifests corrected |
 | 1.3.3 | `10.5281/zenodo.22666931` (<https://zenodo.org/records/22666931>, published 2026-09-08) | `paper15-q1-v1.3.3` / `a42e74cdafefa1f1dcde0312bdf26106b26cd263` | `paper15-q1-v1.3.3.zip` (8,284,697 bytes, SHA-256 `86096264919053cfd1a12c566b36bdf2561b31868c7c2a65bfbecbc9ccfb5cfa`); `paper15-q1-v1.3.3-source.zip` (12,678,140 bytes, SHA-256 `aac6351fce42d24290e87c357ca3f67a319241bf101b1d0e8ecf847c8be4a35b`); `SHA256SUMS.txt` (183 bytes, SHA-256 `5478e0ac640f09b660c9623710ace3bdf205dfde50970d9587e553f987bb6526`); bibliographic/editorial correction only; no experiment, kernel, draw, model, seed, intervention, policy decision or scientific evidence rerun or changed |
 | 1.3.2 | `10.5281/zenodo.22664417` (<https://zenodo.org/records/22664417>, published 2026-09-08) | `paper15-q1-v1.3.2` / `2ae33194cac37a89ebdd7a8c64610df0703a0f89` | `paper15-q1-v1.3.2.zip` (8,287,281 bytes, SHA-256 `4f5df78206c7dc41bdec8166cf5ea65d19a51cb637077ce139bb36e79e17d2c5`); `paper15-q1-v1.3.2-source.zip` (12,678,190 bytes, SHA-256 `d3d1273d08b65646af18d6edeb6d7217550d1b4033f633909d74a6f78adbb97f`); `SHA256SUMS.txt` (183 bytes, SHA-256 `873723866113058feb39f307b62b308a27c8440c6b8766771bae10203b133de8`); controlled taxonomy correction and frozen-only derived audit tables; no experimental rerun |
 | 1.3.1 | `10.5281/zenodo.22651111` (<https://zenodo.org/records/22651111>, published 2026-09-08) | `paper15-q1-v1.3.1` / `4007b2a` | `paper15-q1-v1.3.1.zip` (compact review artifact, 8,254,840 bytes, SHA-256 `8f00ee74219673c9c0ea72a430fa395743197b56e6f90c6677a3585eb411d5b7`); `paper15-q1-v1.3.1-source.zip` (tagged source snapshot, 12,605,385 bytes, SHA-256 `b74e3bd2f7fcb76f67a54a475a04841ee5c06d75d12f51b3845ff39fd505034f`); `SHA256SUMS.txt` (183 bytes, SHA-256 `c7947d422c9056476a7849c63e6187975653e8eb3d464093c44be269d81f796c`); GitHub release <https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.3.1> carries the artifact ZIP and its `.sha256`. Formal and editorial correction only: Proposition 7 under finite-shot estimation, primitive/derived state semantics, semantic/estimated/observed kernels, reference taxonomy, conformal wording, P3 renamed coverage-complete abstaining, headline numbers from macros, trusted-cost decomposition, abstract ≤ 250 words, threat scenario, VAMP, legible figures; evidence tables identical to 1.3.0 except the textual `policy_class` label of P3 |
@@ -22,8 +23,9 @@ concept DOI `10.5281/zenodo.22550852` relates the immutable archived versions.
 | 1.1.0 | `10.5281/zenodo.22550853` (<https://zenodo.org/records/22550853>) | `paper15-q1-v1.1.0` / `10a2a52` | `paper15-q1-v1.1.0.zip` 6,383,060 bytes, SHA-256 `1424ba3d0e5cf79ea1c47a370423d454c1d52e9cbf5c6682d98059345ea9aed7`; `paper15-q1-v1.1.0-source.zip` 20,721,105 bytes, SHA-256 `c83c4f5704f8bdc49ce47763f94d2a9aecd6425671b73fb67ee52cf207528338` |
 | 1.0.0 | never archived | `paper15-q1-v1.0.0` | frozen evidence tag only |
 
-Versions 1.1.0 through 1.3.3 and their records are immutable: 1.3.4 is a new
-Zenodo version under the same concept DOI, never an in-place edit.
+Versions 1.1.0 through 1.3.4 and their records are immutable: 1.3.4 was
+published as a new Zenodo version under the same concept DOI, never as an
+in-place edit.
 The evidence manifests of 1.3.1 differ from 1.3.0 only in the policy and
 adversarial manifests, where the textual `policy_class` label of P3 was
 regenerated by the unchanged, deterministic builders (every number and every
