@@ -2,15 +2,17 @@
 
 This directory contains the publication sources for *Observational
 Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical
-Workflows*, version `1.3.4`.
+Workflows*, version `1.3.5`.
 
 ## Contents
 
-- `main.tex` — 12-page article source.
-- `supplement.tex` — 20-page supplementary material source.
+- `main.tex` — article source (12-page maximum).
+- `supplement.tex` — supplementary material source.
 - `references.bib` — bibliography used by the article.
 - `reference_audit_v1.3.4.csv` — frozen, machine-readable source audit for the
   bibliography.
+- `reference_audit_v1.3.5_addendum.csv` — two bounded primary-source records
+  supporting the compact authenticated-representation clarification.
 - `figures/` — vector figures used by the article and supplement.
 - `tables/` — generated LaTeX tables and number macros derived from manifested
   evidence.
@@ -55,8 +57,10 @@ Python 3.10 is the frozen reference interpreter:
   --root publication\artifact
 ```
 
-The verifier checks the artifact-wide manifest, embedded evidence manifests,
-manifested outputs, table shapes, primary counts, and acceptance conditions.
+The verifier checks the artifact-wide manifest, nine embedded evidence
+manifests, 93 manifested outputs, table shapes, primary counts, declared
+calibration/intervention geometry, identity responses, matched pairs, derived
+summaries, and acceptance conditions.
 Full replay instructions and external dataset requirements are in
 `REPRODUCIBILITY.md`.
 

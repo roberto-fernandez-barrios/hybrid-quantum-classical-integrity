@@ -23,7 +23,7 @@
   }
 \fi
 
-% Supplement layout (release v1.3.4): the supplement tables are generated with
+% Supplement layout (release v1.3.5): the supplement tables are generated with
 % [!tbp] placement (the main article's tables keep [!t]) and the float fractions
 % below let the Gate A tables and the secondary-profile figures pack instead of
 % spilling onto near-empty trailing pages.
@@ -43,6 +43,7 @@
 
 \graphicspath{{figures/}}
 \input{tables/policy_macros.tex}
+\input{tables/geometry_sensitivity_macros.tex}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcommand{\IX}{\mathcal I_X}
 \newcommand{\IXF}{\mathcal I_{XF}}
@@ -68,12 +69,11 @@ and their dependence structure, the validation checks, the full tables of the
 preregistered gates of artifacts 1.1.0, 1.2.0 and 1.3.0 (including the
 amendment that replaced the calibration rule and the adversarial
 cluster-preserving gate), the secondary model-impact profile and the
-reproduction mapping behind the main article. Version 1.3.4 is a corrective
-bibliographic/editorial release. No experiment, kernel, model, dataset, seed,
-attack, draw, intervention, policy decision, scientific result or formal
-theorem was re-executed or changed. Derived metadata/coverage artifacts were
-regenerated from the frozen code/evidence to correct an inconsistency;
-scientific observations and decisions are unchanged. It adds no QPU,
+reproduction mapping behind the main article. Version 1.3.5 adds one
+preregistered geometry-aligned sensitivity analysis relating clean-resample
+calibration to same-item intervention scoring. It changes no dataset, model
+family, kernel, feature map, hyperparameter search, threat class, formal
+theorem or primary structural experiment. It adds no QPU,
 calibrated-noise, scheduling, provider-security, multi-tenancy, deployed
 runtime-service or operational Fleet Management evidence. The exact claims
 remain bounded to data-to-evaluation interventions, ideal-statevector quantum
@@ -296,10 +296,10 @@ batches sharing one calibration set are dependent, and nothing is claimed
 when exchangeability fails. For $n=200$, $\alpha=0.05$: $k=10$ and the level
 is $10/201=0.0498$.
 
-(c) The rule of artifact 1.2.0 scored calibration draws against the other
+(c) An asymmetric construction scores calibration draws against the other
 $n-1$ calibration draws only, the audited batch against all $n$, and fired
 when the audited score exceeded the $\lceil(n+1)(1-\alpha)\rceil$-th smallest
-calibration score; it claimed the level $\alpha+1/(n+1)$. The claim is false.
+calibration score. It lacks the claimed level $\alpha+1/(n+1)$.
 For $n=4$, $\alpha=0.2$ and three sensors with cyclic orderings
 $s_1: j_1>j_2>j_3>x>y$, $s_2: j_2>j_3>j_1>x>y$, $s_3: j_3>j_1>j_2>x>y$,
 the members $j_1,j_2,j_3$ each fire when audited (calibration scores
@@ -413,8 +413,8 @@ $0$ otherwise; for $p=1/2$ and $N=2$ this is $1/2$, so the false-alarm
 probability of exact equality is $1/2$, not one, and for $p=1/3$, $N=2$ it is
 one. For a kernel of independently estimated entries the probabilities
 multiply. The universal statement ``$\Pr[\hat K=K_{\mathrm{sem},0}]=0$ under
-non-degenerate shot noise'' of the earlier version is therefore false on the
-support of the estimator and is withdrawn; the conclusion that exact
+non-degenerate shot noise'' is false on the support of the estimator; the
+conclusion that exact
 equality is not an acceptance criterion and that $d(\hat K,K_{\mathrm{sem},0})$
 needs a calibrated null stands, with the rest being the definition of the
 batch-level auditor and Proposition~5(b). The arithmetic is checked in
@@ -954,6 +954,70 @@ as executed. No parameter was changed after the results were seen.
 \input{tables/s_adversarial_branch.tex}
 \FloatBarrier
 
+\section{Geometry-Aligned Sensitivity (Version 1.3.5)}
+\label{sec:geometry-sensitivity}
+
+The code audit in
+\path{manuscript/METHOD_GEOMETRY_AUDIT_v135.md} found a real but bounded
+geometry difference. The null-calibrated batch statistics used a fixed frozen
+evaluation reference $E$ and fresh clean current batches $C_k$, whereas
+feature interventions used the same-item comparison $E$ versus $T(E)$. This
+applies to feature JSD, MMD and KS; score JSD; prediction-rate and prediction
+JSD; label marginals; and the joint confusion profile. Exact item-aligned
+prediction disagreement, label mismatch and trusted aggregate deltas were
+already paired and are not part of this finding.
+
+The follow-up was frozen before results in
+\path{manuscript/v135_geometry_aligned_sensitivity_prereg.md}, commit
+\texttt{62cec146689e3ff8cdb95027c7a9c7371ef767fd} at
+2026-09-09T14:46:14+02:00. For every frozen model cell it retains
+$s(E,C_k)$ for calibration and $s(E,B_k)$ for clean-resample evaluation, fixes
+$B=B_1$, and evaluates every authorized feature intervention as
+$s(E,T(B))$. Thus reference, batch construction and statistical unit are
+unchanged between clean and intervention. The 240 deterministic replays cover
+all eight environments, three dimensions, five split seeds, two model seeds
+and the original model/map membership: 600 model cells and 13,200 observations
+over 22 existing identity, near-null, feature-control and adaptive conditions.
+No label attack, model selection or new random seed is introduced.
+
+Every replay agrees with its frozen clean row within $10^{-9}$, all labels are
+preserved, every expected cell is present and all acceptance checks pass. The
+exact same-item identity response $s(B,B)$ is zero for all eleven batch scores
+and four explicit paired scores (maximum \GeoIdentityMax{}). The aligned
+identity copy $s(E,B)$ instead equals the clean-resample row. Its action rate is
+therefore the clean-resample false-action rate, not an identity false-positive
+rate: \GeoCleanFamilyIX{} in $\IX$ and \GeoCleanFamilyIXF{} in $\IXF$.
+
+Table~\ref{tab:s-geometry-feature} shows that mean shift and scaling remain
+almost completely responsive after alignment. Dropout remains much weaker and
+strength-dependent. Tiny scaling remains highly responsive; tiny Gaussian is
+still well above the clean-resample background but is not near-universal. The
+near-null conclusion is consequently mechanism-specific rather than a single
+unqualified headline.
+
+Table~\ref{tab:s-geometry-gatea} gives the prespecified matched Gate~A
+comparison. Across the 12 mechanism/strength/regime comparisons, the adaptive
+response is lower in 25--40 of 40 environment/split cells, equal in the rest,
+and higher in none. Adaptive material fractions are 0.262--0.667 at matched
+strengths. Material nonresponse ranges from 0.060 to 0.834, so materially
+altered adaptive rows remain uncovered in every matched comparison. At the
+additional 0.25 and 0.50 strengths, adaptive family response rises to
+0.895--0.990 in $\IX/\IXF$; the result is not strength-independent.
+
+Relative to the original $s(E,T(E))$ design, alignment raises the matched
+adaptive range from 0.007--0.662 to 0.185--0.823 while leaving controls at
+0.993--1.000. The same-item geometry therefore amplified part of the original
+contrast. It does not explain away the within-aligned-geometry ordering: the
+cluster-preserving variant remains consistently below the matched control
+while retaining material changes. The supported conclusion is correspondingly
+bounded: calibration controls clean-resample false actions but does not
+guarantee coverage against this declared monitor-aware attacker. Cluster
+structure, geometry and adaptive knowledge interact; the experiment does not
+identify a general causal fraction for any one component.
+
+\input{tables/s_geometry_sensitivity.tex}
+\FloatBarrier
+
 \section{Secondary Model-Impact Profile}
 
 The ZZ fidelity kernel has the largest mean conclusion impact in the frozen
@@ -987,12 +1051,14 @@ python -m src.experiments.verify_publication_artifact
        --root publication/artifact
 \end{verbatim}
 }
-It verifies the artifact-wide SHA-256 manifest, the eight embedded evidence
+It verifies the artifact-wide SHA-256 manifest, the nine embedded evidence
 manifests and their outputs, row counts, the primary-claim counts including
 the signed label-path counts, the calibrated label-path consistency checks of
 the reinforcement gate, the policy-level claims of the regenerated gates
 (including the exact level of the conformal rule under the exchangeable
-re-splits), and the replay and trust checks of the adversarial gate. The
+re-splits), the replay and trust checks of the adversarial gate, and the
+geometry declaration, identity response, matched pairs and recomputed
+summaries of the v1.3.5 sensitivity. The
 complete test command is
 {\scriptsize
 \begin{verbatim}
@@ -1017,10 +1083,11 @@ The artifact omits raw benchmark datasets; it documents their official
 sources, expected SHA-256 hashes, deterministic staging and a cross-platform
 hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
-and expected outputs. The experimental evidence is frozen at artifact 1.3.0
-(version DOI 10.5281/zenodo.22648573, tag \texttt{paper15-q1-v1.3.0}).
-Version 1.3.4 is archived at Zenodo, version DOI 10.5281/zenodo.22672505 (concept
-DOI 10.5281/zenodo.22550852), with repository tag \texttt{paper15-q1-v1.3.4};
+and expected outputs. The original primary evidence is frozen at artifact
+1.3.0 (version DOI 10.5281/zenodo.22648573, tag
+\texttt{paper15-q1-v1.3.0}); the geometry sensitivity is separate v1.3.5
+evidence. Version 1.3.5 is linked under concept DOI
+10.5281/zenodo.22550852 with repository tag \texttt{paper15-q1-v1.3.5};
 source code is licensed under Apache-2.0, derived evidence, figures and
 documentation under CC~BY~4.0, and the manuscript files are author preprints
 excluded from both licenses.
@@ -1062,6 +1129,10 @@ $\IXF$ from \AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax{} to
 keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes, and its materially
 altered audit results are served by the calibrated policy in 28--39\% of its
 material instances in aggregate, with the full profile reported by strength;
+the geometry-aligned sensitivity retains the matched control/adaptive ordering
+in all 12 comparisons (25--40 of 40 lower environment/split cells and none
+higher), while showing that the original same-item construction amplified part
+of the contrast;
 the secondary ZZ-minus-SVC
 profile is direction-stable but scaler- and headroom-dependent; complementary
 quantum-workflow sensors close different simulator-gate blind regions as

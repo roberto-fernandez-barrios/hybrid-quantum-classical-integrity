@@ -1,4 +1,4 @@
-"""Manuscript consistency gates (release 1.3.4).
+"""Manuscript consistency gates (release 1.3.5).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
@@ -36,7 +36,10 @@ ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / "publication/tdsc/main.tex"
 SUPPLEMENT = ROOT / "publication/tdsc/supplement.tex"
 MACROS = ROOT / "publication/tdsc/tables/policy_macros.tex"
-REFERENCE_AUDIT = ROOT / "publication/tdsc/reference_audit_v1.3.4.csv"
+REFERENCE_AUDITS = (
+    ROOT / "publication/tdsc/reference_audit_v1.3.4.csv",
+    ROOT / "publication/tdsc/reference_audit_v1.3.5_addendum.csv",
+)
 
 ACTIVE_DOCUMENTS = [
     "publication/tdsc/main.tex",
@@ -206,6 +209,63 @@ class TestActiveNumbers:
 
 
 class TestClaimWording:
+    def test_minimum_evidence_is_declared_reference_relative(self) -> None:
+        text = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        relevant = [
+            sentence
+            for sentence in _sentences(text)
+            if re.search(r"minimum (?:evidence|external root|granularity)|root's minimum|the minimum is relative", sentence, re.I)
+        ]
+        assert relevant
+        for sentence in relevant:
+            assert re.search(r"declared reference (?:lattice|model)|relative to the declared reference", sentence, re.I), sentence
+
+    def test_internal_paper_numbering_is_absent_from_submission_manuscript(self) -> None:
+        corpus = "\n".join(_read(rel) for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"))
+        assert not re.search(r"(?:planned[ ~]+)?Paper[ ~]+(?:1\.5|2\.5)", corpus, re.I)
+
+    def test_traceability_uses_current_adversary_table_number(self) -> None:
+        trace = _read("publication/tdsc/CLAIMS_TRACEABILITY.md")
+        assert "main Table 3" not in trace
+        assert "main Table 1" in trace
+
+    def test_table_one_heading_does_not_promise_perfect_identification(self) -> None:
+        text = _read("publication/tdsc/main.tex")
+        assert "Identifying regime" not in text
+        assert "Least separating evidence in frozen design" in text
+
+    def test_max_rank_attribution_is_explicit_and_non_novel(self) -> None:
+        text = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "use the Max-Rank statistic of Timans et al. within a full-conformal family construction" in text
+        assert "claim no novelty for the statistic or rule" in text
+
+    def test_abstract_uses_aligned_sensitivity_not_original_gate_a_headline(self) -> None:
+        text = _read("publication/tdsc/main.tex")
+        abstract = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", text, re.S)
+        assert abstract
+        body = abstract.group(1)
+        assert "geometry-aligned sensitivity" in body
+        assert "AdvDetCtrl" not in body and "AdvDetAdapt" not in body
+
+    def test_identity_and_clean_resample_estimands_are_separate(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        supplement = re.sub(r"\s+", " ", _read("publication/tdsc/supplement.tex"))
+        for text in (main, supplement):
+            assert "clean-resample false-action rate" in text
+            assert "identity" in text and "exact" in text
+        assert "not an identity false-positive rate" in supplement
+
+    def test_no_unsupported_operational_calibration_language(self) -> None:
+        corpus = re.sub(r"\s+", " ", "\n".join(_read(rel).lower() for rel in ACTIVE_DOCUMENTS))
+        for forbidden in (
+            "operationally calibrated",
+            "calibration guarantees coverage",
+            "guaranteed attack coverage",
+            "deployment-calibrated false-positive rate",
+        ):
+            assert forbidden not in corpus
+        assert "calibration controls clean-resample false actions but does not guarantee coverage" in corpus
+
     @pytest.mark.parametrize("rel", ACTIVE_DOCUMENTS)
     def test_no_exactly_calibrated_experiment(self, rel: str) -> None:
         text = _read(rel).lower()
@@ -328,13 +388,14 @@ class TestBibliographicIntegrity:
         assert "stronger here on QPU/hardware and runtime/provider evidence" in main
         assert "Our orthogonal contribution" in main
 
-    def test_release_identity_remains_frozen_at_v134(self) -> None:
-        assert _read("VERSION").strip() == "1.3.4"
+    def test_release_identity_is_v135_with_immutable_v134_predecessor(self) -> None:
+        assert _read("VERSION").strip() == "1.3.5"
         citation = _read("CITATION.cff")
         status = _read("publication/RELEASE_STATUS.md")
-        for value in ("1.3.4", "10.5281/zenodo.22672505", "10.5281/zenodo.22550852"):
+        for value in ("1.3.5", "10.5281/zenodo.22550852"):
             assert value in citation
             assert value in status
+        assert "10.5281/zenodo.22672505" in citation
 
     def test_bibtex_has_no_duplicate_keys_or_dois(self) -> None:
         bib = _read("publication/tdsc/references.bib")
@@ -355,11 +416,13 @@ class TestBibliographicIntegrity:
         assert match and int(match.group(1)) <= 12
 
 
-class TestReferenceAuditV134:
+class TestReferenceAudit:
     def test_audit_is_complete_verified_and_frozen_at_cutoff(self) -> None:
-        with REFERENCE_AUDIT.open(encoding="utf-8", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-        assert len(rows) == 60  # 58 audited v1.3.3 entries plus Barber and Engelen
+        rows = []
+        for path in REFERENCE_AUDITS:
+            with path.open(encoding="utf-8", newline="") as handle:
+                rows.extend(csv.DictReader(handle))
+        assert len(rows) == 62  # immutable v1.3.4 audit plus two bounded v1.3.5 clarifications
         assert sum(row["original_v1_3_3"] == "yes" for row in rows) == 58
         assert all(row["verified"] == "VERIFIED" for row in rows)
         assert all(row["cutoff_ok"] == "yes" for row in rows)
@@ -367,8 +430,10 @@ class TestReferenceAuditV134:
 
     def test_audited_bib_and_citations_have_the_same_keys(self) -> None:
         entries = _bib_entries()
-        with REFERENCE_AUDIT.open(encoding="utf-8", newline="") as handle:
-            audited = {row["key"] for row in csv.DictReader(handle)}
+        audited = set()
+        for path in REFERENCE_AUDITS:
+            with path.open(encoding="utf-8", newline="") as handle:
+                audited.update(row["key"] for row in csv.DictReader(handle))
         cited = _citation_keys(_read("publication/tdsc/main.tex"))
         assert set(entries) == audited == cited
 

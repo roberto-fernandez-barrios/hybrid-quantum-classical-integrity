@@ -1,7 +1,9 @@
 # Reproducing and verifying the published artifact
 
-This guide covers the immutable scientific release `1.3.4` archived at
-[10.5281/zenodo.22672505](https://doi.org/10.5281/zenodo.22672505). The compact
+This guide covers release `1.3.5`, a targeted methodological sensitivity
+amendment under concept DOI
+[10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Version
+`1.3.4` and all of its scientific evidence remain immutable. The compact
 artifact can be verified without benchmark datasets. A full replay additionally
 requires the public CICIDS2017, UNSW-NB15, and ToN-IoT source files.
 
@@ -28,11 +30,11 @@ Then run the tests and the fail-closed artifact verifier:
 ```
 
 No raw dataset is needed for these checks. The verifier validates the
-artifact-wide SHA-256 manifest, eight embedded evidence manifests, 86
+artifact-wide SHA-256 manifest, nine embedded evidence manifests, 93
 manifested outputs, CSV row counts, acceptance checks, and the primary counts
 recomputed from the frozen derived evidence.
 
-An unpacked `paper15-q1-v1.3.4.zip` can be verified independently from its own
+An unpacked `paper15-q1-v1.3.5.zip` can be verified independently from its own
 root with:
 
 ```powershell
@@ -86,6 +88,16 @@ Run the reinforcement, policy, and adversarial stages in order:
 & $PY -m src.experiments.run_v13_f5_queue
 & $PY -m src.experiments.build_q1_adversarial_evidence
 & $PY -m src.experiments.make_q1_adversarial_figures
+```
+
+Run the preregistered geometry-aligned sensitivity. This deterministically
+replays the frozen model configurations; it performs no model selection or
+hyperparameter search:
+
+```powershell
+& $PY -m src.experiments.run_v135_geometry_queue --n-jobs 6 --retries 1
+& $PY -m src.experiments.build_v135_geometry_sensitivity --out-dir results/paper_digest/paper15_v135_geometry_sensitivity
+& $PY -m src.experiments.verify_geometry_sensitivity --evidence-dir results/paper_digest/paper15_v135_geometry_sensitivity
 ```
 
 Verify the full digest and assemble a separate compact copy without overwriting
@@ -202,15 +214,19 @@ A successful verification has the following invariants:
 
 - the complete test suite passes; its collected count is recorded in
   `publication/RELEASE_STATUS.md`;
-- eight evidence manifests and 86 manifested outputs verify;
+- nine evidence manifests and 93 manifested outputs verify;
 - Gate 1 contains 1,440 label-path rows; the expansion contains 3,600;
 - the policy evidence contains 7,008 material observations over five regimes
   and four policies;
 - the adversarial evidence contains 16 conditions and 6,000 adaptive rows;
+- the geometry sensitivity contains 13,200 observations across eight
+  environments and 22 frozen interventions, with exact identity, declared
+  geometry, matched-control/adaptive pairing, and derived-summary checks;
 - the dataset verifier reports `24 OK / 0 mismatch / 0 missing` when all local
   raw and staged resources are present;
-- the article builds to 12 pages, the supplement to 20 pages, and the article
-  abstract contains 200 words.
+- the article builds to no more than 12 pages and the article abstract contains
+  no more than 200 words. Final page totals are recorded in
+  `publication/RELEASE_STATUS.md`.
 
 Exact values and released PDF SHA-256 hashes are centralized in
 `publication/RELEASE_STATUS.md`. A manifest, row-count, acceptance-check, or
@@ -225,9 +241,10 @@ requires the tools listed in Section 4.
 On the reference machine, the 360-job exact-statevector expansion took about
 30 minutes and the 390-job reinforcement queue about 45 minutes with six
 workers. Gate 1 uses the slower Qiskit reference evaluator. The adversarial
-queue executes 240 exact-statevector jobs. Runtime and memory depend on CPU,
-process count, and BLAS configuration; the resumable queues write under
-`results/`.
+queue executes 240 exact-statevector jobs. The geometry sensitivity replays the
+same 240 frozen configurations and writes a separate evidence tree. Runtime and
+memory depend on CPU, process count, and BLAS configuration; the resumable
+queues write under `results/`.
 
 ## 7. External and raw-resource limitations
 
@@ -245,3 +262,8 @@ process count, and BLAS configuration; the resumable queues write under
 - Split-cluster intervals describe uncertainty within the eight fixed
   environments; they are not population-level or multiplicity-adjusted
   inference.
+- The geometry-aligned sensitivity uses one fresh clean batch per frozen model
+  cell and applies every intervention to that batch. It distinguishes the
+  clean-resample geometry effect from within-geometry monitor-aware response,
+  but it does not causally apportion the observed response among dataset
+  cluster structure, editing geometry, and evasion mechanism.

@@ -30,6 +30,7 @@ EVIDENCE_DIRS = {
     "policy": "results/paper_digest/paper15_v12_policy",
     "adversarial": "results/paper_digest/paper15_v13_adversarial",
     "amendment_v132": "results/paper_digest/paper15_v132_amendment",
+    "geometry_sensitivity": "results/paper_digest/paper15_v135_geometry_sensitivity",
 }
 
 MANUSCRIPT_FILES = [
@@ -38,6 +39,9 @@ MANUSCRIPT_FILES = [
     "manuscript/THREAT_MODEL_CARD.md",
     "manuscript/HSaaS_DEMONSTRATOR.md",
     "manuscript/METHODOLOGICAL_AMENDMENT_1.3.2.md",
+    "manuscript/METHOD_GEOMETRY_AUDIT_v135.md",
+    "manuscript/v135_geometry_aligned_sensitivity_prereg.md",
+    "manuscript/v135_geometry_aligned_sensitivity_result_summary.md",
     "manuscript/paper15_exact_statevector_validation.md",
     "manuscript/paper15_q1_expansion_result_summary.md",
     "manuscript/paper15_q1_gate1_result_summary.md",
@@ -112,7 +116,7 @@ primary count causes a non-zero exit.
 
 - `evidence/` — derived CSV/JSON evidence and embedded SHA-256 contracts
   (`gate1`, `expansion`, `quantum_integrity`, `hsaas`, `reinforcement`,
-  `policy`, `adversarial`, `amendment_v132`);
+  `policy`, `adversarial`, `amendment_v132`, `geometry_sensitivity`);
 - `manuscript/` — article PDFs, formal and adversary models,
   preregistrations, result summaries, figures, and tables;
 - `environment/` — Python 3.10 dependency lock and packaging metadata;

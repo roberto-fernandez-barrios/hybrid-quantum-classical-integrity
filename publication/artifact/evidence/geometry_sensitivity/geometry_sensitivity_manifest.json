@@ -1,0 +1,1600 @@
+{
+  "analysis": "paper15_v135_geometry_aligned_sensitivity",
+  "artifact_version": "1.3.5",
+  "status": "complete",
+  "description": "targeted methodological sensitivity amendment",
+  "geometry": {
+    "calibration": "s(E, C_k): fixed frozen evaluation reference versus clean-resample calibration draw",
+    "clean_evaluation": "s(E, B_k): fixed frozen evaluation reference versus clean-resample evaluation draw",
+    "aligned_intervention": "s(E, T(B_1)): same fixed reference and fresh evaluation draw 01, changing only clean versus intervened current",
+    "paired_identity": "s(B_1, B_1): exact same-item identity response, separate from clean resampling",
+    "geometry_id": "fixed_frozen_E__fresh_eval_draw_01"
+  },
+  "preregistration": {
+    "file": "manuscript/v135_geometry_aligned_sensitivity_prereg.md",
+    "sha256": "354f228d0e8f649942dcef4e76ebec2cc4a3020f28e4f480055c3f90408867a1",
+    "commit": "62cec146689e3ff8cdb95027c7a9c7371ef767fd",
+    "commit_timestamp": "2026-09-09T14:46:14+02:00"
+  },
+  "design": {
+    "environments": [
+      "gate2_id_256",
+      "gate3a_ood_tue_wed",
+      "gate3b_ood_tue_fri_portscan",
+      "gate3c_ood_wed_thu_webattacks",
+      "gate3d_ood_wed_fri_morning",
+      "gate5a_id_unsw",
+      "gate5b_id_ton_iot",
+      "gate6_ood_unsw"
+    ],
+    "dimensions": [
+      8,
+      10,
+      12
+    ],
+    "split_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "model_seeds": [
+      42,
+      43
+    ],
+    "raw_jobs": 240,
+    "model_cells": 600,
+    "interventions": [
+      "sham_identity",
+      "sham_tiny_gaussian_sigma_0.001",
+      "sham_tiny_scaling_alpha_0.001",
+      "scaling_drift_alpha_0.020",
+      "scaling_drift_alpha_0.050",
+      "scaling_drift_alpha_0.100",
+      "mean_shift_pf_delta_0.020",
+      "mean_shift_pf_delta_0.050",
+      "mean_shift_pf_delta_0.100",
+      "feature_dropout_p_0.020",
+      "feature_dropout_p_0.050",
+      "feature_dropout_p_0.100",
+      "cluster_preserving_mean_shift_delta_0.020",
+      "cluster_preserving_mean_shift_delta_0.050",
+      "cluster_preserving_mean_shift_delta_0.100",
+      "cluster_preserving_mean_shift_delta_0.250",
+      "cluster_preserving_mean_shift_delta_0.500",
+      "cluster_preserving_scaling_alpha_0.020",
+      "cluster_preserving_scaling_alpha_0.050",
+      "cluster_preserving_scaling_alpha_0.100",
+      "cluster_preserving_scaling_alpha_0.250",
+      "cluster_preserving_scaling_alpha_0.500"
+    ],
+    "adaptive_strengths": [
+      0.02,
+      0.05,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "matched_strengths": [
+      0.02,
+      0.05,
+      0.1
+    ],
+    "calibration_draws_per_environment_dimension_model": 200,
+    "clean_evaluation_draws_per_environment_dimension_model": 200,
+    "aligned_intervention_draw_index": 1,
+    "alpha": 0.05
+  },
+  "frozen_old_evidence": {
+    "files": 96,
+    "modified": 0,
+    "tree_sha256": "0c3b001eae6a25c76566a1ca03c49332027e6edc49dc684e1552f972fe21a9d7",
+    "tag": "paper15-q1-v1.3.4"
+  },
+  "acceptance_checks": {
+    "G0_all_240_raw_jobs_present": true,
+    "G1_expected_13200_unique_observations": true,
+    "G2_exact_attack_set": true,
+    "G3_exact_environment_seed_dimension_grid": true,
+    "G4_exact_model_map_membership": true,
+    "G5_declared_geometry_matches_implementation": true,
+    "G6_replay_matches_frozen_outputs": true,
+    "G7_paired_identity_exactly_zero": true,
+    "G8_aligned_identity_copy_equals_clean": true,
+    "G9_feature_interventions_preserve_labels": true,
+    "G10_matched_pairs_complete_in_40_environment_split_cells": true,
+    "G11_all_five_adaptive_strengths_present_every_cell": true,
+    "G12_old_v134_evidence_byte_identical": true
+  },
+  "inputs": {
+    "null_draws": {
+      "path": "publication/artifact/evidence/reinforcement/null_unique_observations.csv",
+      "sha256": "5f2f28b0b1e61260c62b4331d3fa05bb3ae74ac1e5409f63d9ad8bb1aef7b901"
+    },
+    "thresholds": {
+      "path": "publication/artifact/evidence/reinforcement/null_calibration_thresholds.csv",
+      "sha256": "cb2f1a101c0ccce1c549cd7acc6cd12e592edfec83fad5a3e78bfec2a7bc948f"
+    },
+    "raw_jobs": [
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model42__d10.csv",
+        "csv_sha256": "c8517052571bcf3268729d024fd2b8e671a000110776f2a35279a84e39c83510",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model42__d10.json",
+        "json_sha256": "8ba7e682b5e867f5c8718ff5bf1889bd2c421dd4c8bc19c6c03aa1aebc769ba6"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model42__d12.csv",
+        "csv_sha256": "b1a4bf481d67ef262119dff37ffb7086cdf736d639815bd8b2f3e960817cffbd",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model42__d12.json",
+        "json_sha256": "b66e790f1df533569f28f1239a86b00b711dfab95e62376e4cd3fd98f9d51cc8"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model42__d8.csv",
+        "csv_sha256": "6ce03bd56c008c8954953ebeb3d718a3ab2153b2b03039883d9c78c259b99636",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model42__d8.json",
+        "json_sha256": "f71e8bddb378aad0304871c84affd175548e66eccc89e166359ddfce61e5b05a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model43__d10.csv",
+        "csv_sha256": "9e7841907c79f73338d119cf2e72ba01741860268ab9406cfce0caa0441d127e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model43__d10.json",
+        "json_sha256": "00f5d25e572f3a7c1901954ca5a321b740fa9df857457b23403236586d91518c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model43__d12.csv",
+        "csv_sha256": "e63400531cb2f4cfd270ea56afc2202619c0b9dd2d182d8a14a3a1100cc2bce6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model43__d12.json",
+        "json_sha256": "732c7be3667d05c163014c83173479ab0a4d1d467c0db870c9cb8cf8752a57d9"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model43__d8.csv",
+        "csv_sha256": "57c666e44f8d69f44d805e78e72638729853b9d5a81e4fd5434a23c24a0254ef",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split42__model43__d8.json",
+        "json_sha256": "30e22b6b9589117ceec81cfff3f593cd181f6145fabe0c9fcf06dcf78b29ff48"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model42__d10.csv",
+        "csv_sha256": "4cbef1b1d071a8b5b463beec9ebc795cd3dbf8d6675199153d819b044cdc038b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model42__d10.json",
+        "json_sha256": "304c623dbd5593bedbf1eab6ad56bb1618cc2de003fe94f0abe9a050be8d6d04"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model42__d12.csv",
+        "csv_sha256": "07044bc726f2e05fd294fcdaf6178bd792db30f114d770a97509127231f1f5a7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model42__d12.json",
+        "json_sha256": "5e093dc6b0d4eb1fa1b3dd6673bc5748bcddea8378412651d04b5c77e3d4ed4c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model42__d8.csv",
+        "csv_sha256": "ec50dd9e309e138b3db95c45a9bb4d63c51e0834e4b110724275eaab91f5d9ce",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model42__d8.json",
+        "json_sha256": "be23b8a20a8071c00e4a749efd7daa9a6a9e02beb7d3488d221fc2c9e2bd8f8a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model43__d10.csv",
+        "csv_sha256": "60039c3bb635260b441672e44bc7c9460c59c0e61f4ecf5055ea586478db9618",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model43__d10.json",
+        "json_sha256": "a9b51ac77d68b20576da664bf4d2e1ef4af5deb425a3d3f63faddf37c6598b4d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model43__d12.csv",
+        "csv_sha256": "5920e3d7d26b04778715ad5883617df308f6ea713120d9f8a6bc569472d8860c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model43__d12.json",
+        "json_sha256": "3bd976db2eeb75769ff89c8e73d47de2b2ea697f68faeddd2e71bdf95a9ed161"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model43__d8.csv",
+        "csv_sha256": "8b6890d6e588db1d9a0ad174f14d1ef58caadad77bd545ebadb4db09fd76794f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split43__model43__d8.json",
+        "json_sha256": "b00a6db3c38273b82e41388d0ad2a977c00ae604f0cd6861eb7758516863f5e9"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model42__d10.csv",
+        "csv_sha256": "bb476147e3b4f8517c660354f968616e44a6d327b6ee342200e57eec5ca525eb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model42__d10.json",
+        "json_sha256": "8347f4bde6128c2c2b2e58f8618b9bbcebeba95494a410abe789552bfeebc077"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model42__d12.csv",
+        "csv_sha256": "e95b8383b20bb425b6fea0830254a6adc33ffb18643d8074a551f38481fa43e6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model42__d12.json",
+        "json_sha256": "2a7987dc21699c91131a638d1e9a2ef0507ce3e3336ae9f9facf6aae1ab687fd"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model42__d8.csv",
+        "csv_sha256": "79b7b07f42de00287afa16406b6a6a8f33f83e85bb55fa409b79895a481a8e49",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model42__d8.json",
+        "json_sha256": "271843cec074e9f66c0ec28d9f7934674b691c3b3e8f8d0b1c5a44d90b219201"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model43__d10.csv",
+        "csv_sha256": "1e71a3fd008908b5cf49148e7710a20e14596bb237280c7ba5b5ee81db436534",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model43__d10.json",
+        "json_sha256": "f4786a33597cf1563318291b0ee510e64a7512cede4ad29d8e2d85a60a4bea00"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model43__d12.csv",
+        "csv_sha256": "422d5aa6ad9c0043422595c4d4db50e5042b54acf9c564561870ca8796e6f45b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model43__d12.json",
+        "json_sha256": "3bb19ce3c6ef30ab578f7c9e0ebf15d74a7641b9d4ef24b059d9f40f9163db77"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model43__d8.csv",
+        "csv_sha256": "31f84749c1b28db88e4343ffacf03d28bd06862f6262f905adc808021b57cc08",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split44__model43__d8.json",
+        "json_sha256": "f02da7877b41d0bfa5b5001e2add5d1fcd350075519a46db11565b3cd9e788ca"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model42__d10.csv",
+        "csv_sha256": "34783a10599c6667c142f6e2d8e17ec9aac5fa8a21f20bfe319839022e4bcc54",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model42__d10.json",
+        "json_sha256": "62d3917651f59a4c2d4f923e27c957a1089e1f2f30f428f5b60fa9a50ab6aae5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model42__d12.csv",
+        "csv_sha256": "a5f883c0542377a481d149d4bd94ea85da598960d8cdb9c5c3dd3a828a7ac591",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model42__d12.json",
+        "json_sha256": "04eecf727cff8a06285dc10ac4b39411baaa6cfd281989b923aaf5f50e380712"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model42__d8.csv",
+        "csv_sha256": "61553725402b5930a53115f677443e8b35694a94e5c34ddd402351488f026d7f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model42__d8.json",
+        "json_sha256": "3ab4524468a875702482de7acb3e0152bea61afe8aad2495ca8052a856569c52"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model43__d10.csv",
+        "csv_sha256": "21f4b0796367d341688666faa88733557a877cbcb59fdca44c64751433eeb970",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model43__d10.json",
+        "json_sha256": "657ad6b1f7dbd66badaea17aca5a2ec08890a83cf1769188f6b13b5e47634b7b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model43__d12.csv",
+        "csv_sha256": "d1d5adbb4e8603addd8ba4b499222dc040fadb05c92a0e60b037642a7881a7c1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model43__d12.json",
+        "json_sha256": "f0bb14cc9eb70f284aa4e96862550ad24c292bab073f49c039a075fc88b53829"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model43__d8.csv",
+        "csv_sha256": "a14afacf0b313301dfa19a50cbaff9053e49585c2a9d4f1019b311022652b83a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split45__model43__d8.json",
+        "json_sha256": "6aa5083053c353ef211370d33e65e7c4c9c85c6cf6bb0ac7b744ab957d4932f7"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model42__d10.csv",
+        "csv_sha256": "6335fa7ebdb4133ec886364091ced44270eff89d287849b29f6ac2edd103360f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model42__d10.json",
+        "json_sha256": "1e36d405f48d47509503f2008b360c7105fe15b7082def96c0858949fd7fd32e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model42__d12.csv",
+        "csv_sha256": "b88de1d3729e4bbe30b9a248178ba72b1c1ab01512e649b3c114dcc3b8ab2711",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model42__d12.json",
+        "json_sha256": "d7db8fab78ff5140f35344a0cb320f03b9aa954203700a87f739ed682c939459"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model42__d8.csv",
+        "csv_sha256": "18a467830c0e684f85c184254894f0d3b762407403bc92488b0f6d25a317d77c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model42__d8.json",
+        "json_sha256": "a0d459eae5124c0608055eace40ea300fa2f24afe0e899871496f4ac99875b1d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model43__d10.csv",
+        "csv_sha256": "4b489ee7910084f0565c7eaffd0bbd97e80df181ab33adaf005593f8d7bc8472",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model43__d10.json",
+        "json_sha256": "8c2084777df5ac3c7d21598482489fb6fd3b9d203cc52a39e0ab820f551223d5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model43__d12.csv",
+        "csv_sha256": "863fa519bd3af07ab3d6df981055c875b9ce3b66d798e5add7b53e06b8501721",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model43__d12.json",
+        "json_sha256": "67275d62b675844991bd83cf7f3be8ebdd191ccdf373451c9521206d02f44454"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model43__d8.csv",
+        "csv_sha256": "ad4eaf9d7bd2af84715df4208a02951968eee73793af1ee5c28ff67b556b285b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate2_id_256__split46__model43__d8.json",
+        "json_sha256": "c3ed1d0684fc2226a2ac57ae71f5363135558ec71d2df9f4a4ec0e4830bc1000"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model42__d10.csv",
+        "csv_sha256": "a85e7e5e4873e6bd1cc79b1e10b15741fed65945c92734fd95ea10f3bd6920e6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model42__d10.json",
+        "json_sha256": "369a2489936e3d8e87af3f6d8de85f9ca63cc106547058aad0228b0cf90c65ad"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model42__d12.csv",
+        "csv_sha256": "3db4d58a4a8875ee33192b8468c05e8693b478f6325c97744ac4c27431d3fc64",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model42__d12.json",
+        "json_sha256": "19f1dbb8da28717199aec5dbf7ce9c93347c2d54b054e5d5b9c0df4b1501aede"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model42__d8.csv",
+        "csv_sha256": "29506c59c70d3a7ed3b06a262deff9ea6d06be406e3c7c7cc14b4de8695c1de7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model42__d8.json",
+        "json_sha256": "915f8915490af458964a88374e2e4c80cb2f160ae8dea2a5a6257ce7726e92a6"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model43__d10.csv",
+        "csv_sha256": "54d7cac2f5faa985f4ea16e4671df47b19aab8cfc2a354a3fa97e55500379f9b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model43__d10.json",
+        "json_sha256": "bfffab517a941feb823ed46b4ce694b7980ec81ea3178927323026d3840255da"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model43__d12.csv",
+        "csv_sha256": "2e9f30493758dc753cce47fb6e6813987d754d63205661a07e1acf70aa59102d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model43__d12.json",
+        "json_sha256": "efbe8166e0d3425b332b8b59761126520d86382a10c5fd2abcce7f2b11375a79"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model43__d8.csv",
+        "csv_sha256": "93cce2da59892b8833f2127ae197fecd0691942aa8335f34536a01029b2c7062",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split42__model43__d8.json",
+        "json_sha256": "97455eff26e2435c1c777ab08c16389ec9eb7b00dfc2afd2f9b9156c202f129a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model42__d10.csv",
+        "csv_sha256": "334dd0176b25c095c7c4eb46c0ddb56fb2d0ddc8aa54d6dc94c25927ffdfb234",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model42__d10.json",
+        "json_sha256": "c233d1dc7f37d15f21e60ae0ce1310d519050d1bc8a217677af8d14111e85e3a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model42__d12.csv",
+        "csv_sha256": "d4511119b5ca118611748e92241d29ad142684202f6c37dfd040478337772fa5",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model42__d12.json",
+        "json_sha256": "a15acfa61a9706b18acc9da9aae3268c157eed584512a358da2b100077268e26"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model42__d8.csv",
+        "csv_sha256": "d6b0fc3db435804022b90f8dce79caa49432993d44b0a54ddd3a714110360c1a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model42__d8.json",
+        "json_sha256": "7d9012a4801622a78962b8ccab341cab4aec3cb4d05bb2c97e967969c4e5488f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model43__d10.csv",
+        "csv_sha256": "113aaa94880e49463c5c09b5b188cdb2b6b98b2632470105dc32e0160f2f351b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model43__d10.json",
+        "json_sha256": "244e7d458e30bd5b566ddb4322b7d08c8a132213d61b3e30303defa06b185f8f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model43__d12.csv",
+        "csv_sha256": "97a9436818270a59ba6bb5ef3fc9416d470a60ba1e9cd854b47173bcd96cc75d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model43__d12.json",
+        "json_sha256": "ab3a6c3654e07ed07a60df62503277d8eeea3988b5c711d26d321d0251714644"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model43__d8.csv",
+        "csv_sha256": "bb48125e4167aea2989aa6124762de4cafafeb973842c9a3eed2fcb39257ebcf",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split43__model43__d8.json",
+        "json_sha256": "75f18699d004897efa94a0cfc6d4d7870503ea848423abf5ce07e4f377ea8742"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model42__d10.csv",
+        "csv_sha256": "e0c45d4ac5d2748ebb6e5e7d5007d1e94e36bdc2adf112243e6eee674588db7d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model42__d10.json",
+        "json_sha256": "9d99521922f828842a0522f83c4b9c800878cc4ff74d4c48e394f2bf9ee7b0fe"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model42__d12.csv",
+        "csv_sha256": "f021ab7dbcb7ee7b5b3ae420e89fdd37208d1e3f2073cfbe9fe5dd2c0f6e045f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model42__d12.json",
+        "json_sha256": "becd77a5c02e7cdd987f8d21e6f0322f9b677edec0e401942a79a8aba5f87eb4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model42__d8.csv",
+        "csv_sha256": "6c5a166e7093edd87042c092d582d24291a46c298017f54439889a160673ffc3",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model42__d8.json",
+        "json_sha256": "b690547aa4ad0e6b22f64e6c8dde33403a23560d0022df00b2862c404734ab45"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model43__d10.csv",
+        "csv_sha256": "cd316458395876403d28eaf90ca162da14fa0491cacb9a5290e180748a181fe0",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model43__d10.json",
+        "json_sha256": "a6f0242be2d98f2a42c1165d417c7b75bf7d25228c75456b854df84a7b9253bb"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model43__d12.csv",
+        "csv_sha256": "adb9b4764e3bc1444295658a6fee0830a394bbbcee445fd2f854b268e3b0c27e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model43__d12.json",
+        "json_sha256": "3714b8dccdada9055759448731a46e870663b9587aaca85489ca3fcf800146b1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model43__d8.csv",
+        "csv_sha256": "b3f300b2e1f3036fad94c0f4d8f53e5edb005bb3ed4eb927fe5a43fcc457f11c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split44__model43__d8.json",
+        "json_sha256": "3e700a401d1760fbabd296eed4e613ef826d6f7e9fc5073682faef8d330606e8"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model42__d10.csv",
+        "csv_sha256": "a25f5296a76a6a5aa00dad65ed6117e19924d8897cc366cc215ba17e28c521a9",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model42__d10.json",
+        "json_sha256": "83ae69090c875d5f925d64da0f87147c24017e5d5f34f72e286f7fc21e3bbfda"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model42__d12.csv",
+        "csv_sha256": "46ecc18d77ad97d7c2c8b71c86eb974d4addaa620cdbdc06d7c00c60d9994efc",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model42__d12.json",
+        "json_sha256": "fd25fac18addd6bb8c2fe02dbe2f500764309bdd4ab14ae987230fb07d3e0b6e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model42__d8.csv",
+        "csv_sha256": "fe2e9b67b30772976ec7e65fa8b141d01e9d2eded6a16a9fe6146a3da440c4d6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model42__d8.json",
+        "json_sha256": "47921aa6d9b07b137ed92aefa697054565bf09bfc834f15fd0d071fd9492f2a5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model43__d10.csv",
+        "csv_sha256": "65bfb024ace1cff77f575b23dbc647a9789c060e951a3e5795530b09e9c2e098",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model43__d10.json",
+        "json_sha256": "bfce6524752ac8c7493e937237edaec636bd0bcd21ac11550fe553c242e63756"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model43__d12.csv",
+        "csv_sha256": "bd75cb2cec989d00e80fc23e44a806ca538f183870690aa26cd33b2452f46d60",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model43__d12.json",
+        "json_sha256": "f3ff2b871bce4047ab7807c17d5ae8a550e1a4186e17009879ae448c380b223f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model43__d8.csv",
+        "csv_sha256": "1e02998607a31b6b3ae99f4d9dccdb513d1d1d34b474f6cd9369fc1b27f086e8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split45__model43__d8.json",
+        "json_sha256": "ce1099e47dfcbcfb7b58deb29400bef39354b132ce70d757d0ceb6559a5ef62a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model42__d10.csv",
+        "csv_sha256": "ea61298759db346921d3fdc419ad3a6633ff5871aad803daf96447a58b96acaf",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model42__d10.json",
+        "json_sha256": "7ebfd18fa9cac8ebd4af3dc050a608fb9a8f3c0309392e29662c1fa34e900b0d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model42__d12.csv",
+        "csv_sha256": "1216c2974a3bdb3609a38b326fd5b290d470ce1a8e62274599551b1cef63aaf4",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model42__d12.json",
+        "json_sha256": "1dd7a4bf8c06c8a99a7efb984b7c2d01fbb9556b21e3662d277930ecfb367a88"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model42__d8.csv",
+        "csv_sha256": "cfb7ac185fbd8f4a79f5bc0d865f3084f2a66c4fc94294804e61b463b77ba6ff",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model42__d8.json",
+        "json_sha256": "308d1a84b093ba3fab60b669682a313dc92c6a0119cd89ad3649392736454f2d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model43__d10.csv",
+        "csv_sha256": "ceff4d31e416b997da02bed3e94f30297824ed98c4d15705b7a96bd97b3de74e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model43__d10.json",
+        "json_sha256": "bb7b835c7f817ec932c184868551475f506b28086648c41b38ef2171aeb934ce"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model43__d12.csv",
+        "csv_sha256": "d49346966ac11dcad95b6848b54dc87607e4eb88c0f13a373a7243da33ee462a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model43__d12.json",
+        "json_sha256": "2f991b2fc7f7b13beb0c97cd672170038f19802befcce2587180ae0839879a1c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model43__d8.csv",
+        "csv_sha256": "e28646f47610e4216f4f4919bdaf776d0480d10cff7f9a81691a80f5469e9773",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3a_ood_tue_wed__split46__model43__d8.json",
+        "json_sha256": "4326b5494a83cf02359510620502f19d736d611768c538d6c7fccfdbefd983fe"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model42__d10.csv",
+        "csv_sha256": "8e8546b98aea3bff7993607abd98dc1d3c990276e08873c8d01ae5dd7263dcd7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model42__d10.json",
+        "json_sha256": "2b7252d40544feb9685185e5b30b991120f121ed3a10e0015c20e158039039c1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model42__d12.csv",
+        "csv_sha256": "7c93824cc9ff1ea7135ffc43eefce3ff618f5c6b5b874b03b576449cb43527ff",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model42__d12.json",
+        "json_sha256": "a1a5122a6125a98aeccff0e4d7be85104a8399454804c779035b89bf2472c54f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model42__d8.csv",
+        "csv_sha256": "ae5747851f6cce584d03571c3b2ca4c885b725f23c2e7a2f6bb992c8de6de9f0",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model42__d8.json",
+        "json_sha256": "4292f9b582f74bc5e4f7fc5d2f0ffd7b11d94fdecc4ab1f71249440f13eb1dc4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model43__d10.csv",
+        "csv_sha256": "4e0867944fb645ac727dd8e6f521f359b6c14055635cdc71d918a36b2122450c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model43__d10.json",
+        "json_sha256": "74195b969234eb42e5ebb984f76607fb9b06073dc6dc73b8efb293cb90841544"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model43__d12.csv",
+        "csv_sha256": "3be1e7163bc086d0d516d5440f7a8c3593b4048ea2107a029a412f3860f3b412",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model43__d12.json",
+        "json_sha256": "8de0634c7fb9247cdc2008d2ec9f932d7a204ca3633244f38e04aaa55c3e8488"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model43__d8.csv",
+        "csv_sha256": "4c11b634d3dc7efce8f13ecf05681ad0bbc71da5ff0c0cfcd8303a77c8e240c6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split42__model43__d8.json",
+        "json_sha256": "2eff17133ef03992715c21c72b6d7b909c5a237eed92c71c9a76ba22c499946b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model42__d10.csv",
+        "csv_sha256": "8a165bf2ad3bdf368bebd25b2b47b0f1059b2bd948b2e228af1194173896a046",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model42__d10.json",
+        "json_sha256": "4c1b0bfbe0a6fa912985820dc80e533e968f10f205250eae882c00cb97b87ed3"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model42__d12.csv",
+        "csv_sha256": "3f3c7153b4bfc9d6838573d6493fe184bc7cda76f8c0c53fb6dd9f120a67758f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model42__d12.json",
+        "json_sha256": "f644f1708c570a032df8789d046f58d0d7cda446875de8cc9e2a3e2cc5365c4d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model42__d8.csv",
+        "csv_sha256": "b86340df89532b0ab47c14ff9f07bfb3ec24ec91c9cee5d1e73968f5c43b02a2",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model42__d8.json",
+        "json_sha256": "9d3b6e12a0c11371af1e5e96ecdf9fd991c2618e62e888513f1fed217826ebcc"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model43__d10.csv",
+        "csv_sha256": "ac712020b18f4c062b4516c86e5a1077a14bd5ddfc2ca4c4aded32661ff71d3e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model43__d10.json",
+        "json_sha256": "75f4a88ef7fcf784cdf4b4f84fd024ae507f52da84281b46e7dfd14157c4d083"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model43__d12.csv",
+        "csv_sha256": "236310dbf6bc24edaf1efdb025d098b6b9acb9dfac97a7b7bda776e820317223",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model43__d12.json",
+        "json_sha256": "5861fa39f73888687c2af7d84840ec81056a2862f4f907ed8313db722287d7b2"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model43__d8.csv",
+        "csv_sha256": "3281669b0d07cc4d6cd13c5c0bb145459af37b596877d784d00f6916e7223524",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split43__model43__d8.json",
+        "json_sha256": "016c0dd76dfe1ac1849a39d73f9d01707a5283aaadb56b8f6056d800e1c69ff5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model42__d10.csv",
+        "csv_sha256": "5b884de41dadf17a3172f635a607c2d4cb3505f4737394c23ce0374d3b7ae84a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model42__d10.json",
+        "json_sha256": "987fa4369e93a431964f9f3d288ecac49b2cc977e5e31c404ee07ea3dfc45a9a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model42__d12.csv",
+        "csv_sha256": "a032ad9208c6b9385c343df6d9676f9cce9188d4c8191edb38d1e3629962f2ae",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model42__d12.json",
+        "json_sha256": "171933dc83adc5b0ed781cced5fc1c148bdcbdb2a28ee2c7f03dee9b584be87e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model42__d8.csv",
+        "csv_sha256": "b749e12ca4d497cbccc1828ffcd87dc1aa1147f251d8f9b8780aa6ddcd9acf4f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model42__d8.json",
+        "json_sha256": "c9559f1e6ac42174a099b90b88cd295be54eb126df808afb8d09198a59d1e134"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model43__d10.csv",
+        "csv_sha256": "7bb9eb99f9ec4c3209471202457e8bf5ecfbfa8b1e991e0997289cc81f121949",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model43__d10.json",
+        "json_sha256": "2764aa17dc6a20dcb9c396ab7b686cf36564f97ed7eab3a5d7cdc6cc1398a100"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model43__d12.csv",
+        "csv_sha256": "cbb6dcffabb2ce4777343504da9fefcbd170b750e8e5f91c17e8be13f8c29185",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model43__d12.json",
+        "json_sha256": "107798bd500ee11ea560fe94e91ec2ddb8e2fa52e66785177efa822a22e450f1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model43__d8.csv",
+        "csv_sha256": "84cb15e1b6d893ead218b9f9d877a381517e5ae33023f636e9fa6a7d52a2a335",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split44__model43__d8.json",
+        "json_sha256": "5f9e887e7ed3fe582f1203ad9334fd378cce7727f63a552369a8fdb22b9dec63"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model42__d10.csv",
+        "csv_sha256": "68c78c3dbeb8d9f2ddbc3b74f838b24e65d0f63cf5b84f461678a7398b8efd19",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model42__d10.json",
+        "json_sha256": "a8a8ac6e74993a51408012d3b0836bab1d582ef61ea700b850b71c5d121ec4d4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model42__d12.csv",
+        "csv_sha256": "b42ae0f13b3336d6a02fc39bfc845b9a53a86829c5ad108995f982c78b395004",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model42__d12.json",
+        "json_sha256": "d90874f3310fa95b7749aa06ef6db139424a2693c61050aa12c10c35fb773467"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model42__d8.csv",
+        "csv_sha256": "e2415a6d04bc124cd1229c77f5dea4e882c341366ddef812b0b9406185ba822d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model42__d8.json",
+        "json_sha256": "4299ca597744463039311c933bf8bb3618ed378b8da4b3278e7f39e9a352d398"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model43__d10.csv",
+        "csv_sha256": "4e8169ce8ee2d994ca0ce5788ebc3ef3ec393757f7d52a04cff4a9ae8756dfbf",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model43__d10.json",
+        "json_sha256": "38a33703c20a3548723850a4097663bff07232f45f9f107278f477d248b30857"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model43__d12.csv",
+        "csv_sha256": "a6b860788e3868fed6c36baf32092990e330d26fdab9607baf787d7f3199a99d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model43__d12.json",
+        "json_sha256": "0a0bec285cf90b441b98fc3d37d3d0994aa527bb26251d4851016abe13e3ebb2"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model43__d8.csv",
+        "csv_sha256": "bb771067c351e6b9247ca136f45d940e19c4d31062cb3688938138c745b4ae37",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split45__model43__d8.json",
+        "json_sha256": "9ead8efaffaf1d7f3dfa4e6d0c1b58b0bcadf629b285e5851194e46a0934dbc6"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model42__d10.csv",
+        "csv_sha256": "eca0f07b02fde5e40c16a895829cfa81eedc333d359dbb5a1d77e5a45f3f3213",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model42__d10.json",
+        "json_sha256": "534bd7cbf037b9c4273920274b69089bbce0f5b1a538211aeb8ff614cd24153e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model42__d12.csv",
+        "csv_sha256": "5f56a28d06e0bf3162c561fb39ce4bcaf433a1b3b5445027ad49a50592d80d8f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model42__d12.json",
+        "json_sha256": "48215ba99603158ec5003c55b887e767ca528ecd78eeca84a9a4d4cfd4cf8f47"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model42__d8.csv",
+        "csv_sha256": "f153bc28e6b9b3b90533fa522ef93c01cef8ae60ccd197c22b6aca8728065deb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model42__d8.json",
+        "json_sha256": "eb81fbd52c7a5c3ec09021ebc2663e44e6ac9617e5c6ef49b25230d5099ebefc"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model43__d10.csv",
+        "csv_sha256": "38999ff8b428602a042d9feb81134375dc35e7ec0c8f046cd8083261593419f2",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model43__d10.json",
+        "json_sha256": "1e2fde4658e4a7c4d06fcc6a8786fdd5cc81513627e067125edce9958ae38888"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model43__d12.csv",
+        "csv_sha256": "49b4cea8d4be8f5a82c58820cc1be7347efca8a4c169ba35c5bbc1205f2764c8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model43__d12.json",
+        "json_sha256": "069125dfee554e099be13687362709e94c7d8baf4abd40e8b65f496341586dd5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model43__d8.csv",
+        "csv_sha256": "ac9c73f5962b6c5807cdcfa269cf245496e4632e178e886d12f1b3d4b512ff98",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3b_ood_tue_fri_portscan__split46__model43__d8.json",
+        "json_sha256": "6a875412eb86db3d87128dc997e28247560116a168d56207d01101f3011c3e85"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model42__d10.csv",
+        "csv_sha256": "b9c51106b2481d92dad00602b51db0f6239d49ea16280fa141cb70d83358275b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model42__d10.json",
+        "json_sha256": "4398bdb90cc5e5f731eb1eaad399432829a4099f0d140c3f1ccb33db47816a47"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model42__d12.csv",
+        "csv_sha256": "5bd6a9a66974ee7c9b0dc6f37d6ad4b794e273c7036025c28fc69c0a40e56bcd",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model42__d12.json",
+        "json_sha256": "caa46e58bd22a10265cc74e24ce6f4cf6437fab5d17db1b641019c96894fa2d3"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model42__d8.csv",
+        "csv_sha256": "7ba8e2d3f112f0bd3121a7cca5e236f9e31a6984a988a13b45de12e902ffaca7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model42__d8.json",
+        "json_sha256": "6f1d8c67bc2a43106094c7587fd00e653603de2b9d1ccea8190d5f8c07d10251"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model43__d10.csv",
+        "csv_sha256": "8f2157126eaf0cfb0bf11078aca4745e9a6426b8ee313d2c48fa7b60666b036a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model43__d10.json",
+        "json_sha256": "f015e33ef693873bd2f79d36b494805a3bf7f5bf16d35e96dfa87f4e5158aa78"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model43__d12.csv",
+        "csv_sha256": "70dac41368fe07a6bd8475b5d740745f879bfa5be28265c35b22fadc900105e5",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model43__d12.json",
+        "json_sha256": "dffeac9cb5252979fc5fcc9270f6d0b364f401ad4c81b9278d8381bfa74dc64e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model43__d8.csv",
+        "csv_sha256": "75796d5a0e802011d6fb66c676d1a46f29082c08e0febd586f225bbb8d907648",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split42__model43__d8.json",
+        "json_sha256": "aafd5bc6f3111b27c35f3e1d4cc2fde86efa650213475d154993695e57e2779c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model42__d10.csv",
+        "csv_sha256": "e4e768f05476c7632b09395cf61124998f7a0dd6fbfb270d9a9160d12d200f83",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model42__d10.json",
+        "json_sha256": "9d104426c7af7e10c161800316fd2678727ddc13f9415a35c62846c5c9d5c2ee"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model42__d12.csv",
+        "csv_sha256": "d12a549a330a1f56e52645f96100dbe410748bfe45046ab56e7f492130236da4",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model42__d12.json",
+        "json_sha256": "c60f93c812df877dc73153f185dd9201e0a59866e8929e78e894f861ea56605d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model42__d8.csv",
+        "csv_sha256": "b2c80f5b40cae708a8b5b4fc57240df0a085f3c0de98260d289c5fc4ea775d4c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model42__d8.json",
+        "json_sha256": "9db19ab4a6af3e7b47b2ffd5ac67ac03da3cf99e52202005c66a1a0d474ba6be"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model43__d10.csv",
+        "csv_sha256": "b8fef8d7d0451f6c6339813cb4c7dcfaa8b0de4fc5fac269028de808521e731d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model43__d10.json",
+        "json_sha256": "c087ba0c3e39b11ca3dbd62942ee55041257eb65726fc1cc98a878907c796045"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model43__d12.csv",
+        "csv_sha256": "8d4af29b4b64439c33a6d3a5515ad19ac7737e2d519cf1a1dc4c26ac80809300",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model43__d12.json",
+        "json_sha256": "69c98205ae9dbe23815df85f4238b3216ad2e6040afdd4a538bf192a208a196e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model43__d8.csv",
+        "csv_sha256": "a167bfcd8d3080524cc7edef7bd239c2c1da167e0fcc92e77f967e70f7a9b307",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split43__model43__d8.json",
+        "json_sha256": "f672dbcff87823b8983428e6186802071034f0f65314b5aa0cc6e03b477350df"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model42__d10.csv",
+        "csv_sha256": "decf8c966b916a202f05e5ee95c337a45099f85c8581baff92caec6aacb1c77d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model42__d10.json",
+        "json_sha256": "50c365414f94d3a8fff7329d76e8fe6f4ada308fd306970138d889a0f5d708f9"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model42__d12.csv",
+        "csv_sha256": "6dc900f739ebc7c94ee1476e67f0026a4b171e054701c042ba61110038dd121b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model42__d12.json",
+        "json_sha256": "af915202d0bc3112b0c231d1450e77a81359897ee7eb7e0be9012cdc79ea1ca2"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model42__d8.csv",
+        "csv_sha256": "b74d4a5a0fecddbde6b5361e4e9a2e838b4e31be72c2047614b4f27b274c71da",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model42__d8.json",
+        "json_sha256": "53106450d5cc6d852f1da73711b1169cffa09d56d30a228eb9ad40801882cadd"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model43__d10.csv",
+        "csv_sha256": "35dc1e4731952697f06a77153c955d842a1e0a6e417fb73e3963b4f8ccf19c05",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model43__d10.json",
+        "json_sha256": "f12f6d47c2ef0c772b5fe655912bc89a903714b0ded5f0e6fa03605aa3cd701d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model43__d12.csv",
+        "csv_sha256": "92dd54cdd4c51c46426bfc92e002298bb4bd21478c830162281b8a8c0c5ada2b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model43__d12.json",
+        "json_sha256": "28fc89e3b97f8d3cedfbdb0106db796f10de32ae3dbc962843000b996e1d6696"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model43__d8.csv",
+        "csv_sha256": "3e6e708fa402b1981ca22d5afb7269b9f679af91ed02e693c0d36dadb69aa8e9",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split44__model43__d8.json",
+        "json_sha256": "b66c6657283e47a11ede920e4e387907c2bdd30e8fac9aea760fe46064c6fc9f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model42__d10.csv",
+        "csv_sha256": "d3b11b75ac5bff372c543c3dae633836a120cd3cf087d4fa20b109da3932140d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model42__d10.json",
+        "json_sha256": "2a1cf6d88389a91c00a2e008d6f1c14c6fd829a1ca4ad6d16460488ab48ce076"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model42__d12.csv",
+        "csv_sha256": "5c0c3d4c860de5820b6a7b44f49fe7888a6e6080262b351bc3fd530f516055f9",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model42__d12.json",
+        "json_sha256": "a8d640079e45622bef8fc210a2b1bad05969ff48e7dcb4742135203f70ce6ea1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model42__d8.csv",
+        "csv_sha256": "d16866762dd100b380745a6d224b48a99ce34248c8a6127d9345df0ab895236c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model42__d8.json",
+        "json_sha256": "18a24fa26c294a12e6625a0c58eb92a743a531d18f38b9eff55ee4e087d9027a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model43__d10.csv",
+        "csv_sha256": "57872d66c04c942f489a2ac23b5e3ebe3da826c133d0fd0fc2a985b64fd9ee1f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model43__d10.json",
+        "json_sha256": "45cae59033839d4e85be00303b36215ce0828b810967794a3d5953cfe632ef0a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model43__d12.csv",
+        "csv_sha256": "a99d0d44105bed9b0e12e1c37cc080c3bcb8e8598a24838174c8c2f37f858f7a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model43__d12.json",
+        "json_sha256": "a7322090e13c2108f7963b5c053849be12709f681bde48dae030a0fcdadb6173"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model43__d8.csv",
+        "csv_sha256": "4857cdc235bb60c74f52c56ab5f2d8cbd29c3a6aa064633e9e3959ed81c31eb1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split45__model43__d8.json",
+        "json_sha256": "851d2933922203f922b8ebb2a53a3d841d908097103ad9af44ed119e0b046086"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model42__d10.csv",
+        "csv_sha256": "37fc7866ea1a170aa6fb0521add9b27112188460da8b4565747c8f06b29b3bc3",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model42__d10.json",
+        "json_sha256": "0dfa6fa79dd1ae1359223450eaa6261d888440a0eb3a4b0278dded73d0d9a62b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model42__d12.csv",
+        "csv_sha256": "144b9b1cb4565ee7ce9982eee272803f247df56dbc070a39c181fe19b44990f5",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model42__d12.json",
+        "json_sha256": "7c17f40d8c9a194c8652ee59fd76c3dbc44c4d65818ce98c4ddbd6e521de68a0"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model42__d8.csv",
+        "csv_sha256": "8af0c6d0f7f8614957f3c94f19149b932a62ccd81c922de09b47519f3b01cd1d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model42__d8.json",
+        "json_sha256": "18954b59389b4c757ad0f68df1a74daa821264bd1f125faecc78a1d9c6f9a593"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model43__d10.csv",
+        "csv_sha256": "4b707603302a078ddbc871529c1ee36b84c9de0eb6d0590c61eb5c56cff8b132",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model43__d10.json",
+        "json_sha256": "01f0a33930417a58af68eff1ca1b25c70e9f14d51b9f2312009999b4d1e73d87"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model43__d12.csv",
+        "csv_sha256": "fdf06ff67493865687e89310e09db638abf929d6690bc8e2397409ead8d9c91a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model43__d12.json",
+        "json_sha256": "ae210ae872d2af676876de36a75b43f9cae05a18a777e5f71b88e211afac57ed"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model43__d8.csv",
+        "csv_sha256": "c5e3d365f9d97717df44466d7243253f07798932eaed370b813063d3075bdfba",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3c_ood_wed_thu_webattacks__split46__model43__d8.json",
+        "json_sha256": "10997608fba5c7fe5eb3ca655f8a12ddd2fb7b9365741f3d98ec94efbb614737"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model42__d10.csv",
+        "csv_sha256": "41e19c6cf30859d1fd5545059996d002b78165927c8e26c7c58724f2f113fd62",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model42__d10.json",
+        "json_sha256": "3918585ae8df6d9bf70ec16d4d2af868d90c4140a38b0691474c7768f6d9e47d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model42__d12.csv",
+        "csv_sha256": "0d2dd9ef2c6435a8f820b4788d69f8422fa64bb28eceb6d7d39d1337fadfcba8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model42__d12.json",
+        "json_sha256": "e89c33f1786ddfe537b67400355e70dc881cf360376c93a00c55c0d289f59648"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model42__d8.csv",
+        "csv_sha256": "ce2daba325a93bf3e689a7740eefb9e4025ca3cf77a51bb8555e850923ae4e32",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model42__d8.json",
+        "json_sha256": "ddb2ae91fd12b87b5405592b65a8c019d19ead6c5be56992a37d917ee4d44932"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model43__d10.csv",
+        "csv_sha256": "1698ef3e2ba190acea616870a92eb01aac0d16a2295de5aa09d3689ead5005c3",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model43__d10.json",
+        "json_sha256": "add9cab1fcd797b7b702f33963eb9946624b093bdbee5f67253f2c94a1b96c0b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model43__d12.csv",
+        "csv_sha256": "d4f8cbb58b36d356334bd5d897c760801f228fc049491dcd71d85f52595db4b3",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model43__d12.json",
+        "json_sha256": "2322deb51419c5d03cad71ed65c2f6a3ee938e4b04b7ab9b3d54439318ec91d4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model43__d8.csv",
+        "csv_sha256": "f8a3995e2fac387493bef2f51caac1a222676d365fd2307763b713ab699397d6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split42__model43__d8.json",
+        "json_sha256": "2bf71abdb7a4fe529a51c6a61879a7b0223a08cadcaf43b32ca75f10c4eb4337"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model42__d10.csv",
+        "csv_sha256": "5754b2c2742f19438c12f8a12bf938c3b40505a8b6dea3b30872e5e894430386",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model42__d10.json",
+        "json_sha256": "699228d43be7c6f418bfe4dd71043f10e373e373013c45afbe82a5ac34d0ce85"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model42__d12.csv",
+        "csv_sha256": "4deaf19ed2fac28db801943a235cb94c60f760600f87a78866b5cb7f0c915fb7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model42__d12.json",
+        "json_sha256": "7c8bbd2828f9a18d9c2708d067494fec8c5ed4ae9e9f8ed5dc41739236be50e3"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model42__d8.csv",
+        "csv_sha256": "c4825391d260723466d5975f685d5103f0cf400b767a05fdc29cdd7629541df4",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model42__d8.json",
+        "json_sha256": "c2b9b8ee1cf48181ed50efea80d733f2e9f0351918e5cda8a3466928eae7b10b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model43__d10.csv",
+        "csv_sha256": "1bccfc9f17a6ae7774fafa4e85cebaa6f5b2e9bc60f59ae53b25ad9729ecf626",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model43__d10.json",
+        "json_sha256": "4cc7f0b0f00fc0dfb1e93b0f212670f6cf2c524bcaa7f10027526c05c5f62a7b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model43__d12.csv",
+        "csv_sha256": "99838a1db90fe0d4d1125543443ca6ca835f59e762c83353d39209b23804a73a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model43__d12.json",
+        "json_sha256": "0d291780cc22f8eab70ec34bc4b4d6374042970c42d931178ef1c8937b3ffc5d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model43__d8.csv",
+        "csv_sha256": "eaf668296b2e37aa1e392dc50bd3d0ace3898bb419f6bb2e8ced7ac1db860a0e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split43__model43__d8.json",
+        "json_sha256": "f05ee00ceff097f55103a003d3b4c598b6f78370cc30272db669a105f0bbf828"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model42__d10.csv",
+        "csv_sha256": "95361eeea9784231033717ca6565efcc6d694bff04a45fc639ba8eb414560c92",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model42__d10.json",
+        "json_sha256": "18cdb72bdc7eb8906af797af59e669e3a5c8103fc1abf243a5e873cb8f16bd5b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model42__d12.csv",
+        "csv_sha256": "793de4881ebea5641722d0c5736d52cb26db2e26e851c563309b869cd612bb15",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model42__d12.json",
+        "json_sha256": "f8d9cbd41c443a454430abd3a98bbe747c1cc9cd0750cbeb01d63ba764a1eb4e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model42__d8.csv",
+        "csv_sha256": "68e4db0346d253700cb83da295fd8e12d11e1e66e02b2e57dcaa561803742a1a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model42__d8.json",
+        "json_sha256": "ade33111726c0b623a5e4f8e07a97a33e465bf7f06808cb845f9053d5b2df991"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model43__d10.csv",
+        "csv_sha256": "45fa0c78a58cc96cac150ba447fb87945d2a99b1b0b3d078fa5c77a3e113c18f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model43__d10.json",
+        "json_sha256": "ea7dc0fc5a589162c3cd7f373d1db0ab642b97716539bdd40ce254c04b7b38a8"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model43__d12.csv",
+        "csv_sha256": "9cb7a310db94ea55d5736fdb70c7fe455d9e40448b6dc38570281bd3779fa787",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model43__d12.json",
+        "json_sha256": "ce052c4710b4a1112e06b9f3f1a29ad6b1d831a6b35da7f082ba082babe922ad"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model43__d8.csv",
+        "csv_sha256": "60e6573488baf18f622808b2505787771f144948beb09aa921f9b9c952ee16e1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split44__model43__d8.json",
+        "json_sha256": "7c1dab64dcd443547489ada6784c66a4c5afd2e24f9bbca6f2c0f530eced2bbf"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model42__d10.csv",
+        "csv_sha256": "1a74cb12a0a504e2e7ea86a51682ac6b92b0e607588e4c917bbe9f77c329baa9",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model42__d10.json",
+        "json_sha256": "187c5d93668416c17495cc28103453de4bf409e96ebd5d388c7d73b8e1528c6c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model42__d12.csv",
+        "csv_sha256": "0b720a82f6d8ebe6d1eb16f54703191b9b7ef59148ab92b91f1c62c9bd9fdf68",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model42__d12.json",
+        "json_sha256": "85bb0e92cb981444da2f6429f4507bc4cc3161aad32d3472975c455a083283be"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model42__d8.csv",
+        "csv_sha256": "be826d64c46dfec814c12faed2e24676951f742fee8a3760ac510f5c775c8be1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model42__d8.json",
+        "json_sha256": "906b69785b2e39e717936bacc90147dd3a79e908999b137a2fa3a8b8ef4eb1be"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model43__d10.csv",
+        "csv_sha256": "bb8d1f49e007887bb780020dcb0297b12f097b633329e008351f02c728b60132",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model43__d10.json",
+        "json_sha256": "0127ac1082954c5abda2c0993858d35e55f6c84bb4cb6bca901be1219edfd3a8"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model43__d12.csv",
+        "csv_sha256": "b2c21ff4611d4668fcb173704693cfa67a0b3d95038d1a0cd0b11931fd659584",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model43__d12.json",
+        "json_sha256": "a949dad14ddbc32f664927def4dddc3f9d7046b12b943b62aeae434675cc3097"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model43__d8.csv",
+        "csv_sha256": "555a66db27370c43aba0c6ad38d9617b2978f5336e7fbbc2e7e2de67d65afa37",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split45__model43__d8.json",
+        "json_sha256": "3acf1116e5ec242e04284af406cf943b8f51823b7d521814bfcdd38138ad8c68"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model42__d10.csv",
+        "csv_sha256": "b2c51197d6f5394d4cc1fb70d452ae2b7c2f5440300f66cdacf5c0b7614e7e84",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model42__d10.json",
+        "json_sha256": "eb1d7d0330b7c01f45cfb8ade0b8201c8651c48952c08a6617b53b732c75a22e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model42__d12.csv",
+        "csv_sha256": "6bb888e9ff518e1239c2eea1064bccb68d6538587c1a4b91cdad9dbafa34c5e1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model42__d12.json",
+        "json_sha256": "1d4b37eb983cc959d4bc6dddd43c7573f0df335049d11ded7d28a3901941fda5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model42__d8.csv",
+        "csv_sha256": "e9df944f7d861b59213912252a8f335f373ab41df70e80bca5e5ab6b8b62b97f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model42__d8.json",
+        "json_sha256": "8de3c14d3e72e677d0e4d351113bfc12f04d56d591b14c7f7ec19a84273e6822"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model43__d10.csv",
+        "csv_sha256": "77637b6fd4da7a0be741c1ef0d299fb2299c29476696964b97f87db93a33fa20",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model43__d10.json",
+        "json_sha256": "1cbc0b60368066c8e4d947d180258c7a769a107e5a1c0ae9537c32b3d60777c1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model43__d12.csv",
+        "csv_sha256": "f0cc8b3dfd61721ef4cac66a8ce37ec8f927bb2797df76664aebc21f7a0a9793",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model43__d12.json",
+        "json_sha256": "d42ee1421f8fd8bd426dd8f86b342bc847904157b8a37065681df6bfa7126015"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model43__d8.csv",
+        "csv_sha256": "fefd5a23aa33892bf9ef1957433e7a4f7a0f1ae35a06109ef7757808ab34e237",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate3d_ood_wed_fri_morning__split46__model43__d8.json",
+        "json_sha256": "28c9083437c1e20cf79feedded6122e806e6ccb5be8ca00f4bc2a5b30fb62a88"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model42__d10.csv",
+        "csv_sha256": "e06acf4ff9c686ec1157240b875a11d8fa8e7a69c0ab0c631274372e683db531",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model42__d10.json",
+        "json_sha256": "3dd87233cd97731a63f7125d740d8c5d1ff9addc0c507f8cf0619700f232766d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model42__d12.csv",
+        "csv_sha256": "e3f9b1e45638f56ced231df742d9ec1de1ad465c6cc71f0fa466ec6b00c2a054",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model42__d12.json",
+        "json_sha256": "b6d4b352d6b89a4128a7db7aa34b80b833dc1ea755880855233a42b6e06302d0"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model42__d8.csv",
+        "csv_sha256": "f3e05bb240c43aad8707e828f577004340aac3e8209c1bdc758e731778cb1d78",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model42__d8.json",
+        "json_sha256": "7602d909066b83badf0fac82bd85b5d81eef5cc0bb87b8fdca784c0e01a1fd6b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model43__d10.csv",
+        "csv_sha256": "6a424fb0fee9f55f4a462e56a8470ba6f7c67869a5ef9c09753c3fbfca7a83cb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model43__d10.json",
+        "json_sha256": "5cb39a86281b3d90ec5b568f2c247b677c2038b1ec50817ba531fa5870095aa0"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model43__d12.csv",
+        "csv_sha256": "ca9b1d35436ddc79c6331d9c5ba8dc7e8b3e7636364589eb7a04ddb99bf273f8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model43__d12.json",
+        "json_sha256": "36f5af2cdf69df6d4cecf03100c8d82cfc2c7e3889a04e8ec9da7cf3e658fcf1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model43__d8.csv",
+        "csv_sha256": "9261d4865c1873e0cf5b5db6c67d25b9c40aaedf36927770d83bb4cf9165ec93",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split42__model43__d8.json",
+        "json_sha256": "298f7d4db08bd5c8fa047fe3d4f47ab4afed886088b5282f6c4b991c55f00d8a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model42__d10.csv",
+        "csv_sha256": "790f5e3cbbc4d578b6edf6fd8778d1492e43b342c83909715db921bbd6bf0e02",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model42__d10.json",
+        "json_sha256": "177c91387f42f215f8c9fb36b30c6257c39c6df3e09c1a28464ee91ce04e398b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model42__d12.csv",
+        "csv_sha256": "5b9edb3dc9f04d54d3e84e8e0efd5faecd9962608f5f6d020aa07c0356031923",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model42__d12.json",
+        "json_sha256": "28e34923814871dc2c0f4735f95174fbd8f235e3524546f6d45f79e71d941775"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model42__d8.csv",
+        "csv_sha256": "9bf092d52c848e93f810f9e51d656d119bfd85d303e3ee0cb23182d4a3da4ab1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model42__d8.json",
+        "json_sha256": "2ba9b9ef36b3adb69fa3756e9af36e740d9bb1d9a9574fd0a0042b3cd26566e3"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model43__d10.csv",
+        "csv_sha256": "69d620d866d597ac08815c70fa178efb02bfb587bb4442b89aeb36cec2e759e7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model43__d10.json",
+        "json_sha256": "b02893fd2e348ee4666ead09fc4eec8c89c806ce2316de0163e935e37d7ae90a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model43__d12.csv",
+        "csv_sha256": "eb0f08e86b7be3d38a53b71f3a32644ace9d674033575a54a8c2bbcc8f1f5154",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model43__d12.json",
+        "json_sha256": "80bea0ce0ae5de8becbac9782bda7e206cb2f3cdee18364bf1aebe903cf48a08"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model43__d8.csv",
+        "csv_sha256": "8f80a040b3e8f0407cedbe088cdf7febc6a08dc0316f65cf72289b7d4edcfd71",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split43__model43__d8.json",
+        "json_sha256": "4d0ed78cdf48fa44bd2683bad0d7cd66018df4b9cbbb8f36c2555756182f12c6"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model42__d10.csv",
+        "csv_sha256": "a62e7eb33db8ce6b4aaa47d940f7f5b5e4830b72f6c69beb7c5d97d76d0cddd8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model42__d10.json",
+        "json_sha256": "7329bb979812079d7e996df18b80e40df67fee484110d8cc9af3c9e0785e3480"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model42__d12.csv",
+        "csv_sha256": "c2c96ff6ed9d66093a59a57bf308bfef1933315d6bac1f595241175eefc13e51",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model42__d12.json",
+        "json_sha256": "1deec3afdb0bc12aeb556014ceb42b456393ea4b6fb1dc32f93ecdd3552abb13"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model42__d8.csv",
+        "csv_sha256": "80a532d2e51a00d1352bb8e48e12d12e15c35e2f16f7487a703f073c84b1036d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model42__d8.json",
+        "json_sha256": "428e734b7318ef070623af038abdde4d836118a538b59f79e939d7395b960241"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model43__d10.csv",
+        "csv_sha256": "038dc798d3df5b32cc3e9c3a3d940422ec06dd4452ee926a10a1e0a3ecc35e01",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model43__d10.json",
+        "json_sha256": "73bd52a64e3dcf036ca5423e1cfe9b8b2ad4524fb5d7c7141b0d208982aefd73"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model43__d12.csv",
+        "csv_sha256": "4af28025640421eee366ddf0ab0ba6d87296873cc31183494449296080a6b03a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model43__d12.json",
+        "json_sha256": "c4a41d09753dbddd944635a3b0f3ec6c3c2660558ed11496f71c1522e58d651d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model43__d8.csv",
+        "csv_sha256": "3adb19df57fd9cef1411d04a7b45462696d16c1d3308a21f4a8e117f21edb1dd",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split44__model43__d8.json",
+        "json_sha256": "9166d756e81d50ddfd093706465ac38091afdf323df2d105e77aaf51404ded6e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model42__d10.csv",
+        "csv_sha256": "5e8d0cfc452cdc53defd85bf94d270d55d3093e45fa10b06d400d3bbac50228f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model42__d10.json",
+        "json_sha256": "5372af73e0cee311c4ad8273d29e7a91463d4bda53c7a7ca3701c035b1b5aefa"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model42__d12.csv",
+        "csv_sha256": "f0380caf607cd0986fa8d93ac76a0bb947405e5aae05410bb45632134a35d44b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model42__d12.json",
+        "json_sha256": "d0bb8a3463b1f10923f6dd099ebd2f9b3f17fee2384f6f4c92b8cfeb8b22d832"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model42__d8.csv",
+        "csv_sha256": "231a01d31d7909f93bacf9283eb2a66ca10e6b4b28339e7b2db63c00ba813854",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model42__d8.json",
+        "json_sha256": "0be968f71a885550518be2387a01bc15cd78ed6082659d19f055ba46f84bb478"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model43__d10.csv",
+        "csv_sha256": "d8b6b874556436f7bbc2846d54c432d2f2e6dce4cfa8af098035e0cb98569dfb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model43__d10.json",
+        "json_sha256": "4f9f919959448cb3c5d1ca054357b147b796dd75073d532ae9d9f2c0d29fa802"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model43__d12.csv",
+        "csv_sha256": "3346ea699bbbf92c1704628bcbbfe0f7e675aa338a1e9b09fbc566feb2b9d531",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model43__d12.json",
+        "json_sha256": "ad088c6cfb942a12c83af080470d126eebc4a7e2d736a968686da5779cf20c8b"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model43__d8.csv",
+        "csv_sha256": "9bfd1d44df76992bd7bf75dfda6bcf1387f92392a2fef7ca79b42227cdcde17d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split45__model43__d8.json",
+        "json_sha256": "0f82332d52935d7be5775e481fcb2211efe0e23fdd39fbe20142f286aa6b6fde"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model42__d10.csv",
+        "csv_sha256": "8d5b7442ef2bc1a31f590ab4060cc3ed0718505560ee1745b2f48e68390ecde2",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model42__d10.json",
+        "json_sha256": "54422ff9ae17172e29835f36983ae6a233964c8cf6d94538b19ca3d2228474d3"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model42__d12.csv",
+        "csv_sha256": "f736358378e8897e41be0026337f1b75970ab53531c8bd3c0512c9c4b47cb165",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model42__d12.json",
+        "json_sha256": "4bff8525fb8418e048e761aa12ff05e21e4a85e8af6236fbeb883ebf6016d749"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model42__d8.csv",
+        "csv_sha256": "927d7cff5670ddc4b728bdb6313ccc3067f1877a1c5ab83fe67773959686a8be",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model42__d8.json",
+        "json_sha256": "55ff80bfbc00f1d143ae19a3af147edd72209de7b92211f56887acd8acd33c3a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model43__d10.csv",
+        "csv_sha256": "bd3e8a840c81899ccd6f5ad2cba31fd53da27399c440172f34c1690b03d93acb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model43__d10.json",
+        "json_sha256": "831bb12671ae755cd99e90ed8b1f2f075688c99e5ae388fb9c6eb19efb4668ea"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model43__d12.csv",
+        "csv_sha256": "2ce3f8fc9f605b2d0649d0f41b933ea377a32739f1971f2de657af09a97172a7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model43__d12.json",
+        "json_sha256": "b492e857eb9701fedeb3d2f10720111bfba862b5cca65911662c399b15b8aefe"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model43__d8.csv",
+        "csv_sha256": "0a8fbecd521ac0064d22836fe043b573f3d0692761ae471b6604e42affe23539",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5a_id_unsw__split46__model43__d8.json",
+        "json_sha256": "9485d9751073a239cf2225ba7c21a87f032f0f111235bdf97a90432686641004"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model42__d10.csv",
+        "csv_sha256": "f63f4592cdcd10cf05778b57a035a809a02cc1cf89d757b80aeead907ce77291",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model42__d10.json",
+        "json_sha256": "826ff62974520b691b821280b24911f60001cdab81b362d2ac7b7b6b109612b7"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model42__d12.csv",
+        "csv_sha256": "53ef3af07f686acfd2c8a8d11baca92e9670c57d476592d6f37e7935d169158e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model42__d12.json",
+        "json_sha256": "243edffa7bd76e20c0a78572f0378240397a5f259beb35eb240ae8abba7991b8"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model42__d8.csv",
+        "csv_sha256": "a2e147758a87c3221a2867a44c77d4c86135b4910773e13a36852c6c9f7859a0",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model42__d8.json",
+        "json_sha256": "c8118030f8153b3d8b37b8f04f1229ff746a31593d65a9404abb76abf9bf39d4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model43__d10.csv",
+        "csv_sha256": "bc21c72ec50a3d8f75d8a90fbf60fdea1a47105f982a2212fb0fd3c467fd21f4",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model43__d10.json",
+        "json_sha256": "e323fffba419fa862d65d5355b5689b7c242cb82e7d0870e93dc44bc6ac1ebbe"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model43__d12.csv",
+        "csv_sha256": "a99607a2ff71ea01866a7aabf843c16e4a8ea6abe4ec6c4146de76f9c964b506",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model43__d12.json",
+        "json_sha256": "cd6f3770c0f1a385396e7b204ebc3c29dcbc1b708ddc68340481734b1b3e90cf"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model43__d8.csv",
+        "csv_sha256": "c8cb701b48aa6eb7d1c47cf2293ef46930ae754dd3b61efb857f0fe5230d1688",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split42__model43__d8.json",
+        "json_sha256": "7d4e44bd02a6cdb495943819f542dffbc50fde733f159622e38b5d1620bae22f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model42__d10.csv",
+        "csv_sha256": "ec95fb1f9a0a78cce47b8641305c3d925345dc2587261d979c98f48854191bfb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model42__d10.json",
+        "json_sha256": "2bb3b658cada5a158929e2b55d02b20611e84980d39d9d4edb61d4ff3e921c4d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model42__d12.csv",
+        "csv_sha256": "54547d4bdc6915bff8f5e8f3cae2f4326aa70df5dcedb55c36680ab87154ca40",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model42__d12.json",
+        "json_sha256": "084857c49b78f5ae996e31c093c5c13474959681a876776e7893406002484039"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model42__d8.csv",
+        "csv_sha256": "b5a14a83011a8ecb4e2fc6f7bbaab8f502fa9ee544f608a4bdf1fb5eadf2ba9e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model42__d8.json",
+        "json_sha256": "f1a362c877456aa06f3b9fbf4e79e76f1d0242f5698d72c3209d72c28a88ab00"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model43__d10.csv",
+        "csv_sha256": "3f1851b739bdd36ba1d083071907e670d797c2d69ada999d017fce8a00ac8605",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model43__d10.json",
+        "json_sha256": "c8dfcd461616e5bcc0e07388ecee821ba1b1a514b7688bfef2dbc3bbf34b44e5"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model43__d12.csv",
+        "csv_sha256": "cc161eaf35b5da7c85712486120a17fc603fdd115544a2eaaf50dd52cf93b0a2",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model43__d12.json",
+        "json_sha256": "dff9ff0e3a785809b0c3f83d6f25e623bf7374823ce95f09d7aec32c6b7ef20c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model43__d8.csv",
+        "csv_sha256": "1a2f929e72eecfee6d71247e22720279667277f5f4b13b64ba181836d714bbed",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split43__model43__d8.json",
+        "json_sha256": "f20ba20c9ccddff72a8a5bedff8cd66c0b73e3e9e10ef4b5bcae1e71ced66701"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model42__d10.csv",
+        "csv_sha256": "f162da2434254409a9c2abf08058d6dfe33907ba4897cd66f7af4a290f057697",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model42__d10.json",
+        "json_sha256": "cd8576e9726cabe3b1dad2ee010be5028e5e58ddc7eb56ff27b49acf2b7c6360"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model42__d12.csv",
+        "csv_sha256": "5f61b59e20d8ea2d7eabd542dabf9c9be9204eac600037d4cf63b8f0860dd2a4",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model42__d12.json",
+        "json_sha256": "5f0d56c2ad5503eaacb2abea898fd27eda3b8db5e9344c1f831bca762bcf44dd"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model42__d8.csv",
+        "csv_sha256": "15280aab01f785105c0ca31780eedf808bbdfb4fe4d0d97bc8387b6726682492",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model42__d8.json",
+        "json_sha256": "7b54ad04ebbcda96a59eba3f33e63da48307a836d76dda5d748a47dcb5d92a87"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model43__d10.csv",
+        "csv_sha256": "9c62f94ccd6584626c4d2de004b36ee801104160d0872444e708170077cf7bba",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model43__d10.json",
+        "json_sha256": "2c3f35b1e97acb3c82b70b9de9bf5b4af415c6d4885cac6dae7381f2dba37e78"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model43__d12.csv",
+        "csv_sha256": "1d2d430a41a445b79fdc24b29edf6e1bf4d1043bb0582411abb91270a47b6640",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model43__d12.json",
+        "json_sha256": "783b7ca7e2ba993890ba5117fd6bdc7d004d88a99f50d0518693a22466c18161"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model43__d8.csv",
+        "csv_sha256": "8b51078cb3569cd4fbe16cfa680dcff470d2ee177b584db4d192263bd09cc915",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split44__model43__d8.json",
+        "json_sha256": "d1e2828978035e6f1ba956f277ea94bf7547d9dc4d8fca7ddd0922dee3ee279d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model42__d10.csv",
+        "csv_sha256": "aeba5dd4204daa3edf843bfe0a183cdc49337c9ad794c8f2411bfd1de8670adf",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model42__d10.json",
+        "json_sha256": "1960d42e2b8af81d64ddf645ca3a1314e67d38cd670a533d2b0317fb5b058ddb"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model42__d12.csv",
+        "csv_sha256": "b73fcbb71afbc100065336a8f06bbfa9e5d7c1d75a9597198b0175cf9f691e5a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model42__d12.json",
+        "json_sha256": "476493ac9649561cfceeb6f0bf11f8f05292b8e44c0e10bcdf5d63aaf26a391a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model42__d8.csv",
+        "csv_sha256": "fb3195f328886af8699fdc9772e6e0c8b1d753164223d3942fc52a81b11b981e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model42__d8.json",
+        "json_sha256": "dc398ba8f2867d5319f8c620a850a2734e9ce00265c8c8b719650c1da85f2c05"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model43__d10.csv",
+        "csv_sha256": "8698890accef1bc433db7f6e3d0e60236fc0154606bd830b72e523b05757f87e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model43__d10.json",
+        "json_sha256": "61ba5658b7c7e05a13238cb006b375a4021f163fa14e3d455fbe899809e3cbc4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model43__d12.csv",
+        "csv_sha256": "9232d8d242de1a79b1b0eb1d81ab03b8edc34e8b0f21b162846691c18e078812",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model43__d12.json",
+        "json_sha256": "1da4ede150cb05cd56b8129e883409e155b129dea6cf3ca54a2257d06bbdcf12"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model43__d8.csv",
+        "csv_sha256": "0727e3e87a067c8e809450df8afeade370ed0e527a0bed9c0a51f7c16b0d2ab8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split45__model43__d8.json",
+        "json_sha256": "10295cfbafb40080bca2b1fe7f02d3a3fc27ab25cfc3bd8eb64b33ec2978066e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model42__d10.csv",
+        "csv_sha256": "cabcee01ef7d96dd664e008691a368c1cc217aeda72de5f348073f66f19eefc1",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model42__d10.json",
+        "json_sha256": "cfed4a9267946cda18b5e7d58529916adde29e0445eb129809130ee5a4f93fb6"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model42__d12.csv",
+        "csv_sha256": "51d7bd3833946bd22cff9d7753148c34f8601ebc904c4fa33e2c75e3c8aa8391",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model42__d12.json",
+        "json_sha256": "12ebd29b79ac7959cb9060901b6af8ba1dfffb33ca30f9d00bb5075e0ec66ccc"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model42__d8.csv",
+        "csv_sha256": "ab0e92c8fc46f183591030e879a2991a10b0ffa6d1d65af25d7341db25b4dd4a",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model42__d8.json",
+        "json_sha256": "0c16050116393c6ce2d1d79f3abdfd56e14ec31bc919438f9224bc2358376f64"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model43__d10.csv",
+        "csv_sha256": "bd489985defe846d607833becd401e86f5b8f84b48129ea047304340b02f2d30",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model43__d10.json",
+        "json_sha256": "9eeeb2d10a5a7e66c95c39bbcba10a4490f24bf042d95d8d2ec3fb45b69fb9fa"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model43__d12.csv",
+        "csv_sha256": "8cba917e4edce6dc7a4f53b938b55ce43738fd8da33d94d2828e326ffdfcfeb0",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model43__d12.json",
+        "json_sha256": "93e29dc9321930d7ab9f546dd80f84ba7cda48ffec9faa3215a22e561f2c4611"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model43__d8.csv",
+        "csv_sha256": "503c713c5857db40ac5452936bbc3489447613f7f762edfb11e0f9cd8bfeb49d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate5b_id_ton_iot__split46__model43__d8.json",
+        "json_sha256": "57fe1e026b3707f9a4cc469c8a14c28b63a757f1ef3ea583a6d02a2b6b43af3a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model42__d10.csv",
+        "csv_sha256": "901f36f44e79c76979bd5abc587c2684251e43ffacf0caab03257c98216466c0",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model42__d10.json",
+        "json_sha256": "09d1fbd1e6b33adadbca692bee1231a9149ea73678db25f01012e3dddff02634"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model42__d12.csv",
+        "csv_sha256": "020a0152652cc7171c1ec959dd707ec9c03f0b903a3534fec7f86fc2cc4daec7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model42__d12.json",
+        "json_sha256": "31ad6983183f9849b0be1413efb978b90a24ce726c3be0962b6d54da2874ddc7"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model42__d8.csv",
+        "csv_sha256": "3f1f04495ac781171a5fa325b4a7ce374cda79eda3fe292985320385746b76a6",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model42__d8.json",
+        "json_sha256": "bb814439f8801797cbabc9d5516c126f8b0368693b58a545ab79e84d58fb3ca4"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model43__d10.csv",
+        "csv_sha256": "719491491625f5319d6860403e6b4661db66c9750cf4a2ac7ab53a0b356f7474",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model43__d10.json",
+        "json_sha256": "b4329683e4abbc278134df8fbc0c93509ae9389b36c82ee48c23dbc85247113f"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model43__d12.csv",
+        "csv_sha256": "b6913c9743a7a3887d4be408d446b130449c98cab10ad10ef6409ace1742509d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model43__d12.json",
+        "json_sha256": "8ecd900f00c0f2c4258aa80b09d456033246a20dc041c367e62336899a1c0df2"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model43__d8.csv",
+        "csv_sha256": "f61b5ade8051b3ed189712b664995945ee580d7d649f6f7c92eb456a84f37cc7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split42__model43__d8.json",
+        "json_sha256": "a5b66cf198380d0f0546443485a2fcb11c53ec396c0b0d9edfe42d4af3f6792c"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model42__d10.csv",
+        "csv_sha256": "ae6df65f11225020ba64ce116864217f76e50c011b019aa87e253d08a4fce9df",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model42__d10.json",
+        "json_sha256": "a60547c5e4c4b949ee239936fc7ed6362da3c7300c47070e80ad6f452ca8c268"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model42__d12.csv",
+        "csv_sha256": "c8aa8fc4ac3f8af2ae6a4f9e6bb4c1c7f3ff9242c5e353570628017e243a4352",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model42__d12.json",
+        "json_sha256": "b8d7f5cea1ccc936c47710611f486f48e084a08cd1687ce4d545b2a15d8b4400"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model42__d8.csv",
+        "csv_sha256": "81b1faa2532c31d0d3e40bf6ada6a85d8074af7e3c129897bf13b24879325732",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model42__d8.json",
+        "json_sha256": "2022e7553d5f18f340bde6c3227fb4a9b5ac1ede9688e9dc2b07f978a682f99e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model43__d10.csv",
+        "csv_sha256": "4c8d0df7b70a0c7897f1589e65922438d0951a610d8f0ee73af0e17050d1c7fb",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model43__d10.json",
+        "json_sha256": "5ac8ab5528de4d3dd84cb0b0816c98cf945da4768e8bb81c40f579410e290504"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model43__d12.csv",
+        "csv_sha256": "f0eafe6b658951006e2c5ddd2a7e4bdad89f39ea2facf64f84e524a98895303b",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model43__d12.json",
+        "json_sha256": "cf8cca8f769149eda70f340791768d151a41dcee997a0d1686ebb43fc2b7d086"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model43__d8.csv",
+        "csv_sha256": "3798215320e63db8be33b71a3db506dfdce3ed99eb595989e6e3051911770c0d",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split43__model43__d8.json",
+        "json_sha256": "c00463702b28533ee0c501b64f76752d7a2531a11f46d36dd0d3277325351290"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model42__d10.csv",
+        "csv_sha256": "65f60e608a5c25e876b9015b5f64da5eaeb5b832b0cefa9a4d4b3c28677e544e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model42__d10.json",
+        "json_sha256": "e130adf4cd2dce18747527499c1d5f2f61c9eb8aa50eca8115b79ad7780f4f6a"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model42__d12.csv",
+        "csv_sha256": "658b7320ab85a6b7ff3ab7332d47e6b27c35c72aaaba55bd696d672f7624af01",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model42__d12.json",
+        "json_sha256": "c7cccc6578b73676b702bb884d92ecfdf6da38f4da927fe2fe66c967e9b9649e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model42__d8.csv",
+        "csv_sha256": "e3581bf803b2068011a986b576392c02e15e91b9eb45959cbd5b71400b3948cf",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model42__d8.json",
+        "json_sha256": "f05f500a208362d94573cd525687359b0ea71a4fec2dfffe7a6d867cfbdd331d"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model43__d10.csv",
+        "csv_sha256": "05f31a624213ff555d60d9ac8b1d36218d89907275a22a7ff8075bd7c593d1d8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model43__d10.json",
+        "json_sha256": "051fd395aad529278f941f4b7f620e97c63677d9b211d0d61def893674fb682e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model43__d12.csv",
+        "csv_sha256": "6ee26e1c335bf540b14df6f3c1c26596f786a321ab2e1b61a3131d7df01b028c",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model43__d12.json",
+        "json_sha256": "1985240f77a3b3ad86a9babe2cecb12a798dc0183d8e23076f708183376c0ee1"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model43__d8.csv",
+        "csv_sha256": "142f3c3d885e2e65051dd0862da6ddc02d4ef1433aac0bb060f4f605247c7f8f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split44__model43__d8.json",
+        "json_sha256": "0490a873d28bd19995b9cfc3db811e4435aff6fb27cb40bb186bafa6c763dc51"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model42__d10.csv",
+        "csv_sha256": "b1120dad71b35974ea68379bccd465f2964d15082d3e58bcce7f2d8e2fb6a352",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model42__d10.json",
+        "json_sha256": "f754cd80d2cf16028414912a5b89d8c27fcf216b910d560595179d73dabc0830"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model42__d12.csv",
+        "csv_sha256": "b08c87ce4e1f9069d410db3256e96c8c8751a8064e8a8a80704038dc0465246f",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model42__d12.json",
+        "json_sha256": "4e6fc1b8c9ce799b4cd3a6c7fcf4d57e95c83c0f3e4dbcdfcb7213fdd5b9a2e7"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model42__d8.csv",
+        "csv_sha256": "a84ad435e8056da71d741f572520bab3fc4195def4f657da0f78466c65c17a8e",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model42__d8.json",
+        "json_sha256": "5eeda057678a7261ff742298865a0eb1ddbd2fdfd07a6059bc488e4cfd68b063"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model43__d10.csv",
+        "csv_sha256": "52b083b423cc9a0293385970c1fda3ead1b19e5c8e6659303452cf83a85358f8",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model43__d10.json",
+        "json_sha256": "44dd1fb39deec86605f40bf23964492b7e12293066517eaaa6fac0918a41f61e"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model43__d12.csv",
+        "csv_sha256": "21badd4938a27d89be17c94303dab6d3ebbb253c970d3badf3a0fd36366f7aab",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model43__d12.json",
+        "json_sha256": "9127ce0e6e08498554b76b7ed4679dd16ecb261ca48f6e22780dfa758f97dd68"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model43__d8.csv",
+        "csv_sha256": "f6a8a0fc57ce420dfcae628917b005f17f3a3af583a66a3d83ea1d7920a689a4",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split45__model43__d8.json",
+        "json_sha256": "9c99082dbf0c1f8f35cde1474562d6f93f018060e7e50de69d180cde52b11181"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model42__d10.csv",
+        "csv_sha256": "553d1ebe04fc001ae1782a9b56143589393da0b8ad7353feac143ccf59a0f259",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model42__d10.json",
+        "json_sha256": "388d35fd3eded05a9f76354cf20b7236d2b2fad9cb4061d1ce73fa75df1ee2a2"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model42__d12.csv",
+        "csv_sha256": "630689176c59a580e07576fa2ace85fdeabd366bdb3ec4e8026a613e6e038762",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model42__d12.json",
+        "json_sha256": "525bbf9202bb094084fef7d18373e1d3ca26b76a45db90c9c591a5e47361a7e0"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model42__d8.csv",
+        "csv_sha256": "58788bcd4a909477d52bfcd71541b8eb2fcbc9f6721457c29ec23231c6d084d3",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model42__d8.json",
+        "json_sha256": "bb8c7092daaf9ff43def2962a7a5e90409d30a171a755c385c238964fbd0c9ef"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model43__d10.csv",
+        "csv_sha256": "05ff7de4ec709a200268cea96a6e6a4a6648fe79f300b59721f4aadcabc1e527",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model43__d10.json",
+        "json_sha256": "a9c618f35023c3a4c97b05cdddc0af2b143e1212744e6049338435fc52a20593"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model43__d12.csv",
+        "csv_sha256": "ea133395c48d1a45c1c28cb2b309c5093dcae0255d9afa030a44c3c2f3eab6c7",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model43__d12.json",
+        "json_sha256": "9744afde9aa993790fc28d3771db5acc14028e29549d6c0d62612c824895faa8"
+      },
+      {
+        "csv": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model43__d8.csv",
+        "csv_sha256": "2af3d869bbedb5f0e31471efef1dad07e8c583d2bb650346c93bc977b2c37bdf",
+        "json": "results/raw/paper15_v135_geometry/geometry__gate6_ood_unsw__split46__model43__d8.json",
+        "json_sha256": "acb6971787c3ae3f47b44a2f9eee89357a4bd106fc5c54c25b2fb423eb7a734c"
+      }
+    ]
+  },
+  "outputs": {
+    "geometry_audit.csv": {
+      "rows": 13,
+      "sha256": "73d11134650f6d6520fbdf01a29f948e89105688d812aa6da330f2a082146637"
+    },
+    "geometry_observations.csv": {
+      "rows": 13200,
+      "sha256": "f16cd40bce6447ae137eaf5a4b6c2da4fe5cc194e356f2355baffb708dc92aab"
+    },
+    "geometry_null_response.csv": {
+      "rows": 213,
+      "sha256": "c136c5a9720534b324fb6fb29db18d7792491c0cf937f47a72ec09656a9b8edd"
+    },
+    "geometry_attack_detection.csv": {
+      "rows": 1936,
+      "sha256": "a89482b51b7943efd2d55397bb1161813e477f1cf95b6d2ece01f314424898db"
+    },
+    "geometry_near_null.csv": {
+      "rows": 144,
+      "sha256": "ad79eb5070f7becd909bd114f770eb4422dabb8272c3202849c7393b8138b337"
+    },
+    "geometry_gateA_by_strength.csv": {
+      "rows": 704,
+      "sha256": "1d5440bb8f163a4f779069789aac5e87c29cc20f2857a4b12577df4e52da24ac"
+    },
+    "geometry_gateA_summary.csv": {
+      "rows": 24,
+      "sha256": "752a38db13913db481cc903afd74aa621316ad4a241de0f3c2ffe876bbf1d1f2"
+    }
+  },
+  "presentation_output": {
+    "path": "publication/tdsc/tables/geometry_sensitivity_macros.tex",
+    "sha256": "24b8e665caf86120cd4071dc45e4a514ca50800def43b94c3af2146bb6b60830"
+  },
+  "presentation_table": {
+    "path": "publication/tdsc/tables/s_geometry_sensitivity.tex",
+    "sha256": "a2fc40abf50812eac95abecd44c8ced300c9aae576e5831e201daa0831f9bcc6"
+  }
+}

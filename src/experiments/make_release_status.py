@@ -1,4 +1,4 @@
-"""Generate the single source of truth for release counts (artifact 1.2.0).
+"""Generate the single source of truth for release counts.
 
 Every count that documentation quotes (evidence manifests, manifested outputs,
 artifact files, tests, main and supplement page counts, PDF hashes, version,

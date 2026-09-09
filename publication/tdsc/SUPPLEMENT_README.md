@@ -1,4 +1,4 @@
-# Supplementary material README (release 1.3.4; experimental evidence frozen at 1.3.0)
+# Supplementary material README (release 1.3.5; original evidence frozen at 1.3.0)
 
 ## Description
 
@@ -21,8 +21,9 @@ with the conformal family rule (with the asymmetric 1.2.0 rule as comparison,
 the decomposition of its excess into rule bias and design effect, E1
 reported separately, the split construction as sensitivity, and the complete
 decision counts with the benign-interruption cost), the preregistered
-adversarial Gate A of artifact 1.3.0 in full, the secondary model-impact
-profile, and the claims-supported/claims-excluded boundary.
+adversarial Gate A of artifact 1.3.0 in full, the preregistered v1.3.5
+geometry-aligned sensitivity, the secondary model-impact profile, and the
+claims-supported/claims-excluded boundary.
 
 The supplement adds audit and reproduction detail; it does not add evidence
 from a physical QPU, calibrated backend noise, scheduling, multi-tenancy,
@@ -37,7 +38,7 @@ or operational Fleet Management.
   and SHA-256 in `publication/RELEASE_STATUS.md`);
 - `CLAIMS_TRACEABILITY.md` — claim-to-artifact map;
 - `publication/artifact/` — compact verification artifact, including code,
-  tests, locked dependencies, derived evidence, eight SHA-256 evidence
+  tests, locked dependencies, derived evidence, nine SHA-256 evidence
   manifests and the artifact-wide manifest.
 
 Exact sizes and SHA-256 values are reported in `CHECKSUMS.sha256` and
@@ -77,7 +78,7 @@ The tests must pass (the collected count is recorded in
 tests of the conformal rule, the five-vector counterexample to the 1.2.0
 rule, the brute-force checks of the formal core, the intervention-semantics
 and finite-shot tests and the manuscript consistency gates. The verifier
-must exit zero and report eight evidence manifests, the manifested outputs,
+must exit zero and report nine evidence manifests and 93 manifested outputs,
 3,600 expansion label rows with 2,184 lowered / 983 unchanged / 433 raised
 conclusions (2,617 changed), 1,440 Gate-1 label rows with 1,276 / 105 / 59,
 60 calibrated cells, 7,008 material observations over 5 regimes and 4
@@ -85,7 +86,10 @@ policies, the conformal level 10/201 respected under the exchangeable
 re-splits, the trusted-regime interruption decomposition (85 gross exact
 blocks, 46 overlaps, 39 net additions; total 629), 16 adversarial conditions
 with an exact replay of the matched
-controls, and the number of files in the artifact-wide manifest. A hash,
+controls, 13,200 geometry-sensitivity observations across eight environments
+and 22 interventions, exact identity response, geometry declarations,
+matched-control/adaptive pairs and recomputed summaries, and the number of
+files in the artifact-wide manifest. A hash,
 schema, count or consistency mismatch causes a non-zero exit.
 
 ## Full replay

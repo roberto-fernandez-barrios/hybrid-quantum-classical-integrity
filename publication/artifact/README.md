@@ -1,13 +1,13 @@
-# Compact verification artifact — version 1.3.4
+# Compact verification artifact — version 1.3.5
 
 This directory is the self-contained, derived-evidence artifact for
 *Observational Indistinguishability and Integrity Blind Regions in Hybrid
 Quantum-Classical Workflows*.
 
-It contains no raw benchmark dataset. The 57 MB package includes the
+It contains no raw benchmark dataset. The 74 MB package includes the
 article and supplement PDFs, scientific provenance, figures, figure source
-tables, environment lock, source/tests snapshot, 8
-evidence manifests and all 86 outputs referenced by
+tables, environment lock, source/tests snapshot, 9
+evidence manifests and all 93 outputs referenced by
 those manifests.
 
 ## Verify without recomputation
@@ -29,11 +29,11 @@ primary count causes a non-zero exit.
 
 - `evidence/` — derived CSV/JSON evidence and embedded SHA-256 contracts
   (`gate1`, `expansion`, `quantum_integrity`, `hsaas`, `reinforcement`,
-  `policy`, `adversarial`, `amendment_v132`);
+  `policy`, `adversarial`, `amendment_v132`, `geometry_sensitivity`);
 - `manuscript/` — article PDFs, formal and adversary models,
   preregistrations, result summaries, figures, and tables;
 - `environment/` — Python 3.10 dependency lock and packaging metadata;
-- `software/` — exact Python source and tests snapshot used for version 1.3.4.
+- `software/` — exact Python source and tests snapshot used for version 1.3.5.
 
 See `manuscript/REPRODUCIBILITY.md` for dataset staging and experiment replay.
 Exact-statevector evaluation and binomial-shot emulation are not QPU evidence.

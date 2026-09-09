@@ -3,6 +3,18 @@
 Scientific releases are preserved by their Git tags and Zenodo records. This
 file summarizes public release history; implementation detail remains in Git.
 
+## 1.3.5 — 2026-09-09
+
+- Added one preregistered geometry-aligned sensitivity analysis resolving the
+  relationship between clean-resample calibration and same-item intervention
+  scoring.
+- Preserved every prior scientific evidence file byte-for-byte and kept all
+  datasets, model families, kernels, feature maps, hyperparameters, threat
+  classes, formal theorems, and primary structural experiments unchanged.
+- Clarified the declared-reference scope of minimum evidence granularity,
+  compact authenticated representations, trusted-aggregate generation, and
+  the statistical attribution used by the conformal family rule.
+
 ## 1.3.4 — 2026-09-09
 
 - Corrected bibliographic metadata and completed the primary-source reference audit.

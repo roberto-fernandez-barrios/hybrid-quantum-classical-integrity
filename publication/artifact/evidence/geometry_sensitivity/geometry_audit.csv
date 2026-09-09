@@ -1,0 +1,14 @@
+sensor,calibration_reference,calibration_current,attack_reference,attack_current,paired_unpaired,geometry_matched,consequence
+integrity_jsd_vs_clean_eval,fixed E,clean resample C,fixed E,T(fresh B),unpaired fixed-reference in both,yes,aligned distributional feature response
+integrity_mmd_vs_clean_eval,fixed E,clean resample C,fixed E,T(fresh B),unpaired fixed-reference in both,yes,aligned distributional feature response
+integrity_ks_reject05_vs_clean_eval,fixed E,clean resample C,fixed E,T(fresh B),unpaired fixed-reference in both,yes,aligned feature-CDF response
+integrity_score_jsd_vs_clean_eval,scores f(E),scores f(C),scores f(E),scores f(T(B)),unpaired fixed-reference in both,yes,aligned score-distribution response
+integrity_pred_pos_rate_shift,prediction rate f(E),prediction rate f(C),prediction rate f(E),prediction rate f(T(B)),unpaired fixed-reference in both,yes,aligned prediction-marginal response
+integrity_pred_jsd,prediction distribution f(E),prediction distribution f(C),prediction distribution f(E),prediction distribution f(T(B)),unpaired fixed-reference in both,yes,aligned prediction-distribution response
+integrity_label_prior_shift,label rate y(E),label rate y(C),label rate y(E),label rate y(B),unpaired fixed-reference in both,yes,unchanged by feature edit; may reflect clean composition
+integrity_label_jsd,label distribution y(E),label distribution y(C),label distribution y(E),label distribution y(B),unpaired fixed-reference in both,yes,unchanged by feature edit; may reflect clean composition
+integrity_confusion_profile_l1,confusion PMF on E,confusion PMF on C,confusion PMF on E,confusion PMF on T(B),unpaired fixed-reference in both,yes,aligned aggregate outcome response
+integrity_confusion_profile_jsd,confusion PMF on E,confusion PMF on C,confusion PMF on E,confusion PMF on T(B),unpaired fixed-reference in both,yes,aligned aggregate outcome response
+paired identity response,fresh B,fresh B,fresh B,identity(B),exact same-item,yes,reported separately; all meaningful scores zero
+paired prediction disagreement,predictions f(B),predictions f(B),predictions f(B),predictions f(T(B)),exact same-item,yes,not inserted into clean-resample calibration
+paired label mismatch,labels y(B),labels y(B),labels y(B),labels y(B),exact same-item,yes,zero for every authorized feature intervention

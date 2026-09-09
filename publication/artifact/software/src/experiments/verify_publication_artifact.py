@@ -20,7 +20,7 @@ import pandas as pd
 
 
 TOL = 1e-12
-EXPECTED_MANIFESTS = 8  # prior seven frozen evidence packages plus the 1.3.2 frozen-only amendment
+EXPECTED_MANIFESTS = 9  # eight immutable packages plus the v1.3.5 geometry sensitivity
 
 
 def _sha256(path: Path) -> str:
@@ -341,6 +341,179 @@ def verify_v132_amendment(root: Path) -> dict[str, int]:
     }
 
 
+def _assert_rate(observed: float, expected: float, label: str) -> None:
+    if abs(float(observed) - float(expected)) > TOL:
+        raise ValueError(f"geometry sensitivity derived value changed: {label}")
+
+
+def verify_geometry_sensitivity(root: Path) -> dict[str, int]:
+    """Independently verify the v1.3.5 geometry grid and derived summaries."""
+
+    manifest_path = next(root.rglob("geometry_sensitivity_manifest.json"), None)
+    if manifest_path is None:
+        raise FileNotFoundError("geometry_sensitivity_manifest.json required")
+    folder = manifest_path.parent
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected_gates = {
+        "gate2_id_256",
+        "gate3a_ood_tue_wed",
+        "gate3b_ood_tue_fri_portscan",
+        "gate3c_ood_wed_thu_webattacks",
+        "gate3d_ood_wed_fri_morning",
+        "gate5a_id_unsw",
+        "gate5b_id_ton_iot",
+        "gate6_ood_unsw",
+    }
+    strengths3 = (0.02, 0.05, 0.10)
+    strengths5 = (0.02, 0.05, 0.10, 0.25, 0.50)
+    expected_attacks = {
+        "sham_identity",
+        "sham_tiny_gaussian_sigma_0.001",
+        "sham_tiny_scaling_alpha_0.001",
+        *(f"mean_shift_pf_delta_{s:.3f}" for s in strengths3),
+        *(f"scaling_drift_alpha_{s:.3f}" for s in strengths3),
+        *(f"feature_dropout_p_{s:.3f}" for s in strengths3),
+        *(f"cluster_preserving_mean_shift_delta_{s:.3f}" for s in strengths5),
+        *(f"cluster_preserving_scaling_alpha_{s:.3f}" for s in strengths5),
+    }
+    design = manifest.get("design", {})
+    if (
+        set(design.get("environments", [])) != expected_gates
+        or design.get("dimensions") != [8, 10, 12]
+        or design.get("split_seeds") != [42, 43, 44, 45, 46]
+        or design.get("model_seeds") != [42, 43]
+        or set(design.get("interventions", [])) != expected_attacks
+        or design.get("raw_jobs") != 240
+        or design.get("model_cells") != 600
+    ):
+        raise ValueError("geometry sensitivity manifest design differs from the preregistered grid")
+
+    obs = pd.read_csv(folder / "geometry_observations.csv", low_memory=False)
+    key = ["gate", "svd_dim", "split_seed", "model_seed", "model", "attack"]
+    if len(obs) != 13200 or obs.duplicated(key).any():
+        raise ValueError("geometry sensitivity must contain 13,200 unique model/attack observations")
+    if set(obs["gate"]) != expected_gates or set(obs["attack"]) != expected_attacks:
+        raise ValueError("geometry sensitivity has an unexpected environment or intervention")
+    if not bool(obs.groupby("attack").size().eq(600).all()):
+        raise ValueError("geometry sensitivity has missing intervention cells")
+    if not bool(
+        (obs["geometry_id"] == "fixed_frozen_E__fresh_eval_draw_01").all()
+        and (obs["reference_geometry"] == "fixed_frozen_E").all()
+        and (obs["clean_current_geometry"] == "fresh_eval_draw_01").all()
+        and (obs["attack_current_geometry"] == "intervened_fresh_eval_draw_01").all()
+        and (obs["clean_draw_tag"] == "clean_resample_eval_01").all()
+        and (obs["n_reference"] == obs["n_current"]).all()
+    ):
+        raise ValueError("declared and executed geometry do not match")
+
+    identity = obs[obs["attack"] == "sham_identity"]
+    paired_sensor_cols = [c for c in obs.columns if c.startswith("paired__")]
+    paired_identity_cols = paired_sensor_cols + [
+        "paired_pred_disagreement",
+        "paired_label_flip_rate",
+        "paired_confusion_profile_l1",
+        "paired_confusion_profile_jsd",
+    ]
+    if identity[paired_identity_cols].astype(float).abs().to_numpy().max(initial=0.0) > TOL:
+        raise ValueError("paired identity response is not exactly zero")
+    for paired in paired_sensor_cols:
+        sensor = paired.removeprefix("paired__")
+        if (identity[sensor].astype(float) - identity[f"clean__{sensor}"].astype(float)).abs().max() > TOL:
+            raise ValueError("aligned identity copy was confused with the exact paired response")
+
+    adaptive = obs[obs["attack_class"] == "adaptive"]
+    if set(adaptive["strength"].round(3)) != set(strengths5):
+        raise ValueError("adaptive strength grid is incomplete")
+
+    detection = pd.read_csv(folder / "geometry_attack_detection.csv", low_memory=False)
+    for index, row in detection.iterrows():
+        group = obs[obs["attack"] == row["attack"]]
+        if row["scope_type"] == "environment":
+            group = group[group["gate"] == row["scope"]]
+        elif row["scope_type"] == "branch":
+            group = group[group["branch"] == row["scope"]]
+        elif row["scope_type"] != "pooled":
+            raise ValueError(f"unknown geometry detection scope {row['scope_type']}")
+        fire = group[f"fire_{row['rule']}__{row['regime']}"].astype(bool)
+        clean = group[f"clean_fire_{row['rule']}__{row['regime']}"].astype(bool)
+        if int(row["n"]) != len(group) or int(row["n_fire"]) != int(fire.sum()):
+            raise ValueError(f"geometry detection count mismatch at row {index}")
+        _assert_rate(row["response_rate"], fire.mean(), f"detection row {index}")
+        if (
+            int(row["clean_n_fire"]) != int(clean.sum())
+            or int(row["attack_only"]) != int((fire & ~clean).sum())
+            or int(row["clean_only"]) != int((~fire & clean).sum())
+            or int(row["both_fire"]) != int((fire & clean).sum())
+            or int(row["neither_fire"]) != int((~fire & ~clean).sum())
+        ):
+            raise ValueError(f"geometry paired clean/attack decomposition mismatch at row {index}")
+
+    near = pd.read_csv(folder / "geometry_near_null.csv", low_memory=False)
+    expected_near = detection[
+        (detection["attack_class"] == "near_null")
+        & detection["scope_type"].isin(["pooled", "environment"])
+    ].reset_index(drop=True)
+    pd.testing.assert_frame_equal(near, expected_near, check_dtype=False, check_exact=False, rtol=TOL, atol=TOL)
+    gate_by_strength = pd.read_csv(folder / "geometry_gateA_by_strength.csv", low_memory=False)
+    expected_gate = detection[
+        detection["mechanism"].isin(["mean_shift", "scaling_drift"])
+        & detection["attack_class"].isin(["control", "adaptive"])
+        & detection["regime"].isin(["I_X", "I_XF"])
+    ].reset_index(drop=True)
+    pd.testing.assert_frame_equal(gate_by_strength, expected_gate, check_dtype=False, check_exact=False, rtol=TOL, atol=TOL)
+
+    summary = pd.read_csv(folder / "geometry_gateA_summary.csv")
+    if len(summary) != 24 or not bool((summary["n_environment_split_cells"] == 40).all()):
+        raise ValueError("Gate A matched summary is incomplete")
+    for index, row in summary.iterrows():
+        if row["mechanism"] == "mean_shift":
+            control = f"mean_shift_pf_delta_{row['strength']:.3f}"
+            attack = f"cluster_preserving_mean_shift_delta_{row['strength']:.3f}"
+        else:
+            control = f"scaling_drift_alpha_{row['strength']:.3f}"
+            attack = f"cluster_preserving_scaling_alpha_{row['strength']:.3f}"
+        column = f"fire_{row['rule']}__{row['regime']}"
+        c = obs[obs["attack"] == control]
+        a = obs[obs["attack"] == attack]
+        adaptive_material = a["material_tau0"].astype(bool)
+        adaptive_fire = a[column].astype(bool)
+        cells = c.groupby(["gate", "split_seed"])[column].mean().rename("control").to_frame().join(
+            a.groupby(["gate", "split_seed"])[column].mean().rename("adaptive"), validate="one_to_one"
+        )
+        if (
+            int(row["cells_adaptive_lower"]) != int((cells["adaptive"] < cells["control"] - TOL).sum())
+            or int(row["cells_equal"]) != int((cells["adaptive"] - cells["control"]).abs().le(TOL).sum())
+            or int(row["cells_adaptive_higher"]) != int((cells["adaptive"] > cells["control"] + TOL).sum())
+        ):
+            raise ValueError(f"Gate A matched-cell summary mismatch at row {index}")
+        _assert_rate(row["aligned_control_response"], c[column].astype(bool).mean(), f"Gate A control {index}")
+        _assert_rate(row["aligned_adaptive_response"], a[column].astype(bool).mean(), f"Gate A adaptive {index}")
+        if (
+            int(row["aligned_adaptive_material_rows"]) != int(adaptive_material.sum())
+            or int(row["aligned_adaptive_material_nonresponse_rows"])
+            != int((adaptive_material & ~adaptive_fire).sum())
+        ):
+            raise ValueError(f"Gate A material/nonresponse count mismatch at row {index}")
+        _assert_rate(
+            row["aligned_adaptive_material_nonresponse_fraction"],
+            (adaptive_material & ~adaptive_fire).sum() / adaptive_material.sum(),
+            f"Gate A material nonresponse {index}",
+        )
+
+    null_response = pd.read_csv(folder / "geometry_null_response.csv", low_memory=False)
+    identity_null = null_response[null_response["response_kind"] == "paired_identity"]
+    if identity_null.empty or int(identity_null["n_fire"].sum()) != 0 or identity_null["max_abs_response"].fillna(0).abs().max() > TOL:
+        raise ValueError("paired identity response summary is not exact-zero")
+    if not {"I_X", "I_XF"} <= set(null_response[null_response["response_kind"] == "clean_resample"]["target"]):
+        raise ValueError("clean-resample false-action summaries are incomplete")
+    return {
+        "geometry_observations": len(obs),
+        "geometry_environments": len(expected_gates),
+        "geometry_interventions": len(expected_attacks),
+        "geometry_gateA_matched_rows": len(summary),
+    }
+
+
 def verify_release_hashes(root: Path) -> int:
     manifest = root / "ARTIFACT_MANIFEST.sha256"
     if not manifest.exists():
@@ -365,6 +538,7 @@ def verify(root: Path) -> dict[str, int]:
     result.update(verify_policy_claims(root))
     result.update(verify_adversarial_claims(root))
     result.update(verify_v132_amendment(root))
+    result.update(verify_geometry_sensitivity(root))
     result["release_files"] = verify_release_hashes(root)
     return result
 
