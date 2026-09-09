@@ -1,4 +1,4 @@
-# Supplementary material README (artifact 1.3.3; experimental evidence frozen at 1.3.0)
+# Supplementary material README (release 1.3.4; experimental evidence frozen at 1.3.0)
 
 ## Description
 
@@ -17,7 +17,7 @@ replay check of the adversarial gate), the 165-cell quantum integrity gate
 read through the view lattice, the executable contract and its composition
 with the policy layer, the three preregistered reinforcement gates of
 artifact 1.1.0, the two policy gates of artifact 1.2.0 regenerated in 1.3.0
-with the conformal family rule (with the superseded 1.2.0 rule as comparison,
+with the conformal family rule (with the asymmetric 1.2.0 rule as comparison,
 the decomposition of its excess into rule bias and design effect, E1
 reported separately, the split construction as sensitivity, and the complete
 decision counts with the benign-interruption cost), the preregistered

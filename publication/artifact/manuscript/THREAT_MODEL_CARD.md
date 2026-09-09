@@ -1,6 +1,6 @@
 # Threat-model card — Paper 1.5 / ATHENA-AEGIS
 
-Version: 3.2 (2026-09-08; unchanged in bibliographic/editorial artifact 1.3.3;
+Version: 3.3 (2026-09-09; terminology aligned in corrective release 1.3.4;
 artifact 1.3.2 audited reference semantics and
 gross/net trusted-cost distinction; 3.1 was the 1.3.1 reference taxonomy, P3 name and
 definition, trusted-cost decomposition, quantum kernel notions; version 3.0 of
@@ -89,7 +89,7 @@ non-repudiation are outside the demonstrated claim.
 | `I_XF` | features and fixed-model outputs | any label-only change | conformal FPR 0.058; label path 0/3,600; cluster-preserving drift 0.06–0.66 |
 | `I_Ym` | label marginal | prior-preserving item-level relabeling; every feature-side change | FPR 0.048; zero containment; 5,450 residual-blind material cases at the structural endpoint |
 | `I_XFY` (batch) | multiset of item triples; Class-A statistical aggregate comparison against the clean same-item-set benchmark oracle, without item pairing | none for material label changes (Proposition 3) but statistically undetectable: 11–43 of 2,617 | conformal FPR 0.053; benchmark protection is not deployed authentication |
-| `I_XFY*` (trusted, same-batch) | deployed-authenticated aggregate (B) and item-aligned (C) commitments | none | exact: 2,617/2,617 material label rows and every material adaptive row; 0 materially altered audit results served; 0 violations on 1,200 exact-zero rows; 629/1,200 near-null interruptions, including 85 gross exact blocks but only 39 net additional interruptions versus batch `I_XFY`/P2 |
+| `I_XFY*` (trusted, same-batch) | deployed-authenticated aggregate (B) and item-aligned (C) references | none | exact: 2,617/2,617 material label rows and every material adaptive row; 0 materially altered audit results served; 0 violations on 1,200 exact-zero rows; 629/1,200 near-null interruptions, including 85 gross exact blocks but only 39 net additional interruptions versus batch `I_XFY`/P2 |
 | `I_Q` | circuit, kernel and execution evidence | class-dependent (Proposition 7): on circuit-side interventions hashes overreact to approved equivalence; on post-processing interventions algebra misses a PSD-preserving substitution of the observed kernel, which the circuit hash and the semantic probe cannot see either; outputs miss sub-decision changes; under finite-shot estimation exact equality is not an acceptance criterion | 165/165 cells |
 
 Reference profiles separate provenance (historical, benchmark-protected,

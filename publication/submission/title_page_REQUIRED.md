@@ -1,4 +1,4 @@
-# Title page — author-confirmed metadata (authors confirmed 2026-09-06; artifact 1.3.3)
+# Title page — author-confirmed metadata (artifact 1.3.4)
 
 ## Article metadata
 
@@ -10,7 +10,7 @@ Article type: **Regular Paper**
 Target: *IEEE Transactions on Dependable and Secure Computing*
 
 Index Terms: hybrid quantum-classical systems; integrity auditing;
-observability; quantum kernels; runtime assurance
+observability; quantum kernels; workflow integrity
 
 ## Authors and affiliations
 
@@ -56,7 +56,7 @@ authors on 2026-09-06; reconfirmed for 1.3.0 on 2026-09-07).
 
 ## Data and code availability
 
-The reproducibility artifact (version 1.3.3; experimental evidence frozen at
+The reproducibility artifact (version 1.3.4; experimental evidence frozen at
 version 1.3.0) contains source code, locked dependencies, tests (including
 the exhaustive tests of the conformal calibration rule, the brute-force
 checks of the formal core, the intervention-semantics and finite-shot tests
@@ -66,8 +66,9 @@ formal core and its statement-by-statement reviews, the adversary model,
 vector figures, eight SHA-256 evidence manifests and the artifact-wide
 manifest. Raw benchmark datasets are not redistributed; public sources,
 expected hashes and deterministic staging instructions are documented.
-Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest version); version DOI of 1.3.3: **10.5281/zenodo.22666931**
-(repository tag `paper15-q1-v1.3.3`; 1.3.2: 10.5281/zenodo.22664417; 1.3.1: 10.5281/zenodo.22651111; frozen evidence 1.3.0:
+Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest version); the version DOI
+of 1.3.4 is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`
+(repository tag `paper15-q1-v1.3.4`; 1.3.3: 10.5281/zenodo.22666931; 1.3.2: 10.5281/zenodo.22664417; 1.3.1: 10.5281/zenodo.22651111; frozen evidence 1.3.0:
 10.5281/zenodo.22648573; 1.2.0: 10.5281/zenodo.22644529; 1.1.1:
 10.5281/zenodo.22552643).
 
@@ -75,13 +76,13 @@ Concept DOI: **10.5281/zenodo.22550852** (resolves to the latest version); versi
 
 1. *Sharp Target-Domain Certificates for Quantum-Kernel Advantage under
    Distribution Shift* — submitted to EPJ Quantum Technology (6 September
-   2026); artifact DOI 10.5281/zenodo.21776862.
+   2026); related software artifact DOI 10.5281/zenodo.21776862 (not an
+   article DOI); supporting manuscript PDF supplied.
 2. *Conditional Validity of Quantum Event Classifiers under Collider
    Systematics and Quantum Estimation Uncertainty* — arXiv:2609.02781; prepared
    for npj Quantum Information.
 3. *Candidate Comparability Before Promotion: Conditional Validation in
-   Adaptive Network Intrusion Detection* — manuscript; artifact DOI
-   10.5281/zenodo.22239106.
+   Adaptive Network Intrusion Detection* — arXiv:2609.04388.
 
 These manuscripts share some datasets, kernels, monitors or vocabulary, but
 not this submission's propositions, intervention evidence, tables or
@@ -97,7 +98,7 @@ authors on 2026-09-06 and the 1.2.0/1.3.0/1.3.1 extensions (formal core,
 adversary model, policy gates, mathematical audit, conformal rule,
 adversarial gate, release automation and the 1.3.1 formal/editorial
 corrections) on 2026-09-07. The 1.3.2 sensor audit and frozen-derived tables,
-and the 1.3.3 bibliographic verification, positioning, readability pass,
+and the 1.3.4 corrective bibliographic/editorial verification, readability pass,
 regression guards, PDF inspection and release preparation are covered by the
 same disclosure and author responsibility.
 

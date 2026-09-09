@@ -94,7 +94,7 @@ def _style_axis(ax) -> None:
 
 
 def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
-    # Layout (artifact 1.3.3): short panel titles that cannot collide, legends and
+    # Layout (release 1.3.4): short panel titles that cannot collide, legends and
     # annotations placed in regions that carry no data, value labels lifted above the
     # whisker caps so that no glyph crosses a bar, an interval or another label, and
     # ticks large enough at 7.16 in print width.

@@ -47,10 +47,10 @@ Reference provenance, granularity and decision semantics are separate axes:
   reference may be historical or a benchmark-protected clean same-item set.
   The executed selected sensors use the latter, without item pairing and
   without a demonstrated deployed authentication mechanism.
-- Level/Class B: deployed-trusted aggregate same-batch commitment with an
+- Level/Class B: deployed-trusted aggregate same-batch reference with an
   exact invariant. It is sufficient for the protected aggregate and, for a
   conclusion that is a function of that aggregate, conclusion integrity.
-- Level/Class C: deployed-trusted item-aligned same-batch commitment with an
+- Level/Class C: deployed-trusted item-aligned same-batch reference with an
   exact invariant. It is required for item-identity integrity.
 
 The generated authoritative mapping is

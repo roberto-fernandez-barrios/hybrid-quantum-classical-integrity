@@ -341,7 +341,7 @@ def table_policy_tau(ev: Path) -> str:
             rows.append(f"{REGIME_LABEL[regime]} & {'P1' if policy == 'union_uncalibrated' else 'P2'} & " + " & ".join(cells) + " \\\\")
     n_tau = {tau: int(m[m["tau"] == tau]["n_material"].iloc[0]) for tau in (0.0, 0.02, 0.05)}
     caption = ("Gate D: materially altered audit results served (containment in parentheses) under three materiality thresholds on $|\\Delta_R|$; material observations " + _n(n_tau[0.0]) + ", " + _n(n_tau[0.02]) + " and " + _n(n_tau[0.05]) + ". The $\\tau\\to0^{+}$ column is a structural-sensitivity endpoint, whereas 0.02 and 0.05 are larger-effect sensitivity analyses. P1 union, P2 conformal.")
-    return _table("table", caption, "tab:s-policy-tau", "@{}llrrr@{}", "Regime & Pol. & $\\tau=0^{+}$ & $\\tau=0.02$ & $\\tau=0.05$ \\\\", rows, colsep="2.5pt")
+    return _table("table*", caption, "tab:s-policy-tau", "@{}llrrr@{}", "Regime & Pol. & $\\tau=0^{+}$ & $\\tau=0.02$ & $\\tau=0.05$ \\\\", rows, colsep="2.5pt")
 
 
 def table_policy_family(ev: Path) -> str:
@@ -356,7 +356,7 @@ def table_policy_family(ev: Path) -> str:
             cells.append(f"{_n(r['unsafe_allow'])}/{_n(r['n_material'])}")
         rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + " \\\\")
     caption = "Gate D: materially altered audit results served / material observations by intervention mechanism under the conformal calibrated policy P2 (structural-sensitivity endpoint $|\\Delta_R|>0$)."
-    return _table("table", caption, "tab:s-policy-family", "@{}lrrrr@{}", "Regime & " + " & ".join(FAMILY_LABEL[x] for x in fams) + " \\\\", rows, placement="H")
+    return _table("table*", caption, "tab:s-policy-family", "@{}lrrrr@{}", "Regime & " + " & ".join(FAMILY_LABEL[x] for x in fams) + " \\\\", rows)
 
 
 def table_witnesses(ev: Path) -> str:
@@ -426,7 +426,7 @@ def table_adversarial_policy(adv: Path) -> str:
             rows.append(f"{REGIME_LABEL[regime]} & {_n(nm)} & " + " & ".join(cells) + " \\\\")
         rows.append("\\addlinespace[1pt]")
     caption = ("Gate A: materially altered audit results served under P1 union, P2 conformal and P3 coverage-complete abstaining per regime, summed over mechanisms and strengths (structural-sensitivity endpoint $|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
-    return _table("table", caption, "tab:s-adversarial-policy", "@{}lrrrr@{}", "Regime & Material & P1 union & P2 conformal & P3 abst. \\\\", rows, colsep="4pt", placement="H")
+    return _table("table*", caption, "tab:s-adversarial-policy", "@{}lrrrr@{}", "Regime & Material & P1 union & P2 conformal & P3 abst. \\\\", rows, colsep="4pt")
 
 
 def table_adversarial_env(adv: Path) -> str:
@@ -455,7 +455,7 @@ def table_adversarial_branch(adv: Path) -> str:
     caption = ("Gate A: detection of the adaptive variants under the conformal rule by branch (classical SVC on standardized features; fidelity kernels on features scaled to $[0,2\\pi]$). The cluster rule is the same in both branches; the branch scaler changes how much the unclustered entries move relative to the null.")
     header = (" & & \\multicolumn{2}{c}{Classical} & \\multicolumn{2}{c}{Quantum} \\\\" + NL + "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}" + NL +
               "Mechanism & Strength & $\\mathcal I_X$ & $\\mathcal I_{XF}$ & $\\mathcal I_X$ & $\\mathcal I_{XF}$ \\\\")
-    return _table("table", caption, "tab:s-adversarial-branch", "@{}lrrrrr@{}", header, rows, colsep="3.5pt", placement="H")
+    return _table("table*", caption, "tab:s-adversarial-branch", "@{}lrrrrr@{}", header, rows, colsep="3.5pt")
 
 
 # ---------------------------------------------------------------------------
@@ -557,7 +557,8 @@ def macros(ev: Path, adv: Path, amendment: Path, expansion_dir: Path, gate1_dir:
         lines.append(_macro(f"LabelMaterial{tag}", _n((signed.abs() > 1e-12).sum())))
         lines.append(_macro(f"LabelRows{tag}", _n(len(rows))))
     # Gate A macros.
-    det = pd.read_csv(adv / "adversarial_detection_pooled.csv").set_index(["mechanism", "attack_class", "strength", "regime", "rule"])
+    det_frame = pd.read_csv(adv / "adversarial_detection_pooled.csv")
+    det = det_frame.set_index(["mechanism", "attack_class", "strength", "regime", "rule"])
     mat = pd.read_csv(adv / "adversarial_materiality.csv").set_index(["mechanism", "attack_class", "strength"])
     pol = pd.read_csv(adv / "adversarial_policy_metrics.csv")
     pol0 = pol[pol["tau"] == 0.0]
@@ -570,6 +571,23 @@ def macros(ev: Path, adv: Path, amendment: Path, expansion_dir: Path, gate1_dir:
                     lines.append(_macro(f"AdvDet{cw}{mw}{sw}{_key(regime)}", _f(det.loc[(mech, cls, s, regime, "family"), "detection_rate"], 2)))
                 lines.append(_macro(f"AdvMat{cw}{mw}{sw}", _f(mat.loc[(mech, cls, s), "material_fraction_tau0"], 2)))
                 lines.append(_macro(f"AdvPred{cw}{mw}{sw}", _f(mat.loc[(mech, cls, s), "prediction_change_rate"], 2)))
+    matched = det_frame[
+        (det_frame["strength"] <= 0.10)
+        & (det_frame["rule"] == "family")
+        & det_frame["regime"].isin(["I_X", "I_XF", "I_XFY"])
+    ]
+    for attack_class, word in (("control", "Ctrl"), ("adaptive", "Adapt")):
+        block = matched[matched["attack_class"] == attack_class]
+        for regime in ("I_X", "I_XF", "I_XFY"):
+            values = block[block["regime"] == regime]["detection_rate"]
+            lines.append(_macro(f"AdvDet{word}{_key(regime)}Min", _f(values.min(), 2)))
+            lines.append(_macro(f"AdvDet{word}{_key(regime)}Max", _f(values.max(), 2)))
+        headline = block[block["regime"].isin(["I_X", "I_XF"])]["detection_rate"]
+        lines.append(_macro(f"AdvDet{word}HeadlineMin", _f(headline.min(), 2)))
+        lines.append(_macro(f"AdvDet{word}HeadlineMax", _f(headline.max(), 2)))
+        all_batch = block["detection_rate"]
+        lines.append(_macro(f"AdvDet{word}AllBatchMin", _f(all_batch.min(), 2)))
+        lines.append(_macro(f"AdvDet{word}AllBatchMax", _f(all_batch.max(), 2)))
     totals = pol0.groupby(["attack_class", "regime", "policy"])[["n_material", "unsafe_allow"]].sum()
     for cls, cw in (("control", "Ctrl"), ("adaptive", "Adapt")):
         for regime in ("I_X", "I_XF", "I_XFY", "I_XFY_trusted"):

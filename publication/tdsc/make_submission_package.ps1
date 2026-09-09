@@ -24,7 +24,7 @@ if (Test-Path -LiteralPath $stage) {
 }
 New-Item -ItemType Directory -Path $stage | Out-Null
 
-foreach ($name in @("main.tex", "supplement.tex", "references.bib", "IEEEtran.cls", "build.ps1", "README.md", "SUPPLEMENT_README.md", "CLAIMS_TRACEABILITY.md", "VERSION")) {
+foreach ($name in @("main.tex", "supplement.tex", "references.bib", "reference_audit_v1.3.4.csv", "IEEEtran.cls", "build.ps1", "README.md", "SUPPLEMENT_README.md", "CLAIMS_TRACEABILITY.md", "VERSION")) {
     $source = Join-Path $PSScriptRoot $name
     if (Test-Path -LiteralPath $source) {
         Copy-Item -LiteralPath $source -Destination $stage

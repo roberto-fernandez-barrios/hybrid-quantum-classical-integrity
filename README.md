@@ -42,24 +42,24 @@ ZZ-versus-SVC comparison is secondary evidence only (supplement).
 Prior work already establishes observation-relative detectability,
 monitor-aware drift evasion, authenticated evaluation artifacts, conformal
 multiple testing, quantum provenance and hardware-backed quantum-stage
-contracts. Version 1.3.3 therefore positions the contribution narrowly as
+contracts. Version 1.3.4 therefore positions the contribution narrowly as
 **claim-relative minimum evidence granularity** across the workflow: VAMP can
 instantiate an external authentication root; QCIVET and QML-PipeGuard are
 stronger on QPU/hardware, drift and runtime/provider evidence; the present
 paper instead derives which view and trusted-reference granularity suffice for
 conclusion, aggregate or item-identity integrity.
 
-## Version 1.3.3 in one paragraph
+## Version 1.3.4 in one paragraph
 
-Version 1.3.3 is a bibliographic/editorial correction only. No experiment,
-kernel, draw, model, seed, intervention, policy decision or scientific
-evidence was rerun or changed; methodology is unchanged from 1.3.2. A
-cutoff-complete audit adds Hinder et al., Max-Rank and QProv, plus the original
-Simplex paper, TESSERACT and RATS; upgrades three works to their published
-versions; corrects Quantum Leak and Qiskit metadata; and makes the VAMP,
-adaptive-evasion and QCIVET/QML-PipeGuard positioning explicit. A single
-readability pass simplified syntax and transitions without changing science,
-claims, results, structure or the 12-page count.
+Version 1.3.4 is a corrective bibliographic/editorial release. No experiment,
+kernel, model, dataset, seed, attack, draw, intervention, policy decision,
+scientific result or formal theorem was re-executed or changed. Derived
+metadata/coverage artifacts were regenerated from the frozen code/evidence to
+correct an inconsistency; scientific observations and decisions are unchanged.
+The 58 inherited references were checked one by one against primary sources;
+Barber et al. and Engelen et al. were added for two bounded limitations. The
+release corrects bibliographic metadata, the trusted-regime coverage CSV, the
+Gate A range/framing, standalone PDF metadata and submission documentation.
 
 ## Version 1.3.2 in one paragraph
 
@@ -133,17 +133,18 @@ observed decision false-alarm rates are 0.056 / 0.058 / 0.053 (`I_X` /
 `I_XF` / `I_XFY`; the label-marginal regime stays at 0.048) against 0.125 /
 0.203 / 0.259 for the union of per-sensor rules; the asymmetric rule of 1.2.0
 (0.061 / 0.073 / 0.079) had a false guarantee (amendment A2), and most of its
-excess was rule bias, not the design. Batch-level regimes with feature
+excess was rule bias, not the design. On the prespecified equal-weight
+intervention grid, batch-level regimes with feature
 evidence serve 4,365--4,496 of the 7,008 materially changed results under the
 calibrated risk-tolerant policy (the label-marginal regime serves all of
 them); the trusted item-aligned regime serves none, with zero clean false
 actions on its 1,200 exact-zero rows, but interrupts 629 of the 1,200
 near-null synthetic controls. The 85 exact-reference blocks are gross; 46
 overlap the 590 batch `I_XFY`/P2 interruptions, so the net increase is 39/1,200
-(3.25 percentage points). The adaptive
-cluster-preserving attacker cuts the detection of feature drift from
-0.96--1.00 to 0.01--0.66 at matched strengths while keeping 83--91 % of the
-conclusion changes, and is served by the calibrated policy in 28--39 % of its
+(3.25 percentage points). Gate A is a stress test of the fragile
+cluster-dependent fingerprint: its per-regime matched-control and adaptive
+ranges are generated from manifested evidence into the article macros, while
+83--91 % of the conclusion changes remain. The calibrated policy serves 28--39 % of its
 material rows in aggregate; the matched-strength `I_XFY` profile spans
 0.22--0.90. A fail-closed verifier recomputes these counts from the
 released derived tables.
@@ -234,21 +235,22 @@ those and the operational assurance layer belong to Paper 2.5
 
 ## Version, funding and citation
 
-Artifact version: `1.3.3` (experimental evidence frozen at 1.3.0;
+Artifact version: `1.3.4` (experimental evidence frozen at 1.3.0;
 reinforcement gates of 1.1.0; editorial 1.1.1; policy gates of 1.2.0,
 regenerated in 1.3.0 with the conformal rule; adversarial gate of 1.3.0;
 formal/editorial correction 1.3.1; methodological alignment 1.3.2;
-bibliographic/editorial closure 1.3.3; release tag `paper15-q1-v1.3.3`). Tags `paper15-q1-v1.1.0`,
+bibliographic/editorial closure 1.3.3; final corrective closure 1.3.4; release tag `paper15-q1-v1.3.4`). Tags `paper15-q1-v1.1.0`,
 `paper15-q1-v1.1.1`, `paper15-q1-v1.2.0`, `paper15-q1-v1.3.0` and
-`paper15-q1-v1.3.1` and `paper15-q1-v1.3.2`, together with all historical
-Zenodo versions, are immutable. After 1.3.3 the article is reopened only for
+`paper15-q1-v1.3.1`, `paper15-q1-v1.3.2` and `paper15-q1-v1.3.3`, together with all historical
+Zenodo versions, are immutable. After 1.3.4 the article is reopened only for
 an objective demonstrated error, a portal requirement, an editor request or a
 real reviewer request; everything else belongs to Paper 2.5 or later work.
 
 This work is part of grant PID2024-155693NB-C43, ATHENA-AEGIS (Advanced Secure Technologies for Hybrid Quantum-Classical Environments and Applications), funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU.
 
 Zenodo concept DOI `10.5281/zenodo.22550852` resolves to the latest archived
-version; the version DOI of 1.3.3 is `10.5281/zenodo.22666931` (1.3.2: `10.5281/zenodo.22664417`; 1.3.1: `10.5281/zenodo.22651111`; 1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
+version; the version DOI of 1.3.4 is recorded in `CITATION.cff` and
+`publication/DOI_STATUS.md` (1.3.3: `10.5281/zenodo.22666931`; 1.3.2: `10.5281/zenodo.22664417`; 1.3.1: `10.5281/zenodo.22651111`; 1.3.0: `10.5281/zenodo.22648573`; 1.2.0:
 `10.5281/zenodo.22644529`; 1.1.1: `10.5281/zenodo.22552643`; 1.1.0:
 `10.5281/zenodo.22550853`). Author metadata, CRediT roles and licenses were
 confirmed by all authors on 2026-09-06 and the 1.3.0 and 1.3.1 changes on

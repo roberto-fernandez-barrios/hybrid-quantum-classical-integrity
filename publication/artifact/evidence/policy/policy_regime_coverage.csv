@@ -3,4 +3,4 @@ I_X,False,calibrated,blind,blind,prediction+label
 I_XF,False,calibrated,calibrated,blind,label
 I_Ym,False,blind,blind,marginal,feature+prediction+label
 I_XFY,False,calibrated,calibrated,calibrated,none
-I_XFY_trusted,True,exact,exact,exact,none
+I_XFY_trusted,True,calibrated,exact,exact,none

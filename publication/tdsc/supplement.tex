@@ -9,8 +9,21 @@
 \usepackage{microtype}
 \usepackage{stfloats}
 \usepackage{float}
+\usepackage{placeins}
+\usepackage{balance}
 
-% Supplement layout (artifact 1.3.3): the supplement tables are generated with
+\ifdefined\pdfinfoomitdate\pdfinfoomitdate=1\fi
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+\ifdefined\pdfinfo
+  \pdfinfo{
+    /Title (Supplementary Material for Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows)
+    /Author (Roberto Fernandez-Barrios; Iker Pastor-Lopez; Amaia Pikatza-Huerga; Pablo Garcia Bringas)
+    /Subject (Standalone supplementary material for the IEEE TDSC submission)
+    /Keywords (integrity auditing; observational indistinguishability; hybrid quantum-classical workflows; supplementary material)
+  }
+\fi
+
+% Supplement layout (release v1.3.4): the supplement tables are generated with
 % [!tbp] placement (the main article's tables keep [!t]) and the float fractions
 % below let the Gate A tables and the secondary-profile figures pack instead of
 % spilling onto near-empty trailing pages.
@@ -25,11 +38,7 @@
 \setcounter{totalnumber}{6}
 \setcounter{dbltopnumber}{3}
 
-% IEEEtran forces \flushbottom in two-column mode, so on a page whose column is
-% largely occupied by floats LaTeX stretches the flexible glue around the section
-% headings until the column reaches the bottom margin; that is what opened the
-% blank band between a section title and its first paragraph (Sec. 12 of the
-% 1.3.2 build). The supplement lets its columns end short instead.
+% Keep float-heavy supplement columns readable; balance only the final page.
 \raggedbottom
 
 \graphicspath{{figures/}}
@@ -59,15 +68,12 @@ and their dependence structure, the validation checks, the full tables of the
 preregistered gates of artifacts 1.1.0, 1.2.0 and 1.3.0 (including the
 amendment that replaced the calibration rule and the adversarial
 cluster-preserving gate), the secondary model-impact profile and the
-reproduction mapping behind the main article. The experimental evidence is
-frozen at artifact 1.3.0; version 1.3.1 corrected the formal statements
-(state semantics, the three kernel notions, Proposition~7 under finite-shot
-estimation and the initial reference taxonomy) and editorial framing without
-re-executing any kernel, job or draw. Version 1.3.2 audits the actual sensor
-references, adopts repair B and adds only tables derived from frozen outputs;
-it changes no experimental result. Version 1.3.3 is a bibliographic/editorial
-correction only: no experiment, kernel, draw, model, seed, intervention, policy
-decision or scientific evidence was rerun or changed. It adds no QPU,
+reproduction mapping behind the main article. Version 1.3.4 is a corrective
+bibliographic/editorial release. No experiment, kernel, model, dataset, seed,
+attack, draw, intervention, policy decision, scientific result or formal
+theorem was re-executed or changed. Derived metadata/coverage artifacts were
+regenerated from the frozen code/evidence to correct an inconsistency;
+scientific observations and decisions are unchanged. It adds no QPU,
 calibrated-noise, scheduling, provider-security, multi-tenancy, deployed
 runtime-service or operational Fleet Management evidence. The exact claims
 remain bounded to data-to-evaluation interventions, ideal-statevector quantum
@@ -540,7 +546,7 @@ scores upstream nevertheless requires the benchmark oracle shown in
 Table~\ref{tab:s-sensor-reference-audit}. The benchmark protects that oracle
 from its executed attack API, but the artifact neither authenticates nor
 delivers it to a deployed auditor. By contrast, Class B/C exact flags
-presuppose a deployed-authenticated commitment at the declared granularity.
+presuppose a deployed-authenticated reference at the declared granularity.
 
 \begin{table*}[!t]
 \caption{Evidence regimes, implemented sensors, demonstrated blind regions and calibrated status (conformal family rule).}
@@ -881,7 +887,9 @@ level. The 12,000 batch clean-decision draws and 1,200 trusted exact-zero
 invariant rows are different estimands and are never pooled. \texttt{block} is reserved
 for exact violations against a trusted reference; the interruption of the
 near-null controls is therefore decomposed into statistical holds and
-exact-reference blocks. In the trusted regime P2 produces
+exact-reference blocks. Containment 1.00 follows constructively from
+Corollary~3 under the declared trusted reference; this experiment measures
+its cost. In the trusted regime P2 produces
 \TrustedGrossExactBlocks{} gross exact blocks, of which
 \TrustedExactOverlap{} overlap the batch $\IXFY$/P2 interruptions; its net
 increment is \TrustedNetAdditional{}/1,200
@@ -889,7 +897,7 @@ increment is \TrustedNetAdditional{}/1,200
 \BenignInterruptFamilyIXFYtrusted{} of 1,200. Table~\ref{tab:s-policy-full}
 gives the complete decision counts including the hold and block counts on the
 near-null controls and the non-material interruption rate, Table~\ref{tab:s-policy-rule-comparison}
-the calibrated policy under the superseded and the adopted rule,
+the calibrated policy under the asymmetric comparison and adopted rules,
 Table~\ref{tab:s-policy-tau} the materiality sensitivity and
 Table~\ref{tab:s-policy-family} the materially altered audit results served
 by mechanism under P2. The
@@ -903,6 +911,7 @@ contract actions) all pass.
 \input{tables/s_policy_rule_comparison.tex}
 \input{tables/s_policy_tau.tex}
 \input{tables/s_policy_family.tex}
+\FloatBarrier
 
 \section{Preregistered Adversarial Gate A (Artifact 1.3.0)}
 \label{sec:gate-a}
@@ -943,6 +952,7 @@ as executed. No parameter was changed after the results were seen.
 \input{tables/s_adversarial_policy.tex}
 \input{tables/s_adversarial_env.tex}
 \input{tables/s_adversarial_branch.tex}
+\FloatBarrier
 
 \section{Secondary Model-Impact Profile}
 
@@ -1009,12 +1019,13 @@ hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
 and expected outputs. The experimental evidence is frozen at artifact 1.3.0
 (version DOI 10.5281/zenodo.22648573, tag \texttt{paper15-q1-v1.3.0}).
-Version 1.3.3 is archived at Zenodo, version DOI 10.5281/zenodo.22666931 (concept
-DOI 10.5281/zenodo.22550852), with repository tag \texttt{paper15-q1-v1.3.3};
+Version 1.3.4 is archived at Zenodo under the concept
+DOI 10.5281/zenodo.22550852 with repository tag \texttt{paper15-q1-v1.3.4};
 source code is licensed under Apache-2.0, derived evidence, figures and
 documentation under CC~BY~4.0, and the manuscript files are author preprints
 excluded from both licenses.
 
+\balance
 \section{Claims-Supported / Claims-Excluded Matrix}
 
 {\sloppy
@@ -1036,7 +1047,8 @@ false-alarm rates of 0.125--0.259 that the conformal family rule brings to
 level of $10/201$ holds under exchangeability, a premise the executed design
 violates by a measured, small margin concentrated in E1; the rule of
 artifact 1.2.0 had no valid guarantee and most of its published excess was
-rule bias; batch-level regimes with feature evidence serve
+rule bias; on the prespecified equal-weight intervention grid, batch-level
+regimes with feature evidence serve
 \UnsafeFamilyIXF--\UnsafeFamilyIX{} of \NMaterial{} materially changed
 results under the calibrated risk-tolerant policy, the label-marginal regime
 serves all of them, and the trusted item-aligned regime serves none while
@@ -1044,8 +1056,9 @@ interrupting \BenignInterruptFamilyIXFYtrusted{} of 1,200 near-null
 synthetic controls (\TrustedGrossExactBlocks{} gross exact-reference blocks,
 but only \TrustedNetAdditional{} net additional interruptions versus batch
 $\IXFY$/P2); an adaptive
-attacker who preserves the tight feature clusters cuts the batch-level
-detection of drift from 0.96--1.00 to 0.01--0.66 at matched strengths while
+attacker who preserves the tight feature clusters cuts detection in $\IX$ and
+$\IXF$ from \AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax{} to
+\AdvDetAdaptHeadlineMin--\AdvDetAdaptHeadlineMax{} at matched strengths while
 keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes, and its materially
 altered audit results are served by the calibrated policy in 28--39\% of its
 material instances in aggregate, with the full profile reported by strength;

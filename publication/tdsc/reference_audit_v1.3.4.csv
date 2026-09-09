@@ -1,0 +1,61 @@
+key,original_v1_3_3,title_verified,authors_verified,venue_verified,year_verified,identifier_type,identifier,primary_url,publication_status,cutoff_ok,verified,action,notes
+Ahmed2026,yes,yes,yes,yes,yes,arXiv,2604.26430,https://arxiv.org/abs/2604.26430,preprint,yes,VERIFIED,none,Submitted before cutoff
+Alsaedi2020,yes,yes,yes,yes,yes,DOI,10.1109/ACCESS.2020.3022862,https://doi.org/10.1109/ACCESS.2020.3022862,published,yes,VERIFIED,corrected-author,Primary institutional record and DOI use Abdun Mahmood
+Arp2022,yes,yes,yes,yes,yes,URL,USENIX-Security-22,https://www.usenix.org/conference/usenixsecurity22/presentation/arp,published,yes,VERIFIED,completed-metadata,Official USENIX proceedings
+Ghosh2025,yes,yes,yes,yes,yes,DOI,10.1109/JPROC.2025.3630989,https://doi.org/10.1109/JPROC.2025.3630989,published,yes,VERIFIED,none,Published version
+Ginart2022,yes,yes,yes,yes,yes,URL,PMLR-v151-ginart22a,https://proceedings.mlr.press/v151/ginart22a.html,published,yes,VERIFIED,corrected-authors,Antonio A. Ginart Martin Jinye Zhang and James Zou only
+JavadiAbhari2024,yes,yes,yes,yes,yes,arXiv,2405.08810,https://arxiv.org/abs/2405.08810,preprint,yes,VERIFIED,none,Complete author list from arXiv
+Koebler2025,yes,yes,yes,yes,yes,URL,PMLR-v258-koebler25a,https://proceedings.mlr.press/v258/koebler25a.html,published,yes,VERIFIED,replaced-metadata,Correct PMLR paper authors title and pages
+Li2020,yes,yes,yes,yes,yes,DOI,10.1145/3428218,https://doi.org/10.1145/3428218,published,yes,VERIFIED,none,Article 150
+Lipton2018,yes,yes,yes,yes,yes,URL,PMLR-v80-lipton18a,https://proceedings.mlr.press/v80/lipton18a.html,published,yes,VERIFIED,none,Official PMLR proceedings
+Lu2025,yes,yes,yes,yes,yes,DOI,10.1145/3716368.3735264,https://doi.org/10.1145/3716368.3735264,published,yes,VERIFIED,none,Published GLVLSI paper
+Luo2026,yes,yes,yes,yes,yes,DOI,10.1007/978-3-032-22774-4_8,https://doi.org/10.1007/978-3-032-22774-4_8,published,yes,VERIFIED,none,Published FASE chapter
+Moustafa2015,yes,yes,yes,yes,yes,DOI,10.1109/MilCIS.2015.7348942,https://doi.org/10.1109/MilCIS.2015.7348942,published,yes,VERIFIED,completed-metadata,Pages and publisher added
+Oliveira2024,yes,yes,yes,yes,yes,DOI,10.1109/TDSC.2023.3313934,https://doi.org/10.1109/TDSC.2023.3313934,published,yes,VERIFIED,none,Published TDSC article
+Paltenghi2023,yes,yes,yes,yes,yes,DOI,10.1109/ICSE48619.2023.00202,https://doi.org/10.1109/ICSE48619.2023.00202,published,yes,VERIFIED,completed-metadata,Pages and publisher added
+Saki2022,yes,yes,yes,yes,yes,DOI,10.1145/3526241.3530833,https://doi.org/10.1145/3526241.3530833,published,yes,VERIFIED,corrected-author,Satwik Kundu verified
+Sharafaldin2018,yes,yes,yes,yes,yes,DOI,10.5220/0006639801080116,https://doi.org/10.5220/0006639801080116,published,yes,VERIFIED,none,Published conference paper
+Shi2019,yes,yes,yes,yes,yes,arXiv,1908.08963,https://arxiv.org/abs/1908.08963,preprint,yes,VERIFIED,corrected-author,Yunong Shi verified
+Solozobov2026,yes,yes,yes,yes,yes,arXiv,2604.15740,https://arxiv.org/abs/2604.15740,preprint,yes,VERIFIED,none,Submitted before cutoff
+Volya2023,yes,yes,yes,yes,yes,DOI,10.1109/HOST55118.2023.10133344,https://doi.org/10.1109/HOST55118.2023.10133344,published,yes,VERIFIED,corrected-authors,Daniel Volya Tao Zhang and Nashmin Alam verified
+Wang2021,yes,yes,yes,yes,yes,DOI,10.1109/ASE51524.2021.9678792,https://doi.org/10.1109/ASE51524.2021.9678792,published,yes,VERIFIED,completed-metadata,Pages and publisher added
+Yamaguchi2023,yes,yes,yes,yes,yes,DOI,10.1109/Q-SE59154.2023.00010,https://doi.org/10.1109/Q-SE59154.2023.00010,published,yes,VERIFIED,none,Published workshop paper
+YeniarasKarimov2026,yes,yes,yes,yes,yes,arXiv,2605.13109,https://arxiv.org/abs/2605.13109,preprint,yes,VERIFIED,none,Submitted before cutoff
+Ying2011,yes,yes,yes,yes,yes,DOI,10.1145/2049706.2049708,https://doi.org/10.1145/2049706.2049708,published,yes,VERIFIED,none,Article 19
+Zhou2019,yes,yes,yes,yes,yes,DOI,10.1145/3314221.3314584,https://doi.org/10.1145/3314221.3314584,published,yes,VERIFIED,none,Published PLDI paper
+Yeniaras2026PipeGuard,yes,yes,yes,yes,yes,arXiv,2605.25066,https://arxiv.org/abs/2605.25066,preprint,yes,VERIFIED,completed-identifier,Recoverable arXiv metadata added
+Stokes2021,yes,yes,yes,yes,yes,DOI,10.1109/MILCOM52596.2021.9653139,https://doi.org/10.1109/MILCOM52596.2021.9653139,published,yes,VERIFIED,none,Published MILCOM paper
+Bajaj2026,yes,yes,yes,yes,yes,arXiv,2608.02786,https://arxiv.org/abs/2608.02786,preprint,yes,VERIFIED,completed-identifier,Recoverable arXiv metadata added
+FernandezBarrios2026Certificates,yes,yes,yes,yes,yes,local-manuscript,EPJQT-submission-2026-09-06,local:publication/submission/related_manuscripts/sharp_target_domain_certificates_submitted_EPJQT.pdf,submitted-manuscript,yes,VERIFIED,removed-software-doi,Zenodo 21776862 is a related software artifact not the article DOI
+FernandezBarrios2026Conditional,yes,yes,yes,yes,yes,arXiv,2609.02781,https://arxiv.org/abs/2609.02781,preprint,yes,VERIFIED,completed-identifier,Public preprint verified
+FernandezBarrios2026VBC,yes,yes,yes,yes,yes,arXiv,2609.04388,https://arxiv.org/abs/2609.04388,preprint,yes,VERIFIED,replaced-software-doi,Public preprint replaces manuscript-only citation
+Pasqualetti2013,yes,yes,yes,yes,yes,DOI,10.1109/TAC.2013.2266831,https://doi.org/10.1109/TAC.2013.2266831,published,yes,VERIFIED,none,Published journal article
+Teixeira2015,yes,yes,yes,yes,yes,DOI,10.1016/j.automatica.2014.10.067,https://doi.org/10.1016/j.automatica.2014.10.067,published,yes,VERIFIED,none,Published journal article
+Urbina2016,yes,yes,yes,yes,yes,DOI,10.1145/2976749.2978388,https://doi.org/10.1145/2976749.2978388,published,yes,VERIFIED,none,Published CCS paper
+Bai2017,yes,yes,yes,yes,yes,DOI,10.1016/j.automatica.2017.04.047,https://doi.org/10.1016/j.automatica.2017.04.047,published,yes,VERIFIED,none,Published journal article
+Giraldo2018,yes,yes,yes,yes,yes,DOI,10.1145/3203245,https://doi.org/10.1145/3203245,published,yes,VERIFIED,none,Article 76
+Liu2011,yes,yes,yes,yes,yes,DOI,10.1145/1952982.1952995,https://doi.org/10.1145/1952982.1952995,published,yes,VERIFIED,none,Article 13
+Sha2001,yes,yes,yes,yes,yes,DOI,10.1109/MS.2001.936213,https://doi.org/10.1109/MS.2001.936213,published,yes,VERIFIED,none,Published IEEE Software article
+Leucker2009,yes,yes,yes,yes,yes,DOI,10.1016/j.jlap.2008.08.004,https://doi.org/10.1016/j.jlap.2008.08.004,published,yes,VERIFIED,none,Published journal article
+Kim1994,yes,yes,yes,yes,yes,DOI,10.1145/191177.191183,https://doi.org/10.1145/191177.191183,published,yes,VERIFIED,none,Published CCS paper
+Northcutt2021,yes,yes,yes,yes,yes,URL,NeurIPS-Datasets-Benchmarks-2021,https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/hash/f2217062e9a397a1dca429e7d70bc6ca-Abstract-round1.html,published,yes,VERIFIED,none,Official proceedings record
+Peltonen2026,yes,yes,yes,yes,yes,arXiv,2608.08272,https://arxiv.org/abs/2608.08272,preprint,yes,VERIFIED,completed-identifier,Recoverable arXiv metadata added
+Tippett1931,yes,yes,yes,yes,yes,catalogue,Wellcome-ceaj2zph,https://wellcomecollection.org/works/ceaj2zph,published-book,yes,VERIFIED,completed-title,Full title and author name verified against library copy record
+Westfall1993,yes,yes,yes,yes,yes,ISBN,978-0-471-55761-6,https://www.wiley-vch.de/en/areas-interest/mathematics-statistics/resampling-based-multiple-testing-978-0-471-55761-6,published-book,yes,VERIFIED,none,Publisher catalogue
+Vovk2005,yes,yes,yes,yes,yes,DOI,10.1007/b106715,https://doi.org/10.1007/b106715,published-book,yes,VERIFIED,none,Publisher book record
+Bates2023,yes,yes,yes,yes,yes,DOI,10.1214/22-AOS2244,https://doi.org/10.1214/22-AOS2244,published,yes,VERIFIED,none,Published journal article
+Laxhammar2015,yes,yes,yes,yes,yes,DOI,10.1007/s10472-013-9381-7,https://doi.org/10.1007/s10472-013-9381-7,published,yes,VERIFIED,none,Online-first DOI and 2015 issue metadata reconciled
+Angelopoulos2023,yes,yes,yes,yes,yes,DOI,10.1561/2200000101,https://doi.org/10.1561/2200000101,published,yes,VERIFIED,none,Published monograph article
+Barber2023,no,yes,yes,yes,yes,DOI,10.1214/23-AOS2276,https://doi.org/10.1214/23-AOS2276,published,yes,VERIFIED,added,Primary literature requested for beyond-exchangeability boundary
+Lei2018,yes,yes,yes,yes,yes,DOI,10.1080/01621459.2017.1307116,https://doi.org/10.1080/01621459.2017.1307116,published,yes,VERIFIED,none,Published journal article
+TorresArias2019,yes,yes,yes,yes,yes,URL,USENIX-Security-19-in-toto,https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias,published,yes,VERIFIED,none,Official USENIX proceedings
+SLSA2025,yes,yes,yes,yes,yes,URL,SLSA-v1.2,https://slsa.dev/spec/v1.2/,specification,yes,VERIFIED,corrected-year-key,Version 1.2 released 24 November 2025
+Newman2022,yes,yes,yes,yes,yes,DOI,10.1145/3548606.3560596,https://doi.org/10.1145/3548606.3560596,published,yes,VERIFIED,none,Published CCS paper
+Coker2011,yes,yes,yes,yes,yes,DOI,10.1007/s10207-011-0124-7,https://doi.org/10.1007/s10207-011-0124-7,published,yes,VERIFIED,none,Published journal article
+Hinder2025,yes,yes,yes,yes,yes,DOI,10.14428/esann/2025.ES2025-82,https://doi.org/10.14428/esann/2025.ES2025-82,published,yes,VERIFIED,none,Official ESANN paper
+Timans2025,yes,yes,yes,yes,yes,URL,PMLR-v258-timans25a,https://proceedings.mlr.press/v258/timans25a.html,published,yes,VERIFIED,none,Official PMLR proceedings
+Weder2021,yes,yes,yes,yes,yes,DOI,10.1049/qtc2.12012,https://doi.org/10.1049/qtc2.12012,published,yes,VERIFIED,none,Published journal article
+Seto1998,yes,yes,yes,yes,yes,DOI,10.1109/ACC.1998.703255,https://doi.org/10.1109/ACC.1998.703255,published,yes,VERIFIED,none,Published ACC paper
+Pendlebury2019,yes,yes,yes,yes,yes,URL,USENIX-Security-19-TESSERACT,https://www.usenix.org/conference/usenixsecurity19/presentation/pendlebury,published,yes,VERIFIED,none,Official USENIX proceedings
+Engelen2021,no,yes,yes,yes,yes,DOI,10.1109/SPW53761.2021.00009,https://doi.org/10.1109/SPW53761.2021.00009,published,yes,VERIFIED,added,Primary CICIDS2017 dataset-quality reference requested
+Birkholz2023,yes,yes,yes,yes,yes,RFC,RFC9334,https://www.rfc-editor.org/info/rfc9334,published-standard,yes,VERIFIED,none,Official RFC record

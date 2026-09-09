@@ -1,4 +1,4 @@
-"""Design and consistency tests for the committed policy and adversarial evidence (artifact 1.3.0).
+"""Design and consistency tests for the frozen policy and adversarial evidence (artifact 1.3.0).
 
 These tests skip when the derived evidence is not present (fresh checkout
 without ``results/`` or without the compact artifact); they run in CI against
@@ -85,6 +85,11 @@ class PolicyEvidenceDesignTests(unittest.TestCase):
         self.assertIn("risk-tolerant", taxonomy.loc["family_calibrated", "policy_class"])
         self.assertIn("coverage-complete abstaining", taxonomy.loc["family_calibrated_strict", "policy_class"])
         self.assertNotIn("strict fail-closed", taxonomy.loc["family_calibrated_strict", "policy_class"])
+        coverage = pd.read_csv(self.ev / "policy_regime_coverage.csv").set_index("regime")
+        trusted_coverage = coverage.loc["I_XFY_trusted"]
+        self.assertEqual(trusted_coverage["coverage_feature"], "calibrated")
+        self.assertEqual(trusted_coverage["coverage_prediction"], "exact")
+        self.assertEqual(trusted_coverage["coverage_label"], "exact")
         # trusted-regime interruption decomposition: statistical holds + exact-reference blocks = total
         trusted = primary.loc[("I_XFY_trusted", "family_calibrated")]
         self.assertEqual((int(trusted["benign_hold"]), int(trusted["benign_block"])), (544, 85))

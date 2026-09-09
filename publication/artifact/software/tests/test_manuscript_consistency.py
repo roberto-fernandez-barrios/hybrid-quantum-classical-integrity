@@ -1,4 +1,4 @@
-"""Manuscript consistency gates (artifact 1.3.3).
+"""Manuscript consistency gates (release 1.3.4).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
@@ -23,9 +23,11 @@ only the repository text files.
 
 from __future__ import annotations
 
+import csv
 import re
 import shutil
 import subprocess
+import unicodedata
 from pathlib import Path
 
 import pytest
@@ -34,6 +36,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / "publication/tdsc/main.tex"
 SUPPLEMENT = ROOT / "publication/tdsc/supplement.tex"
 MACROS = ROOT / "publication/tdsc/tables/policy_macros.tex"
+REFERENCE_AUDIT = ROOT / "publication/tdsc/reference_audit_v1.3.4.csv"
 
 ACTIVE_DOCUMENTS = [
     "publication/tdsc/main.tex",
@@ -125,6 +128,25 @@ def _citation_keys(text: str) -> set[str]:
     }
 
 
+def _bib_entries() -> dict[str, str]:
+    bib = _read("publication/tdsc/references.bib")
+    return {
+        match.group(1): match.group(0)
+        for match in re.finditer(r"@[A-Za-z]+\{([^,]+),(.*?)(?=\n@|\Z)", bib, re.S)
+    }
+
+
+def _bib_field(entry: str, field: str) -> str | None:
+    match = re.search(rf"(?mi)^\s*{re.escape(field)}\s*=\s*\{{(.*?)\}}\s*,?\s*$", entry)
+    return match.group(1).strip() if match else None
+
+
+def _normalized_title(value: str) -> str:
+    value = unicodedata.normalize("NFKD", value)
+    value = re.sub(r"\\[A-Za-z]+|[{}$\\]", "", value)
+    return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+
 class TestAbstract:
     def test_abstract_has_170_to_200_words(self) -> None:
         words = abstract_words()
@@ -145,6 +167,21 @@ class TestActiveNumbers:
     def test_generated_retention_range_is_83_91(self) -> None:
         macros = _macros()
         assert (macros["AdvMatRetentionMinPct"], macros["AdvMatRetentionMaxPct"]) == ("83", "91")
+
+    def test_generated_gate_a_detection_ranges_are_regime_correct(self) -> None:
+        macros = _macros()
+        assert (macros["AdvDetCtrlIXMin"], macros["AdvDetCtrlIXMax"]) == ("0.99", "1.00")
+        assert (macros["AdvDetCtrlIXFMin"], macros["AdvDetCtrlIXFMax"]) == ("0.96", "1.00")
+        assert (macros["AdvDetCtrlIXFYMin"], macros["AdvDetCtrlIXFYMax"]) == ("0.95", "1.00")
+        assert (macros["AdvDetCtrlHeadlineMin"], macros["AdvDetCtrlHeadlineMax"]) == ("0.96", "1.00")
+        assert (macros["AdvDetAdaptHeadlineMin"], macros["AdvDetAdaptHeadlineMax"]) == ("0.01", "0.66")
+
+    @pytest.mark.parametrize("rel", ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"))
+    def test_gate_a_headline_ranges_are_macro_driven(self, rel: str) -> None:
+        text = _read(rel)
+        assert "0.96--1.00" not in text and "0.01--0.66" not in text
+        assert r"\AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax" in text
+        assert r"\AdvDetAdaptHeadlineMin--\AdvDetAdaptHeadlineMax" in text
 
     def test_trusted_interruption_decomposition_sums(self) -> None:
         macros = _macros()
@@ -293,17 +330,20 @@ class TestBibliographicCeiling:
 
     def test_release_scope_is_bibliographic_editorial_only(self) -> None:
         notes = re.sub(r"\s+", " ", _read("publication/tdsc/RELEASE_NOTES.md"))
-        assert "Bibliographic/editorial correction only" in notes
+        assert "v1.3.4 is a corrective bibliographic/editorial release" in notes
         assert "methodology is unchanged from 1.3.2" in notes
         for noun in (
             "experiment",
             "kernel",
-            "draw",
             "model",
+            "dataset",
             "seed",
+            "attack",
+            "draw",
             "intervention",
             "policy decision",
-            "scientific evidence",
+            "scientific result",
+            "formal theorem",
         ):
             assert noun in notes
 
@@ -324,6 +364,78 @@ class TestBibliographicCeiling:
         ).stdout
         match = re.search(r"^Pages:\s+(\d+)$", out, re.M)
         assert match and int(match.group(1)) <= 12
+
+
+class TestReferenceAuditV134:
+    def test_audit_is_complete_verified_and_frozen_at_cutoff(self) -> None:
+        with REFERENCE_AUDIT.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        assert len(rows) == 60  # 58 audited v1.3.3 entries plus Barber and Engelen
+        assert sum(row["original_v1_3_3"] == "yes" for row in rows) == 58
+        assert all(row["verified"] == "VERIFIED" for row in rows)
+        assert all(row["cutoff_ok"] == "yes" for row in rows)
+        assert all(row["primary_url"] for row in rows)
+
+    def test_audited_bib_and_citations_have_the_same_keys(self) -> None:
+        entries = _bib_entries()
+        with REFERENCE_AUDIT.open(encoding="utf-8", newline="") as handle:
+            audited = {row["key"] for row in csv.DictReader(handle)}
+        cited = _citation_keys(_read("publication/tdsc/main.tex"))
+        assert set(entries) == audited == cited
+
+    def test_every_entry_has_author_title_and_year(self) -> None:
+        for key, entry in _bib_entries().items():
+            for field in ("author", "title", "year"):
+                value = _bib_field(entry, field)
+                assert value and value.strip(), f"{key}: missing {field}"
+
+    def test_no_duplicate_doi_arxiv_or_normalized_title(self) -> None:
+        entries = _bib_entries()
+        dois = [value.lower() for entry in entries.values() if (value := _bib_field(entry, "doi"))]
+        arxiv = [value.lower() for entry in entries.values() if (value := _bib_field(entry, "eprint"))]
+        titles = [_normalized_title(_bib_field(entry, "title") or "") for entry in entries.values()]
+        assert len(dois) == len(set(dois)), "duplicate DOI"
+        assert len(arxiv) == len(set(arxiv)), "duplicate arXiv identifier"
+        assert len(titles) == len(set(titles)), "duplicate normalized title"
+
+    def test_known_bibliographic_corrections_cannot_regress(self) -> None:
+        bib = _read("publication/tdsc/references.bib")
+        for forbidden in (
+            "David Koebler",
+            "Lauren Zhang",
+            "Aviral Garg",
+            "Satrajit Kundu",
+            "Yuan Shi",
+            "Dmitri Volya",
+            "Tianshu Zhang",
+            "Nasser Alam",
+            "Abdun Naser Mahmood",
+        ):
+            assert forbidden not in bib
+        expected = {
+            "Koebler2025": ("Alexander Koebler", "Thomas Decker", "Incremental Uncertainty-aware", "2188--2196"),
+            "Ginart2022": ("Antonio A. Ginart", "Martin Jinye Zhang", "James Zou"),
+            "Saki2022": ("Satwik Kundu",),
+            "Shi2019": ("Yunong Shi", "1908.08963"),
+            "SLSA2025": ("Version 1.2", "year         = {2025}", "24 November 2025"),
+        }
+        for key, snippets in expected.items():
+            entry = _bib_entry(key)
+            assert all(snippet in entry for snippet in snippets), key
+
+    def test_companion_identifiers_have_the_right_resource_type(self) -> None:
+        conditional = _bib_entry("FernandezBarrios2026Conditional")
+        vbc = _bib_entry("FernandezBarrios2026VBC")
+        certificates = _bib_entry("FernandezBarrios2026Certificates")
+        assert "2609.02781" in conditional
+        assert "2609.04388" in vbc and "22239106" not in vbc
+        assert _bib_field(certificates, "doi") is None
+        assert "related reproducibility artifact (software)" in certificates
+        assert "21776862" in certificates
+
+    def test_required_new_boundary_references_are_cited(self) -> None:
+        cited = _citation_keys(_read("publication/tdsc/main.tex"))
+        assert {"Barber2023", "Engelen2021"} <= cited
 
 
 class TestPolicyTaxonomyInCode:

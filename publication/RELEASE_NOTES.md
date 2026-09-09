@@ -4,6 +4,24 @@ The authoritative counts of every release (manifests, outputs, files, tests,
 pages, hashes, DOIs) are generated into `publication/RELEASE_STATUS.md`;
 the notes below describe scope only.
 
+## 1.3.4 — 2026-09-09 (final corrective bibliographic/editorial release)
+
+- No experiment, kernel, model, dataset, seed, attack, draw, intervention,
+  policy decision, scientific result or formal theorem was re-executed or
+  changed. Scientific evidence remains frozen at artifact 1.3.0.
+- Audited the 58 inherited references one by one against primary sources;
+  corrected Koebler, Ginart, Kundu, Shi, SLSA, Alsaedi and Volya metadata;
+  added Barber et al. and Engelen et al.; corrected companion identifiers.
+- Corrected the trusted-regime feature coverage in one derived CSV from
+  `exact` to `calibrated`; updated its embedded/global manifest hashes only.
+- Generated Gate A range extrema from the frozen evidence and reframed the
+  gate as a fragile cluster-fingerprint stress test. Trusted containment is
+  theory-predicted; the experiment measures its cost. Aggregate served
+  fractions describe the equal-weight stress grid, not deployment prevalence.
+- Closed cover letter, PDF metadata/layout, standalone supplement metadata,
+  reproduction documentation, AI disclosure, companion PDFs and release
+  packaging. Full validation is recorded in `publication/RELEASE_STATUS.md`.
+
 ## 1.3.3 — 2026-09-08 (bibliographic/editorial closure; evidence frozen)
 
 - Bibliographic/editorial correction only; no experiment, kernel, draw,

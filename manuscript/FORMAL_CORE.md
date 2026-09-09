@@ -1,6 +1,6 @@
-# Formal core — observational indistinguishability and integrity blind regions (artifact 1.3.3; evidence frozen at 1.3.0)
+# Formal core — observational indistinguishability and integrity blind regions (release 1.3.4; evidence frozen at 1.3.0)
 
-Artifact 1.3.3 changes bibliography and editorial positioning only; the formal
+Release 1.3.4 changes bibliography, frozen-derived coverage metadata and editorial positioning only; the formal
 core and methodology are unchanged from 1.3.2. Version 1.3.2 (2026-09-08) adds one controlled methodological correction to
 the 1.3.1 formal core: the reference shorthand now separates provenance,
 granularity and decision semantics, and describes the actual batch sensors as
@@ -537,7 +537,7 @@ $\rho^{\star} = V_{\mathcal K}(s_0)$ of the bundle cannot be written by the
 class, the rule "reject iff $V_{\mathcal K}(s) \ne \rho^{\star}$" rejects every
 substitution with $V_{\mathcal K}(s') \ne V_{\mathcal K}(s_0)$ (Proposition
 4(ii)). Hence an integrity guarantee relative to an external baseline
-requires at least one reference, commitment or channel that the declared
+requires at least one protected reference or authenticated channel that the declared
 adversarial class cannot modify, and such a root is sufficient exactly for the
 classes it separates.
 

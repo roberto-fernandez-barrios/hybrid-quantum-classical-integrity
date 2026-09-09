@@ -192,8 +192,19 @@ def verify_policy_claims(root: Path) -> dict[str, int]:
     metrics_path = next(root.rglob("policy_metrics.csv"), None)
     label_path = next(root.rglob("family_label_path_summary.csv"), None)
     fpr_path = next(root.rglob("family_false_alarm_overall.csv"), None)
-    if metrics_path is None or label_path is None or fpr_path is None:
+    coverage_path = next(root.rglob("policy_regime_coverage.csv"), None)
+    if metrics_path is None or label_path is None or fpr_path is None or coverage_path is None:
         raise FileNotFoundError("policy evidence tables required for claim verification")
+    coverage = pd.read_csv(coverage_path).set_index("regime")
+    trusted_coverage = coverage.loc["I_XFY_trusted"]
+    if (
+        trusted_coverage["coverage_feature"] != "calibrated"
+        or trusted_coverage["coverage_prediction"] != "exact"
+        or trusted_coverage["coverage_label"] != "exact"
+    ):
+        raise ValueError(
+            "trusted regime must retain calibrated feature coverage and exact prediction/label coverage"
+        )
     label = pd.read_csv(label_path)
     for regime in ("I_X", "I_XF"):
         block = label[(label["subset"] == "all_label_interventions") & (label["regime"] == regime)]
@@ -240,6 +251,7 @@ def verify_policy_claims(root: Path) -> dict[str, int]:
         "policy_trusted_benign_holds": holds,
         "policy_trusted_benign_blocks": blocks,
         "policy_trusted_benign_interruptions": holds + blocks,
+        "policy_trusted_feature_coverage_calibrated": 1,
     }
 
 

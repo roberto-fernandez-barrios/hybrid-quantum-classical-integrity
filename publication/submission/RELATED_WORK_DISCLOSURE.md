@@ -3,17 +3,22 @@
 The authors disclose three related manuscripts, listed with full titles and
 status on the title page and in Section II-E of the manuscript:
 
-1. Paper 1: target-domain quantum-kernel advantage and certification.
-2. Paper 2: conditional validity of quantum event classifiers under benign
-   systematics and estimation uncertainty.
-3. Paper 3: adaptive IDS promotion and candidate comparability.
+1. *Sharp Target-Domain Certificates for Quantum-Kernel Advantage under
+   Distribution Shift* — submitted to *EPJ Quantum Technology* on 6 September
+   2026; no public preprint was available by the cutoff. DOI
+   10.5281/zenodo.21776862 identifies its software artifact, not the article.
+2. *Conditional Validity of Quantum Event Classifiers under Collider
+   Systematics and Quantum Estimation Uncertainty* — arXiv:2609.02781.
+3. *Candidate Comparability Before Promotion: Conditional Validation in
+   Adaptive Network Intrusion Detection* — arXiv:2609.04388. DOI
+   10.5281/zenodo.22239106 identifies its software artifact, not the article.
 
 They share some datasets, kernels, monitors or vocabulary with this Paper 1.5.
 They do not share its propositions, intervention evidence, tables or
 experiments. Paper 1.5 contributes workflow integrity, observational
 indistinguishability, minimum evidence granularity and integrity policy.
 
-The cutoff-complete bibliography for artifact 1.3.3 also makes the nearest
+The reference-by-reference bibliography audit for artifact 1.3.4 also makes the nearest
 external prior art explicit. Observation-relative detectability and generic
 monitor-aware drift evasion are prior art; Hinder et al. construct drifts that
 evade drift detectors. VAMP authenticates evaluation artifacts that may be
@@ -37,4 +42,6 @@ validity, recovery/fallback, service consequences, an AEGIS FMS slice, a
 preventive binding mechanism and metadata exposure. It is not submitted as
 part of the present work and is not evidence for any claim in this manuscript.
 
-Copies of related manuscripts can be supplied to the editor on request.
+The two public preprint PDFs and the submitted Certificates manuscript are
+prepared in `publication/submission/related_manuscripts/` for portal upload if
+the editor requests related work.

@@ -2,6 +2,13 @@ $repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..')).Path
 $sourceDir = (Resolve-Path -LiteralPath $PSScriptRoot).Path
 $stageDir = Join-Path $repoRoot (Join-Path 'tmp' ('tdsc-build-' + [guid]::NewGuid().ToString('N')))
 $pdfDir = Join-Path $repoRoot 'output\pdf'
+$previousSourceDateEpoch = $env:SOURCE_DATE_EPOCH
+$previousForceSourceDate = $env:FORCE_SOURCE_DATE
+if ([string]::IsNullOrWhiteSpace($env:SOURCE_DATE_EPOCH)) {
+    # Fixed corrective-release epoch: 2026-09-09T00:00:00Z.
+    $env:SOURCE_DATE_EPOCH = '1788912000'
+}
+$env:FORCE_SOURCE_DATE = '1'
 
 New-Item -ItemType Directory -Path $stageDir | Out-Null
 New-Item -ItemType Directory -Force -Path $pdfDir | Out-Null
@@ -63,4 +70,6 @@ try {
 }
 finally {
     Pop-Location
+    $env:SOURCE_DATE_EPOCH = $previousSourceDateEpoch
+    $env:FORCE_SOURCE_DATE = $previousForceSourceDate
 }

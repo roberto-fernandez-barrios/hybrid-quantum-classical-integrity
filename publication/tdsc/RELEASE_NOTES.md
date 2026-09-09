@@ -1,171 +1,44 @@
-# TDSC submission build `1.3.3-tdsc`
+# TDSC submission build `1.3.4-tdsc`
 
-Date: 2026-09-08. Bibliographic/editorial correction only. No experiment,
-kernel, draw, model, seed, intervention, policy decision or scientific
-evidence was rerun or changed. Scientific evidence remains frozen at artifact
-1.3.0 and methodology is unchanged from 1.3.2.
+Date: 2026-09-09.
 
-## Closing changes in 1.3.3
+v1.3.4 is a corrective bibliographic/editorial release. No experiment,
+kernel, model, dataset, seed, attack, draw, intervention, policy decision,
+scientific result or formal theorem was re-executed or changed. The methodology
+is unchanged from 1.3.2. Derived
+metadata/coverage artifacts were regenerated from the frozen code/evidence to
+correct an inconsistency; scientific observations and decisions are unchanged.
 
-- Verified and cited Hinder--Vaquet--Hammer, Max-Rank and QProv; added the
-  original Simplex paper, TESSERACT and RFC 9334/RATS.
-- Upgraded the quantum-security primer, QEMI and Design by Contract entries to
-  their published versions; corrected Quantum Leak and Qiskit metadata.
-- Repositioned VAMP as authentication prior art for attackable evaluation
-  artifacts; Gate A as a concrete cluster-preserving instance rather than the
-  first adaptive drift-evasion attack; and QCIVET/QML-PipeGuard as stronger on
-  QPU/hardware, drift and runtime/provider evidence.
-- Preserved the central result: claim-relative minimum evidence granularity.
-  Trusted same-batch aggregates suffice for conclusion/aggregate integrity;
-  item-identity integrity requires item-aligned trusted evidence; an external
-  trust root is unavoidable.
-- Applied one syntax/transition readability pass. Science, claims, results,
-  structure, abstract and 12-page count are unchanged.
-- Added non-fragile bibliographic regression guards and retained all eight
-  frozen evidence manifests unchanged.
+## Corrective closure
 
-## Inherited 1.3.2 corrections
+- Audited all 58 inherited references manually against primary records and
+  froze the result in `reference_audit_v1.3.4.csv`; added Barber et al. on
+  beyond-exchangeability conformal inference and Engelen et al. on CICIDS2017
+  data quality.
+- Corrected Koebler, Ginart, Kundu, Shi, SLSA, Alsaedi and Volya metadata;
+  replaced the VBC manuscript/software citation with arXiv:2609.04388; retained
+  Certificates as a submitted manuscript and labelled its Zenodo DOI as a
+  software artifact.
+- Corrected `policy_regime_coverage.csv`: the trusted regime has calibrated
+  feature coverage and exact prediction/label coverage. Updated only that
+  derived CSV and its manifests/hashes, with an offline regression guard.
+- Derived all Gate A headline extrema from manifested frozen CSVs. The article
+  now reports the feature regime separately from feature-plus-prediction and
+  frames Gate A as a stress test of a fragile cluster-dependent fingerprint.
+- Separated theory-predicted trusted containment from the empirical cost;
+  labelled aggregate served fractions as summaries of the prespecified
+  equal-weight intervention grid; made the label-marginal exclusion explicit.
+- Replaced cryptographically ambiguous “commitment” wording with aggregate
+  anchor/reference, changed the index term to “workflow integrity,” and
+  clarified P3, the split construction, A2 disclosure and ATHENA-AEGIS HSaaS
+  scope.
+- Rewrote the cover letter as a stable first-submission letter; refreshed the
+  title page, related-work disclosure, AI-use disclosure, reproduction guide,
+  PDF metadata and portal-facing companion files.
+- Kept the title, threat model, formal core, experiments and scientific results
+  unchanged. Main and supplement validation results are recorded in
+  `publication/RELEASE_STATUS.md`.
 
-- Repair B after a source-to-policy audit: Class A now accurately denotes the
-  statistically thresholded aggregate comparisons against a
-  benchmark-protected clean same-item-set oracle that were executed, without
-  item pairing or demonstrated deployed authentication. B/C remain trusted
-  aggregate/item-aligned exact invariants.
-- Reference provenance, granularity and statistical/exact decision semantics
-  are distinct; the headline is minimum evidence granularity relative to the
-  protected integrity claim.
-- Corollaries 1–3 are contiguous. `I_Ym` is reported as zero containment with
-  5,450 residual-blind material cases at the structural endpoint.
-- Trusted cost distinguishes 85 gross exact blocks, 46 overlaps and 39 net
-  additional near-null interruptions / 1,200 (3.25 percentage points).
-- Adaptive results retain aggregate material served rates and add the complete
-  per-strength materiality/detection/served profile (matched I_XFY range
-  0.22–0.90).
-- `unsafe_allow` remains an internal CSV identifier; manuscript terminology is
-  materially altered audit result served, never an allowed malicious network
-  event. The 24,000 rows, materiality endpoint, conformal premise and
-  batch/trusted denominators are explicitly bounded.
-- Abstract is 188 words. Quantum validation remains ideal-statevector and
-  finite-shot emulation only. Eight evidence manifests and permanent closing
-  guards are included.
+## Immutable predecessors
 
-## Inherited 1.3.1 corrections
-
-
-- Abstract shortened to at most 250 words (CI test) with the conformal claim
-  stated as a property under exchangeability and the executed rates
-  (0.048–0.058) reported separately; the trusted-regime cost printed as
-  629 of 1,200 near-null synthetic controls, mostly statistical holds.
-- Introduction: concrete threat scenario (label join or store stale,
-  corrupted or rewritten; a signature authenticates the object, not the
-  item-level correspondence; aggregate reference for conclusion integrity,
-  item alignment for identity, Proposition 6 when the attacker controls both).
-- Related work: VAMP (Stokes, England, Kane, MILCOM 2021) positioned; Table 1
-  rebuilt on nine axes including real QPU evidence, provider/authentication
-  evidence, drift handling and deployed/runtime evaluation, where QCIVET,
-  QML-PipeGuard and VAMP exceed this work.
-- Section III-A: primitive/derived workflow state and intervention semantics;
-  III-B: reference levels A (statistical or historical), B (trusted aggregate
-  same-batch), C (trusted item-aligned same-batch); III-F: Proposition 7 with
-  K_sem / K̂ / K_obs and class-indexed inclusions; (iii) corrected for
-  finite-shot estimation.
-- Table 3 (adversary): the last hand-typed retention range replaced by the
-  generated 83–91 % macros; quantum rows annotated with the intervention
-  class and the observed-kernel anchor.
-- Section V-D and VI-C: P3 renamed coverage-complete abstaining with its
-  definition (fail-closed on missing coverage; no minimum-power guarantee);
-  the trusted-regime interruption decomposed (544 holds + 85 blocks = 629).
-- Section VI-A/VI-B: zero-response cells reframed as validation checks; the
-  witness table and the coverage-count table moved to the supplement or into
-  the text (all counts kept); Fig. 3 (quantum heatmap) moved to the
-  supplement next to its table.
-- Figures: policy figure with non-colliding titles, legends off the data and
-  the interruption decomposition annotated; adversarial figure with legends
-  below the axes; heatmap re-sized for legibility.
-- Discussion, limitations and conclusion aligned (near-null synthetic
-  controls are not operational traffic; P3 limitation; exact-provenance cost
-  is 85 of 1,200 on top of the statistical cost).
-
-## Deliberately unchanged
-
-- Every number, decision, manifest hash of the gate1, expansion, quantum
-  integrity, hsaas and reinforcement evidence; the policy and adversarial
-  tables differ only in the textual `policy_class` label of P3.
-- Tags `paper15-q1-v1.1.0`, `paper15-q1-v1.1.1`, `paper15-q1-v1.2.0` and
-  `paper15-q1-v1.3.0` and their Zenodo versions are immutable.
-
-## Release
-
-Page counts, PDF hashes, test and file counts are in
-`publication/RELEASE_STATUS.md`. The version DOI is inserted by the release
-pipeline before the annotated tag `paper15-q1-v1.3.1`
-(`publication/DOI_STATUS.md`).
-
-# Earlier builds
-
-## `1.3.0-tdsc`
-
-Date: 2026-09-07. Final scientific closure release. Gates F and D were
-regenerated from the frozen 1.1.1 outputs without re-executing any kernel,
-model or draw; Gate A (240 exact-statevector jobs) is the only new
-computation. Protocol: `manuscript/paper15_v13_prereg.md`, frozen at commit
-`cad9136` before any regenerated table or new job existed (amendment A3 at
-`678c5d7`, before the first builder run).
-
-## Changed in the manuscript
-
-- Section III-D: Proposition 5(b) replaced by the full conformal max-rank
-  p-value with its exact finite-sample level and proof; Proposition 5(c)
-  records the falsity of the 1.2.0 rule with the five-vector counterexample.
-- Section III-F (new): Proposition 7, the quantum branch as an instance of
-  the view lattice; remark after Proposition 3 on metrics other than balanced
-  accuracy.
-- Section II-C (new): calibration of multi-sensor decisions (conformal
-  p-values, exchangeability, Tippett, Westfall–Young, ties, dependence among
-  conformal p-values).
-- Section IV: adversary table with the executed cluster-preserving attacker
-  (F5) and conformal identifying rates.
-- Section V: dataset weights explicit (five CICIDS2017, two UNSW-NB15, one
-  ToN-IoT environments; six of nine with Gate 1); policy taxonomy (P0
-  baseline, P1 uncalibrated risk-tolerant, P2 calibrated risk-tolerant, P3
-  abstaining, then labelled `strict`); offline end-to-end evaluation with
-  cost endpoints; Gate A design.
-- Section VI: decision-level calibration with the decomposition of the 1.2.0
-  excess into rule bias and design effect and E1 reported separately;
-  offline end-to-end decisions with the benign-interruption cost of the
-  trusted regime; new subsection on the adaptive cluster-preserving attacker;
-  ZZ-versus-SVC reduced to one sentence (details in the supplement).
-- Figures: single-panel coverage heatmap (Fig. 1); three-panel policy figure
-  with the benign cost (Fig. 2); adversarial figure (Fig. 3); quantum heatmap
-  (Fig. 4). Tables: main policy table with clean FPR and benign interruption;
-  main adversarial table.
-- Sections VII–IX: contract wording made precise (contracts fail closed on
-  invariants; P2 serves under declared residual uncertainty; P3 abstains);
-  discussion and limitations extended to the adaptive attacker, the marginal
-  nature of the conformal level and the benign cost of provenance.
-- Acknowledgment: generative-AI disclosure extended to the 1.3.0 work.
-- All numbers of the regenerated and new gates enter through generated macros
-  (`tables/policy_macros.tex`).
-
-## Deliberately unchanged
-
-- No QPU, calibrated-noise, scheduling, provider, multi-tenancy, deployed
-  service or Fleet Management experiment was added.
-- Abstract counts of the exact blind regions (3,600 / 1,800; 1,440 / 720), the
-  signed label counts, the 165-cell quantum gate and the six-scenario
-  contract are untouched.
-- Tags `paper15-q1-v1.1.0`, `paper15-q1-v1.1.1` and `paper15-q1-v1.2.0` and
-  their Zenodo versions are immutable.
-
-Released as tag `paper15-q1-v1.3.0`, version DOI 10.5281/zenodo.22648573.
-
-## Older builds
-
-`1.2.0-tdsc` (2026-09-07): scientific closure (formal core, adversary model,
-policy gates, retitling); superseded in one point by 1.3.0.
-`1.1.1-tdsc` (2026-09-06): funding acknowledgement wording only.
-`1.1.0-tdsc-rc2` (2026-09-06): three preregistered reinforcement gates, fifth
-evidence manifest, QML-PipeGuard and evaluation-blindness positioning,
-companion-work disclosure, confirmed author block, generative-AI disclosure;
-submission release tagged `paper15-q1-v1.1.0`. `1.1.0-tdsc-rc1` (2026-08-10):
-first TDSC conversion of the frozen 1.0.0 evidence.
+Tags and Zenodo records through `paper15-q1-v1.3.3` remain immutable.

@@ -10,6 +10,18 @@
 \usepackage{microtype}
 \usepackage{stfloats}
 
+% Standard pdfTeX document information; no additional PDF package is required.
+\ifdefined\pdfinfoomitdate\pdfinfoomitdate=1\fi
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+\ifdefined\pdfinfo
+  \pdfinfo{
+    /Title (Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows)
+    /Author (Roberto Fernandez-Barrios; Iker Pastor-Lopez; Amaia Pikatza-Huerga; Pablo Garcia Bringas)
+    /Subject (Corrective bibliographic and editorial release for IEEE Transactions on Dependable and Secure Computing)
+    /Keywords (hybrid quantum-classical systems; integrity auditing; observability; quantum kernels; workflow integrity)
+  }
+\fi
+
 \graphicspath{{figures/}}
 \input{tables/policy_macros.tex}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
@@ -25,7 +37,7 @@
 
 \title{Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows}
 
-% TDSC does not offer double-anonymous review. Author block and changes through 1.3.3 are author-approved.
+% TDSC does not offer double-anonymous review. Author block and release v1.3.4 are author-approved.
 \author{Roberto~Fern\'andez-Barrios,
         Iker~Pastor-L\'opez,
         Amaia~Pikatza-Huerga,
@@ -51,7 +63,7 @@ consequential workflow intervention from its baseline. We model hybrid
 quantum-classical workflows through observational indistinguishability under
 declared views and reference profiles, separating reference provenance,
 granularity, and decision rule. The constructive result is claim-relative
-minimum evidence granularity: a trusted aggregate commitment to the same
+minimum evidence granularity: a trusted aggregate anchor for the same
 batch suffices to certify integrity of a reported conclusion, whereas
 item-identity integrity requires item-aligned provenance; some root outside
 the adversary's control is unavoidable. Across eight frozen environments
@@ -61,10 +73,13 @@ thresholded aggregate comparisons with protected clean same-item-set
 benchmark oracles, not authenticated deployment evidence. A conformal family
 rule has finite-sample validity under exchangeability; observed false-action
 rates of \FprFamilyIYm--\FprFamilyIXF{} in the non-exchangeable design are
-descriptive. Batch policies serve \UnsafeFamilyIXF--\UnsafeFamilyIX{} of
-\NMaterial{} materially altered audit results. An adaptive
-cluster-preserving attacker reduces matched-strength detection from
-0.96--1.00 to 0.01--0.66 while retaining
+descriptive. On the equal-weight grid,
+feature-bearing batch policies serve \UnsafeFamilyIXF--\UnsafeFamilyIX{} of
+\NMaterial{} materially altered audit results. A cluster-preserving adaptive stress
+test of the fragile fingerprint reduces matched-strength detection in the
+feature and feature-plus-prediction regimes from
+\AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax{} to
+\AdvDetAdaptHeadlineMin--\AdvDetAdaptHeadlineMax{} while retaining
 \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of materiality; its served
 fraction varies sharply with strength. A bounded 165-cell ideal-statevector
 and finite-shot-emulation gate maps the same distinctions onto circuit,
@@ -73,7 +88,7 @@ kernel, and estimation boundaries without making a hardware claim.
 
 \begin{IEEEkeywords}
 hybrid quantum-classical systems, integrity auditing, observability, quantum
-kernels, runtime assurance
+kernels, workflow integrity
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -103,7 +118,7 @@ predictions, so a correctly signed stale or misaligned file still passes.
 Calling the event stealthy therefore requires a qualifier: stealthy to which
 auditor, holding which evidence and trusting which reference? The constructive
 result is not to store another copy of every label. A trusted aggregate
-commitment to the same batch certifies that the honest labels give the reported
+anchor for the same batch certifies that the honest labels give the reported
 conclusion; only item-identity integrity requires item alignment. If one party
 controls both the label store and its checking reference, no local verifier can
 distinguish a substituted honest pair from the original (Proposition~6). The
@@ -196,7 +211,7 @@ weaker evidence. A VAMP-style manifest can instantiate the references assumed
 here.
 
 In-toto, SLSA and Sigstore bind supply-chain steps, build provenance, identity
-and transparency \cite{TorresArias2019,SLSA2026,Newman2022}. Remote attestation
+and transparency \cite{TorresArias2019,SLSA2025,Newman2022}. Remote attestation
 supplies fresh evidence to an appraiser \cite{Coker2011}; RATS names Attesters,
 Verifiers, Evidence, Reference Values and appraisal policy \cite{Birkholz2023}.
 These mechanisms establish provenance or appraisal, not whether aggregate or
@@ -214,8 +229,9 @@ anomaly detection, shared-calibration $p$-values and dependence-aware Max-Rank
 provide the closest statistical context \cite{Laxhammar2015,Bates2023,
 Timans2025}. We claim no novelty for the rule: the leave-one-out family score
 calibrates an information-regime decision under its stated premise and exposes
-the executed design's premise violation. The earlier asymmetric variant had no
-such guarantee (Proposition~5(c)).
+the executed design's premise violation. Beyond-exchangeability conformal
+methods exist \cite{Barber2023}, but this paper does not implement one. The
+asymmetric comparison rule had no such guarantee (Proposition~5(c)).
 
 \subsection{Hybrid and Quantum Software Integrity}
 
@@ -399,8 +415,7 @@ $V_{\mathcal I}(s_a)=\pi(V_{\mathcal I'}(s_a))=\pi(V_{\mathcal I'}(s_0))=V_{\mat
 deterministic. (a) $T_y\subseteq B_{\IXF}\subseteq B_{\IX}$: every sensor
 admissible in $\IX$ or $\IXF$ is invariant under a label-only change.
 (b) $T_y^{\pi}\subseteq B_{\IYm}$: every sensor admissible in $\IYm$ is
-invariant under a prior-preserving change. These are the two propositions of
-the earlier version of this evidence, now corollaries.
+invariant under a prior-preserving change.
 
 \textbf{Proposition 2 (closure).}
 $B_{\mathcal I\vee\mathcal W}(\mathcal A)=B_{\mathcal I}(\mathcal A)\cap B_{\mathcal W}(\mathcal A)$;
@@ -591,7 +606,7 @@ Random label flip: rewrite $r$ of $y$ at random (evaluation/report) & Integrity 
 Prior-preserving label flip: pairwise swaps preserving class counts (evaluation/report) & Adaptive attacker & as above & exact only; $\IXFY$ batch 0.00--0.01 & invisible to $\IX,\IXF,\IYm$ (Cor.~1); every material instance changes $M$ (Prop.~3) \\
 Confusion-preserving relabeling: swaps among equal predictions (realised, not executed) & Adaptive attacker & as above & item-aligned reference only & item-identity violation without aggregate or conclusion impact (C1; \WitnessWOne{} rows) \\
 Feature sign flip: negate $p$ of $\tilde X$ entries (acquisition/preprocessing) & Integrity corruption & training data, fitted model, reference features & $\IX$ 0.09--0.72; $\IXF$ 0.13--0.84; exact 0.79--0.91 & partially separable; strength-dependent residual \\
-Mean shift, scaling drift: shift or scale all features (acquisition/preprocessing) & Fault robustness & as above & $\IX$ 0.96--1.00 by cluster fingerprint & detected in this design by a fragile fingerprint \\
+Mean shift, scaling drift: shift or scale all features (acquisition/preprocessing) & Fault robustness & as above & $\IX$ \AdvDetCtrlIXMin--\AdvDetCtrlIXMax{} by cluster fingerprint & detected in this design by a fragile fingerprint \\
 Feature dropout: impute $p$ of entries (preprocessing) & Fault robustness & as above & batch 0.00--0.03; exact 0.49--0.76 & separable in $\IXF$ yet statistically undetectable with a level-A reference \\
 Cluster-preserving mean shift and scaling: same mechanisms on the 32\% of entries outside tight clusters (executed, Gate~A) & Adaptive attacker & as above & $\IX$ 0.01--\AdvDetAdaptSDTenPctIX{}, $\IXF$ 0.06--\AdvDetAdaptSDTenPctIXF{} at matched strengths; exact for every material row & evades the fingerprint while keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes; served by P2 in 28--39\% of material rows \\
 Circuit-parameter mutation; repetition change: alter $C$ before execution (design; (a)) & Adversarial attack & reference circuit hash, probe kernel $K_{\mathrm{sem},0}$ & circuit hash and semantic probe 15/15 & identified by anchored provenance and semantics; outputs miss sub-decision changes \\
@@ -653,6 +668,11 @@ a trusted aggregate are exact class B invariants, while prediction
 disagreement and label mismatch use trusted item alignment (class C). The
 complete sensor-to-reference audit is in the supplement.
 
+The duplicate, clustered and near-constant structure on which this benchmark
+fingerprint depends is consistent with documented CICIDS2017 data-quality
+limitations \cite{Engelen2021}; the frozen staging is described rather than
+re-engineered here.
+
 \subsection{Experimental Units and Uncertainty}
 
 Gate~1 crosses five split seeds with four nested model seeds; its 7,980 raw
@@ -674,12 +694,13 @@ one half of the held-out evaluation pool, and false alarms are measured on
 200 draws from the disjoint other half. Gate~F calibrates each regime as a
 family with Proposition~5(b)'s conformal rule at $\alpha=0.05$ per decision,
 using only the calibration draws. The same draws also evaluate the union and
-earlier asymmetric rules (Proposition~5(c)). The earlier rule's pooled excess
+asymmetric comparison rules (Proposition~5(c)). The asymmetric rule's pooled excess
 over nominal is decomposed into rule bias (its rate minus the conformal rate
 on identical draws) and design effect (the conformal rate minus nominal).
 Both rules are also evaluated under 30 exchangeable re-splits of the 400 pooled
-draws per cell; the artifact records the protocol, amendment and preregistered
-expectations. Because a run's 20 draws overlap within one pool half, false-alarm
+draws per cell. The final diagnostic values had been observed before amendment
+A2 was recorded; A2 disclosed that fact before frozen-only regeneration.
+Because a run's 20 draws overlap within one pool half, false-alarm
 inference uses (environment, split-seed) clusters. Pooled rates are descriptive;
 intervals are five-cluster $t$ intervals per environment. E1 (256-row draws
 from 322-row halves) remains in the preregistered primary aggregate and is also
@@ -763,7 +784,9 @@ repeated-estimation discrepancy and prediction changes. The prototype
 instantiates four ordered contracts (input/preprocessing, circuit/kernel,
 execution/result, evaluation/report) in an SHA-256 chain over one compact
 CICIDS cell and six prespecified scenarios; it evaluates composition and
-decision logic, not throughput.
+decision logic, not throughput. It is the Paper~1.5 research instance of the
+ATHENA-AEGIS HSaaS component, not evidence of deployment, provider attestation,
+confidentiality, QPU protection or Fleet Management.
 
 \section{Results}
 
@@ -786,7 +809,7 @@ leave it unchanged and \LabelIncreasedExp{} raise it (Gate~1:
 one of the \LabelMaterialExp{} (Gate~1: \LabelMaterialGone{}) label
 observations with a changed conclusion has non-zero item-aligned confusion
 evidence, and every one of the 2,184 with a lowered conclusion, the count
-reported by the earlier version, is among them.
+used by the one-sided diagnostic, is among them.
 
 
 \subsection{Decision-Level Calibration}
@@ -799,7 +822,7 @@ $\IXF$, $\IYm$ and $\IXFY$ (three, six, two perfectly dependent and ten
 sensors). The conformal family rule brings them to \FprFamilyIX{},
 \FprFamilyIXF{}, \FprFamilyIYm{} and \FprFamilyIXFY{} (Fig.~\ref{fig:policy}(a)),
 observed rates in a design that violates the exchangeability premise. The
-asymmetric rule of the earlier version gave \FprLegacyIX{}, \FprLegacyIXF{},
+asymmetric comparison rule gave \FprLegacyIX{}, \FprLegacyIXF{},
 \FprLegacyIYm{} and \FprLegacyIXFY{} on the same draws and attributed its
 whole excess over 0.05 to the design. That attribution was wrong: the rule
 bias is \RuleBiasIX{}, \RuleBiasIXF{}, \RuleBiasIYm{} and \RuleBiasIXFY{}, the
@@ -816,7 +839,9 @@ about one independent batch per pool half (\FprFamilyEoneOnlyIX{},
 without E1 the conformal rule sits at \FprFamilyExclEoneIX{},
 \FprFamilyExclEoneIXF{}, \FprFamilyExclEoneIYm{} and \FprFamilyExclEoneIXFY{};
 E1 stays in the primary aggregate. A split construction (\FprSplitIX{},
-\FprSplitIXF{}, \FprSplitIYm{}, \FprSplitIXFY{}; supplement) is not adopted.
+\FprSplitIXF{}, \FprSplitIYm{}, \FprSplitIXFY{}; supplement) is not adopted
+because it splits the draws between ranking and calibration, reducing the
+calibration sample and coarsening $p$-value resolution to 1/101.
 
 As a consistency check of Proposition~4(i), the calibrated rules confirm
 the structural prediction: on all 3,600 label observations the per-sensor and
@@ -833,7 +858,9 @@ detects all \NMaterialLabel{} exactly (Corollary~3a) and \WitnessWNine{} of
 the 3,600 label rows in total; the \WitnessWTen{} relabelings that preserve
 every aggregate (C1) are exposed only by the item-aligned label reference
 (Corollary~3b). Feature-side coverage is mechanism-dependent: mean shift and
-scaling drift are detected in 0.96--1.00 of cells because the standardized
+scaling drift are detected in \AdvDetCtrlIXMin--\AdvDetCtrlIXMax{} of $\IX$
+cells, \AdvDetCtrlIXFMin--\AdvDetCtrlIXFMax{} of $\IXF$ cells and
+\AdvDetCtrlIXFYMin--\AdvDetCtrlIXFYMax{} of $\IXFY$ cells because the standardized
 projected features hold tight clusters that an in-place perturbation smears
 and a fresh batch reproduces, a legitimate but fragile fingerprint that also
 fires on the near-null controls (40--64\% with the conformal rule); feature
@@ -848,7 +875,7 @@ containment in $\IXF$ is \ContainUnionIXF{} under the union and
   \includegraphics[width=\textwidth]{fig_q1_policy_decisions.pdf}
   \caption{Gates F and D (frozen evidence of artifact 1.3.0). (a)
   Decision-level false-alarm rate on \NEvalDraws{} disjoint clean draws of the
-  union rule, of the superseded asymmetric rule and of the conformal family
+  union rule, of the asymmetric comparison rule and of the conformal family
   rule per regime; whiskers span the eight per-environment cluster means. (b)
   Rate of materially altered audit results served against clean
   false-action rate for each batch policy and regime at the
@@ -867,7 +894,9 @@ containment in $\IXF$ is \ContainUnionIXF{} under the union and
 \subsection{Offline End-to-End Decisions}
 
 Table~\ref{tab:policy} and Fig.~\ref{fig:policy}(b,c) report the offline
-end-to-end evaluation. Under P0 every one of the \NMaterial{} material
+end-to-end evaluation. All aggregate served fractions summarize the
+prespecified equal-weight intervention grid; they are not deployment
+prevalence or expected operational unsafe rates. Under P0 every one of the \NMaterial{} material
 observations is served. Under the batch-level regimes the conformal policy P2
 serves \UnsafeFamilyIX{} ($\IX$), \UnsafeFamilyIXF{} ($\IXF$) and
 \UnsafeFamilyIXFY{} ($\IXFY$) of them with clean false-action rates
@@ -877,9 +906,9 @@ uncalibrated union serves \UnsafeUnionIX{}, \UnsafeUnionIXF{} and
 \DecFprUnionIXFY{}: the union buys \ContainUnionIXFY{} versus
 \ContainFamilyIXFY{} containment in $\IXFY$ at more than four times the clean
 false-action rate and \BenignHBUnionIXFY{} versus \BenignHBFamilyIXFY{}
-interruption of the near-null controls. The earlier asymmetric rule served
+interruption of the near-null controls. The asymmetric comparison rule served
 \UnsafeLegacyFamilyIX{}, \UnsafeLegacyFamilyIXF{} and
-\UnsafeLegacyFamilyIXFY{}; the correction moves the count by less than 1\% of
+\UnsafeLegacyFamilyIXFY{}; the adopted rule moves the count by less than 1\% of
 the material rows. The served material corruptions are dominated by structure, not by
 thresholds: all \NMaterialLabel{} material label observations are served
 under $\IX$ and $\IXF$ (residual blind region), \UnsafeFamilyLabelIXFY{} of
@@ -891,9 +920,11 @@ cases remain in its residual blind region at $\tau\to0^{+}$, while all
 \UnsafeFamilyIYm{} material cases are served once both blind and
 statistically missed cases are counted.
 
-The trusted-reference regime serves none of the \NMaterial{} material
-observations with zero clean false actions on its 1,200 exact-zero rows (the
-aggregate reference alone would suffice, by Corollary~3a), and blocks every
+Containment \ContainFamilyIXFYtrusted{} follows constructively from
+Corollary~3 under the declared trusted references; the experiment quantifies
+its operational/statistical cost. Consistently, the trusted-reference regime
+serves none of the \NMaterial{} material observations with zero clean false
+actions on its 1,200 exact-zero rows and blocks every
 non-identity relabeling and every prediction change through its item-aligned
 references. Its cost has two parts. Of the 1,200 near-null synthetic
 controls the trusted calibrated policy interrupts
@@ -922,8 +953,11 @@ reproduces their actions (supplement).
 \subsection{Adaptive Cluster-Preserving Attacker}
 
 Gate~A ran as preregistered: 240/240 jobs, with exact replay of clean rows and
-matched controls. At strengths 0.02--0.10 it reduces feature-drift detection
-from 0.96--1.00 to 0.01--0.66 while retaining
+matched controls. This is a stress test of a fragile cluster-dependent
+fingerprint, not the defeat of a generally powerful drift detector. At
+strengths 0.02--0.10, detection in the feature and feature-plus-prediction
+regimes falls from \AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax{} to
+\AdvDetAdaptHeadlineMin--\AdvDetAdaptHeadlineMax{} while retaining
 \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of materiality. Among
 \AdvNMaterialAdaptIXF{} material adaptive rows, P2 serves
 \AdvUnsafeAdaptFamilyIX{}/\AdvUnsafeAdaptFamilyIXF{}/
@@ -942,11 +976,11 @@ detection for every strength and regime. The attack is most effective while
 subtle; stronger perturbations increasingly shift the aggregate and are
 easier to detect.
 
-The calibrated family result must be read with its cause. The previously
-fully detected result for feature drift was a
-property of the fingerprint, not of the mechanism: calibration controls false
-alarms but buys no coverage against an attacker who knows what the sensor
-sees; only a reference does.
+The high matched-control response, near-null sensitivity and adaptive evasion
+are three manifestations of the same duplicate/cluster structure, not three
+independent validations. The result is a property of the fingerprint, not of
+the mechanism: calibration controls false alarms but buys no coverage against
+an attacker who knows what the sensor sees; only a reference does.
 
 \begin{figure}[!t]
   \centering
@@ -1016,10 +1050,9 @@ unchanged. Calling this model degradation assigns failure to the wrong
 component: input robustness cannot repair corrupted ground truth, whereas
 provenance and joint validation can. Zero sensor response is informative only
 when its evidence could distinguish the states; separability yields practical
-detection only with a sufficiently tight null. The offline result makes the
-consequence concrete: with typical batch-level evidence, a calibrated policy
-serves about three fifths of this suite's materially changed results, and the
-information regime sets that share. The adversarial gate adds that calibration
+detection only with a sufficiently tight null. On the prespecified equal-weight
+stress grid, the macro-reported served fractions are mechanism summaries, not
+deployment prevalence. The adversarial gate adds that calibration
 controls false alarms, not what an attacker can hide: after the declared
 fingerprint is preserved, 28--39\% of material instances are served in
 aggregate, with the full strength-specific profile reported above.
@@ -1099,8 +1132,8 @@ and replay commands. Raw CICIDS2017, UNSW-NB15 and ToN-IoT data are not
 redistributed; sources, hashes and staging are documented. Experimental
 evidence is frozen at artifact 1.3.0
 (version DOI 10.5281/zenodo.22648573). Version
-1.3.3 is archived at Zenodo, version DOI 10.5281/zenodo.22666931 (concept DOI
-10.5281/zenodo.22550852); code is released under Apache-2.0,
+1.3.4 is archived at Zenodo under the concept DOI 10.5281/zenodo.22550852
+(version DOI in the artifact metadata); code is released under Apache-2.0,
 derived evidence, figures and documentation under CC~BY~4.0. The study uses
 previously released benchmarks and involves no new human-participant or
 personal-data collection.
@@ -1111,7 +1144,8 @@ During manuscript and artifact preparation the authors used OpenAI Codex and
 Anthropic Claude Code for literature discovery, drafting and language
 editing, code inspection, formal audits, evidence builders, tests, figures
 and release preparation. Codex also assisted with the controlled 1.3.2
-implementation audit and the 1.3.3 bibliographic/editorial correction. The authors specified
+implementation audit and the 1.3.3--1.3.4 bibliographic/editorial corrections,
+including the reference-by-reference primary-source audit. The authors specified
 the protocols, verified the primary sources, proofs, numerical results, code
 and generated text, and retain full responsibility; the submission package
 contains the full system-by-section disclosure.

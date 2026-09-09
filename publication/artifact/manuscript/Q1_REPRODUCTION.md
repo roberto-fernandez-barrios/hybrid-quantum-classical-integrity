@@ -1,22 +1,29 @@
-# Paper 1.5 reproduction guide (artifact 1.3.1; experimental evidence frozen at 1.3.0)
+# Paper 1.5 reproduction guide (release 1.3.4; experimental evidence frozen at 1.3.0)
 
-Version 1.3.1 re-executes nothing: it corrects the formal statements and the
-editorial framing, regenerates the policy and adversarial tables with the
-unchanged, deterministic builders so that the textual `policy_class` label of
-P3 reads "coverage-complete abstaining" (every number is identical to 1.3.0),
-and adds `tests/test_workflow_state.py` and
-`tests/test_manuscript_consistency.py`. The commands below are those of 1.3.0.
+Version 1.3.4 is a corrective bibliographic/editorial release. No experiment,
+kernel, model, dataset, seed, attack, draw, intervention, policy decision,
+scientific result or formal theorem was re-executed or changed. Derived
+metadata/coverage artifacts were regenerated from the frozen code/evidence to
+correct an inconsistency; scientific observations and decisions are unchanged.
+
+Reviewer path: repository `README.md` → this guide → `publication/artifact/`
+→ `python -m src.experiments.verify_publication_artifact --root
+publication/artifact`.
 
 This guide separates two activities that a third party may want to perform
 from a clean clone:
 
-- **Verify the frozen artifact** — no benchmark dataset is needed. The compact
-  artifact under `publication/artifact/` carries every derived table, its seven
-  embedded evidence manifests, 83 manifested outputs, figures, and an
-  independent verifier that recomputes the primary claims.
+- **Verify the compact artifact** — no benchmark dataset is needed. The compact
+  artifact under `publication/artifact/` carries the claim-supporting derived
+  tables, eight embedded evidence manifests, 86 manifested outputs, figures,
+  and an independent verifier that recomputes the primary claims. It begins
+  from manifested compact derived evidence; raw benchmark jobs and raw datasets
+  are not included.
 - **Recompute everything** — the public benchmark datasets must be obtained
   from their official sources, verified by hash, staged with the documented
   commands, and the experiment queues, builders and assembler must be run.
+  The GitHub/source snapshot contains those runners and builders; it is broader
+  than the compact Zenodo artifact and does not imply that raw jobs are bundled.
 
 Authoritative counts (tests, manifests, outputs, files, pages, hashes) are
 generated into `publication/RELEASE_STATUS.md` at release time; if a number in
@@ -79,8 +86,8 @@ $PY -m src.experiments.verify_publication_artifact --root publication/artifact
 
 The test suite must pass (its size is recorded in
 `publication/RELEASE_STATUS.md`). The verifier is read-only: it checks the
-artifact-wide SHA-256 manifest, the seven embedded evidence manifests and
-their 83 outputs, CSV row counts, the primary label-boundary counts (3,600 /
+artifact-wide SHA-256 manifest, the eight embedded evidence manifests and
+their 86 outputs, CSV row counts, the primary label-boundary counts (3,600 /
 2,184 expansion and 1,440 / 1,276 Gate 1, plus the signed decreased /
 unchanged / increased counts), the calibrated label-path consistency checks of
 the reinforcement gate, the policy-level claims of the conformal calibration
@@ -90,8 +97,8 @@ the adversarial gate (exact replay of the matched controls, zero unsafe allows
 in the trusted regime). It exits non-zero on any missing file, changed byte,
 incomplete acceptance check or changed primary count.
 
-The same verification works on an unpacked release ZIP
-(`publication/paper15-q1-v1.3.0.zip`): from inside the unpacked directory run
+The same verification works on an unpacked compact release ZIP
+(`paper15-q1-v1.3.4.zip`): from inside the unpacked directory run
 `python software/src/experiments/verify_publication_artifact.py --root .`
 (pandas is the only third-party dependency of the verifier).
 

@@ -172,7 +172,7 @@ def _coverage_plot(observations: pd.DataFrame, out_dir: Path) -> tuple[list[Path
             )
     colorbar = fig.colorbar(image, ax=axis, shrink=0.82)
     colorbar.set_label("Fraction of model/environment/seed cells with non-zero raw response")
-    # Artifact 1.3.3: the note is an axis label, so that constrained_layout reserves
+    # Release 1.3.4: the note is an axis label, so that constrained_layout reserves
     # room for it below the rotated tick labels instead of letting the two overprint.
     axis.set_xlabel(
         "A zero is a raw invariance result, not an estimated detector power; practical alarms require calibration.",

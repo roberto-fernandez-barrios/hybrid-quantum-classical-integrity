@@ -53,6 +53,7 @@ RELEASE_SUMMARY = {
     "1.3.1": "formal and editorial correction of Paper 1.5 for IEEE TDSC (experimental evidence frozen at 1.3.0)",
     "1.3.2": "methodological alignment of Paper 1.5 with its frozen evidence for IEEE TDSC",
     "1.3.3": "bibliographic and editorial closure of Paper 1.5 for IEEE TDSC (scientific evidence frozen)",
+    "1.3.4": "final corrective bibliographic and editorial release of Paper 1.5 for IEEE TDSC (scientific evidence frozen)",
 }
 ZENODO_API = "https://zenodo.org/api"
 SCIENCE_BRANCH = "paper15-q1-expansion"
@@ -127,14 +128,14 @@ def _fail(message: str) -> None:
 
 def preflight() -> None:
     py = _python()
-    # Version 1.3.3 is bibliography/editorial only. Its preflight consumes the
-    # frozen, already-manifested evidence and generated tables verbatim.
-    if _version() != "1.3.3":
+    # Versions 1.3.3 and 1.3.4 are bibliography/editorial corrections. Their
+    # preflight consumes frozen, already-manifested evidence and derived files.
+    if _version() not in {"1.3.3", "1.3.4"}:
         _run([py, "-m", "src.experiments.build_v132_amendment_evidence"])
         _run([py, "-m", "src.experiments.make_q1_policy_tables"])
         _run([py, "-m", "src.experiments.make_q1_policy_figures"])
     else:
-        print("1.3.3 frozen-evidence guard: skipping all evidence/table/figure builders")
+        print(f"{_version()} frozen-evidence guard: skipping all evidence/table/figure builders")
     # Build first, then assemble the compact artifact (the PDFs are part of it),
     # then verify it and run the tests, which check the assembled artifact.
     _run(["pwsh", "-NoProfile", "-File", "publication/tdsc/build.ps1"])
@@ -217,7 +218,7 @@ def insert_doi(doi: str) -> None:
          f"the version DOI\nof {version} is recorded in `publication/DOI_STATUS.md` and `CITATION.cff`",
          f"version DOI of {version}: **{doi}**"),
         (ROOT / "publication/submission/cover_letter.md",
-         f"under the concept DOI {CONCEPT_DOI} (version {version}; the version DOI\nis recorded in the artifact metadata)",
+         f"concept DOI {CONCEPT_DOI} (version {version}; the version DOI is recorded\nin the artifact metadata)",
          f"at Zenodo (version DOI {doi}, version {version}; concept DOI {CONCEPT_DOI})"),
     ]
     for path, old, new in edits:

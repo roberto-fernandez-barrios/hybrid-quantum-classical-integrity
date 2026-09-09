@@ -1,4 +1,4 @@
-# Paper 1.5 compact review artifact — version 1.3.3
+# Paper 1.5 compact review artifact — version 1.3.4
 
 This directory is the self-contained, derived-evidence artifact for
 *Observational Indistinguishability and Integrity Blind Regions in Hybrid
@@ -65,7 +65,7 @@ primary count causes a non-zero exit.
   threat-model card, formal core, preregistrations, result summaries, figures
   and tables;
 - `environment/` — Python 3.10 dependency lock and packaging metadata;
-- `software/` — exact Python source and tests snapshot used for version 1.3.3.
+- `software/` — exact Python source and tests snapshot used for version 1.3.4.
 
 See `manuscript/Q1_REPRODUCTION.md` for dataset staging and experiment replay.
 Exact-statevector evaluation and binomial-shot emulation are not QPU evidence.

@@ -1,7 +1,8 @@
-# Adversary and failure model — Paper 1.5 (artifact 1.3.3; evidence frozen at 1.3.0)
+# Adversary and failure model — Paper 1.5 (release 1.3.4; evidence frozen at 1.3.0)
 
-Artifact 1.3.3 changes bibliography and editorial positioning only; this model
-and all evidence are unchanged from 1.3.2. Version 1.3 (2026-09-08, artifact 1.3.2) audits the reference semantics:
+Release 1.3.4 corrects bibliography, wording and frozen-derived coverage
+metadata; this model and all scientific evidence remain unchanged from 1.3.2.
+Version 1.3 (2026-09-08, artifact 1.3.2) audits the reference semantics:
 Class-A selected sensors use statistical aggregate comparisons against a
 benchmark-protected clean same-item-set oracle without item pairing or
 demonstrated deployed authentication; B/C are trusted aggregate/item-aligned
@@ -85,7 +86,7 @@ actually supported by the frozen evidence.
 
 - Actor/cause: sensor miscalibration, unit or scaling change, preprocessing drift. Class: fault robustness (benign drift) or non-adaptive corruption.
 - Capability: additive shift or multiplicative scaling of all evaluation features. Access: B1/B2. Knowledge: none.
-- Identifying information: detected in 0.96–1.00 of cells at every strength by the feature regime because the standardized projected features contain tight clusters (69–87% of rows within 0.01 SD in some feature): an in-place perturbation smears the cluster, a fresh clean batch reproduces it. Item-aligned prediction changes 0.36–0.67.
+- Identifying information: the generated `AdvDetCtrlIXMin/Max` and `AdvDetCtrlHeadlineMin/Max` macros report the per-regime and two-regime matched-control ranges. This design-specific response is driven by tight clusters in the standardized projected features (69–87% of rows within 0.01 SD in some feature): an in-place perturbation smears the cluster, while a fresh clean batch reproduces it. Item-aligned prediction changes 0.36–0.67.
 - Claim: detected in this design by a fragile fingerprint; the adaptive attacker F5 who preserves the clusters evades it (executed in 1.3.0). 3,600 rows, 1,848 with a changed conclusion, 6 served under $\mathcal I_{XF}$/P2.
 
 ### F3 — Feature dropout with median imputation (`feature_dropout_p`)
@@ -107,8 +108,8 @@ actually supported by the frozen evidence.
 - Capability: on the audited batch, leave every entry untouched whose value is shared (within 0.01 batch standard deviations) by at least $\lceil 0.05 n \rceil$ rows, and apply the F2 mechanism to the remaining 32% of entries on average (16–47% by environment, branch and dimension). Access: B1/B2. Knowledge: the batch, the sensor definitions and the fingerprint; not the thresholds. Strengths 0.02, 0.05, 0.10 (matched to F2) and 0.25, 0.50.
 - Objective: change the conclusion while keeping the feature distribution inside the between-batch null.
 - Alterable assets: $\tilde X$ (and through $f$, $\hat y$ and $R$). Roots it cannot control: the training data and fitted model; the item-aligned prediction reference when declared.
-- Identifying information: conformal detection at matched strengths 0.01/0.08/0.34 (mean shift) and 0.05/0.35/0.56 (scaling) in $\mathcal I_X$, 0.06/0.24/0.48 and 0.23/0.47/0.66 in $\mathcal I_{XF}$, against 0.96–1.00 for F2; 0.76–0.90 at 0.25–0.50; exact under $\mathcal I_{XFY}^{\star}$ for every material row (a changed conclusion with fixed labels requires a changed prediction).
-- Claim: the executed instance of sensor insufficiency against an adaptive attacker: 6,000 rows, 3,418 with a changed conclusion (83–91% of F2's material fraction at matched strengths), of which P2 serves 1,328 / 959 / 1,006 in $\mathcal I_X$ / $\mathcal I_{XF}$ / $\mathcal I_{XFY}$ (F2 in the same runs: 0 / 6 / 10 of 1,848); the classical branch is more evasive than the quantum branch because its scaler moves the unclustered entries less relative to the null. Calibration controls false alarms; only a reference closes this region.
+- Identifying information: conformal detection at matched strengths is 0.01/0.08/0.34 (mean shift) and 0.05/0.35/0.56 (scaling) in $\mathcal I_X$, and 0.06/0.24/0.48 and 0.23/0.47/0.66 in $\mathcal I_{XF}$; the generated `AdvDetAdaptiveHeadlineMin/Max` and `AdvDetCtrlHeadlineMin/Max` macros provide the adaptive and matched-control headline ranges across those two feature-bearing regimes. Detection is 0.76–0.90 at 0.25–0.50 and exact under $\mathcal I_{XFY}^{\star}$ for every material row (a changed conclusion with fixed labels requires a changed prediction).
+- Claim: a stress test of a fragile, cluster-dependent fingerprint—not defeat of a generally powerful drift detector. High matched-control response, near-null sensitivity and adaptive evasion are consequences of the same cluster structure. Across 6,000 rows, 3,418 change conclusion (83–91% of F2's material fraction at matched strengths), of which P2 serves 1,328 / 959 / 1,006 in $\mathcal I_X$ / $\mathcal I_{XF}$ / $\mathcal I_{XFY}$ (F2 in the same runs: 0 / 6 / 10 of 1,848); the classical branch is more evasive than the quantum branch because its scaler moves the unclustered entries less relative to the null. Calibration controls false alarms; only a protected reference closes this region.
 
 ### Q1 — Data-dependent circuit-parameter mutation (`parameterized_rz_alpha` 0.02 / 0.10) and feature-map repetition change (class (a), circuit-side)
 
