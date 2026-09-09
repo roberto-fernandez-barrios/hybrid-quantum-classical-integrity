@@ -1,5 +1,6 @@
 # Preserve byte-for-byte publication artifacts so SHA-256 manifests remain valid.
-publication/artifact/** -text
+# Snapshot files may retain source line endings and Markdown hard-break spaces.
+publication/artifact/** -text whitespace=-trailing-space
 *.pdf binary
 *.png binary
 *.zip binary

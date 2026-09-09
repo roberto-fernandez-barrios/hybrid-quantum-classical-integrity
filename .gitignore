@@ -9,12 +9,11 @@ Papers/
 tmp/
 .pytest_cache/
 *.pyc
-/journal/TDSC_EDITORIAL_MEMORY.local.md
 # Local/confidential project material and third-party templates (never publish)
 /Proyecto/
-/journal/Computer_Society_LaTeX_template/
-/journal/Computer_Society_LaTeX_template.zip
-/journal/guidelines.txt
+/journal/
+/publication/submission/
+/publication/tdsc/make_submission_package.ps1
 
 # Release assets and Zenodo draft state (uploaded to GitHub Releases / Zenodo, never committed)
 /publication/paper15-q1-v*.zip

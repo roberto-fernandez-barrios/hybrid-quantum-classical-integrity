@@ -10,7 +10,7 @@ identifiers:
     value: "10.5281/zenodo.22550852"
     description: "Concept DOI (resolves to the latest archived version)"
   - type: url
-    value: "https://github.com/roberto-fernandez-barrios/paper_HAIS/releases/tag/paper15-q1-v1.3.4"
+    value: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/releases/tag/paper15-q1-v1.3.4"
     description: "GitHub release of the tagged source"
   - type: doi
     value: "10.5281/zenodo.22666931"
@@ -33,9 +33,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.22550853"
     description: "Version 1.1.0 (identical evidence to 1.1.1; funding acknowledgement wording differs)"
-repository-code: "https://github.com/roberto-fernandez-barrios/paper_HAIS"
+repository-code: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity"
 license: Apache-2.0
-license-url: "https://github.com/roberto-fernandez-barrios/paper_HAIS/blob/paper15-q1-v1.3.4/LICENSING.md"
+license-url: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/blob/paper15-q1-v1.3.4/LICENSING.md"
 authors:
   - family-names: "Fernández-Barrios"
     given-names: "Roberto"

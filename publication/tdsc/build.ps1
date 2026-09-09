@@ -60,7 +60,7 @@ try {
     $mainPages = [int](($mainPagesLine.ToString() -split ':')[1].Trim())
     $supplementPages = [int](($supplementPagesLine.ToString() -split ':')[1].Trim())
     if ($mainPages -gt 12) {
-        throw "Main article has $mainPages pages; the internal ceiling is 12."
+        throw "Main article has $mainPages pages; the page limit is 12."
     }
 
     Copy-Item -LiteralPath 'main.pdf' -Destination (Join-Path $pdfDir 'paper15_tdsc_submission.pdf') -Force

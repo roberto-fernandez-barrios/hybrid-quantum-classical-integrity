@@ -93,7 +93,7 @@ schema, count or consistency mismatch causes a non-zero exit.
 Full replay is optional and substantially more expensive. Dataset acquisition
 (official sources and expected SHA-256), staging, exact-statevector queues,
 evidence builders, the policy gates, the adversarial gate and expected
-outputs are documented in `Q1_REPRODUCTION.md`. The published datasets retain
+outputs are documented in `REPRODUCIBILITY.md`. The published datasets retain
 their original licenses and are not included in the artifact.
 
 ## Contact

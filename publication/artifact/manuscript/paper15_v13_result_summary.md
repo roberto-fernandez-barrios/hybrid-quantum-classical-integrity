@@ -142,9 +142,8 @@ are fully frozen.
 
 At the matched strengths the attacker reduces detection from 0.96–1.00 to
 0.01–0.34 (`I_X`) and 0.06–0.66 (`I_XF`) while keeping 83–91 % of the
-material fraction (exact ratios 0.831–0.907 at the matched strengths; the
-"88–95 %" of the first draft of this summary was an arithmetic slip caught
-in the final hostile review, Audit 5). Detection recovers at 0.25–0.50 because the unclustered
+material fraction (exact ratios 0.831–0.907 at the matched strengths).
+Detection recovers at 0.25–0.50 because the unclustered
 entries then move far enough to shift the feature distribution against the
 between-batch null. The classical branch (standardized features) is more
 evasive than the quantum branch (features scaled to [0, 2π]): at 0.10 the

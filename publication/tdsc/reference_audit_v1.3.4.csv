@@ -26,7 +26,7 @@ Zhou2019,yes,yes,yes,yes,yes,DOI,10.1145/3314221.3314584,https://doi.org/10.1145
 Yeniaras2026PipeGuard,yes,yes,yes,yes,yes,arXiv,2605.25066,https://arxiv.org/abs/2605.25066,preprint,yes,VERIFIED,completed-identifier,Recoverable arXiv metadata added
 Stokes2021,yes,yes,yes,yes,yes,DOI,10.1109/MILCOM52596.2021.9653139,https://doi.org/10.1109/MILCOM52596.2021.9653139,published,yes,VERIFIED,none,Published MILCOM paper
 Bajaj2026,yes,yes,yes,yes,yes,arXiv,2608.02786,https://arxiv.org/abs/2608.02786,preprint,yes,VERIFIED,completed-identifier,Recoverable arXiv metadata added
-FernandezBarrios2026Certificates,yes,yes,yes,yes,yes,local-manuscript,EPJQT-submission-2026-09-06,local:publication/submission/related_manuscripts/sharp_target_domain_certificates_submitted_EPJQT.pdf,submitted-manuscript,yes,VERIFIED,removed-software-doi,Zenodo 21776862 is a related software artifact not the article DOI
+FernandezBarrios2026Certificates,yes,yes,yes,yes,yes,local-manuscript,EPJQT-submission-2026-09-06,author-held:submitted-manuscript,submitted-manuscript,yes,VERIFIED,removed-software-doi,Zenodo 21776862 is a related software artifact not the article DOI
 FernandezBarrios2026Conditional,yes,yes,yes,yes,yes,arXiv,2609.02781,https://arxiv.org/abs/2609.02781,preprint,yes,VERIFIED,completed-identifier,Public preprint verified
 FernandezBarrios2026VBC,yes,yes,yes,yes,yes,arXiv,2609.04388,https://arxiv.org/abs/2609.04388,preprint,yes,VERIFIED,replaced-software-doi,Public preprint replaces manuscript-only citation
 Pasqualetti2013,yes,yes,yes,yes,yes,DOI,10.1109/TAC.2013.2266831,https://doi.org/10.1109/TAC.2013.2266831,published,yes,VERIFIED,none,Published journal article

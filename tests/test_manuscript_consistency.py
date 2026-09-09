@@ -14,8 +14,8 @@ correction removed, so that they cannot reappear silently:
   ``false-alarm probability one'' of the earlier version;
 * the trusted-regime interruption decomposition printed through the macros sums
   correctly (statistical holds + exact-reference blocks = total interruptions).
-* the bibliographic-ceiling patch and its conservative prior-art positioning
-  cannot silently regress.
+* verified bibliographic metadata and conservative prior-art positioning cannot
+  silently regress.
 
 The tests run on a fresh checkout without the derived evidence: they need
 only the repository text files.
@@ -42,22 +42,22 @@ ACTIVE_DOCUMENTS = [
     "publication/tdsc/main.tex",
     "publication/tdsc/supplement.tex",
     "README.md",
-    "publication/RELEASE_NOTES.md",
-    "publication/tdsc/RELEASE_NOTES.md",
+    "REPRODUCIBILITY.md",
+    "CHANGELOG.md",
+    "LICENSING.md",
+    "publication/RELEASE_STATUS.md",
     "publication/tdsc/README.md",
     "publication/tdsc/CLAIMS_TRACEABILITY.md",
     "publication/tdsc/SUPPLEMENT_README.md",
-    "publication/submission/cover_letter.md",
-    "publication/submission/highlights.txt",
-    "publication/submission/title_page_REQUIRED.md",
-    "publication/submission/RELATED_WORK_DISCLOSURE.md",
-    "publication/submission/submission_checklist.md",
-    "publication/submission/AI_USE_DISCLOSURE.md",
     "manuscript/ADVERSARY_MODEL.md",
     "manuscript/THREAT_MODEL_CARD.md",
     "manuscript/FORMAL_CORE.md",
     "manuscript/HSaaS_DEMONSTRATOR.md",
     "manuscript/METHODOLOGICAL_AMENDMENT_1.3.2.md",
+    "manuscript/paper15_exact_statevector_validation.md",
+    "manuscript/paper15_q1_gate1_result_summary.md",
+    "manuscript/paper15_quantum_integrity_gate_summary.md",
+    "manuscript/paper15_z_pauli_xz_equivalence_note.md",
     "CITATION.cff",
     ".zenodo.json",
 ]
@@ -212,7 +212,7 @@ class TestClaimWording:
         for phrase in ("experiment is exactly calibrated", "exactly calibrated", "is exactly at its level", "exact in the executed design"):
             assert phrase not in text, f"{rel}: {phrase!r}"
 
-    @pytest.mark.parametrize("rel", FORMAL_DOCUMENTS + ["README.md", "publication/submission/cover_letter.md", "publication/submission/highlights.txt", "publication/tdsc/CLAIMS_TRACEABILITY.md"])
+    @pytest.mark.parametrize("rel", FORMAL_DOCUMENTS + ["README.md", "REPRODUCIBILITY.md", "manuscript/METHODOLOGICAL_AMENDMENT_1.3.2.md", "publication/tdsc/CLAIMS_TRACEABILITY.md"])
     def test_exact_level_is_always_tied_to_exchangeability(self, rel: str) -> None:
         for sentence in _sentences(_read(rel)):
             low = sentence.lower()
@@ -249,7 +249,7 @@ class TestClaimWording:
             assert "benchmark-protected" in text and "deployed authentication" in text, rel
 
 
-class TestBibliographicCeiling:
+class TestBibliographicIntegrity:
     def test_required_prior_art_is_present_and_cited(self) -> None:
         cited = _citation_keys(_read("publication/tdsc/main.tex"))
         for key in ("Hinder2025", "Timans2025", "Weder2021"):
@@ -328,24 +328,13 @@ class TestBibliographicCeiling:
         assert "stronger here on QPU/hardware and runtime/provider evidence" in main
         assert "Our orthogonal contribution" in main
 
-    def test_release_scope_is_bibliographic_editorial_only(self) -> None:
-        notes = re.sub(r"\s+", " ", _read("publication/tdsc/RELEASE_NOTES.md"))
-        assert "v1.3.4 is a corrective bibliographic/editorial release" in notes
-        assert "methodology is unchanged from 1.3.2" in notes
-        for noun in (
-            "experiment",
-            "kernel",
-            "model",
-            "dataset",
-            "seed",
-            "attack",
-            "draw",
-            "intervention",
-            "policy decision",
-            "scientific result",
-            "formal theorem",
-        ):
-            assert noun in notes
+    def test_release_identity_remains_frozen_at_v134(self) -> None:
+        assert _read("VERSION").strip() == "1.3.4"
+        citation = _read("CITATION.cff")
+        status = _read("publication/RELEASE_STATUS.md")
+        for value in ("1.3.4", "10.5281/zenodo.22672505", "10.5281/zenodo.22550852"):
+            assert value in citation
+            assert value in status
 
     def test_bibtex_has_no_duplicate_keys_or_dois(self) -> None:
         bib = _read("publication/tdsc/references.bib")

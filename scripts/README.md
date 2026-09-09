@@ -31,5 +31,5 @@ python3 scripts/verify_datasets.py --require-raw --require-staged
 ```
 
 The datasets themselves are not redistributed with this repository; see
-`Q1_REPRODUCTION.md` for their official sources, staging commands and the
+`REPRODUCIBILITY.md` for their official sources, staging commands and the
 expected hashes.

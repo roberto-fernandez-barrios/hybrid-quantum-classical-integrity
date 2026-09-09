@@ -31,11 +31,10 @@ article prints the definitions and the propositions; the supplement
 reproduces the proofs. Every witness count quoted here is generated from the
 manifested table `counterexample_witnesses.csv` (Gate D) and printed in the
 article through `publication/tdsc/tables/policy_macros.tex`. The
-statement-by-statement audits are `FORMAL_REVIEW_1.3.0.md` (Lemma 1,
-Propositions 1–7, Corollaries 1–3, C1–C9) and `FORMAL_REVIEW_1.3.1.md` (the
-four corrections above, with counterexample search and permanent tests in
-`tests/test_workflow_state.py`). The executable counterpart of Section 1 is
-`src/integrity/workflow_state.py`.
+formal statements are guarded by the finite-state enumerations in
+`tests/test_formal_core.py`, the exhaustive family-calibration tests, and the
+workflow-state counterexamples in `tests/test_workflow_state.py`. The
+executable counterpart of Section 1 is `src/integrity/workflow_state.py`.
 
 The results are elementary by design. Their role is to make exact which
 evidence separates which class of intervention, so that the empirical gates

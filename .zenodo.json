@@ -12,7 +12,7 @@
   ],
   "keywords": ["integrity auditing", "observability", "hybrid quantum-classical systems", "quantum kernels", "workflow integrity", "cybersecurity"],
   "related_identifiers": [
-    {"identifier": "https://github.com/roberto-fernandez-barrios/paper_HAIS/tree/paper15-q1-v1.3.4", "relation": "isSupplementTo", "scheme": "url"},
+    {"identifier": "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/tree/paper15-q1-v1.3.4", "relation": "isSupplementTo", "scheme": "url"},
     {"identifier": "10.5281/zenodo.22666931", "relation": "isNewVersionOf", "scheme": "doi"}
   ],
   "notes": "Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",
