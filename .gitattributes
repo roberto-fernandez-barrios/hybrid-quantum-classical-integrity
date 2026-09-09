@@ -1,3 +1,9 @@
+# Keep the three externally bound text sources stable across future checkouts.
+# The verifier still accepts the immutable v1.3.5 legacy CRLF bindings.
+manuscript/v135_geometry_aligned_sensitivity_prereg.md text eol=lf
+publication/tdsc/tables/geometry_sensitivity_macros.tex text eol=lf
+publication/tdsc/tables/s_geometry_sensitivity.tex text eol=lf
+
 # Preserve byte-for-byte publication artifacts so SHA-256 manifests remain valid.
 # Snapshot files may retain source line endings and Markdown hard-break spaces.
 publication/artifact/** -text whitespace=-trailing-space

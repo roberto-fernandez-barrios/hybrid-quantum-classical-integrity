@@ -40,10 +40,26 @@ OLD_EVIDENCE_FILES = 96
 OLD_EVIDENCE_TREE_SHA256 = "0c3b001eae6a25c76566a1ca03c49332027e6edc49dc684e1552f972fe21a9d7"
 RULES_REPORTED = ("union", "family")
 REGIMES_REPORTED = tuple(BATCH_REGIME_NAMES)
+TEXT_SHA256_STRATEGY = "sha256-canonical-lf-v1"
 
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def canonical_lf_bytes(data: bytes) -> bytes:
+    """Normalize CRLF to LF without changing any other content byte."""
+
+    normalized = data.replace(b"\r\n", b"\n")
+    if b"\r" in normalized:
+        raise ValueError("Text binding contains an unsupported lone CR byte")
+    return normalized
+
+
+def sha256_canonical_text(path: Path) -> str:
+    """Hash text using canonical LF bytes for checkout-independent manifests."""
+
+    return hashlib.sha256(canonical_lf_bytes(path.read_bytes())).hexdigest()
 
 
 def old_evidence_tree(repo: Path) -> tuple[int, str]:
@@ -544,7 +560,8 @@ def build(repo: Path, raw_dir: Path, out_dir: Path, macros_path: Path, table_pat
         },
         "preregistration": {
             "file": PREREGISTRATION,
-            "sha256": _sha256(prereg),
+            "sha256": sha256_canonical_text(prereg),
+            "sha256_strategy": TEXT_SHA256_STRATEGY,
             "commit": prereg_commit,
             "commit_timestamp": subprocess.check_output(["git", "show", "-s", "--format=%cI", prereg_commit], cwd=repo, text=True).strip(),
         },
@@ -580,11 +597,13 @@ def build(repo: Path, raw_dir: Path, out_dir: Path, macros_path: Path, table_pat
         },
         "presentation_output": {
             "path": macros_path.as_posix(),
-            "sha256": _sha256(repo / macros_path),
+            "sha256": sha256_canonical_text(repo / macros_path),
+            "sha256_strategy": TEXT_SHA256_STRATEGY,
         },
         "presentation_table": {
             "path": table_path.as_posix(),
-            "sha256": _sha256(repo / table_path),
+            "sha256": sha256_canonical_text(repo / table_path),
+            "sha256_strategy": TEXT_SHA256_STRATEGY,
         },
     }
     (out_abs / "geometry_sensitivity_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
