@@ -70,8 +70,7 @@ claim are not reused from them.
 
 Code, tests, compact derived evidence, vector figures, eight SHA-256 evidence
 manifests, and a fail-closed verifier accompany the manuscript under the
-concept DOI 10.5281/zenodo.22550852 (version 1.3.4; the version DOI is recorded
-in the artifact metadata). Experimental evidence is frozen at artifact 1.3.0.
+at Zenodo (version DOI 10.5281/zenodo.22672505, version 1.3.4; concept DOI 10.5281/zenodo.22550852). Experimental evidence is frozen at artifact 1.3.0.
 This work is supported by PID2024-155693NB-C43, ATHENA-AEGIS, funded by
 MICIU/AEI/10.13039/501100011033 and ERDF/EU. The authors declare no competing
 interests. OpenAI Codex and Anthropic Claude Code assisted with documented
