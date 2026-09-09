@@ -1,8 +1,9 @@
 # Reproducing and verifying the published artifact
 
 This guide covers release `1.3.5`, a targeted methodological sensitivity
-amendment under concept DOI
-[10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Version
+amendment archived under version DOI
+[10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092) and concept
+DOI [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Version
 `1.3.4` and all of its scientific evidence remain immutable. The compact
 artifact can be verified without benchmark datasets. A full replay additionally
 requires the public CICIDS2017, UNSW-NB15, and ToN-IoT source files.

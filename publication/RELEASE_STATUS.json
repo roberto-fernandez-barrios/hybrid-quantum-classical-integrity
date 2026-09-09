@@ -8,8 +8,8 @@
   "tests_collected": 360,
   "main_pages": 12,
   "supplement_pages": 21,
-  "main_pdf_sha256": "abf05264e82f12b63768929acd457eed9f9e789183a9d2ee63b32266a2459939",
-  "supplement_pdf_sha256": "996955670ad0ee9296d3a4af030410153e539079fdf9155fac9e60a7ef1c2f1a",
+  "main_pdf_sha256": "04cdcc885705a9fb9ff2061085cc3d47a41497c935f757a49b950138afdf5fcd",
+  "supplement_pdf_sha256": "ed6a508008ba73315d0ed298d7543c4e42923ffa9755fcc189d49c2742829d05",
   "primary_counts": {
     "gate1_label_rows": 1440,
     "gate1_positive_impact": 1276,
@@ -41,7 +41,7 @@
     "geometry_interventions": 22,
     "geometry_gateA_matched_rows": 24
   },
-  "version_doi": "",
+  "version_doi": "10.5281/zenodo.22678092",
   "concept_doi": "10.5281/zenodo.22550852",
-  "version_doi_state": "not yet minted (CITATION.cff carries the concept DOI)"
+  "version_doi_state": "minted"
 }

@@ -392,7 +392,7 @@ class TestBibliographicIntegrity:
         assert _read("VERSION").strip() == "1.3.5"
         citation = _read("CITATION.cff")
         status = _read("publication/RELEASE_STATUS.md")
-        for value in ("1.3.5", "10.5281/zenodo.22550852"):
+        for value in ("1.3.5", "10.5281/zenodo.22678092", "10.5281/zenodo.22550852"):
             assert value in citation
             assert value in status
         assert "10.5281/zenodo.22672505" in citation
