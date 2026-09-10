@@ -562,13 +562,23 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
     ):
         raise ValueError("historical label 11/2617 or 43/2617 endpoint did not reproduce")
     blind = aligned[aligned["aggregate_blind"].astype(bool)]
-    if int(
-        blind[["aligned__fire_family__I_XFY", "aligned__fire_union__I_XFY"]]
-        .astype(bool)
-        .to_numpy()
-        .sum()
+    for sensor in (
+        "integrity_jsd_vs_clean_eval", "integrity_mmd_vs_clean_eval",
+        "integrity_ks_reject05_vs_clean_eval", "integrity_score_jsd_vs_clean_eval",
+        "integrity_pred_pos_rate_shift", "integrity_pred_jsd",
+        "integrity_label_prior_shift", "integrity_label_jsd",
+        "integrity_confusion_profile_l1", "integrity_confusion_profile_jsd",
     ):
-        raise ValueError("an aggregate-blind aligned label row fired")
+        if (
+            pd.to_numeric(blind[f"aligned__{sensor}"], errors="coerce")
+            - pd.to_numeric(blind[f"aligned__clean__{sensor}"], errors="coerce")
+        ).abs().max() > TOL:
+            raise ValueError(f"aggregate-blind label rows alter observable {sensor}")
+    for rule in ("family", "union"):
+        attack = blind[f"aligned__fire_{rule}__I_XFY"].astype(bool).to_numpy()
+        clean = blind[f"aligned__clean_fire_{rule}__I_XFY"].astype(bool).to_numpy()
+        if not np.array_equal(attack, clean):
+            raise ValueError(f"aggregate-blind aligned label rows differ from paired-clean {rule} response")
     return {
         "v137_corrected_observations": len(observations),
         "v137_jsd_delta_records": len(deltas),

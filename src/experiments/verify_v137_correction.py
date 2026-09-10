@@ -102,14 +102,25 @@ def verify(repo: Path) -> dict[str, object]:
     if int(q2["v136"]) != 43 or int(q2["v136_denominator"]) != 2617:
         raise ValueError("historical union label endpoint is not 43/2617")
     blind = label[label["aggregate_blind"].astype(bool)]
-    blind_fires = int(
-        blind[["aligned__fire_family__I_XFY", "aligned__fire_union__I_XFY"]]
-        .astype(bool)
-        .to_numpy()
-        .sum()
-    )
-    if blind_fires:
-        raise ValueError(f"aggregate-blind label rows produced {blind_fires} statistical fires")
+    for sensor in (
+        "integrity_jsd_vs_clean_eval", "integrity_mmd_vs_clean_eval",
+        "integrity_ks_reject05_vs_clean_eval", "integrity_score_jsd_vs_clean_eval",
+        "integrity_pred_pos_rate_shift", "integrity_pred_jsd",
+        "integrity_label_prior_shift", "integrity_label_jsd",
+        "integrity_confusion_profile_l1", "integrity_confusion_profile_jsd",
+    ):
+        if (
+            pd.to_numeric(blind[f"aligned__{sensor}"], errors="coerce")
+            - pd.to_numeric(blind[f"aligned__clean__{sensor}"], errors="coerce")
+        ).abs().max() > 1e-12:
+            raise ValueError(f"aggregate-blind label rows alter observable {sensor}")
+    blind_attack_only = 0
+    for rule in ("family", "union"):
+        attack = blind[f"aligned__fire_{rule}__I_XFY"].astype(bool).to_numpy()
+        clean = blind[f"aligned__clean_fire_{rule}__I_XFY"].astype(bool).to_numpy()
+        blind_attack_only += int((attack & ~clean).sum())
+        if not np.array_equal(attack, clean):
+            raise ValueError(f"aggregate-blind label rows differ from paired clean {rule} response")
 
     ablation = pd.read_csv(jsd_dir / "jsd_without_ks_ablation.csv", low_memory=False)
     if ablation.empty or set(ablation["rule"]) != {"union", "family"}:
@@ -134,7 +145,7 @@ def verify(repo: Path) -> dict[str, object]:
         "delta_records": len(deltas),
         "aligned_label_rows": len(label),
         "aggregate_blind_rows": len(blind),
-        "aggregate_blind_fires": blind_fires,
+        "aggregate_blind_attack_only_fires": blind_attack_only,
     }
     print(json.dumps(result, indent=2))
     return result

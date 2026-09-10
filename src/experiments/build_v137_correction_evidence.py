@@ -510,7 +510,15 @@ def _label_outputs(
         "attack_class", "mechanism", "strength", "branch", "clean_bal_acc", "attack_bal_acc",
         "delta_bal_acc", "fire_exact", "paired_label_flip_rate", "paired_confusion_profile_l1",
         "paired_confusion_profile_jsd",
-    ] + list(CALIBRATED_SENSORS) + DECISION_COLUMNS].copy()
+    ] + list(CALIBRATED_SENSORS) + [
+        name
+        for sensor in CALIBRATED_SENSORS
+        for name in (f"clean__{sensor}", f"paired__{sensor}", f"delta__{sensor}")
+    ] + DECISION_COLUMNS + [
+        f"clean_fire_{rule}__{regime}"
+        for rule in ("union", "family")
+        for regime in BATCH_REGIME_NAMES
+    ]].copy()
     observations = observations.rename(columns={
         c: f"aligned__{c}" for c in observations.columns if c not in KEYS + ["attack_class", "mechanism", "strength", "branch"]
     })
@@ -546,6 +554,11 @@ def _label_outputs(
                 for regime in BATCH_REGIME_NAMES:
                     for rule in ("union", "family"):
                         fire = frame.iloc[pos][f"fire_{rule}__{regime}"].astype(bool)
+                        clean_fire = (
+                            frame.iloc[pos][f"clean_fire_{rule}__{regime}"].astype(bool)
+                            if geometry == "aligned"
+                            else pd.Series(False, index=fire.index)
+                        )
                         detection_records.append(
                             {
                                 "geometry": geometry,
@@ -559,6 +572,10 @@ def _label_outputs(
                                 "n": len(pos),
                                 "n_fire": int(fire.sum()),
                                 "response_rate": float(fire.mean()) if len(pos) else math.nan,
+                                "clean_n_fire": int(clean_fire.sum()),
+                                "attack_only": int((fire & ~clean_fire).sum()),
+                                "clean_only": int((~fire & clean_fire).sum()),
+                                "both_fire": int((fire & clean_fire).sum()),
                             }
                         )
     detection = pd.DataFrame.from_records(detection_records)
@@ -610,7 +627,7 @@ def _label_outputs(
             {"question": "Q1", "metric": "conformal I_XFY on material label interventions", "v136": total("original_v136", "family", old_mat), "v137": total("aligned", "family", ali_mat), "v136_denominator": int(old_mat.sum()), "v137_denominator": int(ali_mat.sum())},
             {"question": "Q2", "metric": "union I_XFY on material label interventions", "v136": total("original_v136", "union", old_mat), "v137": total("aligned", "union", ali_mat), "v136_denominator": int(old_mat.sum()), "v137_denominator": int(ali_mat.sum())},
             {"question": "Q3", "metric": "direction family/union", "v136": "original", "v137": "computed directly; see numeric Q1-Q2", "v136_denominator": math.nan, "v137_denominator": math.nan},
-            {"question": "Q4", "metric": "aggregate-blind rows detected by declared aggregate family/union", "v136": math.nan, "v137": f"family={total('aligned', 'family', blind)};union={total('aligned', 'union', blind)}", "v136_denominator": math.nan, "v137_denominator": int(blind.sum())},
+            {"question": "Q4", "metric": "aggregate-blind rows: attack-only family/union beyond paired clean response", "v136": math.nan, "v137": f"family_attack_only={int((ali.loc[blind.to_numpy(bool), 'fire_family__I_XFY'].astype(bool).to_numpy() & ~ali.loc[blind.to_numpy(bool), 'clean_fire_family__I_XFY'].astype(bool).to_numpy()).sum())};union_attack_only={int((ali.loc[blind.to_numpy(bool), 'fire_union__I_XFY'].astype(bool).to_numpy() & ~ali.loc[blind.to_numpy(bool), 'clean_fire_union__I_XFY'].astype(bool).to_numpy()).sum())}", "v136_denominator": math.nan, "v137_denominator": int(blind.sum())},
             {"question": "Q5", "metric": "aggregate-separable aligned detection", "v136": math.nan, "v137": f"family={total('aligned', 'family', sep)}/{int(sep.sum())};union={total('aligned', 'union', sep)}/{int(sep.sum())}", "v136_denominator": math.nan, "v137_denominator": int(sep.sum())},
             {"question": "Q6", "metric": "policy F/D effect", "v136": "see policy table", "v137": "see policy table", "v136_denominator": len(old), "v137_denominator": len(ali)},
             {"question": "Q7", "metric": "material altered results served", "v136": int(old_mat.sum()), "v137": int(ali_mat.sum()), "v136_denominator": len(old), "v137_denominator": len(ali)},
@@ -850,13 +867,25 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
             p.parent.resolve() in (jsd_dir.resolve(), label_dir.resolve())
             for p in [*(jsd_dir / n for n in outputs), *(label_dir / n for n in label_outputs)]
         ),
-        "structural_blind_aligned_rows_remain_family_and_union_invisible": bool(
-            (
+        "structural_blind_aligned_rows_equal_their_paired_clean_sensor_vector": bool(
+            max(
+                (
+                    pd.to_numeric(label_new_s.loc[label_outputs["label_geometry_observations.csv"]["aggregate_blind"].to_numpy(bool), sensor], errors="coerce")
+                    - pd.to_numeric(label_new_s.loc[label_outputs["label_geometry_observations.csv"]["aggregate_blind"].to_numpy(bool), f"clean__{sensor}"], errors="coerce")
+                ).abs().max()
+                for sensor in CALIBRATED_SENSORS
+            ) <= TOL
+        ),
+        "structural_blind_aligned_rows_add_no_family_or_union_fire_beyond_paired_clean": bool(
+            all(
                 label_outputs["label_geometry_observations.csv"].loc[
-                    lambda f: f["aggregate_blind"],
-                    ["aligned__fire_family__I_XFY", "aligned__fire_union__I_XFY"],
-                ].astype(bool).to_numpy().sum()
-                == 0
+                    lambda f: f["aggregate_blind"], f"aligned__fire_{rule}__I_XFY"
+                ].astype(bool).equals(
+                    label_outputs["label_geometry_observations.csv"].loc[
+                        lambda f: f["aggregate_blind"], f"aligned__clean_fire_{rule}__I_XFY"
+                    ].astype(bool)
+                )
+                for rule in ("family", "union")
             )
         ),
     }
