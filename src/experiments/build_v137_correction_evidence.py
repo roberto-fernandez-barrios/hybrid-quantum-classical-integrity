@@ -55,6 +55,7 @@ SCHEMA_VERSION = 1
 PREREGISTRATION = "manuscript/v137_jsd_label_geometry_prereg.md"
 PREREG_COMMIT = "711a46c5c9af567d6777dd3811f44ef3a7987224"
 V136_TAG = "paper15-q1-v1.3.6"
+V135_TAG = "paper15-q1-v1.3.5"
 CORRECTED = (
     "integrity_jsd_vs_clean_eval",
     "integrity_score_jsd_vs_clean_eval",
@@ -789,7 +790,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         raise RuntimeError(f"v1.3.7 evidence checks failed: {failed}")
 
     immutable_tree = _git(repo, "rev-parse", f"{V136_TAG}:publication/artifact/evidence")
-    geom_tree = _git(repo, "rev-parse", f"{V136_TAG}:publication/artifact/evidence/geometry_sensitivity")
+    geom_tree = _git(repo, "rev-parse", f"{V135_TAG}:publication/artifact/evidence/geometry_sensitivity")
     common = {
         "schema_version": SCHEMA_VERSION,
         "analysis": ANALYSIS,
@@ -798,7 +799,8 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         "preregistration_commit": PREREG_COMMIT,
         "v136_tag": V136_TAG,
         "v136_evidence_tree": immutable_tree,
-        "v135_geometry_evidence_tree_at_v136": geom_tree,
+        "v135_geometry_tag": V135_TAG,
+        "v135_geometry_evidence_tree": geom_tree,
         "historical_evidence_files_modified": 0,
         "historical_geometry_files_modified": 0,
         "checks": checks,
