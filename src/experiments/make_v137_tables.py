@@ -153,10 +153,10 @@ def _label_table(observations: pd.DataFrame, summary: pd.DataFrame) -> str:
         r"\begin{table*}[!t]",
         r"\caption{Label-side geometry sensitivity. Original uses $s(E,T_y(E))$; aligned uses $s(E,T_y(B))$ with clean comparator $s(E,B)$. Sensor columns are aligned means. Detection is on aligned material rows under $\IXFY$. Aggregate-blind rows preserve every declared label/confusion aggregate.}",
         r"\label{tab:v137-label-geometry}",
-        r"\centering\footnotesize\setlength{\tabcolsep}{3.2pt}",
-        r"\begin{tabular}{@{}lrrrrrrrrrr@{}}",
+        r"\centering\footnotesize\setlength{\tabcolsep}{2.4pt}",
+        r"\begin{tabular}{@{}lrrrrrrrrrrr@{}}",
         r"\toprule",
-        r"Attack & $r$ & Mat. orig. & Mat. align. & Sep. & Blind & Label-$\Delta$ & Label-JSD & Conf.-L1 & Family & Union \\",
+        r"Attack & $r$ & Mat. orig. & Mat. align. & Sep. & Blind & Label-$\Delta$ & Label-JSD & Conf.-L1 & Conf.-JSD & Family & Union \\",
         r"\midrule",
     ]
     groups = observations.groupby(["attack", "strength"], sort=True)
@@ -176,6 +176,7 @@ def _label_table(observations: pd.DataFrame, summary: pd.DataFrame) -> str:
                     f"{group['aligned__integrity_label_prior_shift'].astype(float).mean():.3f}",
                     f"{group['aligned__integrity_label_jsd'].astype(float).mean():.3f}",
                     f"{group['aligned__integrity_confusion_profile_l1'].astype(float).mean():.3f}",
+                    f"{group['aligned__integrity_confusion_profile_jsd'].astype(float).mean():.3f}",
                     f"{int((material & family).sum())}/{int(material.sum())}",
                     f"{int((material & union).sum())}/{int(material.sum())}",
                 ]
@@ -186,7 +187,7 @@ def _label_table(observations: pd.DataFrame, summary: pd.DataFrame) -> str:
     lines.extend(
         [
             r"\midrule",
-            rf"\multicolumn{{9}}{{l}}{{Pooled original $\rightarrow$ aligned material response}} & {int(q.loc['Q1','v136'])}/{int(q.loc['Q1','v136_denominator'])}$\rightarrow${int(q.loc['Q1','v137'])}/{int(q.loc['Q1','v137_denominator'])} & {int(q.loc['Q2','v136'])}/{int(q.loc['Q2','v136_denominator'])}$\rightarrow${int(q.loc['Q2','v137'])}/{int(q.loc['Q2','v137_denominator'])} \\",
+            rf"\multicolumn{{10}}{{l}}{{Pooled original $\rightarrow$ aligned material response}} & {int(q.loc['Q1','v136'])}/{int(q.loc['Q1','v136_denominator'])}$\rightarrow${int(q.loc['Q1','v137'])}/{int(q.loc['Q1','v137_denominator'])} & {int(q.loc['Q2','v136'])}/{int(q.loc['Q2','v136_denominator'])}$\rightarrow${int(q.loc['Q2','v137'])}/{int(q.loc['Q2','v137_denominator'])} \\",
             r"\bottomrule",
             r"\end{tabular}",
             r"\end{table*}",
