@@ -16,11 +16,12 @@ import json
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 
 TOL = 1e-12
-EXPECTED_MANIFESTS = 9  # eight immutable packages plus the v1.3.5 geometry sensitivity
+EXPECTED_MANIFESTS = 11  # nine immutable packages plus both v1.3.7 corrective packages
 
 
 def _sha256(path: Path) -> str:
@@ -514,6 +515,70 @@ def verify_geometry_sensitivity(root: Path) -> dict[str, int]:
     }
 
 
+def verify_v137_correction(root: Path) -> dict[str, int]:
+    """Verify corrected JSD finiteness and the completed label-geometry grid."""
+
+    jsd_manifest = next(root.rglob("jsd_correction_manifest.json"), None)
+    label_manifest = next(root.rglob("label_geometry_manifest.json"), None)
+    if jsd_manifest is None or label_manifest is None:
+        raise FileNotFoundError("both v1.3.7 corrective manifests are required")
+    jsd = jsd_manifest.parent
+    label = label_manifest.parent
+    observations = pd.read_csv(jsd / "jsd_corrected_observations.csv", low_memory=False)
+    corrected = observations[
+        ["integrity_jsd_vs_clean_eval", "integrity_score_jsd_vs_clean_eval"]
+    ].apply(pd.to_numeric, errors="coerce")
+    if len(observations) != 64560 or not bool(np.isfinite(corrected.to_numpy(float)).all()):
+        raise ValueError("v1.3.7 corrected JSD observations are incomplete or nonfinite")
+    deltas = pd.read_csv(jsd / "jsd_correction_deltas.csv", low_memory=False)
+    if deltas.empty or not {
+        "affected_row_identifier", "sensor", "previous_value", "corrected_value",
+        "previous_sensor_fire", "corrected_sensor_fire", "reason",
+    }.issubset(deltas.columns):
+        raise ValueError("v1.3.7 JSD before/after ledger is incomplete")
+    decomposition = pd.read_csv(jsd / "jsd_sensor_decomposition.csv", low_memory=False)
+    expected_sensors = {
+        "integrity_jsd_vs_clean_eval", "integrity_mmd_vs_clean_eval",
+        "integrity_ks_reject05_vs_clean_eval", "integrity_ks_mean_vs_clean_eval",
+        "integrity_score_jsd_vs_clean_eval", "integrity_pred_pos_rate_shift",
+        "integrity_pred_jsd", "integrity_label_prior_shift", "integrity_label_jsd",
+        "integrity_confusion_profile_l1", "integrity_confusion_profile_jsd",
+    }
+    if set(decomposition["sensor"]) != expected_sensors:
+        raise ValueError("v1.3.7 sensor decomposition is incomplete")
+    ablation = pd.read_csv(jsd / "jsd_without_ks_ablation.csv", low_memory=False)
+    if ablation.empty or set(ablation["rule"]) != {"union", "family"}:
+        raise ValueError("v1.3.7 frozen-only without-KS ablation is incomplete")
+
+    aligned = pd.read_csv(label / "label_geometry_observations.csv", low_memory=False)
+    if len(aligned) != 3600:
+        raise ValueError("label geometry sensitivity must contain 3,600 rows")
+    summary = pd.read_csv(label / "label_geometry_summary.csv").set_index("question")
+    if (
+        int(summary.loc["Q1", "v136"]) != 11
+        or int(summary.loc["Q1", "v136_denominator"]) != 2617
+        or int(summary.loc["Q2", "v136"]) != 43
+        or int(summary.loc["Q2", "v136_denominator"]) != 2617
+    ):
+        raise ValueError("historical label 11/2617 or 43/2617 endpoint did not reproduce")
+    blind = aligned[aligned["aggregate_blind"].astype(bool)]
+    if int(
+        blind[["aligned__fire_family__I_XFY", "aligned__fire_union__I_XFY"]]
+        .astype(bool)
+        .to_numpy()
+        .sum()
+    ):
+        raise ValueError("an aggregate-blind aligned label row fired")
+    return {
+        "v137_corrected_observations": len(observations),
+        "v137_jsd_delta_records": len(deltas),
+        "v137_label_geometry_rows": len(aligned),
+        "v137_label_aggregate_blind_rows": len(blind),
+        "v137_label_aligned_family_material_fires": int(summary.loc["Q1", "v137"]),
+        "v137_label_aligned_union_material_fires": int(summary.loc["Q2", "v137"]),
+    }
+
+
 def verify_release_hashes(root: Path) -> int:
     manifest = root / "ARTIFACT_MANIFEST.sha256"
     if not manifest.exists():
@@ -539,6 +604,7 @@ def verify(root: Path) -> dict[str, int]:
     result.update(verify_adversarial_claims(root))
     result.update(verify_v132_amendment(root))
     result.update(verify_geometry_sensitivity(root))
+    result.update(verify_v137_correction(root))
     result["release_files"] = verify_release_hashes(root)
     return result
 

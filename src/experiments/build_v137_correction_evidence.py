@@ -14,6 +14,7 @@ import argparse
 import hashlib
 import json
 import math
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any, Iterable
@@ -803,25 +804,40 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         "checks": checks,
         "raw_inputs": raw_inputs,
     }
+    audit_source = repo / "publication/artifact/evidence/jsd_correction/jsd_historical_nan_audit.csv"
+    audit_target = jsd_dir / "jsd_historical_nan_audit.csv"
+    if audit_source.resolve() != audit_target.resolve():
+        if not audit_source.is_file():
+            raise FileNotFoundError(audit_source)
+        shutil.copy2(audit_source, audit_target)
+    jsd_output_records = {
+        name: {"sha256": _sha256(jsd_dir / name), "rows": len(frame)}
+        for name, frame in outputs.items()
+    }
+    jsd_output_records[audit_target.name] = {
+        "sha256": _sha256(audit_target),
+        "rows": len(pd.read_csv(audit_target, low_memory=False)),
+    }
     jsd_manifest = {
         **common,
+        "status": "complete",
+        "acceptance_checks": checks,
         "corrected_sensors": list(CORRECTED),
         "n_historical_observation_rows": int(len(observations)),
         "n_delta_records": int(len(deltas)),
-        "outputs": [
-            {"path": (jsd_dir / name).relative_to(repo).as_posix(), "sha256": _sha256(jsd_dir / name), "rows": len(frame)}
-            for name, frame in outputs.items()
-        ],
+        "outputs": jsd_output_records,
     }
     jsd_manifest_path = jsd_dir / "jsd_correction_manifest.json"
     jsd_manifest_path.write_text(json.dumps(jsd_manifest, indent=2, sort_keys=True), encoding="utf-8", newline="\n")
     label_manifest = {
         **common,
+        "status": "complete",
+        "acceptance_checks": checks,
         "geometry": {"original": "s(E,T_y(E))", "aligned": "s(E,T_y(B)) with clean comparator s(E,B)"},
-        "outputs": [
-            {"path": (label_dir / name).relative_to(repo).as_posix(), "sha256": _sha256(label_dir / name), "rows": len(frame)}
+        "outputs": {
+            name: {"sha256": _sha256(label_dir / name), "rows": len(frame)}
             for name, frame in label_outputs.items()
-        ],
+        },
     }
     label_manifest_path = label_dir / "label_geometry_manifest.json"
     label_manifest_path.write_text(json.dumps(label_manifest, indent=2, sort_keys=True), encoding="utf-8", newline="\n")
@@ -832,8 +848,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--raw-dir", type=Path, default=Path("results/raw/paper15_v137_correction"))
-    parser.add_argument("--jsd-dir", type=Path, default=Path("publication/artifact/evidence/jsd_correction"))
-    parser.add_argument("--label-dir", type=Path, default=Path("publication/artifact/evidence/label_geometry_sensitivity"))
+    parser.add_argument("--jsd-dir", type=Path, default=Path("results/paper_digest/paper15_v137_jsd_correction"))
+    parser.add_argument("--label-dir", type=Path, default=Path("results/paper_digest/paper15_v137_label_geometry_sensitivity"))
     args = parser.parse_args()
     repo = args.repo_root.resolve()
     build(repo, repo / args.raw_dir, repo / args.jsd_dir, repo / args.label_dir)

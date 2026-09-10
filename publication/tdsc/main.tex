@@ -979,6 +979,8 @@ design-specific and against the declared cluster-sensitive fingerprint, not
 evidence of general evasion of drift detectors. Dataset cluster structure
 contributes to the response, and generalization beyond this fingerprint and
 these staged datasets remains open.
+Figure~\ref{fig:adversarial} shows the matched original-geometry response and
+materiality profiles used for this declared-fingerprint stress test.
 
 The aligned sensitivity confirms the qualitative ordering. Exact paired
 identity is \GeoIdentityMax{}, distinct from the clean-resample false-action
@@ -998,8 +1000,9 @@ controls clean-resample false actions without guaranteeing attack coverage.
   \caption{Original frozen Gate~A. (a) Detection under the conformal family rule of the
   executed drift mechanisms (solid) and of their cluster-preserving variants
   (dashed) in $\IX$ and $\IXF$, 600 observations per point. (b) Material
-  fraction of the same rows: the attacker evades the batch-level sensors at
-  matched strengths while keeping most of the conclusion changes.}
+  fraction of the same rows: the construction reduces response against the
+  declared batch-level fingerprint at matched strengths while keeping most of
+  the conclusion changes.}
   \label{fig:adversarial}
 \end{figure}
 
@@ -1103,13 +1106,17 @@ CC~BY~4.0. No new human-participant or personal-data collection was performed.
 
 \section*{Acknowledgment}
 
-OpenAI Codex and Anthropic Claude Code assisted with draft/language review,
-code generation/inspection, literature-search support and artifact preparation
-across the manuscript and supplement. Human authors independently checked all
-claims, proofs, references, experiments, results and generated text using the
+OpenAI Codex and Anthropic Claude Code assisted with drafting and language
+review in the Abstract, Introduction, Related Work, Methods, Results,
+Discussion, data/code statement and supplement; with code generation and
+inspection for sensor, analysis, test and release tooling; with targeted
+literature-search and reference-metadata checks; and with evidence-table,
+figure, artifact and submission-package preparation. Human authors
+independently inspected and approved every formal statement and proof,
+reference, code path, experiment, numerical result and final passage using the
 stated tests, verifiers and primary sources, and assume full responsibility.
-Neither system is an author or proof authority; detailed disclosure accompanies
-the submission.
+Neither system is an author, an evidentiary decision maker or a proof authority;
+system-by-section detail accompanies the submission.
 
 % Column balance of the last page: set \IEEEtriggeratref{N} only if the reference list ends unbalanced.
 \bibliographystyle{IEEEtran}

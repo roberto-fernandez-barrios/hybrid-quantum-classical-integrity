@@ -33,9 +33,14 @@ def _git(repo: Path, *args: str, binary: bool = False) -> str | bytes:
 
 
 def _verify_outputs(repo: Path, manifest: dict[str, object]) -> None:
-    for item in manifest["outputs"]:  # type: ignore[index]
+    manifest_dir = (
+        repo / "publication/artifact/evidence/jsd_correction"
+        if manifest.get("corrected_sensors")
+        else repo / "publication/artifact/evidence/label_geometry_sensitivity"
+    )
+    for name, item in manifest["outputs"].items():  # type: ignore[union-attr]
         record = dict(item)
-        path = repo / str(record["path"])
+        path = manifest_dir / str(name)
         if not path.is_file():
             raise FileNotFoundError(path)
         if _sha256(path) != record["sha256"]:
