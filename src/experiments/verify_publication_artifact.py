@@ -550,12 +550,12 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
     if ablation.empty or set(ablation["rule"]) != {"union", "family"}:
         raise ValueError("v1.3.7 frozen-only without-KS ablation is incomplete")
     gate_f = pd.read_csv(jsd / "jsd_gate_f_summary.csv")
-    if len(gate_f) != 32 or set(gate_f["geometry"]) != {"v136", "v137_corrected_jsd"}:
+    if len(gate_f) != 48 or set(gate_f["geometry"]) != {"v136", "v137_corrected_jsd"} or set(gate_f["rule"]) != {"union", "family_v12", "family"}:
         raise ValueError("v1.3.7 Gate-F correction summary is incomplete")
     policy = pd.read_csv(jsd / "jsd_primary_policy_effect.csv")
-    if len(policy) != 40 or set(policy["geometry"]) != {"primary_v136", "primary_v137_corrected_jsd"}:
+    if len(policy) != 80 or set(policy["geometry"]) != {"primary_v136", "primary_v137_corrected_jsd"} or set(policy["family_rule"]) != {"conformal", "v12_asymmetric"}:
         raise ValueError("v1.3.7 Gate-D correction summary is incomplete")
-    p2 = policy[policy["policy"] == "family_calibrated"].set_index(["geometry", "regime"])
+    p2 = policy[(policy["policy"] == "family_calibrated") & (policy["family_rule"] == "conformal")].set_index(["geometry", "regime"])
     expected_policy = {
         "primary_v136": {"I_X": 4496, "I_XF": 4365, "I_Ym": 7008, "I_XFY": 4390, "I_XFY_trusted": 0},
         "primary_v137_corrected_jsd": {"I_X": 4496, "I_XF": 4368, "I_Ym": 7008, "I_XFY": 4394, "I_XFY_trusted": 0},

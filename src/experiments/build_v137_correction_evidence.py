@@ -314,11 +314,17 @@ def _with_previous(current: pd.DataFrame, previous: pd.DataFrame) -> pd.DataFram
     return current.merge(rhs, on=KEYS, how="left", validate="one_to_one")
 
 
-def _actions(frame: pd.DataFrame, regime: str, policy: str) -> np.ndarray:
+def _actions(
+    frame: pd.DataFrame,
+    regime: str,
+    policy: str,
+    *,
+    family_column: str = "fire_family",
+) -> np.ndarray:
     batch = BATCH_FOR_POLICY[regime]
     spec = POLICY_REGIMES[regime]
     union = frame[f"fire_union__{batch}"].astype(bool).to_numpy()
-    family = frame[f"fire_family__{batch}"].astype(bool).to_numpy()
+    family = frame[f"{family_column}__{batch}"].astype(bool).to_numpy()
     exact = (
         frame["fire_exact"].astype(bool).to_numpy()
         if "fire_exact" in frame
@@ -370,7 +376,7 @@ def _gate_f_summary(old_null: pd.DataFrame, new_null: pd.DataFrame) -> pd.DataFr
         ):
             rows = frame.loc[mask]
             for regime in BATCH_REGIME_NAMES:
-                for rule in ("union", "family"):
+                for rule in ("union", "family_v12", "family"):
                     fire = rows[f"fire_{rule}__{regime}"].astype(bool)
                     records.append(
                         {
@@ -392,6 +398,7 @@ def _primary_policy_metrics(
     null: pd.DataFrame,
     benign_exact: pd.DataFrame,
     geometry: str,
+    family_rule: str,
 ) -> pd.DataFrame:
     evaluation = null[null["attack_priority_group"] == "null_evaluation"].copy()
     near_null = null[null["attack"].isin(NEAR_NULL_SHAMS)].copy()
@@ -406,15 +413,17 @@ def _primary_policy_metrics(
 
     material = pd.to_numeric(frame["delta_bal_acc"], errors="coerce").abs().to_numpy() > TOL
     records: list[dict[str, Any]] = []
+    family_column = "fire_family" if family_rule == "conformal" else "fire_family_v12"
     for regime in POLICY_REGIME_NAMES:
         clean = exact_zero if POLICY_REGIMES[regime].trusted_reference else evaluation
         for policy in POLICIES:
-            attacked_actions = _actions(frame, regime, policy)
-            clean_actions = _actions(clean, regime, policy)
-            benign_actions = _actions(near_null, regime, policy)
+            attacked_actions = _actions(frame, regime, policy, family_column=family_column)
+            clean_actions = _actions(clean, regime, policy, family_column=family_column)
+            benign_actions = _actions(near_null, regime, policy, family_column=family_column)
             records.append(
                 {
                     "geometry": geometry,
+                    "family_rule": family_rule,
                     "regime": regime,
                     "policy": policy,
                     "policy_class": POLICY_CLASS[policy],
@@ -849,6 +858,45 @@ def _headline(
                 "corrected JSD coordinates and thresholds" if regime != "I_XFY_trusted" else "exact trusted-reference decisions; JSD correction cannot remove exact blocking",
             )
 
+    expected_legacy = {"I_X": 4494, "I_XF": 4327, "I_Ym": 7008, "I_XFY": 4322, "I_XFY_trusted": 0}
+    for regime in POLICY_REGIME_NAMES:
+        old_actions = _actions(old_core, regime, "family_calibrated", family_column="fire_family_v12")
+        new_actions = _actions(new_core, regime, "family_calibrated", family_column="fire_family_v12")
+        old_n = int(((old_actions == "allow") & material).sum())
+        new_n = int(((new_actions == "allow") & material).sum())
+        if old_n != expected_legacy[regime]:
+            raise ValueError(f"historical asymmetric-rule headline mismatch for {regime}")
+        add(
+            f"Superseded asymmetric-rule material results served ({regime})",
+            f"{old_n}/7008",
+            f"{new_n}/7008",
+            count_delta(old_n, new_n),
+            "descriptive comparison only; corrected JSD coordinates, no rule selection",
+        )
+
+    old_eval = old_null[old_null["attack_priority_group"] == "null_evaluation"]
+    new_eval = new_null[new_null["attack_priority_group"] == "null_evaluation"]
+    for regime in BATCH_REGIME_NAMES:
+        for rule, label_name in (("union", "Union"), ("family_v12", "Superseded asymmetric family"), ("family", "Conformal family")):
+            old_fire = int(old_eval[f"fire_{rule}__{regime}"].sum())
+            new_fire = int(new_eval[f"fire_{rule}__{regime}"].sum())
+            add(
+                f"Gate F {label_name} clean response ({regime})",
+                f"{old_fire}/12000 ({old_fire/12000:.3f})",
+                f"{new_fire}/12000 ({new_fire/12000:.3f})",
+                count_delta(old_fire, new_fire),
+                "same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability",
+            )
+    old_sensor_rates = [float(old_eval[f"fire_sensor__{sensor}"].mean()) for sensor in CALIBRATED_SENSORS]
+    new_sensor_rates = [float(new_eval[f"fire_sensor__{sensor}"].mean()) for sensor in CALIBRATED_SENSORS]
+    add(
+        "Gate F per-sensor clean-response range",
+        f"{min(old_sensor_rates):.3f}--{max(old_sensor_rates):.3f}",
+        f"{min(new_sensor_rates):.3f}--{max(new_sensor_rates):.3f}",
+        "range recomputed",
+        "same sensors, thresholds and frozen clean-evaluation rows; corrected JSD definition only",
+    )
+
     old_core_m = _mechanism_columns(old_core)
     new_core_m = _mechanism_columns(new_core)
     core_regimes = ("I_X", "I_XF", "I_XFY")
@@ -1042,8 +1090,10 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     gate_f_summary = _gate_f_summary(null_old_s, null_new_s)
     policy_primary = pd.concat(
         [
-            _primary_policy_metrics(core_old_s, null_old_s, benign, "primary_v136"),
-            _primary_policy_metrics(core_new_s, null_new_s, benign, "primary_v137_corrected_jsd"),
+            _primary_policy_metrics(core_old_s, null_old_s, benign, "primary_v136", "conformal"),
+            _primary_policy_metrics(core_new_s, null_new_s, benign, "primary_v137_corrected_jsd", "conformal"),
+            _primary_policy_metrics(core_old_s, null_old_s, benign, "primary_v136", "v12_asymmetric"),
+            _primary_policy_metrics(core_new_s, null_new_s, benign, "primary_v137_corrected_jsd", "v12_asymmetric"),
         ],
         ignore_index=True,
     )
