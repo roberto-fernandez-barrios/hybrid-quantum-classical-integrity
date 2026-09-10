@@ -918,6 +918,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         gate1_clean[f"previous__{sensor}"] = gate1_clean[sensor]
     gate1_clean["correction_scope"] = "gate1_clean_unchanged"
     gate1_new = pd.concat([gate1_new, gate1_clean], ignore_index=True, sort=False)
+    gate1_new["correction_scope"] = "gate1_frozen_design"
 
     old_thresholds = pd.read_csv(evidence / "reinforcement/null_calibration_thresholds.csv")
     new_thresholds = _thresholds(null_new)
@@ -1110,7 +1111,18 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     }
     label_manifest_path = label_dir / "label_geometry_manifest.json"
     label_manifest_path.write_text(json.dumps(label_manifest, indent=2, sort_keys=True), encoding="utf-8", newline="\n")
-    print(json.dumps({"status": "complete", "jsd_outputs": len(outputs) + 1, "label_outputs": len(label_outputs) + 1, "checks": checks}, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": "complete",
+                "jsd_evidence_files": len(jsd_output_records) + 1,
+                "label_evidence_files": len(label_outputs) + 1,
+                "total_v137_evidence_files": len(jsd_output_records) + len(label_outputs) + 2,
+                "checks": checks,
+            },
+            indent=2,
+        )
+    )
 
 
 def main() -> None:
