@@ -63,6 +63,11 @@ def verify(evidence_dir: Path) -> dict[str, object]:
         raise ValueError("historical conformal endpoint does not reproduce 11/2617")
     if (int(summary.loc["Q2", "v136"]), int(summary.loc["Q2", "v136_denominator"])) != (43, 2617):
         raise ValueError("historical union endpoint does not reproduce 43/2617")
+    if (
+        int(summary.loc["Q1", "v137"]), int(summary.loc["Q1", "v137_denominator"]),
+        int(summary.loc["Q2", "v137"]), int(summary.loc["Q2", "v137_denominator"]),
+    ) != (343, 2700, 1183, 2700):
+        raise ValueError("aligned endpoints do not reproduce 343/2700 and 1183/2700")
 
     blind = observations[observations["aggregate_blind"].astype(bool)]
     for sensor in SENSORS:

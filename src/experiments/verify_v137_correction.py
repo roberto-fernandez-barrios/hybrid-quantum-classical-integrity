@@ -135,6 +135,27 @@ def verify(repo: Path) -> dict[str, object]:
     }
     if set(decomposition["sensor"]) != expected_sensors:
         raise ValueError("sensor decomposition does not cover the declared sensor set")
+    gate_f = pd.read_csv(jsd_dir / "jsd_gate_f_summary.csv")
+    if len(gate_f) != 32 or set(gate_f["geometry"]) != {"v136", "v137_corrected_jsd"}:
+        raise ValueError("corrected Gate-F summary is incomplete")
+    policy = pd.read_csv(jsd_dir / "jsd_primary_policy_effect.csv")
+    if len(policy) != 40 or set(policy["geometry"]) != {"primary_v136", "primary_v137_corrected_jsd"}:
+        raise ValueError("corrected Gate-D policy summary is incomplete")
+    p2 = policy[policy["policy"] == "family_calibrated"].set_index(["geometry", "regime"])
+    expected_policy = {
+        "primary_v136": {"I_X": 4496, "I_XF": 4365, "I_Ym": 7008, "I_XFY": 4390, "I_XFY_trusted": 0},
+        "primary_v137_corrected_jsd": {"I_X": 4496, "I_XF": 4368, "I_Ym": 7008, "I_XFY": 4394, "I_XFY_trusted": 0},
+    }
+    for geometry, expected in expected_policy.items():
+        for regime, value in expected.items():
+            if int(p2.loc[(geometry, regime), "unsafe_allow"]) != value:
+                raise ValueError(f"unexpected Gate-D P2 result for {geometry}/{regime}")
+
+    if (
+        int(q1["v137"]), int(q1["v137_denominator"]),
+        int(q2["v137"]), int(q2["v137_denominator"]),
+    ) != (343, 2700, 1183, 2700):
+        raise ValueError("aligned label endpoints do not reproduce 343/2700 and 1183/2700")
 
     result = {
         "status": "PASS",
@@ -146,6 +167,9 @@ def verify(repo: Path) -> dict[str, object]:
         "aligned_label_rows": len(label),
         "aggregate_blind_rows": len(blind),
         "aggregate_blind_attack_only_fires": blind_attack_only,
+        "aligned_label_material_rows": int(q1["v137_denominator"]),
+        "aligned_label_family_fires": int(q1["v137"]),
+        "aligned_label_union_fires": int(q2["v137"]),
     }
     print(json.dumps(result, indent=2))
     return result

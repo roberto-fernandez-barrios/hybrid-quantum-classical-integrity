@@ -549,6 +549,21 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
     ablation = pd.read_csv(jsd / "jsd_without_ks_ablation.csv", low_memory=False)
     if ablation.empty or set(ablation["rule"]) != {"union", "family"}:
         raise ValueError("v1.3.7 frozen-only without-KS ablation is incomplete")
+    gate_f = pd.read_csv(jsd / "jsd_gate_f_summary.csv")
+    if len(gate_f) != 32 or set(gate_f["geometry"]) != {"v136", "v137_corrected_jsd"}:
+        raise ValueError("v1.3.7 Gate-F correction summary is incomplete")
+    policy = pd.read_csv(jsd / "jsd_primary_policy_effect.csv")
+    if len(policy) != 40 or set(policy["geometry"]) != {"primary_v136", "primary_v137_corrected_jsd"}:
+        raise ValueError("v1.3.7 Gate-D correction summary is incomplete")
+    p2 = policy[policy["policy"] == "family_calibrated"].set_index(["geometry", "regime"])
+    expected_policy = {
+        "primary_v136": {"I_X": 4496, "I_XF": 4365, "I_Ym": 7008, "I_XFY": 4390, "I_XFY_trusted": 0},
+        "primary_v137_corrected_jsd": {"I_X": 4496, "I_XF": 4368, "I_Ym": 7008, "I_XFY": 4394, "I_XFY_trusted": 0},
+    }
+    for geometry, expected in expected_policy.items():
+        for regime, value in expected.items():
+            if int(p2.loc[(geometry, regime), "unsafe_allow"]) != value:
+                raise ValueError(f"unexpected v1.3.7 Gate-D P2 result for {geometry}/{regime}")
 
     aligned = pd.read_csv(label / "label_geometry_observations.csv", low_memory=False)
     if len(aligned) != 3600:
@@ -561,6 +576,11 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
         or int(summary.loc["Q2", "v136_denominator"]) != 2617
     ):
         raise ValueError("historical label 11/2617 or 43/2617 endpoint did not reproduce")
+    if (
+        int(summary.loc["Q1", "v137"]), int(summary.loc["Q1", "v137_denominator"]),
+        int(summary.loc["Q2", "v137"]), int(summary.loc["Q2", "v137_denominator"]),
+    ) != (343, 2700, 1183, 2700):
+        raise ValueError("aligned label endpoints do not reproduce 343/2700 and 1183/2700")
     blind = aligned[aligned["aggregate_blind"].astype(bool)]
     for sensor in (
         "integrity_jsd_vs_clean_eval", "integrity_mmd_vs_clean_eval",
