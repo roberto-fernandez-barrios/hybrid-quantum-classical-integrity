@@ -629,21 +629,30 @@ def _label_outputs(
 def _delta_table(scopes: dict[str, pd.DataFrame]) -> pd.DataFrame:
     records: list[dict[str, Any]] = []
     for scope, frame in scopes.items():
-        for sensor in CORRECTED:
-            previous = pd.to_numeric(frame[f"previous__{sensor}"], errors="coerce").to_numpy(float)
-            corrected = pd.to_numeric(frame[sensor], errors="coerce").to_numpy(float)
+        coordinates = [
+            coordinate
+            for sensor in CORRECTED
+            for coordinate in (sensor, f"clean__{sensor}", f"paired__{sensor}", f"delta__{sensor}")
+            if f"previous__{coordinate}" in frame and coordinate in frame
+        ]
+        for coordinate in coordinates:
+            sensor = next(sensor for sensor in CORRECTED if coordinate.endswith(sensor))
+            previous = pd.to_numeric(frame[f"previous__{coordinate}"], errors="coerce").to_numpy(float)
+            corrected = pd.to_numeric(frame[coordinate], errors="coerce").to_numpy(float)
             value_changed = ~(np.isclose(previous, corrected, rtol=0.0, atol=1e-15, equal_nan=True))
             fire_old_col = f"previous__fire_sensor__{sensor}"
             fire_new_col = f"fire_sensor__{sensor}"
-            fire_old = frame[fire_old_col].astype(bool).to_numpy() if fire_old_col in frame else np.zeros(len(frame), bool)
-            fire_new = frame[fire_new_col].astype(bool).to_numpy() if fire_new_col in frame else np.zeros(len(frame), bool)
+            primary_coordinate = coordinate == sensor
+            fire_old = frame[fire_old_col].astype(bool).to_numpy() if primary_coordinate and fire_old_col in frame else np.zeros(len(frame), bool)
+            fire_new = frame[fire_new_col].astype(bool).to_numpy() if primary_coordinate and fire_new_col in frame else np.zeros(len(frame), bool)
             decision_change = np.zeros(len(frame), bool)
-            for regime in BATCH_REGIME_NAMES:
-                for rule in ("union", "family"):
-                    old_col = f"previous__fire_{rule}__{regime}"
-                    new_col = f"fire_{rule}__{regime}"
-                    if old_col in frame and new_col in frame:
-                        decision_change |= frame[old_col].astype(bool).to_numpy() != frame[new_col].astype(bool).to_numpy()
+            if primary_coordinate:
+                for regime in BATCH_REGIME_NAMES:
+                    for rule in ("union", "family"):
+                        old_col = f"previous__fire_{rule}__{regime}"
+                        new_col = f"fire_{rule}__{regime}"
+                        if old_col in frame and new_col in frame:
+                            decision_change |= frame[old_col].astype(bool).to_numpy() != frame[new_col].astype(bool).to_numpy()
             keep = value_changed | (fire_old != fire_new) | decision_change
             for pos in np.flatnonzero(keep):
                 row = frame.iloc[pos]
@@ -652,18 +661,19 @@ def _delta_table(scopes: dict[str, pd.DataFrame]) -> pd.DataFrame:
                     **{key: row[key] for key in KEYS},
                     "affected_row_identifier": "|".join(str(row[key]) for key in KEYS),
                     "sensor": sensor,
+                    "coordinate": coordinate,
                     "previous_value": previous[pos],
                     "corrected_value": corrected[pos],
-                    "previous_sensor_fire": bool(fire_old[pos]),
-                    "corrected_sensor_fire": bool(fire_new[pos]),
+                    "previous_sensor_fire": bool(fire_old[pos]) if primary_coordinate and fire_old_col in frame else math.nan,
+                    "corrected_sensor_fire": bool(fire_new[pos]) if primary_coordinate and fire_new_col in frame else math.nan,
                     "reason": "shared overflow-inclusive histogram edges; finite PMF normalization",
                 }
                 for regime in BATCH_REGIME_NAMES:
                     for rule in ("union", "family"):
                         old_col = f"previous__fire_{rule}__{regime}"
                         new_col = f"fire_{rule}__{regime}"
-                        rec[f"previous_{rule}_fire__{regime}"] = bool(row[old_col]) if old_col in row.index else False
-                        rec[f"corrected_{rule}_fire__{regime}"] = bool(row[new_col]) if new_col in row.index else False
+                        rec[f"previous_{rule}_fire__{regime}"] = bool(row[old_col]) if primary_coordinate and old_col in row.index else math.nan
+                        rec[f"corrected_{rule}_fire__{regime}"] = bool(row[new_col]) if primary_coordinate and new_col in row.index else math.nan
                 records.append(rec)
     return pd.DataFrame.from_records(records)
 
