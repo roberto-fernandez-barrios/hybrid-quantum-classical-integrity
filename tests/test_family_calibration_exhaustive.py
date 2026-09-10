@@ -29,6 +29,7 @@ from src.integrity.family_calibration import (
     legacy_v12_calibrate_family,
     legacy_v12_family_fires,
     legacy_v12_firing_members,
+    legacy_v136_conformal_family_pvalues,
     order_statistic_rank,
     split_conformal_family,
 )
@@ -209,11 +210,13 @@ class LargeSampleBehaviourTests(unittest.TestCase):
         self.assertLessEqual(max(adopted), conformal_firing_count(20, 0.2) / 21 + 1e-12)
         self.assertGreater(max(legacy), 0.2)
 
-    def test_nan_sensor_never_contributes(self) -> None:
+    def test_current_nan_fails_closed_and_legacy_v136_is_reproducible(self) -> None:
         rng = np.random.default_rng(3)
         cal = rng.normal(size=(50, 2))
         aud = np.array([[10.0, np.nan], [np.nan, np.nan]])
-        p = conformal_family_pvalues(cal, aud)
+        with self.assertRaises(ValueError):
+            conformal_family_pvalues(cal, aud)
+        p = legacy_v136_conformal_family_pvalues(cal, aud)
         self.assertLess(p[0], 0.05)
         self.assertEqual(p[1], 1.0)
         with self.assertRaises(ValueError):

@@ -86,9 +86,8 @@ def conformal_firing_count(n: int, alpha: float) -> int:
     return int(math.floor(alpha * (n + 1) + 1e-12))
 
 
-def _matrix(values: Mapping[str, np.ndarray] | np.ndarray, family: Sequence[str] | None) -> np.ndarray:
-    """Stack a mapping ``sensor -> 1-D array`` into an ``(k, m)`` matrix; NaN maps to ``-inf``."""
-
+def _coerce_matrix(values: Mapping[str, np.ndarray] | np.ndarray, family: Sequence[str] | None) -> np.ndarray:
+    """Stack a mapping ``sensor -> 1-D array`` into an ``(k, m)`` matrix."""
     if isinstance(values, Mapping):
         if not family:
             raise ValueError("family must contain at least one sensor")
@@ -102,8 +101,30 @@ def _matrix(values: Mapping[str, np.ndarray] | np.ndarray, family: Sequence[str]
             mat = mat.reshape(-1, 1)
         if mat.ndim != 2:
             raise ValueError("values must be a 1-D or 2-D array")
-    mat = mat.copy()
-    mat[np.isnan(mat)] = -np.inf  # an undefined sensor never contributes to firing
+    return mat.copy()
+
+
+def _matrix(values: Mapping[str, np.ndarray] | np.ndarray, family: Sequence[str] | None) -> np.ndarray:
+    """Current scientific matrix conversion: reject every NaN or infinity."""
+
+    mat = _coerce_matrix(values, family)
+    if not np.isfinite(mat).all():
+        raise ValueError("current scientific sensor values must all be finite")
+    return mat
+
+
+def _legacy_audited_matrix(values: Mapping[str, np.ndarray] | np.ndarray, family: Sequence[str] | None) -> np.ndarray:
+    """Reproduce v1.3.6 audited-NaN semantics: map NaN to ``-inf``.
+
+    This conversion is intentionally isolated from every current scientific
+    entry point.  It exists only to reproduce immutable releases whose audited
+    NaN coordinate was treated as unable to contribute to firing.
+    """
+
+    mat = _coerce_matrix(values, family)
+    if np.isinf(mat).any():
+        raise ValueError("legacy sensor values may contain NaN but not infinity")
+    mat[np.isnan(mat)] = -np.inf
     return mat
 
 
@@ -122,30 +143,14 @@ def counts_strictly_below(reference: np.ndarray, values: np.ndarray) -> np.ndarr
 # ---------------------------------------------------------------------------
 
 
-def conformal_family_pvalues(
-    calibration: Mapping[str, np.ndarray] | np.ndarray,
-    values: Mapping[str, np.ndarray] | np.ndarray,
-    family: Sequence[str] | None = None,
-) -> np.ndarray:
-    """Conformal p-value of every audited vector against the calibration draws.
+def _conformal_pvalues_from_matrices(cal: np.ndarray, aud: np.ndarray) -> np.ndarray:
+    """Evaluate the adopted conformal rule on already validated matrices."""
 
-    ``calibration`` holds the ``n`` calibration vectors and ``values`` the ``k``
-    audited vectors (each audited vector is treated on its own: the augmented
-    set is the calibration set plus that single vector). Returns an array of
-    ``k`` p-values in ``{1/(n+1), ..., 1}``.
-    """
-
-    cal = _matrix(calibration, family)
-    aud = _matrix(values, family)
     if cal.shape[1] != aud.shape[1]:
         raise ValueError("calibration and audited vectors must have the same sensors")
-    n, m = cal.shape
+    n, _ = cal.shape
     if n < 1:
         raise ValueError("calibration must be non-empty")
-    if np.isinf(cal).any() and not np.isfinite(cal).all():
-        # NaN calibration values would make the calibration score undefined
-        if np.any(cal == -np.inf):
-            raise ValueError("calibration values must be finite")
     # base[i, s] = #{i' <= n, i' != i : cal[i', s] < cal[i, s]} (self never counts: strict).
     base = counts_strictly_below(cal, cal)
     # audited scores against the n calibration draws
@@ -156,6 +161,37 @@ def conformal_family_pvalues(
     tilde = (base[None, :, :] + add).max(axis=2) / n  # (k, n)
     n_ge = (tilde >= aud_scores[:, None]).sum(axis=1)
     return (1 + n_ge) / (n + 1)
+
+
+def conformal_family_pvalues(
+    calibration: Mapping[str, np.ndarray] | np.ndarray,
+    values: Mapping[str, np.ndarray] | np.ndarray,
+    family: Sequence[str] | None = None,
+) -> np.ndarray:
+    """Conformal p-value of every audited vector against the calibration draws.
+
+    ``calibration`` holds the ``n`` calibration vectors and ``values`` the ``k``
+    audited vectors (each audited vector is treated on its own: the augmented
+    set is the calibration set plus that single vector). Returns an array of
+    ``k`` p-values in ``{1/(n+1), ..., 1}``.  Current scientific use fails
+    closed if any calibration or audited coordinate is NaN or infinite.
+    """
+
+    return _conformal_pvalues_from_matrices(
+        _matrix(calibration, family), _matrix(values, family)
+    )
+
+
+def legacy_v136_conformal_family_pvalues(
+    calibration: Mapping[str, np.ndarray] | np.ndarray,
+    values: Mapping[str, np.ndarray] | np.ndarray,
+    family: Sequence[str] | None = None,
+) -> np.ndarray:
+    """Reproduce v1.3.6 only: audited NaN maps to ``-inf`` and never fires."""
+
+    return _conformal_pvalues_from_matrices(
+        _matrix(calibration, family), _legacy_audited_matrix(values, family)
+    )
 
 
 def conformal_family_fires(
@@ -169,6 +205,20 @@ def conformal_family_fires(
     if not 0.0 < alpha < 1.0:
         raise ValueError("alpha must lie in (0, 1)")
     p = conformal_family_pvalues(calibration, values, family)
+    return p <= alpha + 1e-12
+
+
+def legacy_v136_conformal_family_fires(
+    calibration: Mapping[str, np.ndarray] | np.ndarray,
+    values: Mapping[str, np.ndarray] | np.ndarray,
+    family: Sequence[str] | None = None,
+    alpha: float = 0.05,
+) -> np.ndarray:
+    """Boolean v1.3.6 reproduction wrapper with legacy audited-NaN handling."""
+
+    if not 0.0 < alpha < 1.0:
+        raise ValueError("alpha must lie in (0, 1)")
+    p = legacy_v136_conformal_family_pvalues(calibration, values, family)
     return p <= alpha + 1e-12
 
 
