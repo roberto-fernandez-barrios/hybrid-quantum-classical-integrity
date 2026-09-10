@@ -47,6 +47,7 @@ jobs:
           src/experiments/build_v137_correction_evidence.py
           src/experiments/make_v137_tables.py
           src/experiments/verify_v137_correction.py
+          src/experiments/verify_label_geometry_sensitivity.py
           src/experiments/make_q1_adversarial_figures.py
           src/attacks/cluster_preserving.py
           src/integrity/family_calibration.py
@@ -60,3 +61,5 @@ jobs:
         run: python -m pytest -q
       - name: Verify publication evidence and SHA-256 contracts
         run: python -m src.experiments.verify_publication_artifact --root publication/artifact
+      - name: Verify v1.3.7 label geometry sensitivity
+        run: python -m src.experiments.verify_label_geometry_sensitivity --evidence-dir publication/artifact/evidence/label_geometry_sensitivity
