@@ -484,14 +484,14 @@ def _mde(thresholds: pd.DataFrame) -> pd.DataFrame:
     rows = thresholds[thresholds["sensor"] == "integrity_confusion_profile_l1"].copy()
     rows["batch_size"] = np.where(rows["gate"] == "gate2_id_256", 256, 128)
     rows["lattice_step_l1"] = 2.0 / rows["batch_size"]
-    rows["minimum_changed_confusion_items_to_exceed_threshold"] = (
+    rows["minimum_net_confusion_count_units_to_exceed_threshold"] = (
         np.floor(rows["threshold"] * rows["batch_size"] / 2.0).astype(int) + 1
     )
     rows["minimum_observable_l1_strictly_above_threshold"] = (
-        2.0 * rows["minimum_changed_confusion_items_to_exceed_threshold"] / rows["batch_size"]
+        2.0 * rows["minimum_net_confusion_count_units_to_exceed_threshold"] / rows["batch_size"]
     )
     rows["interpretation"] = (
-        "exact lattice implication of the frozen threshold; descriptive, not a statistical-power guarantee"
+        "exact 2/n L1 lattice implication for net confusion-cell count displacement; altered labels can cancel in aggregate; descriptive, not a statistical-power guarantee"
     )
     return rows
 
