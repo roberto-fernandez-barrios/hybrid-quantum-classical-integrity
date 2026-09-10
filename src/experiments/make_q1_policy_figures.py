@@ -54,7 +54,7 @@ POLICY_STYLE = {
     "serve_always": ("P0 serve-always", GREY, "s"),
     "union_uncalibrated": ("P1 union (uncalibrated)", ORANGE, "^"),
     "family_calibrated": ("P2 conformal-rule (risk-tolerant)", BLUE, "o"),
-    "family_calibrated_strict": ("P3 coverage-complete abstaining", GREEN, "D"),
+    "family_calibrated_strict": ("P3 sensor-coverage-complete", GREEN, "D"),
 }
 RULE_STYLE = (("union", ORANGE, "Union (1.1.0)"), ("family_v12", BLUE_LIGHT, "Family 1.2.0"), ("family", BLUE, "Conformal (adopted)"))
 
@@ -174,7 +174,7 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
     width = 0.26
     for k, policy in enumerate(("union_uncalibrated", "family_calibrated", "family_calibrated_strict")):
         label, color, _ = POLICY_STYLE[policy]
-        short = label.split(" (")[0].replace("P3 coverage-complete abstaining", "P3 abstaining")
+        short = label.split(" (")[0].replace("P3 sensor-coverage-complete", "P3 coverage")
         block = b[b["policy"] == policy].set_index("regime").reindex(REGIME_ORDER)
         xs = xr + (k - 1) * width
         axc.bar(xs, block["benign_interruption_rate"], width=width, color=color, zorder=3, label=short)

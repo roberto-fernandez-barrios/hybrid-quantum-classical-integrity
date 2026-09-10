@@ -724,7 +724,8 @@ named by what they are: P0 serve-always, the baseline; P1, the uncalibrated
 union rule of Gate~N (risk-tolerant); P2, the conformal family rule, a
 \emph{conformal-rule risk-tolerant} policy, nominally calibrated under
 exchangeability, that may serve under an explicitly
-declared residual blind region; P3, the \emph{coverage-complete abstaining}
+declared residual blind region; P3, the \emph{sensor-coverage-complete}
+policy relative to the declared evidence dimensions,
 variant, which holds whenever a mandatory protected boundary (feature,
 prediction, label) has neither exact nor declared statistical coverage under
 the regime. P3 fails closed on missing coverage, not on insufficient power: a
@@ -900,7 +901,7 @@ containment in $\IXF$ is \ContainUnionIXF{} under the union and
   structural-sensitivity endpoint; the batch FPR denominator is 12,000
   draws. The trusted invariant check is reported separately because its
   denominator is 1,200 exact-zero rows and it is a different estimand. The
-  coverage-complete abstaining policy P3 serves nothing where
+  sensor-coverage-complete policy P3 serves nothing where
   the label boundary has no coverage. (c) Interruption of the same 1,200
   near-null synthetic controls by each policy and regime; the trusted
   regime's origin in (b) interrupts \BenignInterruptFamilyIXFYtrusted{} controls
@@ -956,7 +957,8 @@ $\IXFY$/P2. The net increment is therefore
 points, not the gross \TrustedGrossExactBlocks{}/1,200. The controls are synthetic near-null variation,
 not operational traffic, so neither number is a production false-positive
 rate, and the two denominators of Table~\ref{tab:policy} are reported side by
-side. The coverage-complete abstaining policy P3
+side. The sensor-coverage-complete P3 (relative to the declared evidence
+dimensions)
 makes information-set conditionality literal: in $\IX$, $\IXF$ and $\IYm$
 the label boundary has no coverage, so nothing is served and every clean and
 near-null row is interrupted; in $\IXFY$ and $\IXFYs$ every boundary is
@@ -1008,7 +1010,7 @@ controls clean-resample false actions without guaranteeing attack coverage.
 
 \subsection{Quantum-Workflow Coverage}
 
-All 165 design cells (11 conditions $\times$ five splits $\times$ three
+All 165 dependent design cells (11 conditions $\times$ five splits $\times$ three
 dimensions) and all nine acceptance checks pass. In this ideal-statevector
 gate one anchored comparison against $\Phi(C_0)$ is a semantic probe on
 circuit-side rows and an observed-kernel reference on post-processing rows;

@@ -543,7 +543,8 @@ Table~\ref{tab:regimes} records what each evidence regime can establish in the
 implemented study. Structural blindness means that the view is unchanged by
 construction; it is stronger and narrower than observing zero empirical
 response in a finite sample, and both are distinct from calibrated
-detectability and from adaptive evasion.
+detectability and from response reduction against a declared monitored
+fingerprint.
 
 \input{tables/s_sensor_reference_audit.tex}
 
@@ -897,7 +898,9 @@ below its level in every regime (F4) and the 1.2.0 rule does not.
 
 Four policies (P0 serve-always, baseline; P1 the uncalibrated union of
 per-sensor rules, risk-tolerant; P2 the conformal family rule, nominally
-calibrated under exchangeability and risk-tolerant; P3 the coverage-complete abstaining variant, which holds
+calibrated under exchangeability and risk-tolerant; P3 the
+sensor-coverage-complete variant relative to the declared evidence dimensions,
+which holds
 whenever a mandatory protected boundary has neither exact nor declared
 statistical coverage and which guarantees no minimum detection power on the
 boundaries that are covered) are evaluated over five regimes on

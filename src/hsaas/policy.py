@@ -26,7 +26,8 @@ Policy taxonomy (``POLICY_CLASS``)
   family-calibrated regime rule fires; serves otherwise, *including under an
   explicitly declared residual blind region* (reason code
   ``allowed_with_residual_blind_region``). It is not a fail-closed policy.
-* P3 ``family_calibrated_strict`` -- *coverage-complete abstaining* (artifact
+* P3 ``family_calibrated_strict`` -- *sensor-coverage-complete relative to
+  the declared evidence dimensions* (artifact
   1.3.1 name; the identifier is kept for compatibility with the frozen
   evidence tables): as P2, and every mandatory protected boundary that the
   regime covers neither exactly (trusted item-aligned reference) nor
@@ -70,7 +71,7 @@ POLICY_CLASS: Final[dict[str, str]] = {
     "serve_always": "baseline (always serve)",
     "union_uncalibrated": "uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",
     "family_calibrated": "calibrated, risk-tolerant (may serve under a declared residual blind region)",
-    "family_calibrated_strict": "coverage-complete abstaining (fail-closed on missing coverage: a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",
+    "family_calibrated_strict": "sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",
 }
 
 

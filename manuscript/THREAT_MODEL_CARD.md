@@ -111,7 +111,7 @@ contracts by the maximum in `allow < hold < block`:
 
 - `block` only for an exact invariant violated against a trusted reference;
 - `hold` for statistical evidence of deviation (conformal rule) or, under the
-  coverage-complete abstaining policy P3, for a mandatory protected boundary
+  sensor-coverage-complete policy P3 (relative to the declared evidence dimensions), for a mandatory protected boundary
   without declared exact or statistical coverage;
 - `allow` otherwise; the calibrated risk-tolerant policy P2 declares the
   residual blind region in the reason code and serves.

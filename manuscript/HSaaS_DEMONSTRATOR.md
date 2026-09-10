@@ -47,7 +47,7 @@ must sign the chain and bind it to backend/job/calibration identities.
 
 The contracts fail closed on their invariants. This is a property of the
 contract layer and must not be confused with the decision policies below:
-P2 is risk-tolerant, and P3 (coverage-complete abstaining) fails closed on
+P2 is risk-tolerant, and P3 (sensor-coverage-complete relative to the declared evidence dimensions) fails closed on
 missing coverage only.
 
 | Contract state | Service action | Meaning |
@@ -87,7 +87,7 @@ Policy taxonomy (`POLICY_CLASS`):
   family rule fires; otherwise serves, *including under an explicitly declared
   residual blind region* (`allowed_with_residual_blind_region:label`). It is
   not a fail-closed policy.
-- P3 `family_calibrated_strict` — coverage-complete abstaining (the identifier
+- P3 `family_calibrated_strict` — sensor-coverage-complete relative to declared evidence dimensions (the identifier
   is historical): as P2, and a mandatory boundary without declared exact or
   statistical coverage yields `hold` (`unverified_boundary:label`). It fails
   closed on missing coverage, not on insufficient power: a boundary covered by

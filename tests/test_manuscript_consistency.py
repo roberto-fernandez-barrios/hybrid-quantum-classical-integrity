@@ -304,7 +304,7 @@ class TestClaimWording:
         assert "no deployed authentication mechanism is demonstrated" in flat
         assert "with no stored\nbaseline value" not in main
         assert "no stored baseline" not in flat
-        assert "coverage-complete abstaining" in main
+        assert "sensor-coverage-complete" in main
         for rel in ("manuscript/FORMAL_CORE.md", "publication/tdsc/supplement.tex"):
             text = re.sub(r"\s+", " ", _read(rel))
             assert "benchmark-protected" in text and "deployed authentication" in text, rel
@@ -605,7 +605,7 @@ class TestReferenceAudit:
         assert "2609.02781" in conditional
         assert "2609.04388" in vbc and "22239106" not in vbc
         assert _bib_field(certificates, "doi") is None
-        assert "related reproducibility artifact (software)" in certificates
+        assert "software artifact, not the article" in certificates
         assert "21776862" in certificates
 
     def test_required_new_boundary_references_are_cited(self) -> None:
@@ -624,7 +624,7 @@ class TestPolicyTaxonomyInCode:
         from src.hsaas.policy import POLICY_CLASS
 
         strict = POLICY_CLASS["family_calibrated_strict"]
-        assert "coverage-complete abstaining" in strict and "missing coverage" in strict and "no minimum-power guarantee" in strict
+        assert "sensor-coverage-complete" in strict and "missing coverage" in strict and "no minimum-power guarantee" in strict
 
 
 class TestV132ClosingGuards:

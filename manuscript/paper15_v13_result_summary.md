@@ -3,7 +3,7 @@
 Date: 2026-09-07  
 Note (artifact 1.3.1, same day): this summary records the frozen 1.3.0
 evidence and is unchanged in every number. Version 1.3.1 renamed policy P3
-*coverage-complete abstaining* (fail-closed on missing coverage; no
+*sensor-coverage-complete relative to the declared evidence dimensions* (fail-closed on missing coverage; no
 minimum-power guarantee; the identifier `family_calibrated_strict` and every
 decision are unchanged, only the `policy_class` label of the evidence tables
 was regenerated), decomposed the trusted-regime interruption as 544
@@ -11,7 +11,7 @@ statistical holds + 85 exact-reference blocks = 629 of 1,200 near-null
 synthetic controls (not operational benign traffic), and stated the conformal
 result as "finite-sample level under exchangeability; observed 0.056 / 0.058 /
 0.048 / 0.053 in the executed, non-exchangeable design". Where the tables
-below say "P3 strict", read "P3 coverage-complete abstaining".  
+below say "P3 strict", read "P3 sensor-coverage-complete".
 Protocol: `manuscript/paper15_v13_prereg.md` (frozen at commit `cad9136`
 before any regenerated table or Gate A job existed; amendment A3 recorded at
 `678c5d7` before the first builder run).  
