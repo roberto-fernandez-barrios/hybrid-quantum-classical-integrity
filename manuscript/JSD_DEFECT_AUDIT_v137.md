@@ -15,6 +15,8 @@ The support defect is reachable in `integrity_jsd_vs_clean_eval` and in `integri
 
 ## Counts
 
+The audit CSV contains **3374 physical NaN occurrences**: **744** direct histogram-support-defect evaluations, **230** `delta__` values derived from a defective coordinate, and **2400** declared not-applicable clean placeholders.
+
 Physical CSV occurrences for the four named pipeline fields (including lineage duplicates and declared clean placeholders):
 
 | base_sensor                       | classification                   |   n |
@@ -69,7 +71,7 @@ The dependency graph places the following reported quantities at risk pending co
 
 ## Audit answers
 
-1. NaN counts are given above, separating reproducible defects, derived NaNs, lineage duplicates, and non-applicable placeholders.
+1. There are 3374 physical NaN occurrences: 744 direct defects, 230 derived NaNs and 2400 non-applicable placeholders; lineage de-duplication leaves 527 unique scientific evaluations.
 2. The only observed applicable broken sensor is feature JSD.
 3. Observed defect rows are mean-shift and scaling-drift controls; no adaptive, near-null, or label-only intervention has an applicable historical NaN.
 4. The sensor was suppressed inside family calibration, but all canonical NaN rows already had a firing family decision.
