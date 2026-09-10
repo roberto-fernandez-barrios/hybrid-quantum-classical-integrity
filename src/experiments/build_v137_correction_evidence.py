@@ -794,14 +794,14 @@ def _headline(
     new_sham = new_null["attack"].isin(NEAR_NULL_SHAMS)
     add(
         "Near-null conformal response range",
-        rate_range(old_null, old_sham, tuple(BATCH_REGIME_NAMES)),
-        rate_range(new_null, new_sham, tuple(BATCH_REGIME_NAMES)),
+        rate_range(old_null, old_sham, core_regimes),
+        rate_range(new_null, new_sham, core_regimes),
         "range recomputed",
         "same 1,200 prespecified near-null controls; corrected JSD only",
     )
     for attack_class, label_name in (("control", "matched-control"), ("adaptive", "adaptive")):
-        old_mask = old_ga["attack_class"] == attack_class
-        new_mask = new_ga["attack_class"] == attack_class
+        old_mask = (old_ga["attack_class"] == attack_class) & (pd.to_numeric(old_ga["strength"]) <= 0.10)
+        new_mask = (new_ga["attack_class"] == attack_class) & (pd.to_numeric(new_ga["strength"]) <= 0.10)
         add(
             f"Gate A original-geometry {label_name} conformal response range",
             rate_range(old_ga, old_mask, core_regimes),
@@ -809,8 +809,16 @@ def _headline(
             "range recomputed",
             "same Gate-A rows and original s(E,T(E)) geometry; corrected JSD only",
         )
-        old_gmask = old_geom["attack_class"] == attack_class
-        new_gmask = new_geom["attack_class"] == attack_class
+        old_gmask = (
+            (old_geom["attack_class"] == attack_class)
+            & old_geom["mechanism"].isin(["mean_shift", "scaling_drift"])
+            & (pd.to_numeric(old_geom["strength"]) <= 0.10)
+        )
+        new_gmask = (
+            (new_geom["attack_class"] == attack_class)
+            & new_geom["mechanism"].isin(["mean_shift", "scaling_drift"])
+            & (pd.to_numeric(new_geom["strength"]) <= 0.10)
+        )
         add(
             f"Gate A aligned-geometry {label_name} conformal response range",
             rate_range(old_geom, old_gmask, core_regimes),
