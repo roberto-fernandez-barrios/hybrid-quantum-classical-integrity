@@ -422,7 +422,8 @@ def _decomposition(scopes: dict[str, pd.DataFrame]) -> pd.DataFrame:
                     member_regimes = ["descriptive_only"]
                 for regime in member_regimes:
                     fire_col = f"fire_sensor__{sensor}"
-                    fire = group[fire_col].astype(bool).to_numpy() if fire_col in group else np.zeros(len(group), dtype=bool)
+                    has_fire = fire_col in group
+                    fire = group[fire_col].astype(bool).to_numpy() if has_fire else np.zeros(len(group), dtype=bool)
                     only = np.zeros(len(group), dtype=bool)
                     family = np.zeros(len(group), dtype=bool)
                     if regime != "descriptive_only":
@@ -442,9 +443,9 @@ def _decomposition(scopes: dict[str, pd.DataFrame]) -> pd.DataFrame:
                             "median_response": float(np.median(values)),
                             "min_response": float(np.min(values)),
                             "max_response": float(np.max(values)),
-                            "n_sensor_fire": int(fire.sum()) if regime != "descriptive_only" else math.nan,
-                            "n_only_sensor_fire": int(only.sum()) if regime != "descriptive_only" else math.nan,
-                            "n_family_fire": int(family.sum()) if regime != "descriptive_only" else math.nan,
+                            "n_sensor_fire": int(fire.sum()) if regime != "descriptive_only" and has_fire else math.nan,
+                            "n_only_sensor_fire": int(only.sum()) if regime != "descriptive_only" and has_fire else math.nan,
+                            "n_family_fire": int(family.sum()) if regime != "descriptive_only" and has_fire else math.nan,
                             "note": "KS mean is descriptive; ks_reject05 is the prespecified calibrated component" if sensor == "integrity_ks_mean_vs_clean_eval" else "frozen sensor component",
                         }
                     )
@@ -710,6 +711,12 @@ def _headline(old_core: pd.DataFrame, new_core: pd.DataFrame, old_ga: pd.DataFra
 
 def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     raw, metadata, raw_inputs = _load_raw(repo, raw_dir)
+    queue_status_path = repo / "results/paper_digest/paper15_v137_correction/queue_status.json"
+    if not queue_status_path.is_file():
+        raise FileNotFoundError(queue_status_path)
+    queue_status = json.loads(queue_status_path.read_text(encoding="utf-8"))
+    if queue_status.get("analysis") != ANALYSIS or queue_status.get("all_completed") is not True:
+        raise ValueError("corrective queue status is absent or incomplete")
     evidence = repo / "publication/artifact/evidence"
     null_old = pd.read_csv(evidence / "reinforcement/null_unique_observations.csv", low_memory=False)
     core_all = pd.read_csv(evidence / "expansion/expansion_unique_observations.csv", low_memory=False)
@@ -785,7 +792,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         "gateA_original": ga_new_s,
         "feature_aligned": geom_new_s,
     }
-    deltas = _delta_table(scope_frames)
+    deltas = _delta_table({**scope_frames, "gate1_frozen_design": gate1_new})
     observations = pd.concat(
         [frame.assign(correction_scope=scope) for scope, frame in scope_frames.items()] + [gate1_new],
         ignore_index=True,
@@ -797,6 +804,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         "gateA_original": ga_new_s,
         "feature_aligned": geom_new_s,
         "label_aligned": label_new_s,
+        "gate1_frozen_design": gate1_new,
     }
     decomposition = _decomposition(decomposition_scopes)
     ablation = _ablation(decomposition_scopes, null_new)
@@ -873,6 +881,11 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     jsd_output_records[audit_target.name] = {
         "sha256": _sha256(audit_target),
         "rows": len(pd.read_csv(audit_target, low_memory=False)),
+    }
+    if queue_status_path.resolve() != (jsd_dir / "queue_status.json").resolve():
+        shutil.copy2(queue_status_path, jsd_dir / "queue_status.json")
+    jsd_output_records["queue_status.json"] = {
+        "sha256": _sha256(jsd_dir / "queue_status.json"),
     }
     jsd_manifest = {
         **common,
