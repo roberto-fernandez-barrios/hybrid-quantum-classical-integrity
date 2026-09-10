@@ -90,6 +90,18 @@ def test_outputs_are_deterministic() -> None:
     )
 
 
+def test_score_jsd_matches_one_feature_jsd_under_the_same_convention() -> None:
+    rng = np.random.default_rng(1370)
+    reference = rng.normal(size=513)
+    current = rng.normal(loc=0.4, scale=1.2, size=513)
+    assert np.isclose(
+        jsd_feature_shift(reference[:, None], current[:, None]),
+        score_drift_jsd(reference, current),
+        rtol=0.0,
+        atol=1e-15,
+    )
+
+
 def test_valid_finite_jsd_never_reaches_family_calibration_as_nan() -> None:
     rng = np.random.default_rng(314)
     reference = rng.normal(size=256)
