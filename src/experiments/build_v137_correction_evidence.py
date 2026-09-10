@@ -426,11 +426,17 @@ def _decomposition(scopes: dict[str, pd.DataFrame]) -> pd.DataFrame:
                     fire = group[fire_col].astype(bool).to_numpy() if has_fire else np.zeros(len(group), dtype=bool)
                     only = np.zeros(len(group), dtype=bool)
                     family = np.zeros(len(group), dtype=bool)
-                    if regime != "descriptive_only":
-                        peers = [f"fire_sensor__{s}" for s in BATCH_REGIMES[regime] if s != sensor]
+                    if regime != "descriptive_only" and has_fire:
+                        peers = [
+                            f"fire_sensor__{s}"
+                            for s in BATCH_REGIMES[regime]
+                            if s != sensor and f"fire_sensor__{s}" in group
+                        ]
                         other = group[peers].any(axis=1).to_numpy(bool) if peers else np.zeros(len(group), bool)
                         only = fire & ~other
-                        family = group[f"fire_family__{regime}"].astype(bool).to_numpy()
+                        family_col = f"fire_family__{regime}"
+                        if family_col in group:
+                            family = group[family_col].astype(bool).to_numpy()
                     records.append(
                         {
                             "scope": scope,
