@@ -1,0 +1,136 @@
+\begin{table*}[!b]
+\caption{Original near-null controls: per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}
+\label{tab:v137-decomp-1}
+\centering\scriptsize\setlength{\tabcolsep}{2.1pt}
+\begin{tabular}{@{}lllrrrrrrrrr@{}}
+\toprule
+Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\
+\midrule
+sham & tiny\_gaussian & 0.001 & 0.002/0\% & 0.000/0\% & 0.174 & 0.507/65\% & 0.007/0\% & 0.000/0\% & 0.000/0\% & 275/600 & 247/600 \\
+sham & tiny\_scaling & 0.001 & 0.005/2\% & 0.001/0\% & 0.297 & 0.641/85\% & 0.035/12\% & 0.001/0\% & 0.000/0\% & 375/600 & 356/600 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Original frozen feature interventions: per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}
+\label{tab:v137-decomp-2}
+\centering\scriptsize\setlength{\tabcolsep}{2.1pt}
+\begin{tabular}{@{}lllrrrrrrrrr@{}}
+\toprule
+Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\
+\midrule
+corruption & sign\_flip & -- & 0.003/0\% & 0.026/12\% & 0.020 & 0.000/0\% & 0.024/0\% & 0.035/13\% & 0.003/13\% & 54/600 & 78/600 \\
+corruption & sign\_flip & -- & 0.010/0\% & 0.117/53\% & 0.050 & 0.000/0\% & 0.065/23\% & 0.083/36\% & 0.011/38\% & 281/600 & 310/600 \\
+corruption & sign\_flip & -- & 0.020/0\% & 0.193/76\% & 0.093 & 0.015/0\% & 0.124/72\% & 0.133/51\% & 0.025/51\% & 430/600 & 503/600 \\
+covariate\_shift & mean\_shift & 0.020 & 0.065/53\% & 0.054/18\% & 0.533 & 0.959/100\% & 0.162/63\% & 0.013/3\% & 0.001/3\% & 600/600 & 584/600 \\
+covariate\_shift & mean\_shift & 0.050 & 0.134/84\% & 0.122/34\% & 0.603 & 0.991/100\% & 0.253/79\% & 0.043/11\% & 0.010/12\% & 600/600 & 599/600 \\
+covariate\_shift & mean\_shift & 0.100 & 0.187/90\% & 0.191/46\% & 0.623 & 0.994/100\% & 0.318/88\% & 0.089/22\% & 0.026/24\% & 600/600 & 600/600 \\
+covariate\_shift & scaling\_drift & -- & 0.083/54\% & 0.087/25\% & 0.458 & 0.856/100\% & 0.225/63\% & 0.055/15\% & 0.014/16\% & 597/600 & 578/600 \\
+covariate\_shift & scaling\_drift & -- & 0.152/72\% & 0.159/37\% & 0.520 & 0.890/100\% & 0.286/78\% & 0.133/30\% & 0.048/33\% & 599/600 & 587/600 \\
+covariate\_shift & scaling\_drift & -- & 0.203/91\% & 0.241/55\% & 0.564 & 0.905/100\% & 0.330/89\% & 0.186/41\% & 0.076/43\% & 600/600 & 598/600 \\
+pipeline & dropout & -- & 0.001/0\% & 0.000/0\% & 0.013 & 0.000/0\% & 0.008/0\% & 0.006/0\% & 0.000/0\% & 0/600 & 0/600 \\
+pipeline & dropout & -- & 0.003/0\% & 0.000/0\% & 0.035 & 0.000/0\% & 0.023/0\% & 0.013/2\% & 0.000/2\% & 0/600 & 6/600 \\
+pipeline & dropout & -- & 0.006/0\% & 0.000/0\% & 0.062 & 0.000/0\% & 0.038/4\% & 0.024/3\% & 0.001/4\% & 0/600 & 19/600 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Original Gate A matched controls and adaptive variants: per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}
+\label{tab:v137-decomp-3}
+\centering\scriptsize\setlength{\tabcolsep}{2.1pt}
+\begin{tabular}{@{}lllrrrrrrrrr@{}}
+\toprule
+Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\
+\midrule
+adaptive & mean\_shift & 0.020 & 0.014/1\% & 0.000/0\% & 0.045 & 0.029/1\% & 0.043/8\% & 0.004/0\% & 0.000/0\% & 4/600 & 31/600 \\
+adaptive & mean\_shift & 0.050 & 0.027/8\% & 0.004/2\% & 0.065 & 0.070/4\% & 0.068/26\% & 0.008/0\% & 0.000/0\% & 50/600 & 135/600 \\
+adaptive & mean\_shift & 0.100 & 0.039/35\% & 0.019/9\% & 0.082 & 0.117/9\% & 0.090/42\% & 0.018/3\% & 0.001/4\% & 215/600 & 298/600 \\
+adaptive & mean\_shift & 0.250 & 0.074/80\% & 0.067/28\% & 0.133 & 0.287/41\% & 0.131/70\% & 0.048/16\% & 0.005/17\% & 484/600 & 498/600 \\
+adaptive & mean\_shift & 0.500 & 0.085/88\% & 0.144/75\% & 0.153 & 0.354/58\% & 0.153/78\% & 0.081/34\% & 0.011/35\% & 530/600 & 537/600 \\
+adaptive & scaling\_drift & 0.020 & 0.021/5\% & 0.003/0\% & 0.049 & 0.032/4\% & 0.064/26\% & 0.011/2\% & 0.001/2\% & 28/600 & 135/600 \\
+adaptive & scaling\_drift & 0.050 & 0.041/32\% & 0.013/5\% & 0.069 & 0.077/8\% & 0.089/36\% & 0.029/10\% & 0.003/10\% & 173/600 & 254/600 \\
+adaptive & scaling\_drift & 0.100 & 0.055/58\% & 0.036/17\% & 0.088 & 0.137/18\% & 0.106/49\% & 0.046/17\% & 0.006/17\% & 345/600 & 391/600 \\
+adaptive & scaling\_drift & 0.250 & 0.074/75\% & 0.105/56\% & 0.125 & 0.260/41\% & 0.129/61\% & 0.075/30\% & 0.012/30\% & 451/600 & 479/600 \\
+adaptive & scaling\_drift & 0.500 & 0.089/86\% & 0.185/82\% & 0.154 & 0.385/61\% & 0.141/67\% & 0.098/38\% & 0.018/38\% & 525/600 & 531/600 \\
+control & mean\_shift & 0.020 & 0.065/53\% & 0.054/18\% & 0.533 & 0.959/100\% & 0.162/63\% & 0.013/3\% & 0.001/3\% & 600/600 & 584/600 \\
+control & mean\_shift & 0.050 & 0.134/84\% & 0.122/34\% & 0.603 & 0.991/100\% & 0.253/79\% & 0.043/11\% & 0.010/12\% & 600/600 & 599/600 \\
+control & mean\_shift & 0.100 & 0.187/90\% & 0.191/46\% & 0.623 & 0.994/100\% & 0.318/88\% & 0.089/22\% & 0.026/24\% & 600/600 & 600/600 \\
+control & scaling\_drift & 0.020 & 0.083/54\% & 0.087/25\% & 0.458 & 0.856/100\% & 0.225/63\% & 0.055/15\% & 0.014/16\% & 597/600 & 578/600 \\
+control & scaling\_drift & 0.050 & 0.152/72\% & 0.159/37\% & 0.520 & 0.890/100\% & 0.286/78\% & 0.133/30\% & 0.048/33\% & 599/600 & 587/600 \\
+control & scaling\_drift & 0.100 & 0.203/91\% & 0.241/55\% & 0.564 & 0.905/100\% & 0.330/89\% & 0.186/41\% & 0.076/43\% & 600/600 & 598/600 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Geometry-aligned feature sensitivity: per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}
+\label{tab:v137-decomp-4}
+\centering\scriptsize\setlength{\tabcolsep}{2.1pt}
+\begin{tabular}{@{}lllrrrrrrrrr@{}}
+\toprule
+Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\
+\midrule
+adaptive & mean\_shift & 0.020 & 0.042/22\% & 0.032/11\% & 0.107 & 0.073/4\% & 0.078/27\% & 0.037/8\% & 0.002/9\% & 111/600 & 169/600 \\
+adaptive & mean\_shift & 0.050 & 0.048/43\% & 0.039/14\% & 0.118 & 0.135/14\% & 0.094/45\% & 0.038/8\% & 0.002/9\% & 242/600 & 327/600 \\
+adaptive & mean\_shift & 0.100 & 0.056/66\% & 0.055/28\% & 0.129 & 0.195/24\% & 0.109/62\% & 0.042/11\% & 0.003/12\% & 379/600 & 437/600 \\
+adaptive & mean\_shift & 0.250 & 0.077/94\% & 0.096/50\% & 0.163 & 0.364/60\% & 0.139/80\% & 0.062/23\% & 0.006/26\% & 548/600 & 575/600 \\
+adaptive & mean\_shift & 0.500 & 0.090/99\% & 0.160/80\% & 0.181 & 0.406/69\% & 0.159/86\% & 0.097/41\% & 0.013/42\% & 590/600 & 593/600 \\
+adaptive & scaling\_drift & 0.020 & 0.046/34\% & 0.037/14\% & 0.111 & 0.097/10\% & 0.092/40\% & 0.039/10\% & 0.002/10\% & 184/600 & 285/600 \\
+adaptive & scaling\_drift & 0.050 & 0.056/61\% & 0.052/24\% & 0.121 & 0.144/18\% & 0.108/55\% & 0.052/18\% & 0.004/20\% & 342/600 & 412/600 \\
+adaptive & scaling\_drift & 0.100 & 0.065/76\% & 0.075/39\% & 0.132 & 0.206/32\% & 0.120/64\% & 0.065/24\% & 0.007/25\% & 461/600 & 486/600 \\
+adaptive & scaling\_drift & 0.250 & 0.078/85\% & 0.132/70\% & 0.157 & 0.327/55\% & 0.137/72\% & 0.091/36\% & 0.013/36\% & 512/600 & 538/600 \\
+adaptive & scaling\_drift & 0.500 & 0.091/91\% & 0.197/86\% & 0.179 & 0.433/69\% & 0.148/79\% & 0.111/43\% & 0.019/43\% & 550/600 & 559/600 \\
+control & feature\_dropout & 0.020 & 0.039/7\% & 0.031/11\% & 0.102 & 0.042/3\% & 0.065/8\% & 0.038/8\% & 0.002/10\% & 41/600 & 38/600 \\
+control & feature\_dropout & 0.050 & 0.039/9\% & 0.034/12\% & 0.111 & 0.087/8\% & 0.071/16\% & 0.042/11\% & 0.003/12\% & 52/600 & 84/600 \\
+control & feature\_dropout & 0.100 & 0.040/10\% & 0.041/16\% & 0.128 & 0.182/23\% & 0.076/27\% & 0.048/17\% & 0.003/18\% & 131/600 & 182/600 \\
+control & mean\_shift & 0.020 & 0.095/82\% & 0.083/31\% & 0.532 & 0.975/100\% & 0.188/77\% & 0.043/9\% & 0.003/10\% & 600/600 & 594/600 \\
+control & mean\_shift & 0.050 & 0.157/93\% & 0.149/47\% & 0.603 & 0.992/100\% & 0.269/86\% & 0.070/18\% & 0.012/20\% & 600/600 & 600/600 \\
+control & mean\_shift & 0.100 & 0.205/97\% & 0.217/62\% & 0.624 & 0.990/100\% & 0.329/93\% & 0.107/30\% & 0.028/32\% & 600/600 & 600/600 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Geometry-aligned feature sensitivity: per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}
+\label{tab:v137-decomp-5}
+\centering\scriptsize\setlength{\tabcolsep}{2.1pt}
+\begin{tabular}{@{}lllrrrrrrrrr@{}}
+\toprule
+Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\
+\midrule
+control & scaling\_drift & 0.020 & 0.108/71\% & 0.114/36\% & 0.461 & 0.857/100\% & 0.244/72\% & 0.080/20\% & 0.016/22\% & 600/600 & 584/600 \\
+control & scaling\_drift & 0.050 & 0.167/90\% & 0.183/51\% & 0.521 & 0.895/100\% & 0.296/87\% & 0.152/36\% & 0.050/39\% & 600/600 & 595/600 \\
+control & scaling\_drift & 0.100 & 0.212/95\% & 0.260/68\% & 0.564 & 0.916/100\% & 0.336/95\% & 0.200/44\% & 0.077/47\% & 600/600 & 600/600 \\
+identity & identity & 0.000 & 0.039/7\% & 0.031/11\% & 0.100 & 0.038/2\% & 0.063/6\% & 0.036/7\% & 0.002/8\% & 43/600 & 43/600 \\
+near\_null & tiny\_gaussian & 0.001 & 0.040/13\% & 0.031/11\% & 0.197 & 0.589/81\% & 0.066/10\% & 0.036/7\% & 0.002/8\% & 366/600 & 324/600 \\
+near\_null & tiny\_scaling & 0.001 & 0.042/17\% & 0.032/12\% & 0.309 & 0.681/90\% & 0.088/29\% & 0.037/7\% & 0.002/8\% & 434/600 & 430/600 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Gate-1 frozen design (response only; no family calibration): per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}
+\label{tab:v137-decomp-6}
+\centering\scriptsize\setlength{\tabcolsep}{2.1pt}
+\begin{tabular}{@{}lllrrrrrrrrr@{}}
+\toprule
+Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\
+\midrule
+clean & unknown & -- & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & -- & -- \\
+corruption & sign\_flip & -- & 0.003 & 0.020 & 0.018 & 0.000 & 0.027 & 0.045 & 0.002 & -- & -- \\
+corruption & sign\_flip & -- & 0.009 & 0.107 & 0.046 & 0.000 & 0.073 & 0.103 & 0.009 & -- & -- \\
+corruption & sign\_flip & -- & 0.022 & 0.192 & 0.094 & 0.010 & 0.142 & 0.171 & 0.023 & -- & -- \\
+covariate\_shift & mean\_shift & 0.020 & 0.058 & 0.000 & 0.558 & 1.000 & 0.157 & 0.003 & 0.000 & -- & -- \\
+covariate\_shift & mean\_shift & 0.050 & 0.127 & 0.001 & 0.604 & 1.000 & 0.234 & 0.005 & 0.000 & -- & -- \\
+covariate\_shift & mean\_shift & 0.100 & 0.176 & 0.015 & 0.622 & 1.000 & 0.323 & 0.040 & 0.013 & -- & -- \\
+covariate\_shift & scaling\_drift & -- & 0.098 & 0.001 & 0.486 & 0.849 & 0.323 & 0.018 & 0.003 & -- & -- \\
+covariate\_shift & scaling\_drift & -- & 0.201 & 0.032 & 0.535 & 0.895 & 0.383 & 0.115 & 0.042 & -- & -- \\
+covariate\_shift & scaling\_drift & -- & 0.267 & 0.116 & 0.578 & 0.923 & 0.421 & 0.304 & 0.117 & -- & -- \\
+pipeline & dropout & -- & 0.001 & 0.000 & 0.014 & 0.000 & 0.009 & 0.003 & 0.000 & -- & -- \\
+pipeline & dropout & -- & 0.002 & 0.000 & 0.034 & 0.000 & 0.025 & 0.006 & 0.000 & -- & -- \\
+pipeline & dropout & -- & 0.004 & 0.000 & 0.060 & 0.000 & 0.041 & 0.014 & 0.000 & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

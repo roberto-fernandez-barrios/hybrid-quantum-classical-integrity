@@ -1,12 +1,13 @@
 # Reproducing and verifying the published artifact
 
-This guide covers release `1.3.6`, the final formal and editorial corrective
-release, DOI [10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063),
-under concept DOI
+This guide covers release `1.3.7`, the sensor-correction and label-geometry
+closure release, under concept DOI
 [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Its
-immutable predecessor is version `1.3.5`, DOI
-[10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092). No
-scientific evidence was re-executed or changed. The compact
+version DOI is
+[10.5281/zenodo.22698329](https://doi.org/10.5281/zenodo.22698329). Its
+immutable predecessor is version `1.3.6`, DOI
+[10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063). Version
+1.3.7 adds separate corrective evidence; no previous evidence file is changed. The compact
 artifact can be verified without benchmark datasets. A full replay additionally
 requires the public CICIDS2017, UNSW-NB15, and ToN-IoT source files.
 
@@ -33,11 +34,11 @@ Then run the tests and the fail-closed artifact verifier:
 ```
 
 No raw dataset is needed for these checks. The verifier validates the
-artifact-wide SHA-256 manifest, nine embedded evidence manifests, 93
+artifact-wide SHA-256 manifest, eleven embedded evidence manifests and their
 manifested outputs, CSV row counts, acceptance checks, and the primary counts
 recomputed from the frozen derived evidence.
 
-An unpacked `paper15-q1-v1.3.6.zip` can be verified independently from its own
+An unpacked `paper15-q1-v1.3.7.zip` can be verified independently from its own
 root with:
 
 ```powershell
@@ -101,6 +102,18 @@ hyperparameter search:
 & $PY -m src.experiments.run_v135_geometry_queue --n-jobs 6 --retries 1
 & $PY -m src.experiments.build_v135_geometry_sensitivity --out-dir results/paper_digest/paper15_v135_geometry_sensitivity
 & $PY -m src.experiments.verify_geometry_sensitivity --evidence-dir results/paper_digest/paper15_v135_geometry_sensitivity
+```
+
+Run the preregistered v1.3.7 dependency-limited correction. The queue rebuilds
+the same frozen models and verifies their clean predictions before accepting a
+job; it introduces no model selection, attack or calibration campaign:
+
+```powershell
+& $PY -m src.experiments.run_v137_correction_queue --n-jobs 6 --retries 1
+& $PY -m src.experiments.build_v137_correction_evidence
+& $PY -m src.experiments.verify_v137_correction
+& $PY -m src.experiments.make_v137_tables
+& $PY -m src.experiments.make_v137_figures
 ```
 
 Verify the full digest and assemble a separate compact copy without overwriting
@@ -223,7 +236,7 @@ A successful verification has the following invariants:
 
 - the complete test suite passes; its collected count is recorded in
   `publication/RELEASE_STATUS.md`;
-- nine evidence manifests and 93 manifested outputs verify;
+- eleven evidence manifests and all manifested outputs verify;
 - Gate 1 contains 1,440 label-path rows; the expansion contains 3,600;
 - the policy evidence contains 7,008 material observations over five regimes
   and four policies;
@@ -231,6 +244,9 @@ A successful verification has the following invariants:
 - the geometry sensitivity contains 13,200 observations across eight
   environments and 22 frozen interventions, with exact identity, declared
   geometry, matched-control/adaptive pairing, and derived-summary checks;
+- the v1.3.7 correction contains 64,560 accepted JSD-dependent observation
+  rows, 3,600 aligned label rows, finite JSD throughout, and reproduces the
+  original 11/2,617 and 43/2,617 label endpoints before alignment;
 - the dataset verifier reports `24 OK / 0 mismatch / 0 missing` when all local
   raw and staged resources are present;
 - the article builds to no more than 12 pages and the article abstract contains
@@ -276,3 +292,6 @@ queues write under `results/`.
   clean-resample geometry effect from within-geometry monitor-aware response,
   but it does not causally apportion the observed response among dataset
   cluster structure, editing geometry, and evasion mechanism.
+- The label-side aligned sensitivity changes statistical response and its
+  material denominator on the fixed fresh batch; structural aggregate-blind
+  rows remain exactly equal to their paired clean response.

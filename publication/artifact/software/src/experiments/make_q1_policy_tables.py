@@ -34,7 +34,7 @@ POLICY_LABEL = {
     "serve_always": "P0 serve-always (baseline)",
     "union_uncalibrated": "P1 union (uncalibrated, risk-tolerant)",
     "family_calibrated": "P2 conformal-rule (risk-tolerant)",
-    "family_calibrated_strict": "P3 coverage-complete abstaining (fail-closed on missing coverage)",
+    "family_calibrated_strict": "P3 sensor-coverage-complete relative to declared evidence dimensions (abstaining on missing coverage)",
 }
 POLICY_SHORT = {"serve_always": "P0", "union_uncalibrated": "P1 union", "family_calibrated": "P2 conf.", "family_calibrated_strict": "P3 abst."}
 POLICY_ORDER = ["serve_always", "union_uncalibrated", "family_calibrated", "family_calibrated_strict"]
@@ -123,7 +123,7 @@ def table_main_policy(ev: Path) -> str:
         if regime != "I_XFY_trusted":
             rows.append("\\addlinespace[1pt]")
     n_mat = int(m["n_material"].iloc[0])
-    caption = ("Offline decisions on frozen observations at the structural-sensitivity endpoint $|\\Delta_R|>0$ (" + _n(n_mat) + " materially altered audit results among 10,800 interventions). P1: union; P2: conformal, risk-tolerant; P3: coverage-complete abstaining. FPR is estimated on 12,000 disjoint clean draws for batch regimes; the starred row instead reports an exact-zero invariant check on 1,200 rows and is not the same estimand. Benign is interruption of the same 1,200 near-null synthetic controls. Served: undetected materially altered audit results served, not malicious network events. Blind: structurally indistinguishable material rows.")
+    caption = ("Offline decisions on frozen observations at the structural-sensitivity endpoint $|\\Delta_R|>0$ (" + _n(n_mat) + " materially altered audit results among 10,800 interventions). P1: union; P2: conformal, risk-tolerant; P3: sensor-coverage-complete relative to declared evidence dimensions and abstaining on missing coverage. FPR is estimated on 12,000 disjoint clean draws for batch regimes; the starred row instead reports an exact-zero invariant check on 1,200 rows and is not the same estimand. Benign is interruption of the same 1,200 near-null synthetic controls. Served: undetected materially altered audit results served, not malicious network events. Blind: structurally indistinguishable material rows.")
     return _table("table", caption, "tab:policy", "@{}llrrrrr@{}", "Regime & Policy & FPR/check & Benign & Served & Contain. & Blind \\\\", rows, colsep="2pt", placement="!t")
 
 
@@ -226,7 +226,7 @@ def table_family_fpr(ev: Path) -> str:
             rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + f" & {_f(r['environment_cluster_mean_min'])}--{_f(r['environment_cluster_mean_max'])} \\\\")
         rows.append("\\addlinespace[1pt]")
     n = int(fpr[fpr["aggregate"] == "all_eight_environments"]["n_draws"].iloc[0])
-    caption = ("Gate F: decision-level false-alarm rate on the disjoint clean evaluation draws (" + _n(n) + " in the primary aggregate; nominal $\\alpha=0.05$ per decision; exact level of the conformal rule $10/201=0.0498$) of the union of per-sensor rules (1.1.0), of the superseded asymmetric family rule (1.2.0) and of the adopted conformal family rule (1.3.0). Pooled rates are descriptive because draws within a cell overlap; the last column is the range of the per-environment cluster means of the conformal rule (five split clusters each). E1 is never excluded from the primary aggregate.")
+    caption = ("Gate F: decision-level false-alarm rate on the disjoint clean evaluation draws (" + _n(n) + " in the primary aggregate; nominal $\\alpha=0.05$ per decision; exact level of the conformal rule $10/201=0.0498$) of the union of per-sensor rules, of the superseded asymmetric family rule and of the adopted conformal family rule. Pooled rates are descriptive because draws within a cell overlap; the last column is the range of the per-environment cluster means of the conformal rule (five split clusters each). E1 is never excluded from the primary aggregate.")
     return _table("table", caption, "tab:s-family-fpr", "@{}lrrrl@{}", "Regime & Union & 1.2.0 rule & Conformal & Env.\\ cluster means (conformal) \\\\", rows)
 
 
@@ -309,7 +309,7 @@ def table_policy_full(ev: Path) -> str:
         rows.append("\\addlinespace[1pt]")
     n_mat = int(m["n_material"].iloc[0])
     n_imm = int(m["n_immaterial"].iloc[0])
-    caption = ("Gate D: complete decision counts at the primary materiality threshold ($|\\Delta_R|>0$; " + _n(n_mat) + " material and " + _n(n_imm) + " non-material intervened observations; 1,200 near-null synthetic controls). P0 serve-always, P1 union, P2 conformal, P3 coverage-complete abstaining. Clean rows: 12,000 disjoint draws for batch-level regimes; the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$. B.\\ hold/block: near-null controls held (statistical) or blocked (exact-reference violation). Integ.: non-material intervened observations held or blocked. Safe allow: clean, benign and non-material observations allowed. Interr.: non-material interruption rate, (false hold + false block + benign hold + benign block + integrity-only hold/block) over all non-material observations.")
+    caption = ("Gate D: complete decision counts at the primary materiality threshold ($|\\Delta_R|>0$; " + _n(n_mat) + " material and " + _n(n_imm) + " non-material intervened observations; 1,200 near-null synthetic controls). P0 serve-always, P1 union, P2 conformal, P3 sensor-coverage-complete relative to declared evidence dimensions and abstaining on missing coverage. Clean rows: 12,000 disjoint draws for batch-level regimes; the 1,200 exact-zero rows for $\\mathcal I_{XFY}^{\\star}$. B.\\ hold/block: near-null controls held (statistical) or blocked (exact-reference violation). Integ.: non-material intervened observations held or blocked. Safe allow: clean, benign and non-material observations allowed. Interr.: non-material interruption rate, (false hold + false block + benign hold + benign block + integrity-only hold/block) over all non-material observations.")
     return _table("table*", caption, "tab:s-policy-full", "@{}llrrrrrrrrrrrr@{}", "Regime & Pol. & Clean & F.\\ hold & F.\\ block & B.\\ hold & B.\\ block & Served & T.\\ hold & T.\\ block & Integ. & Imm.\\ allow & Safe allow & Interr. \\\\", rows, colsep="2pt")
 
 
@@ -425,7 +425,7 @@ def table_adversarial_policy(adv: Path) -> str:
             cells = [f"{_n(g.loc[(cls, regime, p), 'unsafe_allow'])}" for p in ("union_uncalibrated", "family_calibrated", "family_calibrated_strict")]
             rows.append(f"{REGIME_LABEL[regime]} & {_n(nm)} & " + " & ".join(cells) + " \\\\")
         rows.append("\\addlinespace[1pt]")
-    caption = ("Gate A: materially altered audit results served under P1 union, P2 conformal and P3 coverage-complete abstaining per regime, summed over mechanisms and strengths (structural-sensitivity endpoint $|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
+    caption = ("Gate A: materially altered audit results served under P1 union, P2 conformal and P3 sensor-coverage-complete relative to declared evidence dimensions per regime, summed over mechanisms and strengths (structural-sensitivity endpoint $|\\Delta_R|>0$). Under $\\mathcal I_{XFY}^{\\star}$ every material row carries a prediction change and is blocked.")
     return _table("table*", caption, "tab:s-adversarial-policy", "@{}lrrrr@{}", "Regime & Material & P1 union & P2 conformal & P3 abst. \\\\", rows, colsep="4pt")
 
 

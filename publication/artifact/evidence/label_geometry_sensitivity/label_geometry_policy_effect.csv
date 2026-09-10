@@ -1,0 +1,61 @@
+geometry,regime,policy,policy_class,n,n_material,allow,hold,block,unsafe_allow,material_held_or_blocked
+original_v136,I_X,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+original_v136,I_X,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3600,0,0,2617,0
+original_v136,I_X,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3600,0,0,2617,0
+original_v136,I_X,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,3600,0,0,2617
+original_v136,I_XF,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+original_v136,I_XF,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3600,0,0,2617,0
+original_v136,I_XF,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3600,0,0,2617,0
+original_v136,I_XF,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,3600,0,0,2617
+original_v136,I_Ym,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+original_v136,I_Ym,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3600,0,0,2617,0
+original_v136,I_Ym,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3600,0,0,2617,0
+original_v136,I_Ym,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,3600,0,0,2617
+original_v136,I_XFY,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+original_v136,I_XFY,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3557,43,0,2574,43
+original_v136,I_XFY,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3589,11,0,2606,11
+original_v136,I_XFY,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,3589,11,0,2606,11
+original_v136,I_XFY_trusted,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+original_v136,I_XFY_trusted,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,0,0,3600,0,2617
+original_v136,I_XFY_trusted,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,0,0,3600,0,2617
+original_v136,I_XFY_trusted,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,0,3600,0,2617
+corrected_original,I_X,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+corrected_original,I_X,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3600,0,0,2617,0
+corrected_original,I_X,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3600,0,0,2617,0
+corrected_original,I_X,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,3600,0,0,2617
+corrected_original,I_XF,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+corrected_original,I_XF,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3600,0,0,2617,0
+corrected_original,I_XF,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3600,0,0,2617,0
+corrected_original,I_XF,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,3600,0,0,2617
+corrected_original,I_Ym,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+corrected_original,I_Ym,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3600,0,0,2617,0
+corrected_original,I_Ym,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3600,0,0,2617,0
+corrected_original,I_Ym,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,3600,0,0,2617
+corrected_original,I_XFY,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+corrected_original,I_XFY,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,3557,43,0,2574,43
+corrected_original,I_XFY,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,3589,11,0,2606,11
+corrected_original,I_XFY,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,3589,11,0,2606,11
+corrected_original,I_XFY_trusted,serve_always,baseline (always serve),3600,2617,3600,0,0,2617,0
+corrected_original,I_XFY_trusted,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2617,0,0,3600,0,2617
+corrected_original,I_XFY_trusted,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2617,0,0,3600,0,2617
+corrected_original,I_XFY_trusted,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2617,0,0,3600,0,2617
+aligned,I_X,serve_always,baseline (always serve),3600,2700,3600,0,0,2700,0
+aligned,I_X,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2700,2988,612,0,2201,499
+aligned,I_X,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2700,3342,258,0,2506,194
+aligned,I_X,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2700,0,3600,0,0,2700
+aligned,I_XF,serve_always,baseline (always serve),3600,2700,3600,0,0,2700,0
+aligned,I_XF,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2700,2670,930,0,1983,717
+aligned,I_XF,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2700,3342,258,0,2509,191
+aligned,I_XF,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2700,0,3600,0,0,2700
+aligned,I_Ym,serve_always,baseline (always serve),3600,2700,3600,0,0,2700,0
+aligned,I_Ym,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2700,3258,342,0,2391,309
+aligned,I_Ym,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2700,3258,342,0,2391,309
+aligned,I_Ym,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2700,0,3600,0,0,2700
+aligned,I_XFY,serve_always,baseline (always serve),3600,2700,3600,0,0,2700,0
+aligned,I_XFY,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2700,2175,1425,0,1517,1183
+aligned,I_XFY,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2700,3188,412,0,2357,343
+aligned,I_XFY,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2700,3188,412,0,2357,343
+aligned,I_XFY_trusted,serve_always,baseline (always serve),3600,2700,3600,0,0,2700,0
+aligned,I_XFY_trusted,union_uncalibrated,"uncalibrated, risk-tolerant (1.1.0 union of per-sensor rules)",3600,2700,0,0,3600,0,2700
+aligned,I_XFY_trusted,family_calibrated,"calibrated, risk-tolerant (may serve under a declared residual blind region)",3600,2700,0,0,3600,0,2700
+aligned,I_XFY_trusted,family_calibrated_strict,"sensor-coverage-complete relative to the declared evidence dimensions, abstaining on missing coverage (a mandatory boundary without declared exact or statistical coverage => hold; no minimum-power guarantee)",3600,2700,0,0,3600,0,2700

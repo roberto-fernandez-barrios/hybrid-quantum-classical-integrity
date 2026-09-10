@@ -1,0 +1,49 @@
+geometry,observation_class,regime,rule,n,n_fire,fire_rate,interpretation
+v136,clean_evaluation,I_X,union,12000,1500,0.125,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_X,family_v12,12000,733,0.06108333333333334,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_X,family,12000,672,0.056,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_XF,union,12000,2438,0.20316666666666666,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_XF,family_v12,12000,871,0.07258333333333333,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_XF,family,12000,695,0.057916666666666665,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_Ym,union,12000,570,0.0475,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_Ym,family_v12,12000,570,0.0475,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_Ym,family,12000,570,0.0475,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_XFY,union,12000,3113,0.2594166666666667,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_XFY,family_v12,12000,942,0.0785,descriptive; the executed clean draws violate the exchangeability premise
+v136,clean_evaluation,I_XFY,family,12000,637,0.05308333333333334,descriptive; the executed clean draws violate the exchangeability premise
+v136,near_null,I_X,union,1200,907,0.7558333333333334,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_X,family_v12,1200,702,0.585,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_X,family,1200,654,0.545,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_XF,union,1200,910,0.7583333333333333,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_XF,family_v12,1200,648,0.54,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_XF,family,1200,622,0.5183333333333333,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_Ym,union,1200,0,0.0,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_Ym,family_v12,1200,0,0.0,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_Ym,family,1200,0,0.0,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_XFY,union,1200,910,0.7583333333333333,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_XFY,family_v12,1200,630,0.525,prespecified near-null stress-control response; not operational traffic
+v136,near_null,I_XFY,family,1200,590,0.49166666666666664,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,clean_evaluation,I_X,union,12000,1478,0.12316666666666666,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_X,family_v12,12000,755,0.06291666666666666,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_X,family,12000,677,0.056416666666666664,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_XF,union,12000,2417,0.20141666666666666,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_XF,family_v12,12000,887,0.07391666666666667,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_XF,family,12000,711,0.05925,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_Ym,union,12000,570,0.0475,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_Ym,family_v12,12000,570,0.0475,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_Ym,family,12000,570,0.0475,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_XFY,union,12000,3088,0.25733333333333336,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_XFY,family_v12,12000,962,0.08016666666666666,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,clean_evaluation,I_XFY,family,12000,655,0.05458333333333333,descriptive; the executed clean draws violate the exchangeability premise
+v137_corrected_jsd,near_null,I_X,union,1200,904,0.7533333333333333,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_X,family_v12,1200,693,0.5775,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_X,family,1200,650,0.5416666666666666,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_XF,union,1200,905,0.7541666666666667,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_XF,family_v12,1200,637,0.5308333333333334,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_XF,family,1200,603,0.5025,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_Ym,union,1200,0,0.0,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_Ym,family_v12,1200,0,0.0,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_Ym,family,1200,0,0.0,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_XFY,union,1200,905,0.7541666666666667,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_XFY,family_v12,1200,618,0.515,prespecified near-null stress-control response; not operational traffic
+v137_corrected_jsd,near_null,I_XFY,family,1200,576,0.48,prespecified near-null stress-control response; not operational traffic

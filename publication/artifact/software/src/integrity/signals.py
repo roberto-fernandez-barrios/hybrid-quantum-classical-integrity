@@ -31,57 +31,59 @@ def _clip_by_quantiles(x: np.ndarray, q: Tuple[float, float] = (0.005, 0.995)) -
 
 def _hist_1d_with_edges(x: np.ndarray, edges: np.ndarray) -> np.ndarray:
     """
-    Stable 1D histogram -> probability mass function using fixed bin edges.
+    Stable 1D histogram -> probability mass function using shared bin edges.
+
+    The corrected scientific pipeline supplies ``[-inf, ..., +inf]`` edges so
+    every finite observation belongs to exactly one bin.  Counts, rather than
+    densities, are normalized because infinite-width overflow bins do not
+    admit a density normalization.
     """
     x = _finite(x)
-    nb = int(len(edges) - 1)
-    if x.size == 0 or nb <= 0:
-        h = np.ones(max(nb, 1), dtype=float)
-        return h / h.sum()
+    edges = np.asarray(edges, dtype=float)
+    if x.size == 0:
+        raise ValueError("a JSD sample must contain at least one finite observation")
+    if edges.ndim != 1 or edges.size < 2 or np.isnan(edges).any():
+        raise ValueError("histogram edges must be a one-dimensional non-NaN array")
+    if not np.all(np.diff(edges) > 0.0):
+        raise ValueError("histogram edges must be strictly increasing")
 
-    h, _ = np.histogram(x, bins=edges, density=True)
-    h = h.astype(float) + 1e-12
-    return h / h.sum()
+    counts, _ = np.histogram(x, bins=edges, density=False)
+    counts = counts.astype(float)
+    mass = float(counts.sum())
+    if not np.isfinite(counts).all() or np.any(counts < 0.0):
+        raise ValueError("histogram counts must be finite and nonnegative")
+    if mass <= 0.0 or int(mass) != int(x.size):
+        raise ValueError("shared histogram edges did not capture every finite observation")
+    pmf = counts / mass
+    if not np.isfinite(pmf).all() or not np.isclose(float(pmf.sum()), 1.0):
+        raise ValueError("histogram normalization did not produce a finite PMF")
+    return pmf
 
 
 def _safe_edges_from_ref(x_ref: np.ndarray, bins: int) -> Optional[np.ndarray]:
     """
-    Build histogram bin edges from reference data only (recommended for drift).
-    Returns None if degenerate.
+    Build shared reference-derived edges with explicit overflow bins.
+
+    NumPy deterministically expands a constant reference sample to a finite
+    interval.  Replacing only the two exterior edges by infinities preserves
+    every interior reference-derived cut point while assigning all finite
+    underflow and overflow observations to a bin.
     """
     x_ref = _finite(x_ref)
-    if x_ref.size == 0:
-        return None
-    if np.allclose(x_ref.min(), x_ref.max()):
+    if x_ref.size == 0 or int(bins) <= 0:
         return None
     try:
-        return np.histogram_bin_edges(x_ref, bins=bins)
+        edges = np.asarray(np.histogram_bin_edges(x_ref, bins=int(bins)), dtype=float)
     except Exception:
         return None
-
-
-def _degenerate_fallback_drift(x_ref: np.ndarray, x_cur: np.ndarray) -> float:
-    """
-    Fallback drift score when histogram edges cannot be defined reliably from reference.
-    We avoid returning a hard 0.0 in cases where the current distribution differs.
-
-    Strategy:
-      - If both are empty or both are (near) constant with similar mean -> 0
-      - Else: use a bounded mean-shift proxy: tanh(|mean_cur - mean_ref|)
-    """
-    xr = _finite(x_ref)
-    xc = _finite(x_cur)
-    if xr.size == 0 or xc.size == 0:
-        return 0.0
-
-    mr = float(np.mean(xr))
-    mc = float(np.mean(xc))
-    # If both are near-constant and means match, call it no drift
-    if np.allclose(float(np.min(xr)), float(np.max(xr))) and np.allclose(float(np.min(xc)), float(np.max(xc))):
-        return 0.0 if np.allclose(mr, mc) else float(np.tanh(abs(mc - mr)))
-
-    # General bounded proxy
-    return float(np.tanh(abs(mc - mr)))
+    if edges.ndim != 1 or edges.size != int(bins) + 1:
+        return None
+    if not np.isfinite(edges).all() or not np.all(np.diff(edges) > 0.0):
+        return None
+    edges = edges.copy()
+    edges[0] = -np.inf
+    edges[-1] = np.inf
+    return edges
 
 
 # ----------------------------
@@ -100,7 +102,8 @@ def jsd_feature_shift(
       - Uses *shared bin edges* per feature, derived from the reference distribution.
 
     Notes:
-      - Robust to heavy tails via quantile clipping
+      - Robust to heavy tails via independently applied quantile clipping
+      - Explicit underflow/overflow bins capture all finite current values
       - Stable if a feature becomes (near) constant
       - Returns JS divergence (not distance)
     """
@@ -117,16 +120,20 @@ def jsd_feature_shift(
         xr = _clip_by_quantiles(_finite(X_ref[:, j]), clip_q)
         xc = _clip_by_quantiles(_finite(X_cur[:, j]), clip_q)
 
+        if xr.size == 0 or xc.size == 0:
+            raise ValueError("each feature must contain finite reference and current observations")
+
         edges = _safe_edges_from_ref(xr, bins=bins)
         if edges is None:
-            # Don't blindly set to 0: if current differs, reflect it with a bounded proxy
-            jsds.append(_degenerate_fallback_drift(xr, xc))
-            continue
+            raise ValueError("could not construct valid shared JSD histogram edges")
 
         p = _hist_1d_with_edges(xr, edges)
         q = _hist_1d_with_edges(xc, edges)
         # jensenshannon returns sqrt(JS divergence) by default -> square it
-        jsds.append(float(jensenshannon(p, q) ** 2))
+        value = float(jensenshannon(p, q) ** 2)
+        if not np.isfinite(value):
+            raise ValueError("feature JSD must be finite")
+        jsds.append(value)
 
     return float(np.mean(jsds)) if jsds else 0.0
 
@@ -254,20 +261,24 @@ def score_drift_jsd(
       - scores_ref = model scores on *clean* evaluation set
       - scores_cur = model scores on attacked / shifted evaluation set
 
-    Uses shared bin edges derived from the reference scores.
+    Uses shared reference-derived bin edges with explicit underflow/overflow
+    bins, so every finite score contributes to a valid PMF.
     """
     s_ref = _clip_by_quantiles(_finite(scores_ref), clip_q)
     s_cur = _clip_by_quantiles(_finite(scores_cur), clip_q)
     if s_ref.size == 0 or s_cur.size == 0:
-        return 0.0
+        raise ValueError("score JSD requires finite non-empty reference and current samples")
 
     edges = _safe_edges_from_ref(s_ref, bins=bins)
     if edges is None:
-        return _degenerate_fallback_drift(s_ref, s_cur)
+        raise ValueError("could not construct valid shared score-JSD histogram edges")
 
     p = _hist_1d_with_edges(s_ref, edges)
     q = _hist_1d_with_edges(s_cur, edges)
-    return float(jensenshannon(p, q) ** 2)
+    value = float(jensenshannon(p, q) ** 2)
+    if not np.isfinite(value):
+        raise ValueError("score JSD must be finite")
+    return value
 
 
 # ----------------------------

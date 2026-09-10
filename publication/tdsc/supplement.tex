@@ -43,6 +43,7 @@
 \graphicspath{{figures/}}
 \input{tables/policy_macros.tex}
 \input{tables/geometry_sensitivity_macros.tex}
+\input{tables/v137_correction_macros.tex}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcommand{\IX}{\mathcal I_X}
 \newcommand{\IXF}{\mathcal I_{XF}}
@@ -323,7 +324,7 @@ the members $j_1,j_2,j_3$ each fire when audited (calibration scores
 $0.75,0.75,0.25,0$, threshold $0.75$, audited score $1$), so the firing
 probability under exchangeability is $0.60$ against the claimed $0.40$ and
 against $\alpha$. On the frozen null draws the rule exceeds $\alpha$ under
-exchangeable re-splits (Table~\ref{tab:s-family-decomposition}).
+exchangeable re-splits (Table~\ref{tab:v137-gate-f}).
 
 \begin{IEEEproof}
 (a) The union contains each $E_j$ (lower bound); Boole's inequality gives the
@@ -871,16 +872,10 @@ For every cell and regime the conformal $p$-value of a batch is computed as
 in Proposition~5(b) from the 200 calibration draws of the cell, and the
 regime fires when $p\le0.05$. The frozen per-sensor thresholds are reproduced
 from the calibration draws as a consistency check (F0).
-Table~\ref{tab:s-family-fpr} gives the decision-level false-alarm rates of
-the union rule, the superseded 1.2.0 rule and the conformal rule in the
-primary aggregate over the eight environments, in the sensitivity aggregate
-without E1 and in E1 alone; Table~\ref{tab:s-family-decomposition} the
-decomposition of the 1.2.0 excess into rule bias and design effect together
-with both rules under exchangeable re-splits; Table~\ref{tab:s-family-split}
-the split construction S1; Tables~\ref{tab:s-family-fpr-env} and \ref{tab:s-family-fpr-env-rules} the
-per-environment cluster means with five-cluster $t$ intervals; and
-Table~\ref{tab:s-family-detection} the detection rates on the frozen
-interventions and the near-null controls. The conformal $\IX$ and $\IXF$
+Table~\ref{tab:v137-gate-f} gives the corrected decision-level response of
+the union, superseded asymmetric and conformal rules, the range over the eight
+environments, the near-null controls, the same exchangeable re-splits and the
+same split construction. The conformal $\IX$ and $\IXF$
 rules fire on none of the 3,600 label observations and the $\IYm$ rule on
 none of the 1,800 prior-preserving ones (F3); the batch-level $\IXFY$
 conformal rule fires on \BatchFamilyLabelFires{} of the \NMaterialLabel{}
@@ -895,12 +890,7 @@ conditions). Batch-size scaling is an important external-validity question and
 is not estimated by the present fixed-size experiment. Under the re-splits the conformal rule stays at or
 below its level in every regime (F4) and the 1.2.0 rule does not.
 
-\input{tables/s_family_fpr.tex}
-\input{tables/s_family_decomposition.tex}
-\input{tables/s_family_split.tex}
-\input{tables/s_family_fpr_env.tex}
-\input{tables/s_family_fpr_env_rules.tex}
-\input{tables/s_family_detection.tex}
+\input{tables/s_v137_gate_f.tex}
 
 \subsection{Gate D: Offline End-to-End Decisions}
 
@@ -929,7 +919,7 @@ interruption within the prespecified near-null stress-control grid. In the trust
 \TrustedExactOverlap{} overlap the batch $\IXFY$/P2 interruptions; its net
 increment is \TrustedNetAdditional{}/1,200
 (\TrustedNetAdditionalPct{} percentage points), and the trusted total is
-\BenignInterruptFamilyIXFYtrusted{} of 1,200. Table~\ref{tab:s-policy-full}
+\BenignInterruptFamilyIXFYtrusted{} of 1,200. Table~\ref{tab:v137-policy-full}
 gives the complete decision counts including the hold and block counts on the
 near-null controls and the non-material interruption rate, Table~\ref{tab:s-policy-rule-comparison}
 the conformal-rule policy under the asymmetric comparison and adopted rules,
@@ -942,10 +932,10 @@ trusted regime blocks every material label row and every exact violation;
 decisions are total and deterministic; the composition reproduces the frozen
 contract actions) all pass.
 
-\input{tables/s_policy_full.tex}
-\input{tables/s_policy_rule_comparison.tex}
-\input{tables/s_policy_tau.tex}
-\input{tables/s_policy_family.tex}
+\input{tables/s_v137_policy_full.tex}
+\input{tables/s_v137_policy_rule_comparison.tex}
+\input{tables/s_v137_policy_tau.tex}
+\input{tables/s_v137_policy_family.tex}
 % Keep Gate-D floats in source order while allowing the following explanation
 % to use otherwise empty column space; the barrier before the secondary profile
 % closes all result floats.
@@ -966,29 +956,19 @@ frozen expansion exactly (AC1); labels are untouched (AC2); the frozen-entry
 fraction is recorded on every adaptive row (AC3); every material adaptive row
 carries a prediction change (AC4). Scoring uses the calibration draws,
 thresholds, rules and policy layer of Gates~F and D.
-Table~\ref{tab:adversarial} gives the compact overview at matched strengths,
-Table~\ref{tab:s-adversarial-detection} the detection rates under the
-three rules and the exact item-aligned detection,
-Table~\ref{tab:s-adversarial-materiality} the prediction-change and material
-fractions with the attacker's budget,
-Table~\ref{tab:s-adaptive-strength-profile} the complete per-strength
-materiality, detection and P2 served profile,
-Table~\ref{tab:s-adversarial-policy} the materially altered audit results
-served under P1--P3, Table~\ref{tab:s-adversarial-env} the
-per-environment detection in $\IXF$ and Table~\ref{tab:s-adversarial-branch}
-the classical and quantum branches separately. The expectation recorded
+Table~\ref{tab:adversarial} gives the corrected-JSD compact overview at
+matched strengths, while Table~\ref{tab:s-adversarial-materiality} reports
+the unchanged prediction-change and material fractions with the attacker's
+budget.  The corrected sensor-level, per-strength profiles and the frozen-only
+without-KS ablation are reported in
+Tables~\ref{tab:v137-decomp-3} and~\ref{tab:v137-without-ks-4}. The expectation recorded
 before execution (detection below 0.30 at matched strengths) held for the
 mean shift in $\IX$ and $\IXF$ at 0.02 and 0.05 and for scaling drift in
-$\IX$ at 0.02 and 0.05, and did not hold at 0.10 (0.34--0.66); it is reported
+$\IX$ at 0.02 and 0.05, and did not hold at 0.10 (0.36--0.65 after the JSD correction); it is reported
 as executed. No parameter was changed after the results were seen.
 
-\input{tables/m_adversarial.tex}
-\input{tables/s_adaptive_strength_profile.tex}
-\input{tables/s_adversarial_detection.tex}
+\input{tables/m_v137_adversarial.tex}
 \input{tables/s_adversarial_materiality.tex}
-\input{tables/s_adversarial_policy.tex}
-\input{tables/s_adversarial_env.tex}
-\input{tables/s_adversarial_branch.tex}
 % Gate-A floats may continue over the geometry-sensitivity explanation; their
 % captions retain the gate identity and source order. A barrier follows the
 % complete geometry block.
@@ -1027,25 +1007,26 @@ identity copy $s(E,B)$ instead equals the clean-resample row. Its action rate is
 therefore the clean-resample false-action rate, not an identity false-positive
 rate: \GeoCleanFamilyIX{} in $\IX$ and \GeoCleanFamilyIXF{} in $\IXF$.
 
-Table~\ref{tab:s-geometry-feature} shows that mean shift and scaling remain
+Tables~\ref{tab:v137-decomp-4}--\ref{tab:v137-decomp-5} show that mean shift and scaling remain
 almost completely responsive after alignment. Dropout remains much weaker and
 strength-dependent. Tiny scaling remains highly responsive; tiny Gaussian is
 still well above the clean-resample background but is not near-universal. The
 near-null conclusion is consequently mechanism-specific rather than a single
 unqualified headline.
 
-Table~\ref{tab:s-geometry-gatea} gives the prespecified matched Gate~A
-comparison. Across the 12 mechanism/strength/regime comparisons, the adaptive
+The same tables give the prespecified matched Gate~A comparison. Across the
+12 mechanism/strength/regime comparisons, the adaptive
 response is lower in 25--40 of 40 environment/split cells, equal in the rest,
 and higher in none. Adaptive material fractions are 0.262--0.667 at matched
-strengths. Material nonresponse ranges from 0.060 to 0.834, so materially
+strengths. Material nonresponse ranges from \GeoGateMaterialNonresponseMin{} to
+\GeoGateMaterialNonresponseMax{}, so materially
 altered adaptive rows remain uncovered in every matched comparison. At the
 additional 0.25 and 0.50 strengths, adaptive family response rises to
-0.895--0.990 in $\IX/\IXF$; the result is not strength-independent.
+0.853--0.988 in $\IX/\IXF$; the result is not strength-independent.
 
 Relative to the original $s(E,T(E))$ design, alignment raises the matched
-adaptive range from 0.007--0.662 to 0.185--0.823 while leaving controls at
-0.993--1.000. The same-item geometry therefore amplified part of the original
+adaptive range from 0.007--0.650 to \GeoGateAdaptiveMatchedMin--\GeoGateAdaptiveMatchedMax{} while leaving controls at
+\GeoGateControlMatchedMin--\GeoGateControlMatchedMax{}. The same-item geometry therefore amplified part of the original
 contrast. It does not explain away the within-aligned-geometry ordering: the
 cluster-preserving variant remains consistently below the matched control
 while retaining material changes. The supported conclusion is correspondingly
@@ -1057,8 +1038,96 @@ test against the declared cluster-sensitive fingerprint, not general evasion
 of drift detectors; the staged dataset structure contributes to its response,
 and generalization beyond this fingerprint and structure remains open.
 
-\input{tables/s_geometry_sensitivity.tex}
 \FloatBarrier
+
+\section{Version 1.3.7 Sensor Correction and Label-Geometry Closure}
+\label{sec:v137-closure}
+
+The historical JSD defect is reproducible. Each sample was clipped by its own
+quantiles, but finite histogram edges were derived only from the reference.
+When the current sample lay wholly outside those edges,
+\texttt{numpy.histogram(..., density=True)} divided by zero histogram mass and
+returned NaN; the historical family path then mapped that NaN to $-\infty$.
+The audit finds 3,374 physical NaNs: 744 direct defective coordinates, 230
+derived delta coordinates and 2,400 explicitly non-applicable placeholders.
+After lineage deduplication these represent 527 scientific evaluations (196
+original, 230 aligned-feature and 101 paired diagnostics). Applicable broken
+values occur in feature JSD under mean shift and scaling drift; the score-JSD
+helper was vulnerable but has no applicable historical NaN. Every canonical
+NaN row already had another firing sensor and both family and union fired, so
+no historical decision is silently reinterpreted. The complete pre-correction
+audit is \path{manuscript/JSD_DEFECT_AUDIT_v137.md} and the row ledger is
+\path{evidence/jsd_correction/jsd_historical_nan_audit.csv}.
+
+The corrected construction uses reference-derived shared edges, extends the
+outer bins to $\pm\infty$, forms count PMFs, validates positive total mass and
+then evaluates JSD. It neither clips a disjoint current sample into the
+reference range nor uses a special-case fallback. Under valid finite inputs no
+NaN or infinity reaches calibration; the current path raises on any such
+value, while the old NaN-to-$-\infty$ rule remains isolated for release
+reproduction. Across 64,560 corrected primary observation rows, 58,074
+scope-qualified row identifiers have at least one changed JSD coordinate.
+There are 4,432 changed JSD sensor-fire coordinates (4,282 rows), 2,265 changed
+family-decision coordinates (1,588 rows) and 2,808 changed union-decision
+coordinates (1,254 rows). The detailed ledger retains old/new sensor values,
+fires and all four regime decisions.
+
+Table~\ref{tab:v137-label-geometry} closes the label-side statistical
+geometry question without changing any structural theorem. The original
+$s(E,T_y(E))$ geometry reproduces 11/2,617 conformal and 43/2,617 union fires;
+correcting JSD alone leaves both counts unchanged. Under $s(E,T_y(B))$ with
+clean comparator $s(E,B)$, the existing interventions produce 2,700 material
+rows and response rises to 343/2,700 conformal and 1,183/2,700 union. The
+denominator changes because materiality is recomputed on the preregistered
+fresh batch $B$, not because rows were selected. Among all 2,836
+aggregate-separable interventions, the aligned responses are 352 (12.41\%)
+and 1,204 (42.45\%). All 764 aggregate-blind rows retain the exact paired-clean
+sensor vector: their attack-only conformal and union increments are both zero.
+Thus the label-only blind region, Propositions~1--7, the $R_0/M_0/C$
+hierarchy and exact C1 results are unchanged.
+
+The policy consequence in Table~\ref{tab:v137-label-policy} is
+sensitivity-specific, not a retroactive replacement
+of the original primary grid. For aligned label rows, P2 serves 2,506, 2,509,
+2,391 and 2,357 of the 2,700 material rows in $\IX$, $\IXF$, $\IYm$ and
+$\IXFY$, respectively; the trusted regime serves zero. The corresponding
+union counts served are 2,201, 1,983, 2,391 and 1,517. The corrected-original
+label counts remain 2,606/2,617 served by $\IXFY$/P2; the all-mechanism primary
+headline is separately 4,394/7,008 after the JSD correction. Exact item-aligned
+blocking remains 3,600/3,600 label interventions and 2,617/2,617 original
+material label rows.
+
+Tables~\ref{tab:v137-decomp-1}--\ref{tab:v137-decomp-6} expose the sensor
+decomposition for every frozen mechanism and strength, and
+Tables~\ref{tab:v137-without-ks-1}--\ref{tab:v137-without-ks-5} give the
+corresponding descriptive ablation. KS rejection is retained in the prespecified primary
+family. Its dominance is concentrated where the frozen data contain large
+point masses or tight near-duplicate clusters: small shifts disperse those
+masses even when other aggregate distances remain modest. The frozen-only
+without-KS ablation is descriptive and independently reported. In the core
+grid, 3,521/4,361 primary $\IX$ family fires, 4,008/4,462 $\IXF$ fires and
+3,959/4,419 $\IXFY$ fires survive recalibration without KS; on Gate~A the
+corresponding counts are 5,545/6,401, 6,380/6,835 and 6,251/6,712. By contrast,
+only 10/650, 62/603 and 62/576 primary near-null family fires survive in those
+three regimes. Removal can also create different fires because the remaining
+family is recalibrated; therefore ``survives'' and the without-KS total are
+both recorded, and neither replaces the primary.
+
+The confusion-profile L1 presentation in Table~\ref{tab:v137-mde} is an exact
+lattice implication of the frozen thresholds, not a power guarantee. At
+$n=128$, thresholds 0.203125--0.281250 require 13--19 net confusion-cell count
+units to exceed them; at $n=256$, thresholds 0.171875--0.203125 require 23--27.
+Individual relabelings may cancel in the aggregate, explaining why some
+$r=0.02$, 0.05 and 0.10 cells remain below threshold without implying a
+minimum attack intensity. E1 is the only 256-row environment and has non-zero
+label response, but batch size is confounded with environment and null
+behavior, so this contrast cannot identify a batch-size effect.
+
+\input{tables/s_v137_label_geometry.tex}
+\input{tables/s_v137_label_policy.tex}
+\input{tables/s_v137_mde.tex}
+\input{tables/s_v137_sensor_decomposition.tex}
+\input{tables/s_v137_without_ks.tex}
 
 \section{Secondary Model-Impact Profile}
 
@@ -1093,7 +1162,7 @@ python -m src.experiments.verify_publication_artifact
        --root publication/artifact
 \end{verbatim}
 }
-It verifies the artifact-wide SHA-256 manifest, the nine embedded evidence
+It verifies the artifact-wide SHA-256 manifest, the eleven embedded evidence
 manifests and their outputs, row counts, the primary-claim counts including
 the signed label-path counts, the calibrated label-path consistency checks of
 the reinforcement gate, the policy-level claims of the regenerated gates
@@ -1125,10 +1194,12 @@ The artifact omits raw benchmark datasets; it documents their official
 sources, expected SHA-256 hashes, deterministic staging and a cross-platform
 hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
-and expected outputs. All scientific evidence directories are byte-identical
-to the immutable v1.3.5 release (DOI 10.5281/zenodo.22678092). Version 1.3.6
-is a formal/editorial corrective release with version DOI
-10.5281/zenodo.22694063 under concept DOI 10.5281/zenodo.22550852. The clean
+and expected outputs. Every v1.3.5 and v1.3.6 evidence file remains
+byte-identical to its tagged release. Version 1.3.7 adds only the separate
+\path{evidence/jsd_correction} and
+\path{evidence/label_geometry_sensitivity} trees under version DOI
+10.5281/zenodo.22698329 and concept DOI 10.5281/zenodo.22550852; v1.3.6 remains at version DOI
+10.5281/zenodo.22694063. The clean
 balanced-accuracy table is a presentation-only
 summary derived from frozen evidence. Source code is licensed under
 Apache-2.0, derived evidence, figures and
@@ -1146,13 +1217,14 @@ the class; feature/prediction sensors are exactly blind to label-only changes
 and label marginals to prior-preserving relabeling; every material label-path
 change alters the confusion matrix and is separable in the joint view, but
 batch-level Class-A auditors with a benchmark-protected, non-authenticated
-same-item-set statistical oracle detect at most
-1.6\% of them in the executed finite-batch design whereas a trusted aggregate reference of the same batch detects
+same-item-set statistical oracle detect 11--43 of 2,617 material rows under
+the original geometry and \AlignedLabelFamilyFires{}--\AlignedLabelUnionFires{}
+of \AlignedLabelMaterialDen{} under the aligned geometry, whereas a trusted aggregate reference of the same batch detects
 all of them and an item-aligned reference additionally exposes the 808
 aggregate-preserving relabelings; the executed rules reproduce the
 structural blind regions (a consistency check of Proposition~4(i), not a
 finding); the union of per-sensor rules at $\alpha=0.05$ yields decision
-false-alarm rates of 0.125--0.259 that the conformal family rule brings to
+false-action rates of 0.123--0.257 that the conformal family rule brings to
 \FprFamilyIYm--\FprFamilyIXF{} in the executed design, whose finite-sample
 level of $10/201$ holds under exchangeability, a premise the executed design
 violates by a measured, small margin concentrated in E1; the rule of
@@ -1170,7 +1242,7 @@ attacker who preserves the tight feature clusters cuts detection in $\IX$ and
 $\IXF$ from \AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax{} to
 \AdvDetAdaptHeadlineMin--\AdvDetAdaptHeadlineMax{} at matched strengths while
 keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes, and its materially
-altered audit results are served by the conformal-rule policy in 28--39\% of its
+altered audit results are served by the conformal-rule policy in 27--39\% of its
 material instances in aggregate, with the full profile reported by strength;
 the geometry-aligned sensitivity retains the matched control/adaptive ordering
 in all 12 comparisons (25--40 of 40 lower environment/split cells and none

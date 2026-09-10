@@ -2,7 +2,7 @@
 
 This directory contains the publication sources for *Observational
 Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical
-Workflows*, version `1.3.6`.
+Workflows*, version `1.3.7`.
 
 ## Contents
 
@@ -59,8 +59,8 @@ Python 3.10 is the frozen reference interpreter:
   --root publication\artifact
 ```
 
-The verifier checks the artifact-wide manifest, nine embedded evidence
-manifests, 93 manifested outputs, table shapes, primary counts, declared
+The verifier checks the artifact-wide manifest, eleven embedded evidence
+manifests and all manifested outputs, table shapes, primary counts, declared
 calibration/intervention geometry, identity responses, matched pairs, derived
 summaries, and acceptance conditions.
 Full replay instructions and external dataset requirements are in

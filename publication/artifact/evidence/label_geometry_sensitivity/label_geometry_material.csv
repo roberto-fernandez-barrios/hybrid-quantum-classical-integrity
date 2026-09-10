@@ -1,0 +1,7 @@
+attack,attack_class,mechanism,strength,n,original_n_material,aligned_n_material,n_aggregate_separable,n_aggregate_blind,aligned_family_detected_aggregate_separable,aligned_union_detected_aggregate_separable,aligned_family_aggregate_separable_fraction,aligned_union_aggregate_separable_fraction
+label_flip_prior_preserving_r_0.020,label,label_flip_prior_preserving,0.02,600,262,283,283,317,24,118,0.08480565371024736,0.4169611307420495
+label_flip_prior_preserving_r_0.050,label,label_flip_prior_preserving,0.05,600,369,404,404,196,46,179,0.11386138613861387,0.4430693069306931
+label_flip_prior_preserving_r_0.100,label,label_flip_prior_preserving,0.1,600,428,421,421,179,74,200,0.17577197149643706,0.4750593824228028
+label_flip_r_0.020,label,label_flip,0.02,600,521,516,563,37,57,193,0.10124333925399645,0.3428063943161634
+label_flip_r_0.050,label,label_flip,0.05,600,499,548,599,1,69,252,0.11519198664440734,0.42070116861435725
+label_flip_r_0.100,label,label_flip,0.1,600,538,528,566,34,82,262,0.14487632508833923,0.4628975265017668

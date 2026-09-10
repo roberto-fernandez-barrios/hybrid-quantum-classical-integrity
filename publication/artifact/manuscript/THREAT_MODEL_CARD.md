@@ -111,7 +111,7 @@ contracts by the maximum in `allow < hold < block`:
 
 - `block` only for an exact invariant violated against a trusted reference;
 - `hold` for statistical evidence of deviation (conformal rule) or, under the
-  coverage-complete abstaining policy P3, for a mandatory protected boundary
+  sensor-coverage-complete policy P3 (relative to the declared evidence dimensions), for a mandatory protected boundary
   without declared exact or statistical coverage;
 - `allow` otherwise; the calibrated risk-tolerant policy P2 declares the
   residual blind region in the reason code and serves.
@@ -147,7 +147,7 @@ evidence for adjudication, not automatic proof of harmful semantics.
   same-batch regime serves none, at a measured near-null cost: 629/1,200
   total, 85 gross exact-reference blocks, and 39 net additional interruptions
   over batch `I_XFY`/P2 after 46 overlapping cases are removed.
-- An adaptive attacker who preserves the cluster fingerprint evades the
+- An adaptive attacker who preserves the cluster fingerprint reduces response against the declared
   calibrated batch-level sensors while keeping 83–91 % of the conclusion
   changes; only a reference closes that region.
 - The quantum branch is an instance of the same view lattice, class by class

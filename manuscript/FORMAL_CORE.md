@@ -1,6 +1,6 @@
-# Formal core — observational indistinguishability and integrity blind regions (release 1.3.6; scientific evidence frozen)
+# Formal core — observational indistinguishability and integrity blind regions (release 1.3.7; structural theory unchanged)
 
-Release 1.3.6 corrects Proposition 4(i) to the pathwise equality supported by
+Release 1.3.6 corrected Proposition 4(i) to the pathwise equality supported by
 Lemma 1 and repairs the omitted $K_{\mathrm{obs}}$ dependency in the proof of
 Corollary 1(a). It also makes the $R_0$/$M_0$/item-aligned reference
 granularity explicitly claim-relative. No other theorem is changed and no

@@ -3,6 +3,22 @@
 Scientific releases are preserved by their Git tags and Zenodo records. This
 file summarizes public release history; implementation detail remains in Git.
 
+## 1.3.7 — 2026-09-10
+
+- Corrected the histogram-support defect in feature and score Jensen--Shannon
+  drift sensors by using shared overflow-inclusive bins and validated PMFs.
+- Made the current family-calibration path fail on non-finite sensor values,
+  while isolating the historical NaN behavior for tagged-release reproduction.
+- Replayed only JSD-dependent frozen configurations and published an exact
+  old/new value, sensor-fire, family-fire and union-fire ledger.
+- Completed the preregistered label-side clean-resample geometry sensitivity
+  using the same attacks, strengths, seeds, models and calibration draws.
+- Added per-sensor decomposition, a frozen-only descriptive without-KS
+  ablation and the confusion-L1 threshold lattice description.
+- Preserved every v1.3.6 and v1.3.5 geometry evidence file unchanged; no
+  structural proposition, dataset, model, attack, policy or quantum result was
+  added or redesigned.
+
 ## 1.3.6 — 2026-09-10
 
 - Corrected Proposition 4(i) to its pathwise same-state/reference statement

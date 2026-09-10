@@ -4,7 +4,7 @@ The tests need neither the derived evidence nor Qiskit. They cover the adopted
 conformal family rule (single-sensor equivalence with the 1.1.0 per-sensor
 rule, empirical level under exchangeable draws, ordering against the union
 rule), the superseded 1.2.0 rule kept for comparison, the decision lattice,
-the policy taxonomy (calibrated risk-tolerant P2 versus coverage-complete abstaining P3),
+the policy taxonomy (calibrated risk-tolerant P2 versus sensor-coverage-complete P3),
 and the composition with the frozen contract actions. The exhaustive
 counting-bound tests are in ``tests/test_family_calibration_exhaustive.py``.
 """
@@ -88,7 +88,7 @@ class PolicyDecisionTests(unittest.TestCase):
         self.assertIn("baseline", POLICY_CLASS["serve_always"])
         self.assertIn("risk-tolerant", POLICY_CLASS["family_calibrated"])
         strict = POLICY_CLASS["family_calibrated_strict"]
-        self.assertIn("coverage-complete abstaining", strict)
+        self.assertIn("sensor-coverage-complete", strict)
         self.assertIn("missing coverage", strict)
         self.assertIn("no minimum-power guarantee", strict)
         self.assertNotIn("strict fail-closed", strict)

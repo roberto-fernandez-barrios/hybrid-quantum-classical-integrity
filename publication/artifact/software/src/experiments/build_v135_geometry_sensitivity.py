@@ -64,7 +64,15 @@ def sha256_canonical_text(path: Path) -> str:
 
 def old_evidence_tree(repo: Path) -> tuple[int, str]:
     root = repo / "publication/artifact/evidence"
-    files = sorted(p for p in root.rglob("*") if p.is_file() and "geometry_sensitivity" not in p.parts)
+    later_evidence = {
+        "geometry_sensitivity",
+        "jsd_correction",
+        "label_geometry_sensitivity",
+    }
+    files = sorted(
+        p for p in root.rglob("*")
+        if p.is_file() and not later_evidence.intersection(p.parts)
+    )
     lines = [f"{_sha256(p)}  {p.relative_to(repo).as_posix()}\n" for p in files]
     return len(files), hashlib.sha256("".join(lines).encode("utf-8")).hexdigest()
 

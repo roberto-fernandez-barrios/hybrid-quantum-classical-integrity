@@ -25,6 +25,7 @@
 \graphicspath{{figures/}}
 \input{tables/policy_macros.tex}
 \input{tables/geometry_sensitivity_macros.tex}
+\input{tables/v137_correction_macros.tex}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcommand{\cmark}{\ensuremath{\checkmark}}
 \newcommand{\na}{--}
@@ -618,7 +619,7 @@ Confusion-preserving relabeling: swaps among equal predictions (realised, not ex
 Feature sign flip: negate $p$ of $\tilde X$ entries (acquisition/preprocessing) & Integrity corruption & training data, fitted model, reference features & $\IX$ 0.09--0.72; $\IXF$ 0.13--0.84; exact 0.79--0.91 & partially separable; strength-dependent residual \\
 Mean shift, scaling drift: shift or scale all features (acquisition/preprocessing) & Fault robustness & as above & $\IX$ \AdvDetCtrlIXMin--\AdvDetCtrlIXMax{} by cluster fingerprint & detected in this design by a fragile fingerprint \\
 Feature dropout: impute $p$ of entries (preprocessing) & Fault robustness & as above & batch 0.00--0.03; exact 0.49--0.76 & separable in $\IXF$ yet missed by the executed finite-batch level-A rule \\
-Cluster-preserving mean shift and scaling: same mechanisms on the 32\% of entries outside tight clusters (executed, Gate~A) & Adaptive attacker & as above & $\IX$ 0.01--\AdvDetAdaptSDTenPctIX{}, $\IXF$ 0.06--\AdvDetAdaptSDTenPctIXF{} at matched strengths; exact for every material row & reduces response against the declared fingerprint while keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes; served by P2 in 28--39\% of material rows \\
+Cluster-preserving mean shift and scaling: same mechanisms on the 32\% of entries outside tight clusters (executed, Gate~A) & Adaptive attacker & as above & $\IX$ 0.01--\AdvDetAdaptSDTenPctIX{}, $\IXF$ 0.05--\AdvDetAdaptSDTenPctIXF{} at matched strengths; exact for every material row & reduces response against the declared fingerprint while keeping \AdvMatRetentionMinPct--\AdvMatRetentionMaxPct\% of the conclusion changes; served by P2 in 27--39\% of material rows \\
 Circuit-parameter mutation; repetition change: alter $C$ before execution (design; (a)) & Adversarial attack & reference circuit hash, probe kernel $K_{\mathrm{sem},0}$ & circuit hash and semantic probe 15/15 & identified by anchored provenance and semantics; outputs miss sub-decision changes \\
 Benign transpilation; common-unitary rewrite: compiler pass ((a)) & Approved equivalence & -- & hash changes 15/15, $K_{\mathrm{sem}}$ unchanged & separability in $h(C)$ is not harm (Prop.~7(i)) \\
 Asymmetric, diagonal-eroded kernel edit: edit $K_{\mathrm{obs}}$ after estimation ((c)) & Integrity corruption & reference kernel, algebraic invariants & algebra 15/15 & detected by structural invariants of $K_{\mathrm{obs}}$ \\
@@ -876,7 +877,12 @@ every one of them is separable (Proposition~3, C8). These 11--43 detections
 among 2,617 material rows are finite-batch statistical-power results, not
 structural blind regions: in this design a 2--10\% relabeling of a 128-row
 batch can shift the confusion profile by less than its variability across
-fresh clean batches. A trusted aggregate reference of the same batch
+fresh clean batches. Aligned response is
+\AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} conformal and
+\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} union; among
+\AlignedLabelSeparableDen{} separable rows the counts are
+\AlignedLabelSeparableFamilyFires{} and \AlignedLabelSeparableUnionFires{}, while
+all \AlignedLabelBlindDen{} blind rows equal paired clean. A trusted aggregate reference of the same batch
 detects all \NMaterialLabel{} exactly (Corollary~3a) and \WitnessWNine{} of
 the 3,600 label rows in total; the \WitnessWTen{} relabelings that preserve
 every aggregate (C1) are exposed only by the item-aligned label reference
@@ -886,7 +892,7 @@ cells, \AdvDetCtrlIXFMin--\AdvDetCtrlIXFMax{} of $\IXF$ cells and
 \AdvDetCtrlIXFYMin--\AdvDetCtrlIXFYMax{} of $\IXFY$ cells because the standardized
 projected features hold tight clusters that an in-place perturbation smears
 and a fresh batch reproduces, a legitimate but fragile fingerprint that also
-fires on the near-null controls (40--64\% with the conformal rule); feature
+fires on the near-null controls (41--62\% with the conformal rule); feature
 dropout with imputation is nearly invisible at the batch level (0--3\%) yet
 changes predictions in 49--76\% of cells. Within this fixed intervention grid,
 the conformal rule reduces detection only slightly:
@@ -973,7 +979,7 @@ power, and the choice between P2 and P3 is a declared risk decision, not a
 detector property. The composition with the six frozen contract envelopes
 reproduces their actions (supplement).
 
-\input{tables/m_policy.tex}
+\input{tables/m_v137_policy.tex}
 
 \subsection{Adaptive Cluster-Preserving Attacker}
 
@@ -1004,7 +1010,7 @@ controls clean-resample false actions without guaranteeing attack coverage.
 \begin{figure}[!t]
   \centering
   \includegraphics[width=\columnwidth]{fig_q1_adversarial_cluster_preserving.pdf}
-  \caption{Original frozen Gate~A. (a) Detection under the conformal family rule of the
+  \caption{Corrected-JSD response on the original frozen Gate~A rows. (a) Detection under the conformal family rule of the
   executed drift mechanisms (solid) and of their cluster-preserving variants
   (dashed) in $\IX$ and $\IXF$, 600 observations per point. (b) Material
   fraction of the same rows: the construction reduces response against the
@@ -1044,7 +1050,7 @@ P2 may serve within a residual region, while P3 promises no minimum power.
 A metric can change while predictor output is unchanged: input robustness
 cannot repair corrupted evaluation labels. Zero response establishes blindness
 only when the evidence could not distinguish the states; otherwise power
-depends on the null. The 28--39\% served fractions summarize the prespecified
+depends on the null. The 27--39\% served fractions summarize the prespecified
 equal-weight intervention grid, not deployment prevalence. Gate~A is a stress
 test of one cluster-sensitive fingerprint; its aligned sensitivity preserves
 the control/adaptive ordering while exposing a geometry effect.
@@ -1077,10 +1083,9 @@ independent of the number of rows: a view-preserving intervention remains
 invisible as $n$ grows. For interventions that do change an observed statistic,
 however, power can increase with batch size as sampling variability often
 decreases, approximately as $n^{-1/2}$ for proportion-like statistics under
-regular conditions. The 11--43 detections among 2,617 material label rows are
-therefore outcomes of the executed fixed-size design, not a universal bound on
-batch-monitoring power. Batch-size scaling is an important external-validity
-question and is not estimated by the present fixed-size experiment. E1 is the
+regular conditions. The original 11--43/2,617 and aligned
+\AlignedLabelFamilyFires{}--\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{}
+are fixed-geometry outcomes, not power bounds. E1 is the
 only 256-row environment and exhibits non-zero label response, but because
 batch size is confounded with environment and null behavior, this cannot
 identify a batch-size effect.
@@ -1108,10 +1113,11 @@ Assurance must state its view, trust root, premise, residual region and response
 
 \section*{Data, Code, and Ethics Statement}
 
-The artifact contains code, tests, frozen derived evidence and nine manifests;
+The artifact contains code, tests, frozen and corrective derived evidence and eleven manifests;
 raw benchmarks are not redistributed. Sources, hashes and staging are
-documented. Zenodo version DOI: 10.5281/zenodo.22694063; concept DOI:
-10.5281/zenodo.22550852. Code is Apache-2.0 and derived evidence/documentation
+documented. Version DOI: 10.5281/zenodo.22698329; concept DOI:
+10.5281/zenodo.22550852; immutable predecessor DOI: 10.5281/zenodo.22694063.
+Code is Apache-2.0 and derived evidence/documentation
 CC~BY~4.0. No new human-participant or personal-data collection was performed.
 
 \section*{Acknowledgment}

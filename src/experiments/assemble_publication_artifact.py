@@ -46,6 +46,8 @@ MANUSCRIPT_FILES = [
     "manuscript/v135_geometry_aligned_sensitivity_result_summary.md",
     "manuscript/JSD_DEFECT_AUDIT_v137.md",
     "manuscript/v137_jsd_label_geometry_prereg.md",
+    "manuscript/v137_jsd_label_geometry_result_summary.md",
+    "manuscript/FINAL_REPORT_v137.md",
     "manuscript/paper15_exact_statevector_validation.md",
     "manuscript/paper15_q1_expansion_result_summary.md",
     "manuscript/paper15_q1_gate1_result_summary.md",

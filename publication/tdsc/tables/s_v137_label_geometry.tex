@@ -1,0 +1,19 @@
+\begin{table*}[!t]
+\caption{Label-side geometry sensitivity. Original uses $s(E,T_y(E))$; aligned uses $s(E,T_y(B))$ with clean comparator $s(E,B)$. Sensor columns are aligned means. Detection is on aligned material rows under $\IXFY$. Aggregate-blind rows preserve every declared label/confusion aggregate.}
+\label{tab:v137-label-geometry}
+\centering\footnotesize\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{@{}lrrrrrrrrrrr@{}}
+\toprule
+Attack & $r$ & Mat. orig. & Mat. align. & Sep. & Blind & Label-$\Delta$ & Label-JSD & Conf.-L1 & Conf.-JSD & Family & Union \\
+\midrule
+prior-preserving & 0.02 & 262 & 283 & 283 & 317 & 0.038 & 0.001 & 0.125 & 0.005 & 24/283 & 118/283 \\
+prior-preserving & 0.05 & 369 & 404 & 404 & 196 & 0.038 & 0.001 & 0.131 & 0.006 & 46/404 & 179/404 \\
+prior-preserving & 0.10 & 428 & 421 & 421 & 179 & 0.038 & 0.001 & 0.146 & 0.007 & 74/421 & 200/421 \\
+random & 0.02 & 521 & 516 & 563 & 37 & 0.039 & 0.001 & 0.127 & 0.005 & 54/516 & 186/516 \\
+random & 0.05 & 499 & 548 & 599 & 1 & 0.040 & 0.001 & 0.137 & 0.006 & 65/548 & 244/548 \\
+random & 0.10 & 538 & 528 & 566 & 34 & 0.040 & 0.001 & 0.149 & 0.007 & 80/528 & 256/528 \\
+\midrule
+\multicolumn{10}{l}{Pooled original $\rightarrow$ aligned material response} & 11/2617$\rightarrow$343/2700 & 43/2617$\rightarrow$1183/2700 \\
+\bottomrule
+\end{tabular}
+\end{table*}

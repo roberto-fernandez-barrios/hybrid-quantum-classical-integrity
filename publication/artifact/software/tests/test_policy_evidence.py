@@ -83,6 +83,7 @@ class PolicyEvidenceDesignTests(unittest.TestCase):
         self.assertEqual(set(comparison["family_rule"]), {"conformal", "v12_asymmetric"})
         taxonomy = pd.read_csv(self.ev / "policy_taxonomy.csv").set_index("policy")
         self.assertIn("risk-tolerant", taxonomy.loc["family_calibrated", "policy_class"])
+        # This file is frozen v1.3.6 evidence; its historical label remains byte-identical.
         self.assertIn("coverage-complete abstaining", taxonomy.loc["family_calibrated_strict", "policy_class"])
         self.assertNotIn("strict fail-closed", taxonomy.loc["family_calibrated_strict", "policy_class"])
         coverage = pd.read_csv(self.ev / "policy_regime_coverage.csv").set_index("regime")

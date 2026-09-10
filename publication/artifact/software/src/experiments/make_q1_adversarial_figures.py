@@ -4,8 +4,8 @@ Panel (a): detection rate of the executed drift mechanisms (matched controls)
 and of their adaptive cluster-preserving variants under the conformal family
 rule in the feature and feature-plus-prediction regimes, as a function of the
 strength. Panel (b): material fraction (changed balanced accuracy) of the same
-rows, showing that the attacker keeps most of the materiality while evading
-the batch-level fingerprint. Every plotted value is written to a CSV next to
+rows, showing that the attacker keeps most of the materiality while reducing
+response against the declared batch-level fingerprint. Every plotted value is written to a CSV next to
 the figure and hashed in a figure manifest.
 """
 
@@ -25,6 +25,7 @@ matplotlib.rcParams["ps.fonttype"] = 42
 matplotlib.rcParams["font.family"] = "sans-serif"
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FixedFormatter, FixedLocator, NullLocator
 import pandas as pd
 
 
@@ -73,8 +74,12 @@ def _draw(det: pd.DataFrame, mat: pd.DataFrame, paths: list[Path]) -> None:
         block = det[(det["mechanism"] == mech) & (det["attack_class"] == cls) & (det["regime"] == regime)]
         ax.plot(block["strength"], block["detection_rate"], color=color, linestyle=ls, marker=marker, markersize=3.8, linewidth=1.25, label=label, zorder=3)
     ax.set_xscale("log")
-    ax.set_xticks([0.02, 0.05, 0.10, 0.25, 0.50])
-    ax.set_xticklabels(["0.02", "0.05", "0.10", "0.25", "0.50"], fontsize=6.8, color=INK_SECONDARY)
+    strengths = [0.02, 0.05, 0.10, 0.25, 0.50]
+    strength_labels = ["0.02", "0.05", "0.10", "0.25", "0.50"]
+    ax.xaxis.set_major_locator(FixedLocator(strengths))
+    ax.xaxis.set_major_formatter(FixedFormatter(strength_labels))
+    ax.xaxis.set_minor_locator(NullLocator())
+    ax.tick_params(axis="x", labelsize=6.8, labelcolor=INK_SECONDARY)
     ax.set_ylim(-0.03, 1.05)
     ax.set_xlabel("Strength ($\\delta$ or $\\alpha$, SD of the scaled feature)", fontsize=6.8, color=INK_SECONDARY)
     ax.set_ylabel("Detection rate, conformal family rule", fontsize=7.0, color=INK_SECONDARY)
@@ -96,8 +101,10 @@ def _draw(det: pd.DataFrame, mat: pd.DataFrame, paths: list[Path]) -> None:
             label = f"{'Mean shift' if mech == 'mean_shift' else 'Scaling'}, {'executed' if cls == 'control' else 'cluster-preserving'}"
             axb.plot(block["strength"], block["material_fraction_tau0"], color=color, linestyle=ls, marker="o", markersize=3.8, linewidth=1.25, label=label, zorder=3)
     axb.set_xscale("log")
-    axb.set_xticks([0.02, 0.05, 0.10, 0.25, 0.50])
-    axb.set_xticklabels(["0.02", "0.05", "0.10", "0.25", "0.50"], fontsize=6.8, color=INK_SECONDARY)
+    axb.xaxis.set_major_locator(FixedLocator(strengths))
+    axb.xaxis.set_major_formatter(FixedFormatter(strength_labels))
+    axb.xaxis.set_minor_locator(NullLocator())
+    axb.tick_params(axis="x", labelsize=6.8, labelcolor=INK_SECONDARY)
     axb.set_ylim(-0.03, 1.05)
     axb.set_xlabel("Strength", fontsize=6.8, color=INK_SECONDARY)
     axb.set_ylabel("Material fraction ($|\\Delta_R|>0$)", fontsize=7.0, color=INK_SECONDARY)

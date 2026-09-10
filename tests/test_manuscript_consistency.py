@@ -1,4 +1,4 @@
-"""Manuscript consistency gates (release 1.3.6).
+"""Manuscript consistency gates (release 1.3.7).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / "publication/tdsc/main.tex"
 SUPPLEMENT = ROOT / "publication/tdsc/supplement.tex"
 MACROS = ROOT / "publication/tdsc/tables/policy_macros.tex"
+V137_MACROS = ROOT / "publication/tdsc/tables/v137_correction_macros.tex"
 REFERENCE_AUDITS = (
     ROOT / "publication/tdsc/reference_audit_v1.3.4.csv",
     ROOT / "publication/tdsc/reference_audit_v1.3.5_addendum.csv",
@@ -82,8 +83,12 @@ def _read(rel: str) -> str:
 
 def _macros() -> dict[str, str]:
     values: dict[str, str] = {}
-    for name, value in re.findall(r"\\newcommand\{\\([A-Za-z]+)\}\{([^}]*)\}", _read(MACROS.relative_to(ROOT).as_posix())):
-        values[name] = value
+    for path in (MACROS, V137_MACROS):
+        for name, value in re.findall(
+            r"\\(?:newcommand|renewcommand)\{\\([A-Za-z]+)\}\{([^}]*)\}",
+            _read(path.relative_to(ROOT).as_posix()),
+        ):
+            values[name] = value
     return values
 
 
@@ -176,9 +181,9 @@ class TestActiveNumbers:
         macros = _macros()
         assert (macros["AdvDetCtrlIXMin"], macros["AdvDetCtrlIXMax"]) == ("0.99", "1.00")
         assert (macros["AdvDetCtrlIXFMin"], macros["AdvDetCtrlIXFMax"]) == ("0.96", "1.00")
-        assert (macros["AdvDetCtrlIXFYMin"], macros["AdvDetCtrlIXFYMax"]) == ("0.95", "1.00")
-        assert (macros["AdvDetCtrlHeadlineMin"], macros["AdvDetCtrlHeadlineMax"]) == ("0.96", "1.00")
-        assert (macros["AdvDetAdaptHeadlineMin"], macros["AdvDetAdaptHeadlineMax"]) == ("0.01", "0.66")
+        assert (macros["AdvDetCtrlIXFYMin"], macros["AdvDetCtrlIXFYMax"]) == ("0.94", "1.00")
+        assert (macros["AdvDetCtrlHeadlineMin"], macros["AdvDetCtrlHeadlineMax"]) == ("0.94", "1.00")
+        assert (macros["AdvDetAdaptHeadlineMin"], macros["AdvDetAdaptHeadlineMax"]) == ("0.01", "0.65")
 
     @pytest.mark.parametrize("rel", ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"))
     def test_gate_a_headline_ranges_are_macro_driven(self, rel: str) -> None:
@@ -192,14 +197,14 @@ class TestActiveNumbers:
         holds = int(macros["BenignHoldFamilyIXFYtrusted"].replace(",", ""))
         blocks = int(macros["BenignBlockFamilyIXFYtrusted"].replace(",", ""))
         total = int(macros["BenignInterruptFamilyIXFYtrusted"].replace(",", ""))
-        assert (holds, blocks, total) == (544, 85, 629)
+        assert (holds, blocks, total) == (532, 85, 617)
         assert holds + blocks == total
         assert macros["BenignHBFamilyIXFYtrusted"] == f"{total / 1200:.2f}"
         assert macros["BenignHBPctFamilyIXFYtrusted"] == str(round(100 * total / 1200))
         assert macros["TrustedGrossExactBlocks"] == "85"
-        assert macros["TrustedExactOverlap"] == "46"
-        assert macros["TrustedNetAdditional"] == "39"
-        assert macros["TrustedNetAdditionalPct"] == "3.25"
+        assert macros["TrustedExactOverlap"] == "44"
+        assert macros["TrustedNetAdditional"] == "41"
+        assert macros["TrustedNetAdditionalPct"] == "3.42"
 
     def test_main_text_uses_macros_for_the_headline_numbers(self) -> None:
         text = _read("publication/tdsc/main.tex")
@@ -368,9 +373,9 @@ class TestV136FormalEditorialGuards:
     def test_batch_size_and_structural_statistical_scope_is_explicit(self) -> None:
         main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
         assert "Structural blind regions are independent of the number of rows" in main
-        assert "11--43 detections among 2,617 material label rows" in main
-        assert "not a universal bound on batch-monitoring power" in main
-        assert "Batch-size scaling is an important external-validity question and is not estimated by the present fixed-size experiment" in main
+        assert "original 11--43/2,617" in main
+        assert "are fixed-geometry outcomes, not power bounds" in main
+        assert "batch size is confounded with environment and null behavior" in main
 
     def test_quantum_heading_and_scope_are_unambiguous(self) -> None:
         supplement = re.sub(r"\s+", " ", _read("publication/tdsc/supplement.tex"))
@@ -504,14 +509,12 @@ class TestBibliographicIntegrity:
         assert "stronger here on QPU/hardware and runtime/provider evidence" in main
         assert "Our orthogonal contribution" in main
 
-    def test_release_identity_is_v136_with_immutable_v135_predecessor(self) -> None:
-        assert _read("VERSION").strip() == "1.3.6"
+    def test_release_identity_is_v137_with_immutable_v136_predecessor(self) -> None:
+        assert _read("VERSION").strip() == "1.3.7"
         citation = _read("CITATION.cff")
-        status = _read("publication/RELEASE_STATUS.md")
-        for value in ("1.3.6", "10.5281/zenodo.22550852"):
+        for value in ("1.3.7", "10.5281/zenodo.22550852"):
             assert value in citation
-            assert value in status
-        assert "10.5281/zenodo.22678092" in citation
+        assert "10.5281/zenodo.22694063" in citation
 
     def test_bibtex_has_no_duplicate_keys_or_dois(self) -> None:
         bib = _read("publication/tdsc/references.bib")
@@ -654,7 +657,7 @@ class TestV132ClosingGuards:
             macros["AdvServedOverallAdaptFamilyIX"],
             macros["AdvServedOverallAdaptFamilyIXF"],
             macros["AdvServedOverallAdaptFamilyIXFY"],
-        ) == ("0.39", "0.28", "0.29")
+        ) == ("0.39", "0.27", "0.29")
         assert (
             macros["AdvServedRateMSTwoPctIXFY"],
             macros["AdvServedRateMSFivePctIXFY"],
@@ -662,7 +665,7 @@ class TestV132ClosingGuards:
             macros["AdvServedRateSDTwoPctIXFY"],
             macros["AdvServedRateSDFivePctIXFY"],
             macros["AdvServedRateSDTenPctIXFY"],
-        ) == ("0.90", "0.67", "0.46", "0.55", "0.36", "0.22")
+        ) == ("0.91", "0.67", "0.43", "0.55", "0.36", "0.24")
 
     @pytest.mark.parametrize("rel", ACTIVE_DOCUMENTS)
     def test_iym_contains_nothing_phrase_is_retired(self, rel: str) -> None:

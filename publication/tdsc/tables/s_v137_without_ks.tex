@@ -1,0 +1,123 @@
+\begin{table*}[!t]
+\caption{Frozen-only descriptive ablation without the prespecified KS-reject component, Original frozen feature interventions. Cells give primary $\rightarrow$ without-KS conformal fire counts; this does not replace the primary family.}
+\label{tab:v137-without-ks-1}
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Class & Mechanism & Strength & $n$ & $\IX$ & $\IXF$ & $\IXFY$ \\
+\midrule
+corruption & sign\_flip & -- & 600 & 54$\rightarrow$54 & 78$\rightarrow$78 & 75$\rightarrow$75 \\
+corruption & sign\_flip & -- & 600 & 281$\rightarrow$295 & 310$\rightarrow$315 & 283$\rightarrow$284 \\
+corruption & sign\_flip & -- & 600 & 430$\rightarrow$435 & 503$\rightarrow$505 & 495$\rightarrow$496 \\
+covariate\_shift & mean\_shift & 0.020 & 600 & 600$\rightarrow$342 & 584$\rightarrow$450 & 583$\rightarrow$441 \\
+covariate\_shift & mean\_shift & 0.050 & 600 & 600$\rightarrow$518 & 599$\rightarrow$573 & 598$\rightarrow$571 \\
+covariate\_shift & mean\_shift & 0.100 & 600 & 600$\rightarrow$542 & 600$\rightarrow$590 & 600$\rightarrow$588 \\
+covariate\_shift & scaling\_drift & -- & 600 & 597$\rightarrow$339 & 578$\rightarrow$398 & 567$\rightarrow$396 \\
+covariate\_shift & scaling\_drift & -- & 600 & 599$\rightarrow$452 & 587$\rightarrow$500 & 585$\rightarrow$497 \\
+covariate\_shift & scaling\_drift & -- & 600 & 600$\rightarrow$563 & 598$\rightarrow$581 & 597$\rightarrow$577 \\
+pipeline & dropout & -- & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 0$\rightarrow$0 \\
+pipeline & dropout & -- & 600 & 0$\rightarrow$0 & 6$\rightarrow$7 & 7$\rightarrow$7 \\
+pipeline & dropout & -- & 600 & 0$\rightarrow$0 & 19$\rightarrow$20 & 18$\rightarrow$18 \\
+target\_shift & label\_flip & -- & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 0$\rightarrow$0 \\
+target\_shift & label\_flip & -- & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 0$\rightarrow$0 \\
+target\_shift & label\_flip & -- & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 4$\rightarrow$4 \\
+target\_shift & label\_flip\_prior\_preserving & 0.020 & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 0$\rightarrow$0 \\
+target\_shift & label\_flip\_prior\_preserving & 0.050 & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 0$\rightarrow$0 \\
+target\_shift & label\_flip\_prior\_preserving & 0.100 & 600 & 0$\rightarrow$0 & 0$\rightarrow$0 & 7$\rightarrow$7 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Frozen-only descriptive ablation without the prespecified KS-reject component, Geometry-aligned feature sensitivity. Cells give primary $\rightarrow$ without-KS conformal fire counts; this does not replace the primary family.}
+\label{tab:v137-without-ks-2}
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Class & Mechanism & Strength & $n$ & $\IX$ & $\IXF$ & $\IXFY$ \\
+\midrule
+adaptive & mean\_shift & 0.020 & 600 & 111$\rightarrow$115 & 169$\rightarrow$171 & 167$\rightarrow$171 \\
+adaptive & mean\_shift & 0.050 & 600 & 242$\rightarrow$245 & 327$\rightarrow$325 & 312$\rightarrow$320 \\
+adaptive & mean\_shift & 0.100 & 600 & 379$\rightarrow$384 & 437$\rightarrow$437 & 417$\rightarrow$428 \\
+adaptive & mean\_shift & 0.250 & 600 & 548$\rightarrow$556 & 575$\rightarrow$577 & 570$\rightarrow$571 \\
+adaptive & mean\_shift & 0.500 & 600 & 590$\rightarrow$591 & 593$\rightarrow$592 & 586$\rightarrow$590 \\
+adaptive & scaling\_drift & 0.020 & 600 & 184$\rightarrow$188 & 285$\rightarrow$285 & 265$\rightarrow$271 \\
+adaptive & scaling\_drift & 0.050 & 600 & 342$\rightarrow$349 & 412$\rightarrow$416 & 404$\rightarrow$408 \\
+adaptive & scaling\_drift & 0.100 & 600 & 461$\rightarrow$460 & 486$\rightarrow$485 & 480$\rightarrow$481 \\
+adaptive & scaling\_drift & 0.250 & 600 & 512$\rightarrow$517 & 538$\rightarrow$539 & 534$\rightarrow$535 \\
+adaptive & scaling\_drift & 0.500 & 600 & 550$\rightarrow$556 & 559$\rightarrow$561 & 551$\rightarrow$558 \\
+control & feature\_dropout & 0.020 & 600 & 41$\rightarrow$44 & 38$\rightarrow$41 & 42$\rightarrow$43 \\
+control & feature\_dropout & 0.050 & 600 & 52$\rightarrow$56 & 84$\rightarrow$83 & 80$\rightarrow$85 \\
+control & feature\_dropout & 0.100 & 600 & 131$\rightarrow$94 & 182$\rightarrow$160 & 156$\rightarrow$149 \\
+control & mean\_shift & 0.020 & 600 & 600$\rightarrow$506 & 594$\rightarrow$550 & 592$\rightarrow$545 \\
+control & mean\_shift & 0.050 & 600 & 600$\rightarrow$573 & 600$\rightarrow$592 & 600$\rightarrow$592 \\
+control & mean\_shift & 0.100 & 600 & 600$\rightarrow$588 & 600$\rightarrow$598 & 600$\rightarrow$598 \\
+control & scaling\_drift & 0.020 & 600 & 600$\rightarrow$444 & 584$\rightarrow$485 & 576$\rightarrow$477 \\
+control & scaling\_drift & 0.050 & 600 & 600$\rightarrow$564 & 595$\rightarrow$579 & 592$\rightarrow$574 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Frozen-only descriptive ablation without the prespecified KS-reject component, Geometry-aligned feature sensitivity. Cells give primary $\rightarrow$ without-KS conformal fire counts; this does not replace the primary family.}
+\label{tab:v137-without-ks-3}
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Class & Mechanism & Strength & $n$ & $\IX$ & $\IXF$ & $\IXFY$ \\
+\midrule
+control & scaling\_drift & 0.100 & 600 & 600$\rightarrow$590 & 600$\rightarrow$597 & 600$\rightarrow$596 \\
+identity & identity & 0.000 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 48$\rightarrow$50 \\
+near\_null & tiny\_gaussian & 0.001 & 600 & 366$\rightarrow$67 & 324$\rightarrow$70 & 313$\rightarrow$70 \\
+near\_null & tiny\_scaling & 0.001 & 600 & 434$\rightarrow$109 & 430$\rightarrow$175 & 414$\rightarrow$177 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Frozen-only descriptive ablation without the prespecified KS-reject component, Original Gate A matched controls and adaptive variants. Cells give primary $\rightarrow$ without-KS conformal fire counts; this does not replace the primary family.}
+\label{tab:v137-without-ks-4}
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Class & Mechanism & Strength & $n$ & $\IX$ & $\IXF$ & $\IXFY$ \\
+\midrule
+adaptive & mean\_shift & 0.020 & 600 & 4$\rightarrow$4 & 31$\rightarrow$31 & 27$\rightarrow$27 \\
+adaptive & mean\_shift & 0.050 & 600 & 50$\rightarrow$49 & 135$\rightarrow$138 & 127$\rightarrow$126 \\
+adaptive & mean\_shift & 0.100 & 600 & 215$\rightarrow$219 & 298$\rightarrow$301 & 280$\rightarrow$282 \\
+adaptive & mean\_shift & 0.250 & 600 & 484$\rightarrow$486 & 498$\rightarrow$501 & 486$\rightarrow$493 \\
+adaptive & mean\_shift & 0.500 & 600 & 530$\rightarrow$530 & 537$\rightarrow$538 & 530$\rightarrow$536 \\
+adaptive & scaling\_drift & 0.020 & 600 & 28$\rightarrow$26 & 135$\rightarrow$136 & 129$\rightarrow$129 \\
+adaptive & scaling\_drift & 0.050 & 600 & 173$\rightarrow$180 & 254$\rightarrow$254 & 237$\rightarrow$242 \\
+adaptive & scaling\_drift & 0.100 & 600 & 345$\rightarrow$337 & 391$\rightarrow$391 & 378$\rightarrow$383 \\
+adaptive & scaling\_drift & 0.250 & 600 & 451$\rightarrow$453 & 479$\rightarrow$480 & 467$\rightarrow$472 \\
+adaptive & scaling\_drift & 0.500 & 600 & 525$\rightarrow$529 & 531$\rightarrow$535 & 521$\rightarrow$524 \\
+control & mean\_shift & 0.020 & 600 & 600$\rightarrow$342 & 584$\rightarrow$450 & 583$\rightarrow$441 \\
+control & mean\_shift & 0.050 & 600 & 600$\rightarrow$518 & 599$\rightarrow$573 & 598$\rightarrow$571 \\
+control & mean\_shift & 0.100 & 600 & 600$\rightarrow$542 & 600$\rightarrow$590 & 600$\rightarrow$588 \\
+control & scaling\_drift & 0.020 & 600 & 597$\rightarrow$339 & 578$\rightarrow$398 & 567$\rightarrow$396 \\
+control & scaling\_drift & 0.050 & 600 & 599$\rightarrow$452 & 587$\rightarrow$500 & 585$\rightarrow$497 \\
+control & scaling\_drift & 0.100 & 600 & 600$\rightarrow$563 & 598$\rightarrow$581 & 597$\rightarrow$577 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Frozen-only descriptive ablation without the prespecified KS-reject component, Geometry-aligned label sensitivity and original near-null controls. Cells give primary $\rightarrow$ without-KS conformal fire counts; this does not replace the primary family.}
+\label{tab:v137-without-ks-5}
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Class & Mechanism & Strength & $n$ & $\IX$ & $\IXF$ & $\IXFY$ \\
+\midrule
+label & label\_flip & 0.020 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 64$\rightarrow$66 \\
+label & label\_flip & 0.050 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 69$\rightarrow$71 \\
+label & label\_flip & 0.100 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 84$\rightarrow$86 \\
+label & label\_flip\_prior\_preserving & 0.020 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 48$\rightarrow$50 \\
+label & label\_flip\_prior\_preserving & 0.050 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 55$\rightarrow$57 \\
+label & label\_flip\_prior\_preserving & 0.100 & 600 & 43$\rightarrow$47 & 43$\rightarrow$44 & 92$\rightarrow$95 \\
+sham & tiny\_gaussian & 0.001 & 600 & 275$\rightarrow$0 & 247$\rightarrow$1 & 243$\rightarrow$1 \\
+sham & tiny\_scaling & 0.001 & 600 & 375$\rightarrow$10 & 356$\rightarrow$63 & 333$\rightarrow$61 \\
+\bottomrule
+\end{tabular}
+\end{table*}

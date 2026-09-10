@@ -31,6 +31,8 @@ EVIDENCE_DIRS = {
     "adversarial": "results/paper_digest/paper15_v13_adversarial",
     "amendment_v132": "results/paper_digest/paper15_v132_amendment",
     "geometry_sensitivity": "results/paper_digest/paper15_v135_geometry_sensitivity",
+    "jsd_correction": "results/paper_digest/paper15_v137_jsd_correction",
+    "label_geometry_sensitivity": "results/paper_digest/paper15_v137_label_geometry_sensitivity",
 }
 
 MANUSCRIPT_FILES = [
@@ -42,6 +44,10 @@ MANUSCRIPT_FILES = [
     "manuscript/METHOD_GEOMETRY_AUDIT_v135.md",
     "manuscript/v135_geometry_aligned_sensitivity_prereg.md",
     "manuscript/v135_geometry_aligned_sensitivity_result_summary.md",
+    "manuscript/JSD_DEFECT_AUDIT_v137.md",
+    "manuscript/v137_jsd_label_geometry_prereg.md",
+    "manuscript/v137_jsd_label_geometry_result_summary.md",
+    "manuscript/FINAL_REPORT_v137.md",
     "manuscript/paper15_exact_statevector_validation.md",
     "manuscript/paper15_q1_expansion_result_summary.md",
     "manuscript/paper15_q1_gate1_result_summary.md",
@@ -116,7 +122,8 @@ primary count causes a non-zero exit.
 
 - `evidence/` — derived CSV/JSON evidence and embedded SHA-256 contracts
   (`gate1`, `expansion`, `quantum_integrity`, `hsaas`, `reinforcement`,
-  `policy`, `adversarial`, `amendment_v132`, `geometry_sensitivity`);
+  `policy`, `adversarial`, `amendment_v132`, `geometry_sensitivity`,
+  `jsd_correction`, `label_geometry_sensitivity`);
 - `manuscript/` — article PDFs, formal and adversary models,
   preregistrations, result summaries, figures, and tables;
 - `environment/` — Python 3.10 dependency lock and packaging metadata;

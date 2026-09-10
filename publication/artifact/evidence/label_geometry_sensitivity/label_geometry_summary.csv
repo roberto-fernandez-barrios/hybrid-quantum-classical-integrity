@@ -1,0 +1,9 @@
+question,metric,v136,v137,v136_denominator,v137_denominator
+Q1,conformal I_XFY on material label interventions,11,343,2617.0,2700.0
+Q2,union I_XFY on material label interventions,43,1183,2617.0,2700.0
+Q3,direction family/union,original,computed directly; see numeric Q1-Q2,,
+Q4,aggregate-blind rows: attack-only family/union beyond paired clean response,,family_attack_only=0;union_attack_only=0,,764.0
+Q5,aggregate-separable aligned detection,,family=352/2836;union=1204/2836,,2836.0
+Q6,policy F/D effect,see policy table,see policy table,3600.0,3600.0
+Q7,material altered results served,2617,2700,3600.0,3600.0
+Q8,invariant conclusions,structural blind regions; exact trusted-reference checks,unchanged; sensitivity is finite-design statistical response only,,

@@ -1,0 +1,77 @@
+claim,v1.3.6,v1.3.7,delta,reason
+Label conformal material response,11/2617,343/2700,+332 fires,aligned label-geometry sensitivity; the executed original geometry remains separately reported
+Label union material response,43/2617,1183/2700,+1140 fires,aligned label-geometry sensitivity; the executed original geometry remains separately reported
+P0 material altered results served (I_X),7008/7008,7008/7008,+0,corrected JSD coordinates and thresholds
+P1 material altered results served (I_X),4429/7008,4429/7008,+0,corrected JSD coordinates and thresholds
+P2 material altered results served (I_X),4496/7008,4496/7008,+0,corrected JSD coordinates and thresholds
+P3 material altered results served (I_X),0/7008,0/7008,+0,corrected JSD coordinates and thresholds
+P0 material altered results served (I_XF),7008/7008,7008/7008,+0,corrected JSD coordinates and thresholds
+P1 material altered results served (I_XF),4231/7008,4233/7008,+2,corrected JSD coordinates and thresholds
+P2 material altered results served (I_XF),4365/7008,4368/7008,+3,corrected JSD coordinates and thresholds
+P3 material altered results served (I_XF),0/7008,0/7008,+0,corrected JSD coordinates and thresholds
+P0 material altered results served (I_Ym),7008/7008,7008/7008,+0,corrected JSD coordinates and thresholds
+P1 material altered results served (I_Ym),7008/7008,7008/7008,+0,corrected JSD coordinates and thresholds
+P2 material altered results served (I_Ym),7008/7008,7008/7008,+0,corrected JSD coordinates and thresholds
+P3 material altered results served (I_Ym),0/7008,0/7008,+0,corrected JSD coordinates and thresholds
+P0 material altered results served (I_XFY),7008/7008,7008/7008,+0,corrected JSD coordinates and thresholds
+P1 material altered results served (I_XFY),4180/7008,4182/7008,+2,corrected JSD coordinates and thresholds
+P2 material altered results served (I_XFY),4390/7008,4394/7008,+4,corrected JSD coordinates and thresholds
+P3 material altered results served (I_XFY),4390/7008,4394/7008,+4,corrected JSD coordinates and thresholds
+P0 material altered results served (I_XFY_trusted),7008/7008,7008/7008,+0,exact trusted-reference decisions; JSD correction cannot remove exact blocking
+P1 material altered results served (I_XFY_trusted),0/7008,0/7008,+0,exact trusted-reference decisions; JSD correction cannot remove exact blocking
+P2 material altered results served (I_XFY_trusted),0/7008,0/7008,+0,exact trusted-reference decisions; JSD correction cannot remove exact blocking
+P3 material altered results served (I_XFY_trusted),0/7008,0/7008,+0,exact trusted-reference decisions; JSD correction cannot remove exact blocking
+Superseded asymmetric-rule material results served (I_X),4494/7008,4490/7008,-4,"descriptive comparison only; corrected JSD coordinates, no rule selection"
+Superseded asymmetric-rule material results served (I_XF),4327/7008,4329/7008,+2,"descriptive comparison only; corrected JSD coordinates, no rule selection"
+Superseded asymmetric-rule material results served (I_Ym),7008/7008,7008/7008,+0,"descriptive comparison only; corrected JSD coordinates, no rule selection"
+Superseded asymmetric-rule material results served (I_XFY),4322/7008,4325/7008,+3,"descriptive comparison only; corrected JSD coordinates, no rule selection"
+Superseded asymmetric-rule material results served (I_XFY_trusted),0/7008,0/7008,+0,"descriptive comparison only; corrected JSD coordinates, no rule selection"
+Gate F Union clean response (I_X),1500/12000 (0.125),1478/12000 (0.123),-22,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Superseded asymmetric family clean response (I_X),733/12000 (0.061),755/12000 (0.063),+22,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Conformal family clean response (I_X),672/12000 (0.056),677/12000 (0.056),+5,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Union clean response (I_XF),2438/12000 (0.203),2417/12000 (0.201),-21,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Superseded asymmetric family clean response (I_XF),871/12000 (0.073),887/12000 (0.074),+16,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Conformal family clean response (I_XF),695/12000 (0.058),711/12000 (0.059),+16,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Union clean response (I_Ym),570/12000 (0.048),570/12000 (0.048),+0,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Superseded asymmetric family clean response (I_Ym),570/12000 (0.048),570/12000 (0.048),+0,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Conformal family clean response (I_Ym),570/12000 (0.048),570/12000 (0.048),+0,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Union clean response (I_XFY),3113/12000 (0.259),3088/12000 (0.257),-25,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Superseded asymmetric family clean response (I_XFY),942/12000 (0.079),962/12000 (0.080),+20,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F Conformal family clean response (I_XFY),637/12000 (0.053),655/12000 (0.055),+18,same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability
+Gate F per-sensor clean-response range,0.029--0.069,0.029--0.069,range recomputed,"same sensors, thresholds and frozen clean-evaluation rows; corrected JSD definition only"
+Mean-shift feature conformal response range,0.97--1.00,0.97--1.00,range recomputed,"same frozen mechanisms, strengths and rows; corrected JSD only"
+Scaling-drift feature conformal response range,0.95--1.00,0.94--1.00,range recomputed,"same frozen mechanisms, strengths and rows; corrected JSD only"
+Sign-flip feature conformal response range,0.09--0.84,0.09--0.84,range recomputed,"same frozen mechanisms, strengths and rows; corrected JSD only"
+Feature-dropout conformal response range,0.00--0.03,0.00--0.03,range recomputed,"same frozen mechanisms, strengths and rows; corrected JSD only"
+Feature-dropout exact prediction-change range,0.49--0.76,0.49--0.76,none,predictions and exact checks are unchanged
+Near-null conformal response range,0.41--0.64,0.41--0.62,range recomputed,"same 1,200 prespecified near-null controls; corrected JSD only"
+Gate A original-geometry matched-control conformal response range,0.95--1.00,0.94--1.00,range recomputed,"same Gate-A rows and original s(E,T(E)) geometry; corrected JSD only"
+Gate A aligned-geometry matched-control conformal response range,0.99--1.00,0.96--1.00,range recomputed,same v1.3.5 aligned feature geometry; corrected JSD only
+Gate A original-geometry adaptive conformal response range,0.01--0.66,0.01--0.65,range recomputed,"same Gate-A rows and original s(E,T(E)) geometry; corrected JSD only"
+Gate A aligned-geometry adaptive conformal response range,0.18--0.82,0.18--0.81,range recomputed,same v1.3.5 aligned feature geometry; corrected JSD only
+Gate A original adaptive conformal response (I_X),2821/6000,2805/6000,-16,corrected JSD coordinates and thresholds
+Gate A adaptive P2 material served (I_X),1328/3418 (0.39),1317/3418 (0.39),-11,"same 6,000 Gate-A adaptive rows; corrected JSD only"
+Gate A original adaptive conformal response (I_XF),3305/6000,3289/6000,-16,corrected JSD coordinates and thresholds
+Gate A adaptive P2 material served (I_XF),959/3418 (0.28),938/3418 (0.27),-21,"same 6,000 Gate-A adaptive rows; corrected JSD only"
+Gate A original adaptive conformal response (I_XFY),3220/6000,3182/6000,-38,corrected JSD coordinates and thresholds
+Gate A adaptive P2 material served (I_XFY),1006/3418 (0.29),997/3418 (0.29),-9,"same 6,000 Gate-A adaptive rows; corrected JSD only"
+Gate A adaptive P2 material-served headline range,28--39%,27--39%,lower endpoint -1 pp after two-decimal reporting,"same 3,418 material Gate-A adaptive rows in each batch regime; corrected JSD only"
+Trusted-reference gross exact blocks on near-null controls,85/1200,85/1200,0,predictions and exact-reference comparison unchanged
+Trusted/batch near-null overlap,46/1200,44/1200,-2,overlap recomputed against corrected I_XFY batch response
+Trusted-reference net additional near-null interruptions,39/1200,41/1200,+2,gross exact blocks minus overlap with corrected batch response
+Trusted-reference net near-null increment,3.25 pp,3.42 pp,+0.17 pp,descriptive internal stress-control contrast
+Total material altered results,7008/10800,7008/10800,0,impact definition and predictions unchanged
+Exact trusted-reference label detection,2617/2617,2617/2617,0,item-aligned exact checks unchanged
+Exact trusted-reference all label interventions,3600/3600,3600/3600,0,item-aligned exact checks unchanged
+Exact trusted-reference clean false actions,0/1200,0/1200,0,exact-zero clean invariant unchanged
+Structural propositions 1--7,unchanged,unchanged,0,no structural statement depends on histogram support
+Quantum model cells,"165 model-environment configurations (descriptive, not independent experiments)","165 model-environment configurations (descriptive, not independent experiments)",0,models and predictions unchanged
+Quantum acceptance checks,9/9,9/9,0,no quantum experiment or output changed
+Exchangeable re-split conformal response (I_X),0.044,0.045,+0.000,same 30 frozen permutations and seed; corrected JSD coordinates only
+Split-construction conformal clean response (I_X),592/12000 (0.049),582/12000 (0.049),-10,same frozen reference/calibration/evaluation rows; corrected JSD coordinates only
+Exchangeable re-split conformal response (I_XF),0.042,0.042,-0.000,same 30 frozen permutations and seed; corrected JSD coordinates only
+Split-construction conformal clean response (I_XF),470/12000 (0.039),433/12000 (0.036),-37,same frozen reference/calibration/evaluation rows; corrected JSD coordinates only
+Exchangeable re-split conformal response (I_Ym),0.040,0.040,+0.000,same 30 frozen permutations and seed; corrected JSD coordinates only
+Split-construction conformal clean response (I_Ym),804/12000 (0.067),804/12000 (0.067),0,same frozen reference/calibration/evaluation rows; corrected JSD coordinates only
+Exchangeable re-split conformal response (I_XFY),0.036,0.035,-0.000,same 30 frozen permutations and seed; corrected JSD coordinates only
+Split-construction conformal clean response (I_XFY),403/12000 (0.034),400/12000 (0.033),-3,same frozen reference/calibration/evaluation rows; corrected JSD coordinates only

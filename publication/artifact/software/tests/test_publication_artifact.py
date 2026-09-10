@@ -13,8 +13,8 @@ def test_local_evidence_manifests_and_primary_claims() -> None:
         pytest.skip("full derived evidence is not present in this checkout")
 
     summary = verify(root)
-    assert summary["manifests"] == 9
-    assert summary["manifested_outputs"] == 93
+    assert summary["manifests"] == 11
+    assert summary["manifested_outputs"] == 115
     assert summary["gate1_label_rows"] == 1440
     assert summary["gate1_positive_impact"] == 1276
     assert summary["expansion_label_rows"] == 3600
@@ -37,6 +37,11 @@ def test_local_evidence_manifests_and_primary_claims() -> None:
     assert summary["geometry_environments"] == 8
     assert summary["geometry_interventions"] == 22
     assert summary["geometry_gateA_matched_rows"] == 24
+    assert summary["v137_corrected_observations"] == 64560
+    assert summary["v137_jsd_changed_observation_rows"] == 58074
+    assert summary["v137_label_geometry_rows"] == 3600
+    assert summary["v137_label_aligned_family_material_fires"] == 343
+    assert summary["v137_label_aligned_union_material_fires"] == 1183
 
 
 def test_compact_publication_artifact_when_present() -> None:

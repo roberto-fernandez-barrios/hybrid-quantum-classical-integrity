@@ -1,0 +1,36 @@
+\begin{table*}[!tbp]
+\caption{Complete v1.3.7 Gate-D policy counts under the corrected JSD definition. These are deterministic decisions on the frozen rows, not deployed event rates. P3 coverage existence does not imply minimum statistical power.}
+\label{tab:v137-policy-full}
+\centering\scriptsize\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{@{}llrrrrrrrr@{}}
+\toprule
+Regime & Policy & Clean $n$ & False act. & Near-null int. & Material & Allow & Hold & Block & Unsafe allow \\
+\midrule
+$\mathcal I_X$ & P0 & 12000 & 0 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_X$ & P1 union & 12000 & 1478 & 904 & 7008 & 6356 & 4444 & 0 & 4429 \\
+$\mathcal I_X$ & P2 conf. & 12000 & 677 & 650 & 7008 & 6439 & 4361 & 0 & 4496 \\
+$\mathcal I_X$ & P3 abst. & 12000 & 12000 & 1200 & 7008 & 0 & 10800 & 0 & 0 \\
+\addlinespace[1pt]
+$\mathcal I_{XF}$ & P0 & 12000 & 0 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_{XF}$ & P1 union & 12000 & 2417 & 905 & 7008 & 6127 & 4673 & 0 & 4233 \\
+$\mathcal I_{XF}$ & P2 conf. & 12000 & 711 & 603 & 7008 & 6338 & 4462 & 0 & 4368 \\
+$\mathcal I_{XF}$ & P3 abst. & 12000 & 12000 & 1200 & 7008 & 0 & 10800 & 0 & 0 \\
+\addlinespace[1pt]
+$\mathcal I_{Y_m}$ & P0 & 12000 & 0 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_{Y_m}$ & P1 union & 12000 & 570 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_{Y_m}$ & P2 conf. & 12000 & 570 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_{Y_m}$ & P3 abst. & 12000 & 12000 & 1200 & 7008 & 0 & 10800 & 0 & 0 \\
+\addlinespace[1pt]
+$\mathcal I_{XFY}$ & P0 & 12000 & 0 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_{XFY}$ & P1 union & 12000 & 3088 & 905 & 7008 & 6076 & 4724 & 0 & 4182 \\
+$\mathcal I_{XFY}$ & P2 conf. & 12000 & 655 & 576 & 7008 & 6381 & 4419 & 0 & 4394 \\
+$\mathcal I_{XFY}$ & P3 abst. & 12000 & 655 & 576 & 7008 & 6381 & 4419 & 0 & 4394 \\
+\addlinespace[1pt]
+$\mathcal I_{XFY}^{\star}$ & P0 & 1200 & 0 & 0 & 7008 & 10800 & 0 & 0 & 7008 \\
+$\mathcal I_{XFY}^{\star}$ & P1 union & 1200 & 0 & 922 & 7008 & 776 & 1737 & 8287 & 0 \\
+$\mathcal I_{XFY}^{\star}$ & P2 conf. & 1200 & 0 & 617 & 7008 & 857 & 1656 & 8287 & 0 \\
+$\mathcal I_{XFY}^{\star}$ & P3 abst. & 1200 & 0 & 617 & 7008 & 857 & 1656 & 8287 & 0 \\
+\addlinespace[1pt]
+\bottomrule
+\end{tabular}
+\end{table*}

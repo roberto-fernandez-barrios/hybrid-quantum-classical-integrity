@@ -1,0 +1,27 @@
+\begin{table}[!t]
+\caption{Offline v1.3.7 decisions after the JSD correction on the unchanged 10,800 frozen interventions (7,008 materially altered audit results). P1 is the union; P2 is the conformal risk-tolerant rule; P3 is sensor-coverage-complete relative to declared evidence dimensions and abstains where coverage is missing. FPR uses the same 12,000 clean draws; the starred exact-zero check uses 1,200 rows and is a different estimand. Benign is interruption of the same 1,200 near-null stress controls. Served counts undetected materially altered audit results, not operational events.}
+\label{tab:policy}
+\centering\scriptsize\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Regime & Policy & FPR/check & Benign & Served & Contain. & Blind \\
+\midrule
+$\mathcal I_X$ & P1 union & 0.123 & 0.75 & 4,429 & 0.37 & 2,617 \\
+$\mathcal I_X$ & P2 conf. & 0.056 & 0.54 & 4,496 & 0.36 & 2,617 \\
+$\mathcal I_X$ & P3 abst. & 1.000 & 1.00 & 0 & 1.00 & 2,617 \\
+\addlinespace[1pt]
+$\mathcal I_{XF}$ & P1 union & 0.201 & 0.75 & 4,233 & 0.40 & 2,617 \\
+$\mathcal I_{XF}$ & P2 conf. & 0.059 & 0.50 & 4,368 & 0.38 & 2,617 \\
+$\mathcal I_{XF}$ & P3 abst. & 1.000 & 1.00 & 0 & 1.00 & 2,617 \\
+\addlinespace[1pt]
+$\mathcal I_{Y_m}$ & P1 union & 0.048 & 0.00 & 7,008 & 0.00 & 5,450 \\
+$\mathcal I_{Y_m}$ & P2 conf. & 0.048 & 0.00 & 7,008 & 0.00 & 5,450 \\
+$\mathcal I_{Y_m}$ & P3 abst. & 1.000 & 1.00 & 0 & 1.00 & 5,450 \\
+\addlinespace[1pt]
+$\mathcal I_{XFY}$ & P1 union & 0.257 & 0.75 & 4,182 & 0.40 & 0 \\
+$\mathcal I_{XFY}$ & P2 conf. & 0.055 & 0.48 & 4,394 & 0.37 & 0 \\
+\addlinespace[1pt]
+$\mathcal I_{XFY}^{\star}$ & P2/P3 (exact) & 0.000 & 0.51 & 0 & 1.00 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}

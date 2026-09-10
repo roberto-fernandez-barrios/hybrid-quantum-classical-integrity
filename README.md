@@ -1,6 +1,6 @@
 # Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22694063.svg)](https://doi.org/10.5281/zenodo.22694063)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22698329.svg)](https://doi.org/10.5281/zenodo.22698329)
 [![CI](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/actions/workflows/tests.yml/badge.svg)](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/actions/workflows/tests.yml)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31016/)
 [![License: Apache-2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
@@ -43,6 +43,9 @@ needed for quick verification or full replay from public benchmark datasets.
 - A preregistered geometry-aligned sensitivity separates the clean-resample
   calibration geometry from same-item editing and preserves the matched
   control/adaptive ordering while retaining materiality.
+- The v1.3.7 corrective release repairs the shared-support JSD histogram and
+  closes the aligned label-side statistical response without changing the
+  structural theory or frozen design.
 - The quantum path is a bounded simulator-based instantiation that separates
   semantic, estimated, and observed kernels without making a hardware claim.
 
@@ -52,17 +55,19 @@ needed for quick verification or full replay from public benchmark datasets.
 |---|---|
 | Paper | [PDF](output/pdf/paper15_tdsc_submission.pdf) |
 | Supplement | [PDF](output/pdf/paper15_tdsc_supplement.pdf) |
-| Current release | [Zenodo version 1.3.6](https://doi.org/10.5281/zenodo.22694063) |
-| Immutable predecessor | [Zenodo version 1.3.5](https://doi.org/10.5281/zenodo.22678092) |
+| Current release | [Version 1.3.7](https://doi.org/10.5281/zenodo.22698329) |
+| Immutable predecessor | [Zenodo version 1.3.6](https://doi.org/10.5281/zenodo.22694063) |
 | Version history | [Zenodo concept record](https://doi.org/10.5281/zenodo.22550852) |
-| Immutable release tag | `paper15-q1-v1.3.6` |
+| Immutable release tag | `paper15-q1-v1.3.7` |
 | Manuscript source | [`publication/tdsc/`](publication/tdsc/) |
 | Reproducibility guide | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) |
 
-Version `1.3.6` is the final formal and editorial corrective release. It
-changes no experiment or scientific evidence; a presentation-only clean
-performance summary is derived from frozen evidence. Version `1.3.5`, its
-tag, DOI, and all prior evidence remain immutable.
+Version `1.3.7` is the sensor-correction and label-geometry closure release. It
+corrects the histogram-support defect in the two continuous JSD paths and
+adds the preregistered aligned label-side sensitivity. Datasets, models,
+splits, seeds, attacks, strengths, policies and structural propositions are
+unchanged. Version `1.3.6`, its tag, DOI and every earlier release remain
+immutable.
 
 ## Quick verification
 
@@ -127,9 +132,9 @@ measurements from a QPU or calibrated backend.
 
 Citation metadata is provided in [CITATION.cff](CITATION.cff).
 
-- Version: `1.3.6`
-- Version DOI: [10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063)
-- Immutable predecessor DOI: [10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092)
+- Version: `1.3.7`
+- Version DOI: [10.5281/zenodo.22698329](https://doi.org/10.5281/zenodo.22698329)
+- Immutable predecessor DOI: [10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063)
 - Concept DOI: [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852)
 
 Use the version DOI when citing the exact published artifact. The concept DOI

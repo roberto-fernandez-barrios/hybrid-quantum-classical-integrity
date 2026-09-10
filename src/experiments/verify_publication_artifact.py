@@ -536,6 +536,11 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
         "previous_sensor_fire", "corrected_sensor_fire", "reason",
     }.issubset(deltas.columns):
         raise ValueError("v1.3.7 JSD before/after ledger is incomplete")
+    changed_observation_rows = len(
+        deltas[["correction_scope", "affected_row_identifier"]].drop_duplicates()
+    )
+    if changed_observation_rows != 58074 or len(deltas) != 192487:
+        raise ValueError("v1.3.7 JSD delta cardinalities changed")
     decomposition = pd.read_csv(jsd / "jsd_sensor_decomposition.csv", low_memory=False)
     expected_sensors = {
         "integrity_jsd_vs_clean_eval", "integrity_mmd_vs_clean_eval",
@@ -564,6 +569,12 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
         for regime, value in expected.items():
             if int(p2.loc[(geometry, regime), "unsafe_allow"]) != value:
                 raise ValueError(f"unexpected v1.3.7 Gate-D P2 result for {geometry}/{regime}")
+    resplit = pd.read_csv(jsd / "jsd_corrected_resplit_pooled.csv")
+    split = pd.read_csv(jsd / "jsd_corrected_split_construction_sensitivity.csv")
+    if len(resplit) != 4 or len(split) != 4:
+        raise ValueError("v1.3.7 corrected split sensitivities are incomplete")
+    if not bool((resplit["resplit_rate_family"] <= resplit["conformal_level"] + 0.005).all()):
+        raise ValueError("corrected exchangeable re-split family exceeds declared tolerance")
 
     aligned = pd.read_csv(label / "label_geometry_observations.csv", low_memory=False)
     if len(aligned) != 3600:
@@ -602,6 +613,7 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
     return {
         "v137_corrected_observations": len(observations),
         "v137_jsd_delta_records": len(deltas),
+        "v137_jsd_changed_observation_rows": changed_observation_rows,
         "v137_label_geometry_rows": len(aligned),
         "v137_label_aggregate_blind_rows": len(blind),
         "v137_label_aligned_family_material_fires": int(summary.loc["Q1", "v137"]),
