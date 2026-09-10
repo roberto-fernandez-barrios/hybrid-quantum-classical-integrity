@@ -807,7 +807,10 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         "gate1_frozen_design": gate1_new,
     }
     decomposition = _decomposition(decomposition_scopes)
-    ablation = _ablation(decomposition_scopes, null_new)
+    ablation = _ablation(
+        {name: frame for name, frame in decomposition_scopes.items() if name != "gate1_frozen_design"},
+        null_new,
+    )
     mde = _mde(new_thresholds)
     headline = _headline(core_old_s, core_new_s, ga_old_s, ga_new_s, label_outputs["label_geometry_summary.csv"])
 

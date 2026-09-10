@@ -45,6 +45,7 @@ jobs:
           src/experiments/run_v137_correction.py
           src/experiments/run_v137_correction_queue.py
           src/experiments/build_v137_correction_evidence.py
+          src/experiments/make_v137_tables.py
           src/experiments/verify_v137_correction.py
           src/experiments/make_q1_adversarial_figures.py
           src/attacks/cluster_preserving.py
