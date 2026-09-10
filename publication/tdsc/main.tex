@@ -17,7 +17,7 @@
   \pdfinfo{
     /Title (Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows)
     /Author (Roberto Fernandez-Barrios; Iker Pastor-Lopez; Amaia Pikatza-Huerga; Pablo Garcia Bringas)
-    /Subject (Final formal and editorial corrective release for IEEE Transactions on Dependable and Secure Computing)
+    /Subject (Sensor-correction and label-geometry closure release for IEEE Transactions on Dependable and Secure Computing)
     /Keywords (hybrid quantum-classical systems; integrity auditing; observability; quantum kernels; workflow integrity)
   }
 \fi
@@ -162,6 +162,11 @@ building blocks. The secondary quantum-versus-classical impact profile
 ordering. Physical hardware, calibrated backend noise, scheduling,
 provider-side security, multi-tenant interference, deployed runtime services
 and operational Fleet Management are outside the claim.
+Results are kept in three layers: Propositions~1--7 give the structural blind
+regions, reference lattice and claim-relative sufficiency; batch sensor,
+clean-resample and geometry responses are finite-design statistics; and exact
+aggregate, item-aligned and hash checks are constructive acceptance checks.
+The latter two instantiate declared premises but are not additional theorems.
 
 \section{Related Work and Positioning}
 
@@ -1075,7 +1080,10 @@ decreases, approximately as $n^{-1/2}$ for proportion-like statistics under
 regular conditions. The 11--43 detections among 2,617 material label rows are
 therefore outcomes of the executed fixed-size design, not a universal bound on
 batch-monitoring power. Batch-size scaling is an important external-validity
-question and is not estimated by the present fixed-size experiment.
+question and is not estimated by the present fixed-size experiment. E1 is the
+only 256-row environment and exhibits non-zero label response, but because
+batch size is confounded with environment and null behavior, this cannot
+identify a batch-size effect.
 
 The conformal level requires exchangeability; overlapping draws, different
 pool rows and E1 violate it, so executed rates are descriptive. Gate~A fixes
@@ -1091,8 +1099,8 @@ non-stationarity, recovery, QPU execution and service enforcement remain open.
 \section{Conclusion}
 
 Hybrid workflow integrity is evidence-relative. Interventions can be
-structurally invisible, statistically missed in a finite batch, or adaptive to
-the monitored fingerprint. The conformal guarantee remains conditional on
+structurally invisible, statistically missed in a finite batch, or show reduced
+response against the declared monitored fingerprint. The conformal guarantee remains conditional on
 exchangeability and the quantum instantiation simulator-bounded. Within the
 declared lattice, authenticated $R_0$, $M_0$ and item alignment certify
 conclusion, aggregate-plus-conclusion and item-identity claims, respectively.
