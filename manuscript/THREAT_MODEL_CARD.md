@@ -147,7 +147,7 @@ evidence for adjudication, not automatic proof of harmful semantics.
   same-batch regime serves none, at a measured near-null cost: 629/1,200
   total, 85 gross exact-reference blocks, and 39 net additional interruptions
   over batch `I_XFY`/P2 after 46 overlapping cases are removed.
-- An adaptive attacker who preserves the cluster fingerprint evades the
+- An adaptive attacker who preserves the cluster fingerprint reduces response against the declared
   calibrated batch-level sensors while keeping 83–91 % of the conclusion
   changes; only a reference closes that region.
 - The quantum branch is an instance of the same view lattice, class by class

@@ -87,7 +87,7 @@ actually supported by the frozen evidence.
 - Actor/cause: sensor miscalibration, unit or scaling change, preprocessing drift. Class: fault robustness (benign drift) or non-adaptive corruption.
 - Capability: additive shift or multiplicative scaling of all evaluation features. Access: B1/B2. Knowledge: none.
 - Identifying information: the generated `AdvDetCtrlIXMin/Max` and `AdvDetCtrlHeadlineMin/Max` macros report the per-regime and two-regime matched-control ranges. This design-specific response is driven by tight clusters in the standardized projected features (69–87% of rows within 0.01 SD in some feature): an in-place perturbation smears the cluster, while a fresh clean batch reproduces it. Item-aligned prediction changes 0.36–0.67.
-- Claim: detected in this design by a fragile fingerprint; the adaptive attacker F5 who preserves the clusters evades it (executed in 1.3.0). 3,600 rows, 1,848 with a changed conclusion, 6 served under $\mathcal I_{XF}$/P2.
+- Claim: detected in this design by a fragile fingerprint; the adaptive attacker F5 that preserves the clusters reduces response against that declared fingerprint (executed in 1.3.0). 3,600 rows, 1,848 with a changed conclusion, 6 served under $\mathcal I_{XF}$/P2.
 
 ### F3 — Feature dropout with median imputation (`feature_dropout_p`)
 

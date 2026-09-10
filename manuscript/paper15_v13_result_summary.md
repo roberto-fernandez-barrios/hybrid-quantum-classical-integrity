@@ -146,7 +146,7 @@ material fraction (exact ratios 0.831–0.907 at the matched strengths).
 Detection recovers at 0.25–0.50 because the unclustered
 entries then move far enough to shift the feature distribution against the
 between-batch null. The classical branch (standardized features) is more
-evasive than the quantum branch (features scaled to [0, 2π]): at 0.10 the
+lower-response than the quantum branch (features scaled to [0, 2π]): at 0.10 the
 mean shift is detected in 0.30 / 0.34 of classical cells and 0.37 / 0.58 of
 quantum cells (`I_X` / `I_XF`); per environment, E4 (Tue→Wed) detects
 nothing up to 0.10 for mean shift.
