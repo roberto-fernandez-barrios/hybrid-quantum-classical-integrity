@@ -319,7 +319,11 @@ def _actions(frame: pd.DataFrame, regime: str, policy: str) -> np.ndarray:
     spec = POLICY_REGIMES[regime]
     union = frame[f"fire_union__{batch}"].astype(bool).to_numpy()
     family = frame[f"fire_family__{batch}"].astype(bool).to_numpy()
-    exact = frame["fire_exact"].astype(bool).to_numpy()
+    exact = (
+        frame["fire_exact"].astype(bool).to_numpy()
+        if "fire_exact" in frame
+        else np.zeros(len(frame), dtype=bool)
+    )
     return np.asarray(
         [
             decide(
@@ -352,6 +356,85 @@ def _policy_counts(frame: pd.DataFrame, geometry: str) -> pd.DataFrame:
                     "block": int((action == "block").sum()),
                     "unsafe_allow": int(((action == "allow") & material).sum()),
                     "material_held_or_blocked": int(((action != "allow") & material).sum()),
+                }
+            )
+    return pd.DataFrame.from_records(records)
+
+
+def _gate_f_summary(old_null: pd.DataFrame, new_null: pd.DataFrame) -> pd.DataFrame:
+    records: list[dict[str, Any]] = []
+    for geometry, frame in (("v136", old_null), ("v137_corrected_jsd", new_null)):
+        for observation_class, mask in (
+            ("clean_evaluation", frame["attack_priority_group"] == "null_evaluation"),
+            ("near_null", frame["attack"].isin(NEAR_NULL_SHAMS)),
+        ):
+            rows = frame.loc[mask]
+            for regime in BATCH_REGIME_NAMES:
+                for rule in ("union", "family"):
+                    fire = rows[f"fire_{rule}__{regime}"].astype(bool)
+                    records.append(
+                        {
+                            "geometry": geometry,
+                            "observation_class": observation_class,
+                            "regime": regime,
+                            "rule": rule,
+                            "n": len(rows),
+                            "n_fire": int(fire.sum()),
+                            "fire_rate": float(fire.mean()),
+                            "interpretation": "descriptive; the executed clean draws violate the exchangeability premise" if observation_class == "clean_evaluation" else "prespecified near-null stress-control response; not operational traffic",
+                        }
+                    )
+    return pd.DataFrame.from_records(records)
+
+
+def _primary_policy_metrics(
+    frame: pd.DataFrame,
+    null: pd.DataFrame,
+    benign_exact: pd.DataFrame,
+    geometry: str,
+) -> pd.DataFrame:
+    evaluation = null[null["attack_priority_group"] == "null_evaluation"].copy()
+    near_null = null[null["attack"].isin(NEAR_NULL_SHAMS)].copy()
+    exact_rhs = benign_exact[KEYS + ["fire_exact"]]
+    near_null = near_null.merge(exact_rhs, on=KEYS, how="left", validate="one_to_one")
+    if near_null["fire_exact"].isna().any():
+        raise ValueError("near-null exact-reference alignment is incomplete")
+    exact_zero = null[null["attack"].isin(["clean", "sham_identity"])].copy()
+    exact_zero["fire_exact"] = False
+    if len(evaluation) != 12000 or len(near_null) != 1200 or len(exact_zero) != 1200:
+        raise ValueError("Gate-D clean/near-null/exact-zero denominators changed")
+
+    material = pd.to_numeric(frame["delta_bal_acc"], errors="coerce").abs().to_numpy() > TOL
+    records: list[dict[str, Any]] = []
+    for regime in POLICY_REGIME_NAMES:
+        clean = exact_zero if POLICY_REGIMES[regime].trusted_reference else evaluation
+        for policy in POLICIES:
+            attacked_actions = _actions(frame, regime, policy)
+            clean_actions = _actions(clean, regime, policy)
+            benign_actions = _actions(near_null, regime, policy)
+            records.append(
+                {
+                    "geometry": geometry,
+                    "regime": regime,
+                    "policy": policy,
+                    "policy_class": POLICY_CLASS[policy],
+                    "n_clean": len(clean),
+                    "false_hold": int((clean_actions == "hold").sum()),
+                    "false_block": int((clean_actions == "block").sum()),
+                    "decision_fpr": float((clean_actions != "allow").mean()),
+                    "n_benign": len(near_null),
+                    "benign_hold": int((benign_actions == "hold").sum()),
+                    "benign_block": int((benign_actions == "block").sum()),
+                    "benign_interruption_rate": float((benign_actions != "allow").mean()),
+                    "n_intervened": len(frame),
+                    "n_material": int(material.sum()),
+                    "allow": int((attacked_actions == "allow").sum()),
+                    "hold": int((attacked_actions == "hold").sum()),
+                    "block": int((attacked_actions == "block").sum()),
+                    "unsafe_allow": int(((attacked_actions == "allow") & material).sum()),
+                    "material_held_or_blocked": int(((attacked_actions != "allow") & material).sum()),
+                    "n_immaterial": int((~material).sum()),
+                    "integrity_only_hold_block": int(((attacked_actions != "allow") & ~material).sum()),
                 }
             )
     return pd.DataFrame.from_records(records)
@@ -956,8 +1039,12 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         raise ValueError("historical label endpoints did not reproduce 2617/11/43")
 
     label_outputs = _label_outputs(core_old_s, core_new_s, label_new_s)
+    gate_f_summary = _gate_f_summary(null_old_s, null_new_s)
     policy_primary = pd.concat(
-        [_policy_counts(core_old_s, "primary_v136"), _policy_counts(core_new_s, "primary_v137_corrected_jsd")],
+        [
+            _primary_policy_metrics(core_old_s, null_old_s, benign, "primary_v136"),
+            _primary_policy_metrics(core_new_s, null_new_s, benign, "primary_v137_corrected_jsd"),
+        ],
         ignore_index=True,
     )
 
@@ -1008,6 +1095,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         "jsd_sensor_decomposition.csv": decomposition,
         "jsd_without_ks_ablation.csv": ablation,
         "jsd_mde_description.csv": mde,
+        "jsd_gate_f_summary.csv": gate_f_summary,
         "jsd_primary_policy_effect.csv": policy_primary,
         "headline_delta.csv": headline,
     }
