@@ -1,4 +1,4 @@
-# Supplementary material README (release 1.3.5; original evidence frozen at 1.3.0)
+# Supplementary material README (release 1.3.6; scientific evidence frozen)
 
 ## Description
 
@@ -13,15 +13,16 @@ reading rule, the prespecified experimental environments with their dataset
 weights, the 18-condition intervention suite, the information-set coverage
 matrix, the deduplication rules and the dependence structure of the
 statistical units, the exact-statevector validation (including the exact
-replay check of the adversarial gate), the 165-cell quantum integrity gate
+replay check of the adversarial gate), the 165-design-cell quantum integrity gate
 read through the view lattice, the executable contract and its composition
 with the policy layer, the three preregistered reinforcement gates of
 artifact 1.1.0, the two policy gates of artifact 1.2.0 regenerated in 1.3.0
 with the conformal family rule (with the asymmetric 1.2.0 rule as comparison,
 the decomposition of its excess into rule bias and design effect, E1
 reported separately, the split construction as sensitivity, and the complete
-decision counts with the benign-interruption cost), the preregistered
-adversarial Gate A of artifact 1.3.0 in full, the preregistered v1.3.5
+decision counts with the interruption summary over the prespecified near-null
+stress controls), the preregistered
+frozen adversarial Gate A in full, the preregistered v1.3.5
 geometry-aligned sensitivity, the secondary model-impact profile, and the
 claims-supported/claims-excluded boundary.
 

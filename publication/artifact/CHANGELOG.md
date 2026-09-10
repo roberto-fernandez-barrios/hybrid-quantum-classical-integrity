@@ -3,6 +3,20 @@
 Scientific releases are preserved by their Git tags and Zenodo records. This
 file summarizes public release history; implementation detail remains in Git.
 
+## 1.3.6 — 2026-09-10
+
+- Corrected Proposition 4(i) to its pathwise same-state/reference statement
+  without equating it to a false-action rate estimated under a different
+  clean-resampling construction.
+- Repaired the omitted observed-kernel dependency in Corollary 1(a)'s proof
+  and made the R0/M0/item-aligned reference granularity explicitly
+  claim-relative.
+- Updated related-work positioning, finite-batch scope, terminology,
+  presentation and regression guards without rerunning or changing any
+  scientific evidence.
+- Added a presentation-only clean-performance summary derived exclusively
+  from frozen evidence; no underlying observation changed.
+
 ## 1.3.5 — 2026-09-09
 
 - Added one preregistered geometry-aligned sensitivity analysis resolving the

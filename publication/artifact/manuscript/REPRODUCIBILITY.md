@@ -1,10 +1,12 @@
 # Reproducing and verifying the published artifact
 
-This guide covers release `1.3.5`, a targeted methodological sensitivity
-amendment archived under version DOI
-[10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092) and concept
-DOI [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Version
-`1.3.4` and all of its scientific evidence remain immutable. The compact
+This guide covers release `1.3.6`, the final formal and editorial corrective
+release, DOI [10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063),
+under concept DOI
+[10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Its
+immutable predecessor is version `1.3.5`, DOI
+[10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092). No
+scientific evidence was re-executed or changed. The compact
 artifact can be verified without benchmark datasets. A full replay additionally
 requires the public CICIDS2017, UNSW-NB15, and ToN-IoT source files.
 
@@ -35,7 +37,7 @@ artifact-wide SHA-256 manifest, nine embedded evidence manifests, 93
 manifested outputs, CSV row counts, acceptance checks, and the primary counts
 recomputed from the frozen derived evidence.
 
-An unpacked `paper15-q1-v1.3.5.zip` can be verified independently from its own
+An unpacked `paper15-q1-v1.3.6.zip` can be verified independently from its own
 root with:
 
 ```powershell
@@ -143,6 +145,12 @@ The expected raw SHA-256 values are:
 | `UNSW_NB15_training-set.csv` | `bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa` |
 | `UNSW_NB15_testing-set.csv` | `734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559` |
 | `train_test_network.csv` | `26ddc513552de36de6428b2e578efaed2b57504c716dfba847cc0109a64e1974` |
+
+All raw and staged identities are also machine-readable in
+`publication/DATASET_HASHES_v1.3.6.json`. In a clean clone,
+`scripts/verify_datasets.py` validates that public manifest and reports the
+optional data files as absent; with local data, `--require-raw
+--require-staged` verifies all 24 files byte-for-byte.
 
 Stage UNSW-NB15 and ToN-IoT, then create the balanced subsets and temporal
 pairs using the recorded seed (`42`) and sample size (`3,000`):

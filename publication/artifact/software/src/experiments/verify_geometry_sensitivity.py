@@ -13,6 +13,8 @@ import pandas as pd
 from src.experiments.build_v135_geometry_sensitivity import (
     OLD_EVIDENCE_FILES,
     OLD_EVIDENCE_TREE_SHA256,
+    TEXT_SHA256_STRATEGY,
+    canonical_lf_bytes,
     derive_outputs,
     old_evidence_tree,
 )
@@ -33,6 +35,83 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+FROZEN_PREREGISTRATION_COMMIT = "62cec146689e3ff8cdb95027c7a9c7371ef767fd"
+
+
+def _text_binding_matches(path: Path, expected_sha256: str, strategy: str | None = None) -> bool:
+    """Match a text binding while treating only LF and CRLF as equivalent.
+
+    Published v1.3.5 bindings predate the canonical strategy marker, so their
+    raw digest is checked first and then both EOL representations are tried.
+    No whitespace, character, numeric, BOM, or final-newline normalization is
+    performed. Future manifests declare canonical-LF explicitly.
+    """
+
+    if not path.is_file() or not isinstance(expected_sha256, str):
+        return False
+    raw = path.read_bytes()
+    raw_digest = hashlib.sha256(raw).hexdigest()
+    if strategy is None and raw_digest == expected_sha256:
+        return True
+    try:
+        canonical = canonical_lf_bytes(raw)
+    except ValueError:
+        return False
+    if strategy == TEXT_SHA256_STRATEGY:
+        return hashlib.sha256(canonical).hexdigest() == expected_sha256
+    if strategy is not None:
+        return False
+    crlf = canonical.replace(b"\n", b"\r\n")
+    return expected_sha256 in {
+        hashlib.sha256(canonical).hexdigest(),
+        hashlib.sha256(crlf).hexdigest(),
+    }
+
+
+def _preregistration_binding_checks(
+    repo: Path,
+    spec: dict[str, object],
+    required_commit: str = FROZEN_PREREGISTRATION_COMMIT,
+) -> dict[str, bool]:
+    """Verify the manifest, path history, and frozen preregistration blob."""
+
+    prereg = repo / PREREGISTRATION
+    manifest_commit = str(spec.get("commit", ""))
+    expected_sha256 = str(spec.get("sha256", ""))
+    strategy = spec.get("sha256_strategy")
+    strategy_value = str(strategy) if strategy is not None else None
+    try:
+        latest_commit = subprocess.check_output(
+            ["git", "log", "-1", "--format=%H", "--", PREREGISTRATION],
+            cwd=repo,
+            text=True,
+        ).strip()
+        blob_id = subprocess.check_output(
+            ["git", "rev-parse", f"{required_commit}:{PREREGISTRATION}"],
+            cwd=repo,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+        committed_blob = subprocess.check_output(
+            ["git", "cat-file", "blob", blob_id], cwd=repo
+        )
+        current_canonical = canonical_lf_bytes(prereg.read_bytes())
+        blob_canonical = canonical_lf_bytes(committed_blob)
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        latest_commit = ""
+        current_canonical = b""
+        blob_canonical = b"not-available"
+
+    return {
+        "manifest_commit_exact": manifest_commit == required_commit,
+        "latest_path_commit_exact": latest_commit == required_commit,
+        "current_matches_frozen_blob_eol_only": current_canonical == blob_canonical,
+        "manifest_text_hash_matches": _text_binding_matches(
+            prereg, expected_sha256, strategy_value
+        ),
+    }
+
+
 def verify(repo: Path, evidence_dir: Path) -> dict[str, bool]:
     root = repo / evidence_dir
     manifest_path = root / "geometry_sensitivity_manifest.json"
@@ -42,14 +121,9 @@ def verify(repo: Path, evidence_dir: Path) -> dict[str, bool]:
     checks: dict[str, bool] = {}
     checks["manifest_status_complete"] = manifest.get("status") == "complete"
     checks["manifest_analysis_exact"] = manifest.get("analysis") == "paper15_v135_geometry_aligned_sensitivity"
-    prereg = repo / PREREGISTRATION
-    prereg_commit = subprocess.check_output(
-        ["git", "log", "-1", "--format=%H", "--", PREREGISTRATION], cwd=repo, text=True
-    ).strip()
-    checks["preregistration_hash_and_commit"] = (
-        manifest["preregistration"]["sha256"] == _sha256(prereg)
-        and manifest["preregistration"]["commit"] == prereg_commit
-    )
+    prereg_checks = _preregistration_binding_checks(repo, manifest["preregistration"])
+    checks.update({f"preregistration_{name}": ok for name, ok in prereg_checks.items()})
+    checks["preregistration_hash_and_commit"] = all(prereg_checks.values())
     count, tree_hash = old_evidence_tree(repo)
     checks["old_evidence_byte_identical"] = count == OLD_EVIDENCE_FILES and tree_hash == OLD_EVIDENCE_TREE_SHA256
     for name, spec in manifest.get("outputs", {}).items():
@@ -60,9 +134,17 @@ def verify(repo: Path, evidence_dir: Path) -> dict[str, bool]:
             and len(pd.read_csv(path, low_memory=False)) == int(spec["rows"])
         )
     presentation = repo / manifest["presentation_output"]["path"]
-    checks["presentation_macro_hash"] = presentation.is_file() and _sha256(presentation) == manifest["presentation_output"]["sha256"]
+    checks["presentation_macro_hash"] = _text_binding_matches(
+        presentation,
+        manifest["presentation_output"]["sha256"],
+        manifest["presentation_output"].get("sha256_strategy"),
+    )
     presentation_table = repo / manifest["presentation_table"]["path"]
-    checks["presentation_table_hash"] = presentation_table.is_file() and _sha256(presentation_table) == manifest["presentation_table"]["sha256"]
+    checks["presentation_table_hash"] = _text_binding_matches(
+        presentation_table,
+        manifest["presentation_table"]["sha256"],
+        manifest["presentation_table"].get("sha256_strategy"),
+    )
 
     obs_path = root / "geometry_observations.csv"
     obs = pd.read_csv(obs_path, low_memory=False)

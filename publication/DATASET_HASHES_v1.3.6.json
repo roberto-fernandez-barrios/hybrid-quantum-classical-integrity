@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "release": "1.3.6",
+  "source": "Frozen staging reports; no dataset bytes are redistributed.",
+  "files": [
+    {"kind": "staged", "path": "data/cicids_subset.csv", "sha256": "8c8771f4e348bcbd6a58c8e215ba143d6f98a4a7a341d0e991bb8f3c211a9588"},
+    {"kind": "raw", "path": "data/raw/cicids2017/MachineLearningCVE/Monday-WorkingHours.pcap_ISCX.csv", "sha256": "852c4beb34eda186f32561fa79df7a0747e92e1a6535b01270820dd9ffe17f34"},
+    {"kind": "raw", "path": "data/raw/cicids2017/MachineLearningCVE/Tuesday-WorkingHours.pcap_ISCX.csv", "sha256": "52b8692ae8c7d2ed04671fe2b98335693c0a92c7ab157d8c8b534d6523080851"},
+    {"kind": "raw", "path": "data/raw/cicids2017/MachineLearningCVE/Wednesday-workingHours.pcap_ISCX.csv", "sha256": "893c27dc968bf7a8adef1689f90be55ca4a4dc3088fb63d6ff247ac56856df2a"},
+    {"kind": "staged", "path": "data/unsw_subset.csv", "sha256": "6292a46b03eef422acd660f68b5c76c3e04118a63d617a8e5f5b755450078780"},
+    {"kind": "staged", "path": "data/raw/staging/unsw_nb15/unsw_test.csv", "sha256": "0aa749da7abc0dc38ff2c1ea1c6636095e4795dcd09f1975e70511957c4608e4"},
+    {"kind": "staged", "path": "data/raw/staging/unsw_nb15/unsw_train.csv", "sha256": "ff8f800823506ffba408c7edbe6f1d57c1707b098e7ed6e3785a8d9d2dc10c75"},
+    {"kind": "staged", "path": "data/ton_iot_subset.csv", "sha256": "cc6a61e9a3c294b5520cb59e8874c12929d1a91acca92f06c1ca868a5768c01b"},
+    {"kind": "staged", "path": "data/raw/staging/ton_iot/ton_network.csv", "sha256": "443619d118439d8e9e1f7593f8e929c1d45cf0014739b861484c85a07ae7614f"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_tuesday_train.csv", "sha256": "649b5ffb6a09a89cb28f021ef8878ed990d0c5c2f2283fe1394f9b5e88a500e9"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_wednesday_test.csv", "sha256": "c82af0bab09f10ac46dd078c5dbab4f46e8a67fb5602dbedf4cdc3faf5a73c6d"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_tuesday_train_portscan.csv", "sha256": "649b5ffb6a09a89cb28f021ef8878ed990d0c5c2f2283fe1394f9b5e88a500e9"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_friday_portscan_test.csv", "sha256": "0e535a9942a24bb09d7b04b1d3e3e2714a182ed3f4b7d62711ef329d2d392b11"},
+    {"kind": "raw", "path": "data/raw/cicids2017/MachineLearningCVE/Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv", "sha256": "ca1824c51bfbb7b3c72290a11be04366ba8815878c6a1cc5c44cb1cee269e99b"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_wednesday_train.csv", "sha256": "c82af0bab09f10ac46dd078c5dbab4f46e8a67fb5602dbedf4cdc3faf5a73c6d"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_thursday_webattacks_test.csv", "sha256": "3ec6a4d7c4b363d436088f064c43b1a0cffd72efd5825ab2a12ea1096c233674"},
+    {"kind": "raw", "path": "data/raw/cicids2017/MachineLearningCVE/Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv", "sha256": "d67066211fb1689c78406f1506f4c44704ecb92088353d5c96d96d6474eb819d"},
+    {"kind": "staged", "path": "data/processed/cicids_ood_friday_morning_test.csv", "sha256": "5c44b321468f72c3a4ef0f51135629092d253b02b7746cae64b5905a2fe89dd5"},
+    {"kind": "raw", "path": "data/raw/cicids2017/MachineLearningCVE/Friday-WorkingHours-Morning.pcap_ISCX.csv", "sha256": "53a41c24d570ea83b7ac55b2e94df94e7a8216aeb80a2af0246b6bc8bb543000"},
+    {"kind": "staged", "path": "data/processed/unsw_ood_train.csv", "sha256": "993984caf61b9e60a68d9722fae9564edbd3ea91f8e2204b3ce13c26f612c350"},
+    {"kind": "staged", "path": "data/processed/unsw_ood_test.csv", "sha256": "b9107599e6510ae5116d26ac952283814d80f8fdba775977893c2879a3c6cee0"},
+    {"kind": "raw", "path": "data/raw/ton_iot/train_test_network.csv", "sha256": "26ddc513552de36de6428b2e578efaed2b57504c716dfba847cc0109a64e1974"},
+    {"kind": "raw", "path": "data/raw/unsw_nb15/Training and Testing Sets/UNSW_NB15_testing-set.csv", "sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559"},
+    {"kind": "raw", "path": "data/raw/unsw_nb15/Training and Testing Sets/UNSW_NB15_training-set.csv", "sha256": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa"}
+  ]
+}

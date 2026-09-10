@@ -1,6 +1,6 @@
 # Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22678092.svg)](https://doi.org/10.5281/zenodo.22678092)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22694063.svg)](https://doi.org/10.5281/zenodo.22694063)
 [![CI](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/actions/workflows/tests.yml/badge.svg)](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/actions/workflows/tests.yml)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31016/)
 [![License: Apache-2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
@@ -35,9 +35,9 @@ needed for quick verification or full replay from public benchmark datasets.
   be separated from the baseline using the declared view alone.
 - Structural blind regions shrink monotonically as trusted evidence refines the
   observable view.
-- Reference granularity is claim-relative: conclusion and aggregate integrity
-  may use trusted aggregates, while item-identity integrity needs item-aligned
-  evidence.
+- Reference granularity is claim-relative: a trusted same-batch scalar
+  reference suffices for a conclusion-only claim; an aggregate reference also
+  certifies aggregate integrity; item-identity integrity needs item alignment.
 - An adaptive, cluster-preserving fingerprint attack stress-tests the limits of
   aggregate statistical monitoring under the frozen design.
 - A preregistered geometry-aligned sensitivity separates the clean-resample
@@ -52,15 +52,17 @@ needed for quick verification or full replay from public benchmark datasets.
 |---|---|
 | Paper | [PDF](output/pdf/paper15_tdsc_submission.pdf) |
 | Supplement | [PDF](output/pdf/paper15_tdsc_supplement.pdf) |
-| Archived artifact | [Zenodo version 1.3.5](https://doi.org/10.5281/zenodo.22678092) |
+| Current release | [Zenodo version 1.3.6](https://doi.org/10.5281/zenodo.22694063) |
+| Immutable predecessor | [Zenodo version 1.3.5](https://doi.org/10.5281/zenodo.22678092) |
 | Version history | [Zenodo concept record](https://doi.org/10.5281/zenodo.22550852) |
-| GitHub release | [paper15-q1-v1.3.5](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/releases/tag/paper15-q1-v1.3.5) |
+| Immutable release tag | `paper15-q1-v1.3.6` |
 | Manuscript source | [`publication/tdsc/`](publication/tdsc/) |
 | Reproducibility guide | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) |
 
-The current scientific release is version `1.3.5`, a targeted methodological
-sensitivity amendment. Version `1.3.4`, its tag, DOI, and every prior evidence
-file remain immutable.
+Version `1.3.6` is the final formal and editorial corrective release. It
+changes no experiment or scientific evidence; a presentation-only clean
+performance summary is derived from frozen evidence. Version `1.3.5`, its
+tag, DOI, and all prior evidence remain immutable.
 
 ## Quick verification
 
@@ -125,8 +127,9 @@ measurements from a QPU or calibrated backend.
 
 Citation metadata is provided in [CITATION.cff](CITATION.cff).
 
-- Version: `1.3.5`
-- Version DOI: [10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092)
+- Version: `1.3.6`
+- Version DOI: [10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063)
+- Immutable predecessor DOI: [10.5281/zenodo.22678092](https://doi.org/10.5281/zenodo.22678092)
 - Concept DOI: [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852)
 
 Use the version DOI when citing the exact published artifact. The concept DOI

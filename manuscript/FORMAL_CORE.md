@@ -1,31 +1,13 @@
-# Formal core — observational indistinguishability and integrity blind regions (release 1.3.4; evidence frozen at 1.3.0)
+# Formal core — observational indistinguishability and integrity blind regions (release 1.3.6; scientific evidence frozen)
 
-Release 1.3.4 changes bibliography, frozen-derived coverage metadata and editorial positioning only; the formal
-core and methodology are unchanged from 1.3.2. Version 1.3.2 (2026-09-08) adds one controlled methodological correction to
-the 1.3.1 formal core: the reference shorthand now separates provenance,
-granularity and decision semantics, and describes the actual batch sensors as
-statistical same-item-set comparisons against a benchmark-protected oracle,
-not as purely historical references or deployed-authenticated anchors. No
-experimental result changes. Version 1.3 (2026-09-07, artifact 1.3.1). Version 1.2 of the same day
-(artifact 1.3.0) is corrected in four places and otherwise unchanged: (i) the
-workflow state is split into primitive (stored) and derived artifacts and an
-intervention is defined by the nodes it overwrites, the non-descendants it
-keeps fixed and the descendants it recomputes (Section 1), which removes the
-inconsistency of "changes $y$ and fixes everything else" while $R$ depends on
-$y$; (ii) the three kernel notions $K_{\mathrm{sem}}$ (semantic), $\hat K$
-(finite-shot estimate) and $K_{\mathrm{obs}}$ (observed, post-processed) are
-separated and every inclusion of Proposition 7 names the intervention class on
-which it holds (Section 6); (iii) Proposition 7(iii) no longer states that
-exact equality always fails under non-degenerate shot noise (a universal
-false-alarm rate of one), which is false on the discrete support of the estimator
-($p = 1/2$, $N = 2$ gives $\Pr[\hat p = p] = 1/2$), and states the correct
-consequence (exact equality is not an acceptance criterion; the discrepancy
-needs a calibrated null; without one no statistical integrity claim is made);
-(iv) the earlier reference taxonomy distinguished statistical/historical,
-trusted aggregate and trusted item-aligned references. Version 1.3.2 corrects
-the epistemic description of its executed instance (Section 2). Version 1.1 (artifact 1.2.0)
-was superseded in Proposition 5, which was false as stated (Section 4 and
-amendment A2 of `paper15_v13_prereg.md`). This document is the complete
+Release 1.3.6 corrects Proposition 4(i) to the pathwise equality supported by
+Lemma 1 and repairs the omitted $K_{\mathrm{obs}}$ dependency in the proof of
+Corollary 1(a). It also makes the $R_0$/$M_0$/item-aligned reference
+granularity explicitly claim-relative. No other theorem is changed and no
+scientific evidence is re-executed or modified. The model retains separate
+primitive and derived artifacts, distinct semantic, estimated and observed
+kernels, provenance/granularity/decision reference dimensions, and the exact
+exchangeability premise of the conformal family rule. This document is the complete
 statement, with proofs, of the formal section of the TDSC article. The
 article prints the definitions and the propositions; the supplement
 reproduces the proofs. Every witness count quoted here is generated from the
@@ -36,9 +18,9 @@ formal statements are guarded by the finite-state enumerations in
 workflow-state counterexamples in `tests/test_workflow_state.py`. The
 executable counterpart of Section 1 is `src/integrity/workflow_state.py`.
 
-The results are elementary by design. Their role is to make exact which
-evidence separates which class of intervention, so that the empirical gates
-test statements rather than intuitions. Every statement below is pointwise
+The formal contribution makes exact which evidence separates which class of
+intervention, so that the empirical gates test statements rather than
+intuitions. Every statement below is pointwise
 (for a fixed baseline state and a fixed finite batch) unless it says
 "in distribution" or names a probability.
 
@@ -79,7 +61,7 @@ parents. Classes used in the study and what each recomputes:
   $\hat y$ are fixed, $R$ is recomputed. $T_y^{\pi} \subset T_y$
   (prior-preserving) additionally preserves the class histogram of $y$.
 - Feature-side mechanisms (sign flip, mean shift, scaling drift, dropout with
-  imputation and, from artifact 1.3.0, the adaptive cluster-preserving
+  imputation and, in the frozen experiment, the adaptive cluster-preserving
   variants): overwrite $\tilde X$ (or its upstream source $X$); $\hat y$ and
   $R$ are recomputed.
 - Circuit-side interventions (class (a) of Section 6): overwrite $C$;
@@ -263,8 +245,11 @@ $\mathrm{hist}(y_a) = \mathrm{hist}(y_0)$, hence
 $T_y^{\pi} \subseteq B_{\mathcal I_{Y_m}}$ and every sensor admissible in
 $\mathcal I_{Y_m}$ is invariant (Proposition 2 of 1.1.x).
 
-*Proof.* (a) $T_y$ fixes $X$, $P$ and $f$, so $\tilde X$ and $\hat y = f(\tilde X)$
-are unchanged; apply Lemma 1 and Proposition 1. (b) By definition of
+*Proof.* (a) $T_y$ fixes the primitives $X$, $P$, $C$, $E$, $\xi$, $g$ and
+$f$. Hence $\tilde X$, $K_{\mathrm{sem}}$, $\hat K$ and $K_{\mathrm{obs}}$
+remain fixed by their declared dependencies, and therefore
+$\hat y = f(\tilde X,K_{\mathrm{obs}})$ is unchanged; apply Lemma 1 and
+Proposition 1. (b) By definition of
 $T_y^{\pi}$. $\square$
 
 **Proposition 2 (closing a blind region).** For views $\mathcal I$ and
@@ -283,7 +268,7 @@ iff both components agree. $\square$
 
 **Corollary 2 (what cannot close the label-path region).** With $f$ fixed and
 deterministic, no view that factors through
-$(\tilde X, f(\tilde X), \mathrm{hist}(y))$ separates any $a \in T_y^{\pi}$
+$(\tilde X, \hat y, \mathrm{hist}(y))$ separates any $a \in T_y^{\pi}$
 from $s_0$: $T_y^{\pi} \subseteq B_{\mathcal I_{XF} \vee \mathcal I_{Y_m}}$.
 The multiset of triples $\mathcal I_{XFY}$ separates $a \in T_y^{\pi}$ from
 $s_0$ unless $a$ permutes labels only among items with identical
@@ -356,9 +341,10 @@ with those inputs, not authenticity of the inputs.
 **Proposition 4 (separability is necessary; anchoring makes it sufficient).**
 (i) For any auditor whose decision is a function of $V_{\mathcal I}(s)$ (and a
 seed included in the view), $a \in B_{\mathcal I}(\mathcal A)$ implies
-$\mathrm{fire}(s_a) = \mathrm{fire}(s_0)$: on every batch the decision on the
-intervened state is the decision on the clean state, so over any design the
-calibrated detection rate equals the false-alarm rate. (ii) A
+$\mathrm{fire}(s_a) = \mathrm{fire}(s_0)$ pathwise under the same state and
+reference construction. This pathwise equality does not in general imply
+equality with a false-action rate estimated under a different clean-resampling
+or reference construction. (ii) A
 reference-anchored auditor of class (a) detects every
 $a \notin B_{\mathcal J}(\mathcal A)$, deterministically.
 
@@ -367,11 +353,12 @@ $a \notin B_{\mathcal J}(\mathcal A)$, deterministically.
 
 **Corollary 3 (which reference certifies which integrity).** Let $a \in T_y$
 with $f$ fixed and deterministic.
-(a) *Conclusion and aggregate integrity, Level B suffices.* With a trusted
-aggregate reference $M_0 = M(s_0)$ of the same batch, the rule "fire iff
-$M(s_a) \ne M_0$" detects every $a$ that violates aggregate integrity and, by
-Proposition 3, every material $a$. A trusted $R_0$ detects every material
-$a$ and nothing else.
+(a) *Conclusion and aggregate integrity require claim-relative Level-B
+anchors.* A trusted exact same-batch claim reference $R_0=R(s_0)$ detects
+exactly every $R(s_a)\ne R_0$ and is sufficient for conclusion integrity only.
+A trusted aggregate reference $M_0 = M(s_0)$ of the same batch detects every
+$a$ that violates aggregate integrity and, by Proposition 3, every material
+conclusion change in the declared setting.
 (b) *Item-identity integrity, Level C is necessary.* Any reference that
 factors through $M$, $\mathrm{hist}(y)$ or $R$ is invariant under every
 relabeling that permutes labels among items with equal predictions; such
@@ -379,8 +366,10 @@ relabelings (counterexample C1) violate item-identity integrity, so no
 Level-B reference detects them. A Level-C reference (item-aligned $y_0$)
 detects every non-identity relabeling.
 
-*Proof.* (a) Proposition 4(ii) with $\mathcal J = \mathcal I_M$, then
-Proposition 3. (b) A swap of $y_i, y_j$ with $\hat y_i = \hat y_j$ moves one
+*Proof.* (a) Proposition 4(ii) with the conclusion view gives the exact $R_0$
+comparison; applying it with $\mathcal J = \mathcal I_M$ gives the exact
+$M_0$ comparison, and Proposition 3 supplies the material-conclusion
+consequence. (b) A swap of $y_i, y_j$ with $\hat y_i = \hat y_j$ moves one
 item from cell $(\hat y_i, y_i)$ to $(\hat y_i, y_j)$ and another from
 $(\hat y_j, y_j)$ to $(\hat y_j, y_i)$; the two moves cancel in $M$, hence in
 every function of $M$, and the histogram is unchanged. The item-indexed tuple
@@ -391,15 +380,27 @@ rows by the confusion-profile delta against the reference batch (and 2,792 of
 3,600 label rows in total, witness W9), and (b) is the 808 relabelings with
 zero confusion-profile delta that only the item-level label mismatch exposes
 (W1 = W10). The batch-level $\mathcal I_{XFY}$ rule detects 11 (conformal
-family rule of 1.3.0), 16 (asymmetric rule of 1.2.0) or 43 (union) of the
-2,617 material label rows: every one of them is separable (Proposition 3),
-but a 2–10% relabeling of a 128-row batch shifts the confusion profile by
-less than the profile's natural variability across fresh clean batches. The
+family rule), 16 (asymmetric comparison) or 43 (union) of the 2,617 material
+label rows: every one is separable (Proposition 3), so the remaining cases are
+finite-batch statistical misses, not structural blind regions. In this design,
+a 2–10% relabeling of a 128-row batch can shift the confusion profile by less
+than its variability across fresh clean batches. Structural blind regions are
+independent of row count, whereas the power of a statistic that does change can
+increase with batch size. No batch-size scaling is estimated here. The
 value of a trusted reference of the same batch is therefore informational:
 it replaces a statistical null with an exact one. Which level is needed
-depends on the integrity notion: conclusion and aggregate integrity need
-Level B; item-identity integrity needs Level C. Neither is an oracle: each
-costs an uncontrolled copy of a view of the baseline, i.e. provenance.
+depends on the integrity notion: $R_0$ suffices for conclusion-only integrity,
+$M_0$ additionally certifies aggregate integrity, and item-identity integrity
+needs Level C. Neither is an oracle: each requires an uncontrolled reference
+to a view of the baseline, i.e. provenance.
+
+Granularity denotes the information authenticated or bound, not serialized
+byte length. A Merkle root or position-binding vector commitment may represent
+Level-C evidence in constant visible bytes precisely because it binds item
+identity. For an aggregate- or conclusion-only claim, a Level-B anchor can
+instead reduce the item-level information that must be retained or exposed to
+the auditor, supporting data minimization and separation of duties without
+constituting a new cryptographic primitive or a legal-compliance guarantee.
 
 **Proposition 5 (union of calibrated sensors versus family calibration).**
 
@@ -706,7 +707,7 @@ conclusion (calibrated null or abstention) is unchanged and is Definition 5(b)
 with Proposition 5(b) on the repeated estimates. The arithmetic is checked in
 `tests/test_workflow_state.py` (`FiniteShotEqualityTests`). $\square$
 
-The empirical realisation is the 165-cell simulator gate of Section VI-E of
+The empirical realisation is the 165-design-cell simulator gate of Section VI-E of
 the article, read class by class: benign transpilation and the common-unitary
 rewrite (class (a)) change $h(C)$ in every cell while $\Phi(C)$, $A$ and
 $f_K$ are unchanged (i); the PSD-preserving mixture (class (c)) passes the

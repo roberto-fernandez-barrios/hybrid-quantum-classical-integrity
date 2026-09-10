@@ -3,7 +3,10 @@
 
 Cross-platform, standard library only. The expected hashes are read from the
 staging reports that the dataset scripts wrote when the frozen evidence was
-produced:
+produced. In a clean clone without those ignored local reports, the verifier
+falls back to ``publication/DATASET_HASHES_v1.3.6.json`` and reports the
+declared files as optional MISSING unless ``--require-raw`` or
+``--require-staged`` is selected:
 
 * ``data/cicids_subset.prep_report.json``, ``data/unsw_subset.prep_report.json``,
   ``data/ton_iot_subset.prep_report.json`` (ID subsets; ``output.sha256`` and
@@ -71,6 +74,7 @@ OOD_REPORTS = {
     ),
 }
 STAGE_REPORT = STAGING / "stage_report.json"
+FROZEN_HASH_MANIFEST = Path("publication/DATASET_HASHES_v1.3.6.json")
 STAGE_SOURCES = {
     "unsw_train": RAW_UNSW / "UNSW_NB15_training-set.csv",
     "unsw_test": RAW_UNSW / "UNSW_NB15_testing-set.csv",
@@ -113,6 +117,32 @@ def _load(root: Path, rel: str) -> dict | None:
     if not path.is_file():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _frozen_manifest_checks(root: Path) -> list[Check]:
+    path = root / FROZEN_HASH_MANIFEST
+    if not path.is_file():
+        return []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != 1 or payload.get("release") != "1.3.6":
+        raise ValueError(f"unsupported dataset-hash manifest metadata: {path}")
+    checks: list[Check] = []
+    seen: set[str] = set()
+    for entry in payload.get("files", []):
+        kind = entry.get("kind")
+        rel = entry.get("path")
+        digest = str(entry.get("sha256", "")).lower()
+        if kind not in {"raw", "staged"} or not rel:
+            raise ValueError(f"invalid dataset-hash manifest entry: {entry!r}")
+        if len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+            raise ValueError(f"invalid SHA-256 for {rel}")
+        if rel in seen:
+            raise ValueError(f"duplicate dataset path in frozen manifest: {rel}")
+        seen.add(rel)
+        checks.append(Check(kind, Path(rel), digest))
+    if not checks:
+        raise ValueError(f"empty dataset-hash manifest: {path}")
+    return checks
 
 
 def collect_checks(root: Path) -> tuple[list[Check], list[str]]:
@@ -163,6 +193,14 @@ def collect_checks(root: Path) -> tuple[list[Check], list[str]]:
             continue
         seen.add(key)
         unique.append(check)
+    frozen = _frozen_manifest_checks(root)
+    if not unique and frozen:
+        return frozen, [f"using frozen public hash manifest: {FROZEN_HASH_MANIFEST.as_posix()}"]
+    if unique and frozen:
+        live_set = {(check.kind, check.path.as_posix(), check.expected) for check in unique}
+        frozen_set = {(check.kind, check.path.as_posix(), check.expected) for check in frozen}
+        if live_set != frozen_set:
+            notes.append("ERROR: local staging-report hashes differ from the frozen public manifest")
     return unique, notes
 
 
@@ -174,7 +212,11 @@ def main() -> int:
     args = parser.parse_args()
     root = args.repo_root.resolve()
 
-    checks, notes = collect_checks(root)
+    try:
+        checks, notes = collect_checks(root)
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
     for check in checks:
         check.run(root)
 
@@ -192,7 +234,7 @@ def main() -> int:
     missing_staged = sum(c.status == "MISSING" and c.kind == "staged" for c in checks)
     print(f"summary: {n_ok} OK, {n_mismatch} MISMATCH, {missing_staged} staged MISSING, {missing_raw} raw MISSING")
 
-    failed = n_mismatch > 0
+    failed = n_mismatch > 0 or any(note.startswith("ERROR:") for note in notes)
     if args.require_raw and missing_raw:
         failed = True
     if args.require_staged and missing_staged:

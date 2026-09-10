@@ -1,4 +1,4 @@
-"""Manuscript consistency gates (release 1.3.5).
+"""Manuscript consistency gates (release 1.3.6).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
@@ -39,6 +39,7 @@ MACROS = ROOT / "publication/tdsc/tables/policy_macros.tex"
 REFERENCE_AUDITS = (
     ROOT / "publication/tdsc/reference_audit_v1.3.4.csv",
     ROOT / "publication/tdsc/reference_audit_v1.3.5_addendum.csv",
+    ROOT / "publication/tdsc/reference_audit_v1.3.6.csv",
 )
 
 ACTIVE_DOCUMENTS = [
@@ -309,6 +310,121 @@ class TestClaimWording:
             assert "benchmark-protected" in text and "deployed authentication" in text, rel
 
 
+class TestV136FormalEditorialGuards:
+    def test_proposition4_is_pathwise_and_does_not_equate_distinct_rates(self) -> None:
+        for rel in (
+            "publication/tdsc/main.tex",
+            "publication/tdsc/supplement.tex",
+            "manuscript/FORMAL_CORE.md",
+        ):
+            text = re.sub(r"\s+", " ", _read(rel))
+            low = text.lower()
+            assert "pathwise" in low, rel
+            assert "does not in general imply equality with a false-action rate" in low, rel
+            for forbidden in (
+                "detection rate equals the false-alarm rate",
+                "detection rate equals the false-action rate",
+                "blind attack fires at the false-alarm rate",
+                "over any design the calibrated detection rate",
+                "same as fpr",
+            ):
+                assert forbidden not in low, (rel, forbidden)
+
+    def test_corollary1_keeps_the_declared_kernel_dependency(self) -> None:
+        for rel in ("publication/tdsc/supplement.tex", "manuscript/FORMAL_CORE.md"):
+            text = re.sub(r"\s+", " ", _read(rel))
+            assert r"\hat y=f(\tilde X,K_{\mathrm{obs}})" in text or r"\hat y = f(\tilde X,K_{\mathrm{obs}})" in text, rel
+            for primitive in ("$X$", "$P$", "$C$", "$E$", "$\\xi$", "$g$", "$f$"):
+                assert primitive in text, (rel, primitive)
+            assert r"\hat y=f(\tilde X)$" not in text
+            assert r"\hat y = f(\tilde X)$" not in text
+
+    def test_claim_relative_r0_m0_and_level_c_distinction_is_explicit(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "trusted exact same-batch claim reference" in main
+        assert "$R_0=R(s_0)$ detects exactly every $R(s_a)\\ne R_0$" in main
+        assert "$M_0=M(s_0)$ detects every violation of aggregate integrity" in main
+        assert "item identity needs level C" in main
+        assert "aligned $y_0$ detects every non-identity relabeling" in main
+
+    def test_minimum_claims_remain_bounded_to_the_declared_lattice(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "claim-relative minimum evidence granularity within the declared reference lattice" in main
+        assert "minimum levels within the declared reference lattice" in main
+        assert "minimum over every possible audit architecture" in main
+        assert "neither a deployed protocol nor" in main
+
+    def test_main_has_no_unnecessary_artifact_version_archaeology(self) -> None:
+        main = _read("publication/tdsc/main.tex").lower()
+        for forbidden in (
+            "frozen evidence of artifact 1.3.0",
+            "preregistered in artifact 1.1.0",
+            "amendment a2",
+            "the 1.2.0 rule was wrong",
+            "superseded 1.2.0",
+        ):
+            assert forbidden not in main, forbidden
+
+    def test_batch_size_and_structural_statistical_scope_is_explicit(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "Structural blind regions are independent of the number of rows" in main
+        assert "11--43 detections among 2,617 material label rows" in main
+        assert "not a universal bound on batch-monitoring power" in main
+        assert "Batch-size scaling is an important external-validity question and is not estimated by the present fixed-size experiment" in main
+
+    def test_quantum_heading_and_scope_are_unambiguous(self) -> None:
+        supplement = re.sub(r"\s+", " ", _read("publication/tdsc/supplement.tex"))
+        assert "Anchored kernel comparison" in supplement
+        assert "165 design cells" in supplement
+        assert "raw estimated/observed kernel before any downstream PSD-repair" in supplement
+
+    def test_clean_ba_table_is_derived_from_frozen_evidence(self) -> None:
+        evidence = ROOT / "publication/artifact/evidence/expansion/expansion_unique_observations.csv"
+        rows = [row for row in csv.DictReader(evidence.open(encoding="utf-8", newline="")) if row["attack_is_clean"] == "1"]
+        by_split: dict[tuple[str, str], list[float]] = {}
+        for row in rows:
+            by_split.setdefault((row["gate"], row["split_seed"]), []).append(float(row["bal_acc_clean"]))
+        cluster_means = {(gate, seed): sum(values) / len(values) for (gate, seed), values in by_split.items()}
+        expected = {
+            "gate2_id_256": "0.762 [0.756, 0.766]",
+            "gate5a_id_unsw": "0.766 [0.738, 0.800]",
+            "gate5b_id_ton_iot": "0.752 [0.716, 0.807]",
+            "gate3a_ood_tue_wed": "0.492 [0.480, 0.520]",
+            "gate3b_ood_tue_fri_portscan": "0.590 [0.565, 0.615]",
+            "gate3c_ood_wed_thu_webattacks": "0.483 [0.454, 0.518]",
+            "gate3d_ood_wed_fri_morning": "0.459 [0.431, 0.493]",
+            "gate6_ood_unsw": "0.759 [0.743, 0.775]",
+        }
+        table = _read("publication/tdsc/tables/s_clean_by_environment.tex")
+        for gate, rendered in expected.items():
+            values = [value for (row_gate, _), value in cluster_means.items() if row_gate == gate]
+            actual = f"{sum(values) / len(values):.3f} [{min(values):.3f}, {max(values):.3f}]"
+            assert actual == rendered
+            assert rendered in table
+
+    def test_release_status_count_matches_pytest_collection(self) -> None:
+        status = __import__("json").loads(_read("publication/RELEASE_STATUS.json"))
+        proc = subprocess.run(
+            [__import__("sys").executable, "-m", "pytest", "--collect-only", "-q", "-p", "no:cacheprovider", "tests"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        match = re.search(r"(\d+) tests? collected", proc.stdout + proc.stderr)
+        assert match and status["tests_collected"] == int(match.group(1))
+
+    def test_no_stale_paper_hais_path_is_tracked(self) -> None:
+        stale_checkout_name = "paper_" + "HAIS"
+        proc = subprocess.run(
+            ["git", "grep", "-I", "-n", stale_checkout_name],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert proc.returncode == 1, proc.stdout
+
+
 class TestBibliographicIntegrity:
     def test_required_prior_art_is_present_and_cited(self) -> None:
         cited = _citation_keys(_read("publication/tdsc/main.tex"))
@@ -388,14 +504,14 @@ class TestBibliographicIntegrity:
         assert "stronger here on QPU/hardware and runtime/provider evidence" in main
         assert "Our orthogonal contribution" in main
 
-    def test_release_identity_is_v135_with_immutable_v134_predecessor(self) -> None:
-        assert _read("VERSION").strip() == "1.3.5"
+    def test_release_identity_is_v136_with_immutable_v135_predecessor(self) -> None:
+        assert _read("VERSION").strip() == "1.3.6"
         citation = _read("CITATION.cff")
         status = _read("publication/RELEASE_STATUS.md")
-        for value in ("1.3.5", "10.5281/zenodo.22678092", "10.5281/zenodo.22550852"):
+        for value in ("1.3.6", "10.5281/zenodo.22550852"):
             assert value in citation
             assert value in status
-        assert "10.5281/zenodo.22672505" in citation
+        assert "10.5281/zenodo.22678092" in citation
 
     def test_bibtex_has_no_duplicate_keys_or_dois(self) -> None:
         bib = _read("publication/tdsc/references.bib")
@@ -422,18 +538,23 @@ class TestReferenceAudit:
         for path in REFERENCE_AUDITS:
             with path.open(encoding="utf-8", newline="") as handle:
                 rows.extend(csv.DictReader(handle))
-        assert len(rows) == 62  # immutable v1.3.4 audit plus two bounded v1.3.5 clarifications
+        assert len(rows) == 65  # 64 included references plus one verified-not-added decision
         assert sum(row["original_v1_3_3"] == "yes" for row in rows) == 58
         assert all(row["verified"] == "VERIFIED" for row in rows)
         assert all(row["cutoff_ok"] == "yes" for row in rows)
         assert all(row["primary_url"] for row in rows)
+        assert sum(row["action"] == "verified-not-added" for row in rows) == 1
 
     def test_audited_bib_and_citations_have_the_same_keys(self) -> None:
         entries = _bib_entries()
         audited = set()
         for path in REFERENCE_AUDITS:
             with path.open(encoding="utf-8", newline="") as handle:
-                audited.update(row["key"] for row in csv.DictReader(handle))
+                audited.update(
+                    row["key"]
+                    for row in csv.DictReader(handle)
+                    if row["action"] != "verified-not-added"
+                )
         cited = _citation_keys(_read("publication/tdsc/main.tex"))
         assert set(entries) == audited == cited
 
@@ -489,7 +610,13 @@ class TestReferenceAudit:
 
     def test_required_new_boundary_references_are_cited(self) -> None:
         cited = _citation_keys(_read("publication/tdsc/main.tex"))
-        assert {"Barber2023", "Engelen2021"} <= cited
+        assert {
+            "Barber2023",
+            "Engelen2021",
+            "Bensoussan2026Taxonomy",
+            "Bensoussan2026Squeeziness",
+        } <= cited
+        assert "NoiseFingerprints2026" not in cited
 
 
 class TestPolicyTaxonomyInCode:

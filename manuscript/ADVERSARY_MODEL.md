@@ -63,7 +63,7 @@ actually supported by the frozen evidence.
 - Capability: swap the labels of $r n / 2$ pairs of opposite-class items. Access: B8. Knowledge: that the auditor monitors label marginals; no knowledge of the predictor is needed.
 - Objective: change the reported conclusion while leaving class counts invariant.
 - Budget: $r$ of the batch. Alterable assets: $y$. Roots it cannot control: as L1, including $y^{\star}$ when declared.
-- Identifying information: none in $\mathcal I_X$, $\mathcal I_{XF}$, $\mathcal I_{Y_m}$ (Corollary 1, exact; conformal rules fire 0/1,800); $\mathcal I_{XFY}$ batch-level 0.00–0.01; exact under $\mathcal I_{XFY}^{\star}$. Proposition 3: every material instance changes the confusion matrix; Corollary 2: no view factoring through $(\tilde X, f(\tilde X), \mathrm{hist}(y))$ can separate it.
+- Identifying information: none in $\mathcal I_X$, $\mathcal I_{XF}$, $\mathcal I_{Y_m}$ (Corollary 1, exact; conformal rules fire 0/1,800); $\mathcal I_{XFY}$ batch-level 0.00–0.01; exact under $\mathcal I_{XFY}^{\star}$. Proposition 3: every material instance changes the confusion matrix; Corollary 2: no view factoring through $(\tilde X, \hat y, \mathrm{hist}(y))$ can separate it.
 - Claim: the executed instance of the exact blind region of Propositions 1–2; 1,800 rows, 1,059 with a changed conclusion; closed by a trusted reference of the same batch (aggregate confusion reference for every material instance, Corollary 3a; item-aligned reference for aggregate-preserving swaps, Corollary 3b).
 
 ### L3 — Confusion-preserving relabeling (*realised, not executed as a suite*)

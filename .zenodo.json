@@ -1,9 +1,9 @@
 {
   "title": "Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows",
-  "description": "Version 1.3.5 adds one preregistered geometry-aligned sensitivity analysis to resolve the relationship between clean-resample calibration and same-item intervention scoring. No dataset, model family, kernel, feature map, hyperparameter search, threat class, formal theorem or primary structural experiment was changed. All version 1.3.4 scientific evidence remains byte-identical; the new sensitivity evidence is stored and manifested separately. The sensitivity deterministically replays the frozen configurations across all eight environments and shows that the matched monitor-aware intervention consistently reduces response while retaining materiality under aligned geometry. The formal core is unchanged. The release also bounds minimum evidence granularity to the declared reference lattice, clarifies compact authenticated representations and trusted-aggregate generation, and updates the manuscript and submission package. Contents include code, tests, nine SHA-256 evidence manifests, compact derived evidence, bibliography audits, figures, formal core, adversary model, manuscript sources and submission PDFs.",
+  "description": "Version 1.3.6 is a final formal and editorial corrective release. It corrects the rate-level interpretation of Proposition 4(i), repairs a dependency omission in a corollary proof, sharpens claim-relative reference granularity, and updates current related-work positioning and presentation. No experiment, dataset, model, kernel, seed, intervention, calibration draw, policy decision, quantum cell or scientific evidence file was re-executed or changed. A presentation-only clean-performance summary was derived from frozen evidence; no underlying scientific observation changed.",
   "upload_type": "software",
-  "publication_date": "2026-09-09",
-  "version": "1.3.5",
+  "publication_date": "2026-09-10",
+  "version": "1.3.6",
   "creators": [
     {"name": "Fernández-Barrios, Roberto", "affiliation": "Faculty of Engineering, University of Deusto", "orcid": "0009-0003-5312-2634"},
     {"name": "Pastor-López, Iker", "affiliation": "Faculty of Engineering, University of Deusto", "orcid": "0000-0002-3068-6248"},
@@ -12,8 +12,8 @@
   ],
   "keywords": ["integrity auditing", "observability", "hybrid quantum-classical systems", "quantum kernels", "workflow integrity", "cybersecurity"],
   "related_identifiers": [
-    {"identifier": "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/tree/paper15-q1-v1.3.5", "relation": "isSupplementTo", "scheme": "url"},
-    {"identifier": "10.5281/zenodo.22672505", "relation": "isNewVersionOf", "scheme": "doi"}
+    {"identifier": "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/tree/paper15-q1-v1.3.6", "relation": "isSupplementTo", "scheme": "url"},
+    {"identifier": "10.5281/zenodo.22678092", "relation": "isNewVersionOf", "scheme": "doi"}
   ],
   "notes": "Grant PID2024-155693NB-C43 (ATHENA-AEGIS) funded by MICIU/AEI/10.13039/501100011033 and by ERDF/EU. Licensing: code Apache-2.0; derived evidence, tables, figures and documentation CC BY 4.0; manuscript sources and PDFs are author preprints excluded from both licenses pending the IEEE publishing agreement.",
   "license": "apache-2.0",

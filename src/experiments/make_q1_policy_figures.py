@@ -8,10 +8,10 @@ conformal rule. Panel (b): the materially-altered-report-served /
 clean-false-action trade-off of the batch policies only; the trusted
 exact-zero invariant check is stated separately because it is a different
 estimand and denominator. Panel (c): the
-benign interruption cost (near-null in-place shams held or blocked, the same
-1,200 rows for every regime) of every policy and regime, so that the trusted
-regime's zero unsafe allows are shown together with what they cost on benign
-variation.
+interruption response on the prespecified near-null in-place controls (the
+same 1,200 rows for every regime) of every policy and regime, so that the
+trusted regime's zero unsafe allows are shown together with the additional
+interruption within that stress-control grid.
 
 Every plotted value is written to a CSV next to the figure and hashed in a
 figure manifest, so the figure can be regenerated and audited from tables.
@@ -53,7 +53,7 @@ REGIME_LABEL = {"I_X": "$\\mathcal{I}_X$", "I_XF": "$\\mathcal{I}_{XF}$", "I_Ym"
 POLICY_STYLE = {
     "serve_always": ("P0 serve-always", GREY, "s"),
     "union_uncalibrated": ("P1 union (uncalibrated)", ORANGE, "^"),
-    "family_calibrated": ("P2 conformal (calibrated, risk-tolerant)", BLUE, "o"),
+    "family_calibrated": ("P2 conformal-rule (risk-tolerant)", BLUE, "o"),
     "family_calibrated_strict": ("P3 coverage-complete abstaining", GREEN, "D"),
 }
 RULE_STYLE = (("union", ORANGE, "Union (1.1.0)"), ("family_v12", BLUE_LIGHT, "Family 1.2.0"), ("family", BLUE, "Conformal (adopted)"))
@@ -123,7 +123,7 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
     ax.tick_params(axis="x", length=0)
     _style_axis(ax)
     ax.set_ylabel("Clean false-action rate (12,000 draws)", fontsize=6.6, color=INK_SECONDARY)
-    ax.set_title("(a) Decision-level calibration", fontsize=7.6, color=INK, loc="left")
+    ax.set_title("(a) Executed false actions", fontsize=7.6, color=INK, loc="left")
     # Short entries keep the legend inside the left half, clear of the tallest labels.
     ax.legend(fontsize=5.2, frameon=False, loc="upper left", handlelength=1.2, handletextpad=0.5, borderaxespad=0.3, labelspacing=0.35)
     ax.text(0.0, -0.20, "Bars: pooled rate; whiskers: range of the eight per-environment cluster\nmeans. Dashed: nominal 0.05; the 1.2.0 rule is superseded; conformal\nexact level 10/201 = 0.0498.", transform=ax.transAxes, fontsize=5.6, color=INK_SECONDARY, va="top")
@@ -198,7 +198,7 @@ def _draw(a: pd.DataFrame, b: pd.DataFrame, paths: list[Path]) -> None:
     axc.tick_params(axis="x", length=0)
     _style_axis(axc)
     axc.set_ylabel("Interruption of 1,200 near-null controls", fontsize=6.6, color=INK_SECONDARY)
-    axc.set_title("(c) Cost on near-null synthetic variation", fontsize=7.6, color=INK, loc="left")
+    axc.set_title("(c) Near-null control interruption", fontsize=7.6, color=INK, loc="left")
     axc.legend(fontsize=5.4, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.12), ncol=3, columnspacing=1.0, handlelength=1.2)
     axc.text(0.0, -0.26, "Same 1,200 rows for every regime; synthetic near-null variation,\nnot operational traffic.", transform=axc.transAxes, fontsize=5.6, color=INK_SECONDARY, va="top")
 

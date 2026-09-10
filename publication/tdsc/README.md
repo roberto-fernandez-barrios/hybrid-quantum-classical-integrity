@@ -2,7 +2,7 @@
 
 This directory contains the publication sources for *Observational
 Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical
-Workflows*, version `1.3.5`.
+Workflows*, version `1.3.6`.
 
 ## Contents
 
@@ -13,6 +13,8 @@ Workflows*, version `1.3.5`.
   bibliography.
 - `reference_audit_v1.3.5_addendum.csv` — two bounded primary-source records
   supporting the compact authenticated-representation clarification.
+- `reference_audit_v1.3.6.csv` — the closed 2026 primary-source audit for the
+  two added references and one verified-but-peripheral work.
 - `figures/` — vector figures used by the article and supplement.
 - `tables/` — generated LaTeX tables and number macros derived from manifested
   evidence.

@@ -13,10 +13,12 @@ recomputes the SHA-256 of
   `data/raw/cicids2017/MachineLearningCVE/`,
   `data/raw/unsw_nb15/Training and Testing Sets/` and `data/raw/ton_iot/`.
 
-It prints one line per file (`OK`, `MISMATCH`, `MISSING`) and exits with a
-non-zero code on any mismatch. Missing raw sources are reported but do not
-fail the run unless `--require-raw` is given; missing staged tables do not
-fail unless `--require-staged` is given.
+In a clean clone without ignored staging reports it reads the same declared
+identities from `publication/DATASET_HASHES_v1.3.6.json`. It prints one line
+per file (`OK`, `MISMATCH`, `MISSING`) and exits with a non-zero code on any
+mismatch. Missing raw sources are reported but do not fail unless
+`--require-raw` is given; missing staged tables do not fail unless
+`--require-staged` is given.
 
 ```powershell
 # PowerShell 7 (Windows, Linux, macOS)

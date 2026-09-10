@@ -1,0 +1,23 @@
+% Presentation-only summary derived from frozen expansion_unique_observations.csv.
+\begin{table}[!t]
+\caption{Clean balanced accuracy by expansion environment. Values are mean
+[range] over five split clusters after averaging the prespecified
+dimension/model/model-seed cells within each cluster.}
+\label{tab:s-clean-env}
+\centering
+\footnotesize
+\begin{tabular}{@{}lc@{}}
+\toprule
+Environment & Clean BA mean [range] \\
+\midrule
+E1 CICIDS scale/ID & 0.762 [0.756, 0.766] \\
+E2 UNSW-NB15 ID & 0.766 [0.738, 0.800] \\
+E3 ToN-IoT ID & 0.752 [0.716, 0.807] \\
+E4 CICIDS Tue$\rightarrow$Wed & 0.492 [0.480, 0.520] \\
+E5 CICIDS Tue$\rightarrow$Fri-PortScan & 0.590 [0.565, 0.615] \\
+E6 CICIDS Wed$\rightarrow$Thu-Web & 0.483 [0.454, 0.518] \\
+E7 CICIDS Wed$\rightarrow$Fri-AM & 0.459 [0.431, 0.493] \\
+E8 UNSW temporal OOD & 0.759 [0.743, 0.775] \\
+\bottomrule
+\end{tabular}
+\end{table}

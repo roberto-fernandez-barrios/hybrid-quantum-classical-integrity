@@ -3,7 +3,7 @@
 Every number printed in the manuscript about Gates F, D and A (conformal
 family calibration and its comparison with the superseded 1.2.0 rule, the
 decomposition of the 1.2.0 excess, the offline end-to-end decisions with their
-benign interruption cost, the counterexample witnesses, the inference units
+near-null stress-control interruption, the counterexample witnesses, the inference units
 and the adaptive cluster-preserving gate) comes from the manifested tables
 under ``results/paper_digest/paper15_v12_policy`` and
 ``results/paper_digest/paper15_v13_adversarial``. This script writes
@@ -33,7 +33,7 @@ BATCH_REGIMES = ["I_X", "I_XF", "I_Ym", "I_XFY"]
 POLICY_LABEL = {
     "serve_always": "P0 serve-always (baseline)",
     "union_uncalibrated": "P1 union (uncalibrated, risk-tolerant)",
-    "family_calibrated": "P2 conformal (calibrated, risk-tolerant)",
+    "family_calibrated": "P2 conformal-rule (risk-tolerant)",
     "family_calibrated_strict": "P3 coverage-complete abstaining (fail-closed on missing coverage)",
 }
 POLICY_SHORT = {"serve_always": "P0", "union_uncalibrated": "P1 union", "family_calibrated": "P2 conf.", "family_calibrated_strict": "P3 abst."}
@@ -288,7 +288,7 @@ def table_family_detection(ev: Path) -> str:
     rows.append("\\midrule")
     for attack, label in (("sham_tiny_gaussian_sigma_0.001", "Near-null Gaussian $\\sigma=0.001$"), ("sham_tiny_scaling_alpha_0.001", "Near-null scaling $\\alpha=0.001$")):
         rows.append(f"{label} & " + " & ".join(f"{_f(bpiv.loc[attack, (r, 'union')], 2)} / {_f(bpiv.loc[attack, (r, 'family_v12')], 2)} / {_f(bpiv.loc[attack, (r, 'family')], 2)}" for r in BATCH_REGIMES) + " \\\\")
-    caption = ("Gate F: detection rate on the frozen \\texttt{paper\\_core} observations (600 per intervention row, eight environments pooled) and firing rate on the near-null in-place controls, as union rule / 1.2.0 rule / conformal rule. The conformal rule trades a small loss of detection for the decision-level false-alarm level of Table~\\ref{tab:s-family-fpr}.")
+    caption = ("Gate F: detection rate on the frozen \\texttt{paper\\_core} observations (600 per intervention row, eight environments pooled) and firing rate on the near-null in-place controls, as union rule / 1.2.0 rule / conformal rule. Within this executed design, the conformal rule trades a small loss of detection for the descriptive decision-level false-action rates of Table~\\ref{tab:s-family-fpr}.")
     return _table("table*", caption, "tab:s-family-detection", "@{}lllll@{}", "Intervention & " + " & ".join(REGIME_LABEL[r] for r in BATCH_REGIMES) + " \\\\", rows)
 
 
@@ -323,7 +323,7 @@ def table_policy_rule_comparison(ev: Path) -> str:
             r = m[(m["regime"] == regime) & (m["family_rule"] == variant)].iloc[0]
             cells.append(f"{_f(r['decision_fpr'])} & {_f(r['benign_interruption_rate'], 2)} & {_n(r['unsafe_allow'])} & {_f(r['containment'], 2)}")
         rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + " \\\\")
-    caption = ("Gate D: the calibrated risk-tolerant policy P2 under the superseded 1.2.0 family rule and under the adopted conformal rule, on identical observations ($|\\Delta_R|>0$). The 1.2.0 columns reproduce the published 1.2.0 numbers and are retained for comparison only.")
+    caption = ("Gate D: the risk-tolerant policy P2 under the superseded 1.2.0 family rule and under the adopted conformal rule, nominally calibrated under exchangeability, on identical observations ($|\\Delta_R|>0$). The 1.2.0 columns reproduce the published 1.2.0 numbers and are retained for comparison only.")
     header = (" & \\multicolumn{4}{c}{1.2.0 rule (superseded)} & \\multicolumn{4}{c}{Conformal rule (adopted)} \\\\" + NL + "\\cmidrule(lr){2-5}\\cmidrule(lr){6-9}" + NL +
               "Regime & Clean FPR & Benign & Served & Contain. & Clean FPR & Benign & Served & Contain. \\\\")
     return _table("table*", caption, "tab:s-policy-rule-comparison", "@{}lrrrrrrrr@{}", header, rows, colsep="4pt")
@@ -355,7 +355,7 @@ def table_policy_family(ev: Path) -> str:
             r = f[(f["regime"] == regime) & (f["attack_family"] == fam)].iloc[0]
             cells.append(f"{_n(r['unsafe_allow'])}/{_n(r['n_material'])}")
         rows.append(f"{REGIME_LABEL[regime]} & " + " & ".join(cells) + " \\\\")
-    caption = "Gate D: materially altered audit results served / material observations by intervention mechanism under the conformal calibrated policy P2 (structural-sensitivity endpoint $|\\Delta_R|>0$)."
+    caption = "Gate D: materially altered audit results served / material observations by intervention mechanism under the conformal-rule policy P2, nominally calibrated under exchangeability (structural-sensitivity endpoint $|\\Delta_R|>0$)."
     return _table("table*", caption, "tab:s-policy-family", "@{}lrrrr@{}", "Regime & " + " & ".join(FAMILY_LABEL[x] for x in fams) + " \\\\", rows)
 
 
