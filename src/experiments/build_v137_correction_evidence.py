@@ -34,10 +34,15 @@ from src.experiments.build_q1_policy_evidence import (
     _exact_fire,
     score_frame,
 )
+from src.experiments.build_q1_adversarial_evidence import load_gate_a
 from src.experiments.build_q1_reinforcement_evidence import (
     CALIBRATED_SENSORS,
+    EXPECTED_FILES_PER_GATE,
     EXACT_REFERENCE_SENSORS,
+    N_NULL_ATTACKS,
+    NULL_GATES,
     REGIMES as BATCH_REGIMES,
+    _load_dir,
     _thresholds,
 )
 from src.hsaas.policy import POLICIES, POLICY_CLASS, REGIMES as POLICY_REGIMES, Evidence, decide
@@ -156,6 +161,44 @@ def _merge_correction(
     return out
 
 
+def _restore_descriptive_ks(
+    repo: Path,
+    null: pd.DataFrame,
+    gate_a: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Restore the frozen KS statistic omitted from compact historical tables.
+
+    No statistic is recomputed.  The exact per-job frozen rows are read and
+    joined by the canonical row identifier; this supports the required sensor
+    decomposition while leaving the prespecified ``ks_reject05`` component
+    untouched.
+    """
+
+    null_parts: list[pd.DataFrame] = []
+    for spec in NULL_GATES:
+        full, _, _ = _load_dir(
+            repo / f"results/raw/paper15_v11_null_{spec['gate']}",
+            str(spec["gate"]),
+            expected_files=EXPECTED_FILES_PER_GATE,
+            expected_models=set(spec["models"]),
+            expected_attacks=N_NULL_ATTACKS,
+            repo=repo,
+        )
+        null_parts.append(full)
+    null_full = pd.concat(null_parts, ignore_index=True, sort=False)
+    gate_a_full, _, _ = load_gate_a(repo)
+    gate_a_full = gate_a_full[gate_a_full["attack"] != "clean"]
+
+    def attach(compact: pd.DataFrame, full: pd.DataFrame, label: str) -> pd.DataFrame:
+        rhs = full[KEYS + ["integrity_ks_mean_vs_clean_eval"]]
+        out = compact.merge(rhs, on=KEYS, how="left", validate="one_to_one")
+        if out["integrity_ks_mean_vs_clean_eval"].isna().any():
+            raise ValueError(f"{label}: frozen KS-statistic join is incomplete")
+        return out
+
+    return attach(null, null_full, "null"), attach(gate_a, gate_a_full, "Gate A")
+
+
 def _score_frame_legacy(
     rows: pd.DataFrame,
     calibration: dict[str, np.ndarray],
@@ -229,6 +272,16 @@ def _add_exact(frame: pd.DataFrame, *, paired: bool = False) -> pd.DataFrame:
         )
     else:
         out["fire_exact"] = _exact_fire(out).to_numpy()
+    return out
+
+
+def _ensure_delta(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    if "delta_bal_acc" not in out:
+        out["delta_bal_acc"] = (
+            pd.to_numeric(out["bal_acc_clean"], errors="coerce")
+            - pd.to_numeric(out["bal_acc"], errors="coerce")
+        )
     return out
 
 
@@ -663,6 +716,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     core_base = core_all[(core_all["attack"] != "clean") & (core_all["gate"] != "gate1_id_cicids")].copy()
     ga_all = pd.read_csv(evidence / "adversarial/adversarial_unique_observations.csv", low_memory=False)
     ga_base = ga_all[ga_all["attack"] != "clean"].copy()
+    null_old, ga_base = _restore_descriptive_ks(repo, null_old, ga_base)
     geom_base = pd.read_csv(evidence / "geometry_sensitivity/geometry_observations.csv", low_memory=False)
     gate1_all = pd.read_csv(evidence / "gate1/gate1_unique_observations.csv", low_memory=False)
     gate1_all["gate"] = "gate1_id_cicids"
@@ -699,8 +753,8 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     null_old_s = _score_cells(null_old, null_old, old_thresholds, legacy=True)
     null_new_s = _score_cells(null_new, null_new, new_thresholds, legacy=False)
     null_new_s = _with_previous(null_new_s, null_old_s)
-    core_old_s = _add_exact(_score_cells(core_base, null_old, old_thresholds, legacy=True))
-    core_new_s = _add_exact(_score_cells(core_new, null_new, new_thresholds, legacy=False))
+    core_old_s = _add_exact(_ensure_delta(_score_cells(core_base, null_old, old_thresholds, legacy=True)))
+    core_new_s = _add_exact(_ensure_delta(_score_cells(core_new, null_new, new_thresholds, legacy=False)))
     core_new_s = _with_previous(core_new_s, core_old_s)
     ga_old_s = _add_exact(_score_cells(_mechanism_columns(ga_base), null_old, old_thresholds, legacy=True))
     ga_new_s = _add_exact(_score_cells(_mechanism_columns(ga_new), null_new, new_thresholds, legacy=False))
