@@ -695,44 +695,176 @@ def _delta_table(scopes: dict[str, pd.DataFrame]) -> pd.DataFrame:
     return pd.DataFrame.from_records(records)
 
 
-def _headline(old_core: pd.DataFrame, new_core: pd.DataFrame, old_ga: pd.DataFrame, new_ga: pd.DataFrame, label_summary: pd.DataFrame) -> pd.DataFrame:
+def _headline(
+    old_core: pd.DataFrame,
+    new_core: pd.DataFrame,
+    old_ga: pd.DataFrame,
+    new_ga: pd.DataFrame,
+    old_geom: pd.DataFrame,
+    new_geom: pd.DataFrame,
+    old_null: pd.DataFrame,
+    new_null: pd.DataFrame,
+    benign: pd.DataFrame,
+    label_summary: pd.DataFrame,
+) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
+
+    def add(claim: str, old: Any, new: Any, delta: Any, reason: str) -> None:
+        rows.append({"claim": claim, "v1.3.6": old, "v1.3.7": new, "delta": delta, "reason": reason})
+
+    def rate_range(frame: pd.DataFrame, mask: pd.Series, regimes: tuple[str, ...], rule: str = "family") -> str:
+        rates: list[float] = []
+        selected = frame.loc[mask].copy()
+        for regime in regimes:
+            rates.extend(
+                selected.groupby("attack", sort=True)[f"fire_{rule}__{regime}"].mean().astype(float).tolist()
+            )
+        if not rates:
+            raise ValueError("empty headline rate range")
+        return f"{min(rates):.2f}--{max(rates):.2f}"
+
+    def count_delta(old: int, new: int) -> str:
+        return f"{new-old:+d}"
+
     label = label_summary.set_index("question")
     for q, claim in (("Q1", "Label conformal material response"), ("Q2", "Label union material response")):
         rec = label.loc[q]
         old = f"{rec['v136']}/{int(rec['v136_denominator'])}"
         new = f"{rec['v137']}/{int(rec['v137_denominator'])}"
-        rows.append({"claim": claim, "v1.3.6": old, "v1.3.7": new, "delta": f"{int(rec['v137'])-int(rec['v136']):+d} fires", "reason": "label geometry sensitivity; primary original geometry remains reported"})
-    for regime, prior in (("I_X", 4496), ("I_XF", 4365), ("I_Ym", 7008), ("I_XFY", 4390)):
-        old_actions = _actions(old_core, regime, "family_calibrated")
-        new_actions = _actions(new_core, regime, "family_calibrated")
-        material = pd.to_numeric(new_core["delta_bal_acc"]).abs().to_numpy() > TOL
-        old_n = int(((old_actions == "allow") & material).sum())
-        new_n = int(((new_actions == "allow") & material).sum())
-        if old_n != prior:
-            raise ValueError(f"historical policy headline mismatch for {regime}: {old_n} != {prior}")
-        rows.append({"claim": f"P2 material altered results served ({regime})", "v1.3.6": f"{old_n}/7008", "v1.3.7": f"{new_n}/7008", "delta": new_n-old_n, "reason": "corrected JSD coordinates and thresholds"})
-    old_exact = _actions(old_core, "I_XFY_trusted", "family_calibrated")
-    new_exact = _actions(new_core, "I_XFY_trusted", "family_calibrated")
+        add(claim, old, new, f"{int(rec['v137'])-int(rec['v136']):+d} fires", "aligned label-geometry sensitivity; the executed original geometry remains separately reported")
+
+    # Every policy served count reported in the primary Gate-D table.
     material = pd.to_numeric(new_core["delta_bal_acc"]).abs().to_numpy() > TOL
-    rows.append({"claim": "P2 trusted-reference material altered results served", "v1.3.6": f"{int(((old_exact=='allow') & material).sum())}/7008", "v1.3.7": f"{int(((new_exact=='allow') & material).sum())}/7008", "delta": 0, "reason": "exact trusted-reference path is independent of JSD correction"})
-    for geometry, frame_old, frame_new in (("Gate A original", old_ga, new_ga),):
-        adapt_old = frame_old[frame_old["attack_class"] == "adaptive"]
-        adapt_new = frame_new[frame_new["attack_class"] == "adaptive"]
-        for regime in ("I_X", "I_XF", "I_XFY"):
-            o = int(adapt_old[f"fire_family__{regime}"].sum())
-            n = int(adapt_new[f"fire_family__{regime}"].sum())
-            rows.append({"claim": f"{geometry} adaptive conformal response ({regime})", "v1.3.6": f"{o}/{len(adapt_old)}", "v1.3.7": f"{n}/{len(adapt_new)}", "delta": n-o, "reason": "corrected JSD coordinates and thresholds"})
+    if int(material.sum()) != 7008:
+        raise ValueError(f"historical material denominator mismatch: {int(material.sum())} != 7008")
+    expected_p2 = {"I_X": 4496, "I_XF": 4365, "I_Ym": 7008, "I_XFY": 4390, "I_XFY_trusted": 0}
+    policy_labels = {
+        "serve_always": "P0",
+        "union_uncalibrated": "P1",
+        "family_calibrated": "P2",
+        "family_calibrated_strict": "P3",
+    }
+    for regime in POLICY_REGIME_NAMES:
+        for policy in POLICIES:
+            old_actions = _actions(old_core, regime, policy)
+            new_actions = _actions(new_core, regime, policy)
+            old_n = int(((old_actions == "allow") & material).sum())
+            new_n = int(((new_actions == "allow") & material).sum())
+            if policy == "family_calibrated" and old_n != expected_p2[regime]:
+                raise ValueError(f"historical P2 headline mismatch for {regime}: {old_n} != {expected_p2[regime]}")
+            add(
+                f"{policy_labels[policy]} material altered results served ({regime})",
+                f"{old_n}/7008",
+                f"{new_n}/7008",
+                count_delta(old_n, new_n),
+                "corrected JSD coordinates and thresholds" if regime != "I_XFY_trusted" else "exact trusted-reference decisions; JSD correction cannot remove exact blocking",
+            )
+
+    old_core_m = _mechanism_columns(old_core)
+    new_core_m = _mechanism_columns(new_core)
+    core_regimes = ("I_X", "I_XF", "I_XFY")
+    for mechanism, label_name in (
+        ("mean_shift", "Mean-shift feature conformal response range"),
+        ("scaling_drift", "Scaling-drift feature conformal response range"),
+        ("sign_flip", "Sign-flip feature conformal response range"),
+        ("dropout", "Feature-dropout conformal response range"),
+    ):
+        old_range = rate_range(old_core_m, old_core_m["mechanism"] == mechanism, core_regimes)
+        new_range = rate_range(new_core_m, new_core_m["mechanism"] == mechanism, core_regimes)
+        add(label_name, old_range, new_range, "range recomputed", "same frozen mechanisms, strengths and rows; corrected JSD only")
+    old_dropout_rates = old_core_m.loc[old_core_m["mechanism"] == "dropout"].groupby("attack")["fire_exact"].mean()
+    new_dropout_rates = new_core_m.loc[new_core_m["mechanism"] == "dropout"].groupby("attack")["fire_exact"].mean()
+    add(
+        "Feature-dropout exact prediction-change range",
+        f"{old_dropout_rates.min():.2f}--{old_dropout_rates.max():.2f}",
+        f"{new_dropout_rates.min():.2f}--{new_dropout_rates.max():.2f}",
+        "none",
+        "predictions and exact checks are unchanged",
+    )
+
+    # The near-null and Gate-A ranges are the actual manuscript headline ranges,
+    # not newly selected subsets.
+    old_sham = old_null["attack"].isin(NEAR_NULL_SHAMS)
+    new_sham = new_null["attack"].isin(NEAR_NULL_SHAMS)
+    add(
+        "Near-null conformal response range",
+        rate_range(old_null, old_sham, tuple(BATCH_REGIME_NAMES)),
+        rate_range(new_null, new_sham, tuple(BATCH_REGIME_NAMES)),
+        "range recomputed",
+        "same 1,200 prespecified near-null controls; corrected JSD only",
+    )
+    for attack_class, label_name in (("control", "matched-control"), ("adaptive", "adaptive")):
+        old_mask = old_ga["attack_class"] == attack_class
+        new_mask = new_ga["attack_class"] == attack_class
+        add(
+            f"Gate A original-geometry {label_name} conformal response range",
+            rate_range(old_ga, old_mask, core_regimes),
+            rate_range(new_ga, new_mask, core_regimes),
+            "range recomputed",
+            "same Gate-A rows and original s(E,T(E)) geometry; corrected JSD only",
+        )
+        old_gmask = old_geom["attack_class"] == attack_class
+        new_gmask = new_geom["attack_class"] == attack_class
+        add(
+            f"Gate A aligned-geometry {label_name} conformal response range",
+            rate_range(old_geom, old_gmask, core_regimes),
+            rate_range(new_geom, new_gmask, core_regimes),
+            "range recomputed",
+            "same v1.3.5 aligned feature geometry; corrected JSD only",
+        )
+
+    adapt_old = old_ga[old_ga["attack_class"] == "adaptive"]
+    adapt_new = new_ga[new_ga["attack_class"] == "adaptive"]
+    adapt_material = pd.to_numeric(adapt_new["delta_bal_acc"]).abs().to_numpy() > TOL
+    if int(adapt_material.sum()) != 3418:
+        raise ValueError("historical Gate-A adaptive material denominator did not reproduce 3418")
+    for regime in core_regimes:
+        o_fire = int(adapt_old[f"fire_family__{regime}"].sum())
+        n_fire = int(adapt_new[f"fire_family__{regime}"].sum())
+        add(f"Gate A original adaptive conformal response ({regime})", f"{o_fire}/{len(adapt_old)}", f"{n_fire}/{len(adapt_new)}", count_delta(o_fire, n_fire), "corrected JSD coordinates and thresholds")
+        old_allow = _actions(adapt_old, regime, "family_calibrated")
+        new_allow = _actions(adapt_new, regime, "family_calibrated")
+        old_served = int(((old_allow == "allow") & adapt_material).sum())
+        new_served = int(((new_allow == "allow") & adapt_material).sum())
+        add(
+            f"Gate A adaptive P2 material served ({regime})",
+            f"{old_served}/3418 ({old_served/3418:.2f})",
+            f"{new_served}/3418 ({new_served/3418:.2f})",
+            count_delta(old_served, new_served),
+            "same 6,000 Gate-A adaptive rows; corrected JSD only",
+        )
+
+    # The exact-reference gross blocks are frozen, but their overlap with the
+    # corrected batch response must be recomputed to audit the 3.25 pp claim.
+    benign_sorted = benign.sort_values(KEYS).reset_index(drop=True)
+    old_sham_rows = old_null.loc[old_sham].sort_values(KEYS).reset_index(drop=True)
+    new_sham_rows = new_null.loc[new_sham].sort_values(KEYS).reset_index(drop=True)
+    if not (benign_sorted[KEYS].equals(old_sham_rows[KEYS]) and benign_sorted[KEYS].equals(new_sham_rows[KEYS])):
+        raise ValueError("near-null rows do not align with frozen exact-reference decisions")
+    exact = benign_sorted["fire_exact"].astype(bool).to_numpy()
+    gross = int(exact.sum())
+    old_overlap = int((exact & old_sham_rows["fire_family__I_XFY"].astype(bool).to_numpy()).sum())
+    new_overlap = int((exact & new_sham_rows["fire_family__I_XFY"].astype(bool).to_numpy()).sum())
+    old_net, new_net = gross - old_overlap, gross - new_overlap
+    if (gross, old_overlap, old_net) != (85, 46, 39):
+        raise ValueError(f"historical near-null exact audit mismatch: {(gross, old_overlap, old_net)}")
+    add("Trusted-reference gross exact blocks on near-null controls", f"{gross}/1200", f"{gross}/1200", 0, "predictions and exact-reference comparison unchanged")
+    add("Trusted/batch near-null overlap", f"{old_overlap}/1200", f"{new_overlap}/1200", count_delta(old_overlap, new_overlap), "overlap recomputed against corrected I_XFY batch response")
+    add("Trusted-reference net additional near-null interruptions", f"{old_net}/1200", f"{new_net}/1200", count_delta(old_net, new_net), "gross exact blocks minus overlap with corrected batch response")
+    add("Trusted-reference net near-null increment", f"{100*old_net/1200:.2f} pp", f"{100*new_net/1200:.2f} pp", f"{100*(new_net-old_net)/1200:+.2f} pp", "descriptive internal stress-control contrast")
+
     invariant = [
         ("Total material altered results", "7008/10800", "impact definition and predictions unchanged"),
         ("Exact trusted-reference label detection", "2617/2617", "item-aligned exact checks unchanged"),
         ("Exact trusted-reference all label interventions", "3600/3600", "item-aligned exact checks unchanged"),
+        ("Exact trusted-reference clean false actions", "0/1200", "exact-zero clean invariant unchanged"),
         ("Structural propositions 1--7", "unchanged", "no structural statement depends on histogram support"),
         ("Quantum model cells", "165 model-environment configurations (descriptive, not independent experiments)", "models and predictions unchanged"),
+        ("Quantum acceptance checks", "9/9", "no quantum experiment or output changed"),
         ("Re-split sensitivity construction", "unchanged historical sensitivity", "no new calibration campaign and no retroactive primary substitution"),
     ]
     for claim, value, reason in invariant:
-        rows.append({"claim": claim, "v1.3.6": value, "v1.3.7": value, "delta": 0, "reason": reason})
+        add(claim, value, value, 0, reason)
     return pd.DataFrame.from_records(rows)
 
 
@@ -754,6 +886,7 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
     geom_base = pd.read_csv(evidence / "geometry_sensitivity/geometry_observations.csv", low_memory=False)
     gate1_all = pd.read_csv(evidence / "gate1/gate1_unique_observations.csv", low_memory=False)
     gate1_all["gate"] = "gate1_id_cicids"
+    benign = pd.read_csv(evidence / "policy/policy_benign_decisions.csv", low_memory=False)
 
     null_new = _merge_correction(null_old, raw, "null_draw", CORRECTED)
     core_new = _merge_correction(core_base, raw[raw["gate"] != "gate1_id_cicids"], "core_original", CORRECTED)
@@ -839,7 +972,18 @@ def build(repo: Path, raw_dir: Path, jsd_dir: Path, label_dir: Path) -> None:
         null_new,
     )
     mde = _mde(new_thresholds)
-    headline = _headline(core_old_s, core_new_s, ga_old_s, ga_new_s, label_outputs["label_geometry_summary.csv"])
+    headline = _headline(
+        core_old_s,
+        core_new_s,
+        ga_old_s,
+        ga_new_s,
+        geom_old_s,
+        geom_new_s,
+        null_old_s,
+        null_new_s,
+        benign,
+        label_outputs["label_geometry_summary.csv"],
+    )
 
     outputs = {
         "jsd_corrected_observations.csv": observations,
