@@ -17,7 +17,7 @@
   \pdfinfo{
     /Title (Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows)
     /Author (Roberto Fernandez-Barrios; Iker Pastor-Lopez; Amaia Pikatza-Huerga; Pablo Garcia Bringas)
-    /Subject (Sensor-correction and label-geometry closure release for IEEE Transactions on Dependable and Secure Computing)
+    /Subject (Final editorial and traceability release for IEEE Transactions on Dependable and Secure Computing)
     /Keywords (hybrid quantum-classical systems; integrity auditing; observability; quantum kernels; workflow integrity)
   }
 \fi
@@ -60,27 +60,27 @@ by ERDF/EU.}%
 \maketitle
 
 \begin{abstract}
-We model hybrid quantum-classical integrity through observational
-indistinguishability under declared views and references. The result is
-claim-relative minimum evidence granularity within the declared reference
-lattice: a trusted same-batch scalar claim reference, a trusted aggregate and
-trusted item-aligned evidence certify conclusion, aggregate and item-identity
-claims, respectively; an
-external trust root remains necessary. Across eight frozen CICIDS2017,
-UNSW-NB15 and ToN-IoT environments, 3,600 label interventions confirm the
-structural boundaries. Structural blindness is distinct from finite-sample
-statistical miss and independent of batch size; executed detection is not a
-universal power bound. The equal-weight grid is a design summary, not
-deployment prevalence.
-The design calibrates on clean resamples; a geometry-aligned sensitivity fixes
-the reference/batch construction between clean and intervention. Mean shift
-and scaling remain almost fully responsive, dropout strength-dependent, and an
-adaptive cluster-preserving intervention reduces response against matched controls in
-25--40 of 40 environment/split cells while retaining materially altered audit results. A
-full-conformal Max-Rank rule is valid under exchangeability; executed
-false-action rates are descriptive. A bounded 165-design-cell ideal-statevector
-and finite-shot-emulation gate instantiates the lattice without a hardware
-claim.
+We present a claim-relative evidence/reference framework for hybrid
+quantum-classical workflow integrity. Observational indistinguishability yields
+structural blind regions, distinct from finite-batch statistical misses. Within
+the declared lattice, a trusted same-batch scalar $R_0$ suffices for conclusion
+integrity, aggregate $M_0$ for aggregate plus conclusion integrity, and
+item-aligned binding for item identity. In 3,600 label interventions,
+feature/prediction views realize exact label-path invariance; all
+\AlignedLabelBlindDen{} geometry-aligned aggregate-blind rows equal their paired-clean
+responses, giving zero attack-only increment. For statistical response, the
+geometry-aligned construction detects \AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{}
+material label interventions with the conformal rule and
+\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} with the uncorrected union;
+the original frozen same-item geometry yields 11/2,617 and 43/2,617,
+respectively. The executed conformal clean false-action rates are
+\FprFamilyIYm--\FprFamilyIXF{} descriptively; its finite-sample guarantee requires
+exchangeability, which the overlapping-draw design violates. Gate~A's adaptive
+construction reduces response versus matched controls in 25--40 of 40
+environment/split cells while retaining material conclusion changes. A bounded
+165-design-cell ideal-statevector and finite-shot-emulation branch directly instantiates
+semantic, estimated and observed kernel transitions. The fixed equal-weight
+design estimates neither deployment prevalence nor QPU, provider or deployed-service assurance.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -121,25 +121,21 @@ material conclusion change in the declared setting; only item-identity
 integrity requires item alignment. If one party
 controls both the label store and its checking reference, no local verifier can
 distinguish a substituted honest pair from the original (Proposition~6). The
-paper identifies the minimum external root and its granularity within the
-declared reference model for the protected claim; it does not remove the need
+paper identifies a necessary external root and claim-relative sufficient
+granularity within the declared reference model; it does not remove the need
 for that root. The scenario is a
 reading aid, not an incidence estimate.
 
-Prior art already establishes observation-relative detectability
-\cite{Pasqualetti2013,Teixeira2015,Liu2011}, authenticates evaluation artifacts
-through VAMP \cite{Stokes2021}, constructs drifts that evade their detectors
-\cite{Hinder2025}, and verifies quantum-stage contracts and behavioural
-evidence on hardware \cite{YeniarasKarimov2026,Yeniaras2026PipeGuard}. We claim
-none of these ingredients. The novelty lies in their composition as a
-claim-relative evidence lattice for hybrid workflow integrity: it derives
-structural blind regions and the information/reference granularity sufficient
-or insufficient for conclusion, aggregate and item-identity claims, explicitly
-including the evaluation-label path and separating structural blindness from
-finite-sample statistical miss. The experiments instantiate its structural predictions,
-measure conformal-rule policy consequences, quantify reduced response under an
-adaptive construction against a declared fingerprint, and map the distinctions onto a bounded quantum
-branch.
+Prior art establishes observation-relative detectability
+\cite{Pasqualetti2013,Teixeira2015,Liu2011}, authenticated evaluation artifacts
+\cite{Stokes2021}, detector-aware drift \cite{Hinder2025} and quantum-stage
+contracts \cite{YeniarasKarimov2026,Yeniaras2026PipeGuard}. We claim none of
+these building blocks individually. Their composition here yields a
+claim-relative integrity lattice with structural blind regions, an explicit
+evaluation-label path, reference sufficiency/necessity for three claim levels,
+and a separation between structural blindness and finite-sample miss. The
+experiments instantiate those distinctions, policy consequences, one declared
+adaptive fingerprint and a bounded quantum branch.
 
 The contribution is one package:
 \begin{itemize}
@@ -148,26 +144,21 @@ The contribution is one package:
   semantic, estimated and observed kernels;
   \item an explicit adversary/failure model, including an adaptive attacker
   that preserves the declared batch fingerprint;
-  \item multi-dataset fixed-OOD validation with verified deduplication,
-  cluster-level uncertainty and prespecified null calibration;
+  \item multi-dataset fixed-OOD validation with duplicate-controlled result
+  aggregation, numerical identity checks, cluster-level uncertainty and
+  prespecified null calibration;
   \item a conformal family rule valid under exchangeability and an offline
   \texttt{allow/hold/block} analysis over the frozen grid; and
   \item a bounded quantum-path instantiation and four-contract prototype.
 \end{itemize}
 
-The evidence lattice and its claim-relative derivation are the contribution;
-the conformal Max-Rank construction, contracts, hash chains, cryptographic
-roots, unobservable attacks and semantics-preserving tests remain prior-art
-building blocks. The secondary quantum-versus-classical impact profile
-(supplement) is neither a quantum-advantage result nor a vulnerability
-ordering. Physical hardware, calibrated backend noise, scheduling,
-provider-side security, multi-tenant interference, deployed runtime services
-and operational Fleet Management are outside the claim.
-Results are kept in three layers: Propositions~1--7 give the structural blind
-regions, reference lattice and claim-relative sufficiency; batch sensor,
-clean-resample and geometry responses are finite-design statistics; and exact
-aggregate, item-aligned and hash checks are constructive acceptance checks.
-The latter two instantiate declared premises but are not additional theorems.
+The lattice and its claim-relative derivation are the contribution; Max-Rank,
+contracts, hash chains and cryptographic roots remain prior-art components.
+Results have three layers: structural propositions, finite-design statistical
+responses and constructive exact checks. Hardware, calibrated backend noise,
+provider security, deployed services and Fleet Management are outside scope;
+the supplemental model profile is neither quantum advantage nor vulnerability
+ordering.
 
 \section{Related Work and Positioning}
 
@@ -276,24 +267,16 @@ its hash chain unsigned, and its policy offline.
 
 Three companion studies by the authors are disclosed to delimit the claim.
 \emph{Sharp target-domain certificates} \cite{FernandezBarrios2026Certificates}
-bounds the advantage of a fixed quantum-kernel candidate under distribution
-shift (shared data sources and fidelity kernels; an identification interval,
-not the observability of interventions). \emph{Conditional validity of
-quantum event classifiers} \cite{FernandezBarrios2026Conditional}, the
-closest relative, conditions fail-closed verdicts on a declared information
-set and exhibits exact sensor blindness to weight-only nuisances in collider
-data; here the conditioning is applied to the integrity of the evidence chain
-under interventions, with trusted references, a conformal-rule policy and
-executable response. \emph{Candidate comparability before promotion}
-\cite{FernandezBarrios2026VBC} decides whether a challenger should replace a
-deployed detector after a drift alarm (shared benchmarks and label-free
-monitors). The present study concerns workflow integrity, observational
-indistinguishability, evidence granularity and integrity policy. A separate
-longitudinal study concerns operational QPU and context assurance. Data
-sources, fidelity-kernel implementations and some monitors are shared and are
-not presented as independent contributions; none of the propositions,
-interventions, tables or experiments reported here appears in the three
-companion manuscripts.
+identifies where a fixed candidate advantage is supported under shift.
+\emph{Conditional validity} \cite{FernandezBarrios2026Conditional} studies
+conditional evidence and abstention under collider and estimation uncertainty.
+\emph{Candidate comparability} \cite{FernandezBarrios2026VBC} governs
+challenger promotion after drift. This paper instead concerns adversarial
+workflow integrity: observational blindness, trusted roots, label-store
+substitution and reference granularity. Shared data sources, fidelity kernels
+and selected monitors are disclosed; the formal objects, interventions,
+endpoints, tables and primary experiments are distinct. Operational QPU/context
+assurance belongs to separate longitudinal work.
 
 \section{Observation Model and Blind Regions}
 
@@ -483,8 +466,9 @@ and, by Proposition~3, every material conclusion change. (b) References that
 factor through $M$, $\mathrm{hist}(y)$ or $R$ miss C1 relabelings; item identity
 needs level C, whose aligned $y_0$ detects every non-identity relabeling. Thus
 $R_0$, $M_0$ and item alignment protect conclusion, aggregate-plus-conclusion
-and identity claims, respectively. These are minimum levels within the declared
-reference lattice, not minima over every encoding or audit architecture.
+and identity claims, respectively. Their sufficiency and the counterexample
+necessity are claim-relative within the declared reference lattice; the
+minimality statement is not over every encoding or audit architecture.
 
 \textbf{Proposition 5 (union versus conformal family calibration).} (a) If
 $m$ sensors fire under the null with probabilities $p_j\le\alpha$, then
@@ -806,10 +790,13 @@ repeated-estimation discrepancy and prediction changes. The prototype
 instantiates four ordered contracts (input/preprocessing, circuit/kernel,
 execution/result, evaluation/report) in an SHA-256 chain over one compact
 CICIDS cell and six prespecified scenarios; it evaluates composition and
-decision logic, not throughput. It is a methodological V\&V and integrity
-contribution within Deusto's ATHENA-AEGIS work on hybrid workflows, not
-evidence of full ATHENA validation, deployment, provider attestation,
-confidentiality, QPU protection or Fleet Management.
+decision logic, not throughput. The explicit $K_{\mathrm{sem}}$, $\hat K$ and
+$K_{\mathrm{obs}}$ transitions, semantic-equivalence checks and finite-shot
+estimator randomness make this a quantum-stage contract path rather than a
+generic ML-only pipeline. In ATHENA-AEGIS terms, the four-contract prototype
+instantiates an integrity contract for the hybrid service composition exposed
+as HSaaS; it does not constitute deployed HSaaS validation, provider assurance,
+confidentiality, QPU protection or Fleet Management validation.
 
 \section{Results}
 
@@ -847,52 +834,40 @@ sensors). The conformal family rule brings them to \FprFamilyIX{},
 observed rates in a design that violates the exchangeability premise. For
 comparison, the asymmetric construction gives \FprLegacyIX{}, \FprLegacyIXF{},
 \FprLegacyIYm{} and \FprLegacyIXFY{} on the same draws. Its excess over 0.05
-decomposes into rule bias \RuleBiasIX{}, \RuleBiasIXF{}, \RuleBiasIYm{} and
-\RuleBiasIXFY{}, and design effect \DesignEffectIX{}, \DesignEffectIXF{}, \DesignEffectIYm{} and
-\DesignEffectIXFY{}, and under exchangeable re-splits of the pooled draws,
-where any excess is attributable to the construction, it fires at
-\ResplitLegacyIX{}, \ResplitLegacyIXF{}, \ResplitLegacyIYm{} and
-\ResplitLegacyIXFY{} while the conformal rule stays at \ResplitFamilyIX{},
-\ResplitFamilyIXF{}, \ResplitFamilyIYm{} and \ResplitFamilyIXFY{} against its
-level \ConformalLevel{}. What remains with the conformal rule is the design
-effect, concentrated in E1, whose 200 draws per cell carry the information of
-about one independent batch per pool half (\FprFamilyEoneOnlyIX{},
-\FprFamilyEoneOnlyIXF{}, \FprFamilyEoneOnlyIXFY{} in $\IX$, $\IXF$, $\IXFY$);
-without E1 the conformal rule sits at \FprFamilyExclEoneIX{},
-\FprFamilyExclEoneIXF{}, \FprFamilyExclEoneIYm{} and \FprFamilyExclEoneIXFY{};
-E1 stays in the primary aggregate. A split construction (\FprSplitIX{},
-\FprSplitIXF{}, \FprSplitIYm{}, \FprSplitIXFY{}; supplement) is not adopted
-because it splits the draws between ranking and calibration, reducing the
-calibration sample and coarsening $p$-value resolution to 1/101.
+contains both rule bias and design effect. Under the same exchangeable
+re-splits the conformal rule stays at or below level \ConformalLevel{} in all
+four regimes, while the asymmetric rule exceeds it in some.
+The remaining executed-design excess is concentrated in E1; E1 stays in the
+primary aggregate. Per-regime decomposition, E1/excluded-E1 values and the
+unadopted split construction appear in the supplement.
 
-As a consistency check of Proposition~4(i), the executed rules confirm
-the pathwise structural prediction: on all 3,600 label observations the per-sensor and
-the conformal $\IX$ and $\IXF$ rules, and on all 1,800 prior-preserving
-observations the $\IYm$ rules, fire zero times, as they must when their input
-is unchanged. The informative result is on the other side: the batch-level
-$\IXFY$ rules detect \BatchUnionLabelFires{} (union) and
-\BatchFamilyLabelFires{} (conformal) of the \NMaterialLabel{} material label
-observations, \BatchUnionLabelRate{} and \BatchFamilyLabelRate{}, although
-every one of them is separable (Proposition~3, C8). These 11--43 detections
-among 2,617 material rows are finite-batch statistical-power results, not
-structural blind regions: in this design a 2--10\% relabeling of a 128-row
-batch can shift the confusion profile by less than its variability across
-fresh clean batches. Aligned response is
-\AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} conformal and
-\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} union; among
-\AlignedLabelSeparableDen{} separable rows the counts are
-\AlignedLabelSeparableFamilyFires{} and \AlignedLabelSeparableUnionFires{}, while
-all \AlignedLabelBlindDen{} blind rows equal paired clean. A trusted aggregate reference of the same batch
+The executed rules realize Proposition~4(i): across 3,600 label observations,
+the $\IX/\IXF$ sensors and rules fire zero times; the $\IYm$ rules likewise fire
+zero times on 1,800 prior-preserving rows. The primary empirical interpretation
+of finite-batch label response uses the geometry-aligned construction
+$s(E,T_y(B))$, calibration $s(E,C)$ and clean $s(E,B)$.
+It detects
+\AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} material interventions
+with the conformal family rule and
+\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} with the uncorrected union.
+Among \AlignedLabelSeparableDen{} aggregate-separable rows, responses are
+\AlignedLabelSeparableFamilyFires{} conformal and
+\AlignedLabelSeparableUnionFires{} union; all \AlignedLabelBlindDen{}
+aggregate-blind aligned rows exactly equal their paired-clean sensor and rule
+responses, so attack-only increment is zero; this is the structural result.
+The original frozen benchmark geometry $s(E,T_y(E))$, retained for release
+reproduction and comparison and structurally valid for invariance, yields
+\BatchFamilyLabelFires{}/\NMaterialLabel{} conformal and
+\BatchUnionLabelFires{}/\NMaterialLabel{} union, but is not the preferred
+estimate of statistical response under the clean-resample geometry. Nonresponse on
+separable rows is a finite-batch miss, not structural blindness. A trusted same-batch aggregate
 detects all \NMaterialLabel{} exactly (Corollary~3a) and \WitnessWNine{} of
 the 3,600 label rows in total; the \WitnessWTen{} relabelings that preserve
 every aggregate (C1) are exposed only by the item-aligned label reference
 (Corollary~3b). Feature-side coverage is mechanism-dependent: mean shift and
-scaling drift are detected in \AdvDetCtrlIXMin--\AdvDetCtrlIXMax{} of $\IX$
-cells, \AdvDetCtrlIXFMin--\AdvDetCtrlIXFMax{} of $\IXF$ cells and
-\AdvDetCtrlIXFYMin--\AdvDetCtrlIXFYMax{} of $\IXFY$ cells because the standardized
-projected features hold tight clusters that an in-place perturbation smears
-and a fresh batch reproduces, a legitimate but fragile fingerprint that also
-fires on the near-null controls (41--62\% with the conformal rule); feature
+scaling are highly responsive because in-place perturbation smears tight
+projected-feature clusters that clean resampling reproduces; the same fragile
+fingerprint responds on 41--62\% of near-null controls. Feature
 dropout with imputation is nearly invisible at the batch level (0--3\%) yet
 changes predictions in 49--76\% of cells. Within this fixed intervention grid,
 the conformal rule reduces detection only slightly:
@@ -900,24 +875,28 @@ containment in $\IXF$ is \ContainUnionIXF{} under the union and
 \ContainFamilyIXF{} under the conformal rule at the primary threshold,
 \ContainFiveUnionIXF{} versus \ContainFiveFamilyIXF{} at $\tau=0.05$.
 
+Sensor dependence is substantial and explicitly quantified by the existing
+frozen-only ablation. After removing KS and recalibrating the remaining family,
+the core retains 3,521/4,361 $\IX$, 4,008/4,462 $\IXF$ and 3,959/4,419
+$\IXFY$ primary fires, whereas the near-null retained counts fall to 10/650,
+62/603 and 62/576. Thus KS dominates much of the near-null response associated
+with point masses and near-duplicate clusters, while much of the core
+feature-side response remains. KS stays because it was prespecified, and this
+descriptive ablation does not replace the primary family.
+
 \begin{figure*}[!t]
   \centering
   \includegraphics[width=\textwidth]{fig_q1_policy_decisions.pdf}
   \caption{Gates F and D (prespecified frozen evidence). (a)
-  Decision-level false-alarm rate on \NEvalDraws{} disjoint clean draws of the
-  union rule, of the asymmetric comparison rule and of the conformal family
-  rule per regime; whiskers span the eight per-environment cluster means. (b)
-  Rate of materially altered audit results served against clean
-  false-action rate for each batch policy and regime at the
-  structural-sensitivity endpoint; the batch FPR denominator is 12,000
-  draws. The trusted invariant check is reported separately because its
-  denominator is 1,200 exact-zero rows and it is a different estimand. The
-  sensor-coverage-complete policy P3 serves nothing where
-  the label boundary has no coverage. (c) Interruption of the same 1,200
-  near-null synthetic controls by each policy and regime; the trusted
-  regime's origin in (b) interrupts \BenignInterruptFamilyIXFYtrusted{} controls
-  here, \BenignHoldFamilyIXFYtrusted{} statistical holds and
-  \TrustedGrossExactBlocks{} gross exact-reference blocks.}
+  Decision-level false-action rate on \NEvalDraws{} clean draws from evaluation
+  pools disjoint from the calibration pools; resampled draws within each pool
+  may overlap. Union, asymmetric-comparison and conformal rates are shown per
+  regime. (b) Materially altered audit results served versus clean false-action
+  rate at the structural-sensitivity endpoint (12,000-draw batch denominator);
+  the trusted exact-zero check uses 1,200 rows and is a different estimand.
+  (c) Interruption of 1,200 near-null controls; trusted P2 interrupts
+  \BenignInterruptFamilyIXFYtrusted{}: \BenignHoldFamilyIXFYtrusted{} statistical
+  holds and \TrustedGrossExactBlocks{} gross exact blocks.}
   \label{fig:policy}
 \end{figure*}
 
@@ -1055,8 +1034,9 @@ equal-weight intervention grid, not deployment prevalence. Gate~A is a stress
 test of one cluster-sensitive fingerprint; its aligned sensitivity preserves
 the control/adaptive ordering while exposing a geometry effect.
 
-The claim-relative minimum is within the declared reference lattice, where
-granularity means bound information, not digest length. A Merkle root or
+Evidence sufficiency and necessity are claim-relative within the declared
+reference lattice, where granularity means authenticated or bound information,
+not digest length. A Merkle root or
 position-binding vector commitment can compactly bind level-C item identity
 \cite{Merkle1988,CatalanoFiore2013}. Level B instead lets aggregate- or
 conclusion-only audits verify $M_0$ or $R_0$ without retaining or exposing the
@@ -1083,9 +1063,12 @@ independent of the number of rows: a view-preserving intervention remains
 invisible as $n$ grows. For interventions that do change an observed statistic,
 however, power can increase with batch size as sampling variability often
 decreases, approximately as $n^{-1/2}$ for proportion-like statistics under
-regular conditions. The original 11--43/2,617 and aligned
-\AlignedLabelFamilyFires{}--\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{}
-are fixed-geometry outcomes, not power bounds. E1 is the
+regular conditions. The primary geometry-aligned outcomes---
+\AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} conformal and
+\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} union---and the original
+frozen outcomes---\BatchFamilyLabelFires{}/\NMaterialLabel{} conformal and
+\BatchUnionLabelFires{}/\NMaterialLabel{} union---are finite-design results,
+not power bounds. E1 is the
 only 256-row environment and exhibits non-zero label response, but because
 batch size is confounded with environment and null behavior, this cannot
 identify a batch-size effect.
@@ -1105,18 +1088,23 @@ non-stationarity, recovery, QPU execution and service enforcement remain open.
 
 Hybrid workflow integrity is evidence-relative. Interventions can be
 structurally invisible, statistically missed in a finite batch, or show reduced
-response against the declared monitored fingerprint. The conformal guarantee remains conditional on
-exchangeability and the quantum instantiation simulator-bounded. Within the
-declared lattice, authenticated $R_0$, $M_0$ and item alignment certify
-conclusion, aggregate-plus-conclusion and item-identity claims, respectively.
-Assurance must state its view, trust root, premise, residual region and response.
+response against the declared monitored fingerprint. The geometry-aligned
+label construction is the primary statistical interpretation; its 764
+aggregate-blind rows retain zero attack-only increment. The substantial KS
+dependence is quantified without replacing the prespecified family. The
+conformal guarantee remains conditional on exchangeability and the quantum
+instantiation simulator-bounded. Within the declared lattice, authenticated
+$R_0$, $M_0$ and item alignment certify conclusion,
+aggregate-plus-conclusion and item-identity claims, respectively. Assurance
+must state its view, trust root, premise, residual region and response.
 
 \section*{Data, Code, and Ethics Statement}
 
-The artifact contains code, tests, frozen and corrective derived evidence and eleven manifests;
+The version 1.3.8 artifact contains code, tests, frozen and corrective derived evidence and eleven manifests;
 raw benchmarks are not redistributed. Sources, hashes and staging are
-documented. Version DOI: 10.5281/zenodo.22698329; concept DOI:
-10.5281/zenodo.22550852; immutable predecessor DOI: 10.5281/zenodo.22694063.
+documented. Its version DOI is 10.5281/zenodo.22706167 under concept DOI
+10.5281/zenodo.22550852; immutable predecessor v1.3.7 has DOI
+10.5281/zenodo.22698329.
 Code is Apache-2.0 and derived evidence/documentation
 CC~BY~4.0. No new human-participant or personal-data collection was performed.
 
@@ -1124,15 +1112,13 @@ CC~BY~4.0. No new human-participant or personal-data collection was performed.
 
 OpenAI Codex and Anthropic Claude Code assisted with drafting and language
 review in the Abstract, Introduction, Related Work, Methods, Results,
-Discussion, data/code statement and supplement; with code generation and
-inspection for sensor, analysis, test and release tooling; with targeted
-literature-search and reference-metadata checks; and with evidence-table,
-figure, artifact and submission-package preparation. Human authors
-independently inspected and approved every formal statement and proof,
-reference, code path, experiment, numerical result and final passage using the
-stated tests, verifiers and primary sources, and assume full responsibility.
-Neither system is an author, an evidentiary decision maker or a proof authority;
-system-by-section detail accompanies the submission.
+Discussion, data/code statement and supplement; targeted literature-search
+support; code generation and inspection for analysis, tests and release tools;
+and table, figure, artifact and submission-package preparation. Human authors
+independently validated every formal statement and proof, reference, code path,
+experiment, result and final passage and retain full responsibility. Neither
+system is an author or proof authority; detailed disclosure accompanies the
+submission.
 
 % Column balance of the last page: set \IEEEtriggeratref{N} only if the reference list ends unbalanced.
 \bibliographystyle{IEEEtran}

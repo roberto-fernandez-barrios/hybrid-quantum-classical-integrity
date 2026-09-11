@@ -1,4 +1,4 @@
-"""Generate the v1.3.7 supplement tables from manifested corrective CSVs."""
+"""Generate v1.3.8 presentation tables from manifested v1.3.7 evidence."""
 
 from __future__ import annotations
 
@@ -96,7 +96,7 @@ def _feature_tables(decomposition: pd.DataFrame) -> str:
                 rf"\begin{{table*}}{placement}",
                 r"\caption{" + _escape(SCOPE_LABELS[scope]) + r": per-sensor decomposition by mechanism and strength. Each calibrated-sensor cell is mean response/firing percentage; KS-stat is descriptive only. Family columns are conformal fires.}",
                 rf"\label{{tab:v137-decomp-{panel}}}",
-                r"\centering\scriptsize\setlength{\tabcolsep}{2.1pt}",
+                r"\centering\scriptsize\renewcommand{\arraystretch}{0.94}\setlength{\tabcolsep}{2.1pt}",
                 r"\begin{tabular}{@{}lllrrrrrrrrr@{}}",
                 r"\toprule",
                 r"Class & Mechanism & Strength & F-JSD & MMD & KS-stat & KS-rej & S-JSD & $\Delta p$ & P-JSD & Fam. $\IX$ & Fam. $\IXF$ \\",
@@ -152,7 +152,7 @@ def _without_ks_tables(ablation: pd.DataFrame) -> str:
                 r"\begin{table*}[!t]",
                 r"\caption{Frozen-only descriptive ablation without the prespecified KS-reject component, " + _escape(scope_caption) + r". Cells give primary $\rightarrow$ without-KS conformal fire counts; this does not replace the primary family.}",
                 rf"\label{{tab:v137-without-ks-{panel}}}",
-                r"\centering\footnotesize\setlength{\tabcolsep}{4pt}",
+                r"\centering\footnotesize\renewcommand{\arraystretch}{0.90}\setlength{\tabcolsep}{4pt}",
                 r"\begin{tabular}{@{}lllrrrr@{}}",
                 r"\toprule",
                 r"Class & Mechanism & Strength & $n$ & $\IX$ & $\IXF$ & $\IXFY$ \\",
@@ -218,7 +218,7 @@ def _label_table(observations: pd.DataFrame, summary: pd.DataFrame) -> str:
     lines.extend(
         [
             r"\midrule",
-            rf"\multicolumn{{10}}{{l}}{{Pooled original $\rightarrow$ aligned material response}} & {int(q.loc['Q1','v136'])}/{int(q.loc['Q1','v136_denominator'])}$\rightarrow${int(q.loc['Q1','v137'])}/{int(q.loc['Q1','v137_denominator'])} & {int(q.loc['Q2','v136'])}/{int(q.loc['Q2','v136_denominator'])}$\rightarrow${int(q.loc['Q2','v137'])}/{int(q.loc['Q2','v137_denominator'])} \\",
+            rf"\multicolumn{{10}}{{l}}{{Pooled original frozen $\rightarrow$ geometry-aligned material response}} & {int(q.loc['Q1','v136']):,}/{int(q.loc['Q1','v136_denominator']):,}$\rightarrow${int(q.loc['Q1','v137']):,}/{int(q.loc['Q1','v137_denominator']):,} & {int(q.loc['Q2','v136']):,}/{int(q.loc['Q2','v136_denominator']):,}$\rightarrow${int(q.loc['Q2','v137']):,}/{int(q.loc['Q2','v137_denominator']):,} \\",
             r"\bottomrule",
             r"\end{tabular}",
             r"\end{table*}",
@@ -308,6 +308,39 @@ def _policy_row(policy: pd.DataFrame, regime: str, name: str, *, family_rule: st
     return row.iloc[0]
 
 
+def _trusted_current_counts(policy: pd.DataFrame) -> dict[str, int | float]:
+    """Derive the corrected trusted-reference decomposition from policy evidence."""
+
+    batch = _policy_row(policy, "I_XFY", "family_calibrated")
+    trusted = _policy_row(policy, "I_XFY_trusted", "family_calibrated")
+    if int(batch["n_benign"]) != int(trusted["n_benign"]):
+        raise ValueError("batch and trusted near-null denominators differ")
+
+    denominator = int(trusted["n_benign"])
+    batch_interruptions = int(batch["benign_hold"]) + int(batch["benign_block"])
+    gross_exact_blocks = int(trusted["benign_block"])
+    trusted_total = int(trusted["benign_hold"]) + gross_exact_blocks
+    exact_overlap = batch_interruptions + gross_exact_blocks - trusted_total
+    net_additional = trusted_total - batch_interruptions
+    net_additional_pct = 100.0 * net_additional / denominator
+
+    if not (
+        exact_overlap == gross_exact_blocks - net_additional
+        and int(trusted["benign_hold"]) == batch_interruptions - exact_overlap
+        and abs(float(trusted["benign_interruption_rate"]) - trusted_total / denominator) <= 1e-12
+    ):
+        raise ValueError("corrected trusted-reference decomposition is inconsistent")
+    return {
+        "denominator": denominator,
+        "batch_interruptions": batch_interruptions,
+        "gross_exact_blocks": gross_exact_blocks,
+        "trusted_total": trusted_total,
+        "exact_overlap": exact_overlap,
+        "net_additional": net_additional,
+        "net_additional_pct": net_additional_pct,
+    }
+
+
 def _main_policy_table(policy: pd.DataFrame) -> str:
     rows: list[str] = []
     blind = {"I_X": 2617, "I_XF": 2617, "I_Ym": 5450, "I_XFY": 0, "I_XFY_trusted": 0}
@@ -330,7 +363,7 @@ def _main_policy_table(policy: pd.DataFrame) -> str:
             rows.append(r"\addlinespace[1pt]")
     lines = [
         r"\begin{table}[!t]",
-        r"\caption{Offline v1.3.7 decisions after the JSD correction on the unchanged 10,800 frozen interventions (7,008 materially altered audit results). P1 is the union; P2 is the conformal risk-tolerant rule; P3 is sensor-coverage-complete relative to declared evidence dimensions and abstains where coverage is missing. FPR uses the same 12,000 clean draws; the starred exact-zero check uses 1,200 rows and is a different estimand. Benign is interruption of the same 1,200 near-null stress controls. Served counts undetected materially altered audit results, not operational events.}",
+        r"\caption{Offline decisions on 10,800 unchanged frozen interventions (7,008 material at the structural-sensitivity endpoint; $\tau=0.05$ is in the supplement). P1 is union, P2 conformal and P3 abstains on missing sensor coverage. Batch FPR uses 12,000 clean draws from evaluation pools disjoint from calibration pools; draws within a pool may overlap. The starred exact-zero check uses 1,200 rows and is a different estimand. Benign is interruption of 1,200 near-null controls; served counts are altered audit results, not operational events.}",
         r"\label{tab:policy}", r"\centering\scriptsize\setlength{\tabcolsep}{2pt}",
         r"\begin{tabular}{@{}llrrrrr@{}}", r"\toprule",
         r"Regime & Policy & FPR/check & Benign & Served & Contain. & Blind \\", r"\midrule",
@@ -494,6 +527,7 @@ def _correction_macros(
     resplit: pd.DataFrame,
     split_sensitivity: pd.DataFrame,
     label_summary: pd.DataFrame,
+    label_observations: pd.DataFrame,
 ) -> str:
     lines = ["% Generated by make_v137_tables.py from manifested v1.3.7 corrective evidence; do not edit."]
     current_gate_f = gate_f[
@@ -581,12 +615,13 @@ def _correction_macros(
             ]
         )
 
+    trusted_counts = _trusted_current_counts(policy)
     lines.extend(
         [
-            _renew("TrustedGrossExactBlocks", "85"),
-            _renew("TrustedExactOverlap", "44"),
-            _renew("TrustedNetAdditional", "41"),
-            _renew("TrustedNetAdditionalPct", "3.42"),
+            _renew("TrustedGrossExactBlocks", f"{trusted_counts['gross_exact_blocks']:,}"),
+            _renew("TrustedExactOverlap", f"{trusted_counts['exact_overlap']:,}"),
+            _renew("TrustedNetAdditional", f"{trusted_counts['net_additional']:,}"),
+            _renew("TrustedNetAdditionalPct", f"{trusted_counts['net_additional_pct']:.2f}"),
         ]
     )
 
@@ -711,15 +746,23 @@ def _correction_macros(
         lines.append(_renew(macro, f"{float(value):.3f}"))
 
     q = label_summary.set_index("question")
+    label_separable = label_observations["aggregate_separable"].astype(bool)
+    label_blind = label_observations["aggregate_blind"].astype(bool)
+    separable_family = int(
+        (label_separable & label_observations["aligned__fire_family__I_XFY"].astype(bool)).sum()
+    )
+    separable_union = int(
+        (label_separable & label_observations["aligned__fire_union__I_XFY"].astype(bool)).sum()
+    )
     lines.extend(
         [
-            _define("AlignedLabelFamilyFires", int(q.loc["Q1", "v137"])),
-            _define("AlignedLabelMaterialDen", int(q.loc["Q1", "v137_denominator"])),
-            _define("AlignedLabelUnionFires", int(q.loc["Q2", "v137"])),
-            _define("AlignedLabelSeparableFamilyFires", 352),
-            _define("AlignedLabelSeparableUnionFires", 1204),
-            _define("AlignedLabelSeparableDen", 2836),
-            _define("AlignedLabelBlindDen", 764),
+            _define("AlignedLabelFamilyFires", f"{int(q.loc['Q1', 'v137']):,}"),
+            _define("AlignedLabelMaterialDen", f"{int(q.loc['Q1', 'v137_denominator']):,}"),
+            _define("AlignedLabelUnionFires", f"{int(q.loc['Q2', 'v137']):,}"),
+            _define("AlignedLabelSeparableFamilyFires", f"{separable_family:,}"),
+            _define("AlignedLabelSeparableUnionFires", f"{separable_union:,}"),
+            _define("AlignedLabelSeparableDen", f"{int(label_separable.sum()):,}"),
+            _define("AlignedLabelBlindDen", f"{int(label_blind.sum()):,}"),
         ]
     )
     return "\n".join(lines) + "\n"
@@ -754,7 +797,16 @@ def build(repo: Path, jsd_dir: Path, label_dir: Path, table_dir: Path) -> None:
     (table_dir / "s_v137_policy_family.tex").write_text(_policy_family_table(corrected_observations), encoding="utf-8", newline="\n")
     (table_dir / "m_v137_adversarial.tex").write_text(_main_adversarial_table(corrected_observations), encoding="utf-8", newline="\n")
     (table_dir / "v137_correction_macros.tex").write_text(
-        _correction_macros(repo, corrected_observations, primary_policy, gate_f, resplit, split_sensitivity, summary),
+        _correction_macros(
+            repo,
+            corrected_observations,
+            primary_policy,
+            gate_f,
+            resplit,
+            split_sensitivity,
+            summary,
+            observations,
+        ),
         encoding="utf-8",
         newline="\n",
     )

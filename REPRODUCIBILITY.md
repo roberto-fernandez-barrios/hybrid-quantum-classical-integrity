@@ -1,13 +1,14 @@
 # Reproducing and verifying the published artifact
 
-This guide covers release `1.3.7`, the sensor-correction and label-geometry
-closure release, under concept DOI
+This guide covers release `1.3.8`, the final editorial and traceability release,
+under concept DOI
 [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852). Its
-version DOI is
-[10.5281/zenodo.22698329](https://doi.org/10.5281/zenodo.22698329). Its
-immutable predecessor is version `1.3.6`, DOI
-[10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063). Version
-1.3.7 adds separate corrective evidence; no previous evidence file is changed. The compact
+version DOI is [10.5281/zenodo.22706167](https://doi.org/10.5281/zenodo.22706167).
+Its immutable predecessor is
+version `1.3.7`, DOI
+[10.5281/zenodo.22698329](https://doi.org/10.5281/zenodo.22698329). Version
+1.3.8 adds no evidence: it changes presentation and traceability only, and no
+previous evidence file is changed. The compact
 artifact can be verified without benchmark datasets. A full replay additionally
 requires the public CICIDS2017, UNSW-NB15, and ToN-IoT source files.
 
@@ -38,7 +39,7 @@ artifact-wide SHA-256 manifest, eleven embedded evidence manifests and their
 manifested outputs, CSV row counts, acceptance checks, and the primary counts
 recomputed from the frozen derived evidence.
 
-An unpacked `paper15-q1-v1.3.7.zip` can be verified independently from its own
+An unpacked `paper15-q1-v1.3.8.zip` can be verified independently from its own
 root with:
 
 ```powershell

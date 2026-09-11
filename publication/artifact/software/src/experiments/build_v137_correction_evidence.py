@@ -887,7 +887,7 @@ def _headline(
                 f"{old_fire}/12000 ({old_fire/12000:.3f})",
                 f"{new_fire}/12000 ({new_fire/12000:.3f})",
                 count_delta(old_fire, new_fire),
-                "same disjoint clean-evaluation draws; descriptive because the executed design violates exchangeability",
+                "same clean draws from evaluation pools disjoint from calibration pools; resampled draws within a pool may overlap, so executed rates are descriptive",
             )
     old_sensor_rates = [float(old_eval[f"fire_sensor__{sensor}"].mean()) for sensor in CALIBRATED_SENSORS]
     new_sensor_rates = [float(new_eval[f"fire_sensor__{sensor}"].mean()) for sensor in CALIBRATED_SENSORS]

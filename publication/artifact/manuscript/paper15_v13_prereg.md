@@ -54,7 +54,8 @@ any decision or claim of 1.3.0.
 2026-09-07, before this amendment was written, a diagnostic script computed on
 the frozen draws (i) a symmetric conformal max-rank rule with p-value
 `(1 + #{calibration scores >= audited score}) / 201`, pooled false-alarm
-rates 0.056 / 0.058 / 0.048 / 0.053 on the 12,000 disjoint evaluation draws,
+rates 0.056 / 0.058 / 0.048 / 0.053 on 12,000 clean draws from evaluation
+pools disjoint from the calibration pools (resampled draws within a pool may overlap),
 and (ii) the re-split rates quoted above. These numbers were seen before the
 amendment. They are recorded here so that the regenerated Gate F cannot be
 presented as a blind result: the rule adopted below is that construction,

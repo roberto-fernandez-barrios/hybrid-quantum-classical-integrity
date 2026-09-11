@@ -67,9 +67,9 @@ frozen calibration `s(E,C)`, clean response `s(E,B)` and label intervention
 `s(E,T_y(B))`.
 
 1. Correcting JSD alone leaves the original conformal result at `11/2617`.
-   Under aligned geometry it is `343/2700` material rows.
+   Under aligned geometry it is `343/2,700` material rows.
 2. Correcting JSD alone leaves the original union result at `43/2617`.
-   Under aligned geometry it is `1183/2700`.
+   Under aligned geometry it is `1,183/2,700`.
 3. Both aligned responses increase. The material denominator changes because
    balanced-accuracy materiality is recomputed on the frozen fresh batch B,
    not through outcome-selected filtering.

@@ -1,4 +1,4 @@
-"""Manuscript consistency gates (release 1.3.7).
+"""Manuscript consistency gates (release 1.3.8).
 
 These tests read the LaTeX sources, the generated macro file and the active
 documentation and fail closed on the editorial defects that the 1.3.1
@@ -24,6 +24,8 @@ only the repository text files.
 from __future__ import annotations
 
 import csv
+import inspect
+import json
 import re
 import shutil
 import subprocess
@@ -163,7 +165,7 @@ class TestAbstract:
 
     def test_abstract_carries_the_required_elements(self) -> None:
         text = " ".join(abstract_words()).lower()
-        for needle in ("indistinguishability", "minimum evidence granularity", "trusted aggregate", "item-aligned", "conformal", "exchangeability", "materially altered audit results", "adaptive", "ideal-statevector", "hardware claim"):
+        for needle in ("claim-relative evidence/reference", "indistinguishability", "trusted same-batch scalar", "item-aligned", "343/2,700", "1,183/2,700", "conformal", "exchangeability", "adaptive", "ideal-statevector", "qpu"):
             assert needle in text, needle
 
 
@@ -214,17 +216,130 @@ class TestActiveNumbers:
             assert literal not in text
 
 
+class TestV138EditorialClosure:
+    def test_aligned_label_geometry_is_primary_and_original_is_retained(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        aligned = "primary empirical interpretation of finite-batch label response uses the geometry-aligned construction"
+        original = "original frozen benchmark geometry"
+        assert aligned in main and original in main
+        assert main.index(aligned) < main.index(original)
+        assert r"\AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} material interventions with the conformal family rule" in main
+        assert r"\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} with the uncorrected union" in main
+        assert r"\BatchFamilyLabelFires{}/\NMaterialLabel{} conformal" in main
+        assert r"\BatchUnionLabelFires{}/\NMaterialLabel{} union" in main
+        assert "retained for release reproduction and comparison" in main
+        assert "not the preferred estimate of statistical response under the clean-resample geometry" in main
+
+    def test_structural_and_statistical_label_results_are_separate(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "aggregate-blind aligned rows exactly equal their paired-clean sensor and rule responses" in main
+        assert "attack-only increment is zero; this is the structural result" in main
+        assert "finite-batch miss, not structural blindness" in main
+
+    def test_without_ks_ablation_is_in_main(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        for value in (
+            "3,521/4,361", "4,008/4,462", "3,959/4,419",
+            "10/650", "62/603", "62/576",
+            "Sensor dependence is substantial and explicitly quantified",
+            "KS stays because it was prespecified",
+            "does not replace the primary family",
+        ):
+            assert value in main, value
+
+    def test_disjoint_draw_wording_is_exact(self) -> None:
+        files = [
+            "publication/tdsc/main.tex",
+            "publication/tdsc/supplement.tex",
+            "src/experiments/build_q1_policy_evidence.py",
+            "src/experiments/build_v137_correction_evidence.py",
+            "src/experiments/make_q1_policy_tables.py",
+            "src/experiments/make_q1_reinforcement_tables.py",
+            "manuscript/paper15_v13_prereg.md",
+            "manuscript/paper15_v13_result_summary.md",
+            *[p.relative_to(ROOT).as_posix() for p in sorted((ROOT / "publication/tdsc/tables").glob("*.tex"))],
+        ]
+        corpus = "\n".join(_read(rel).lower() for rel in files)
+        for forbidden in ("12,000 disjoint clean draws", "12,000 disjoint evaluation draws", "disjoint clean evaluation draws"):
+            assert forbidden not in corpus, forbidden
+        assert "evaluation pools disjoint from the calibration pools" in corpus
+        assert "draws within a pool may overlap" in corpus or "draws within each pool may overlap" in corpus
+
+    def test_trusted_headlines_are_recomputed_from_manifested_policy(self) -> None:
+        import pandas as pd
+        from src.experiments.make_v137_tables import _correction_macros, _trusted_current_counts
+
+        policy = pd.read_csv(
+            ROOT / "publication/artifact/evidence/jsd_correction/jsd_primary_policy_effect.csv"
+        )
+        counts = _trusted_current_counts(policy)
+        assert (
+            counts["gross_exact_blocks"], counts["exact_overlap"],
+            counts["net_additional"], round(float(counts["net_additional_pct"]), 2),
+        ) == (85, 44, 41, 3.42)
+        source = inspect.getsource(_correction_macros)
+        for name, literal in (
+            ("TrustedGrossExactBlocks", "85"),
+            ("TrustedExactOverlap", "44"),
+            ("TrustedNetAdditional", "41"),
+            ("TrustedNetAdditionalPct", "3.42"),
+        ):
+            assert not re.search(rf'_renew\("{name}",\s*"{re.escape(literal)}"\)', source)
+
+    def test_release_status_separates_historical_and_current_counts(self) -> None:
+        text = _read("publication/RELEASE_STATUS.md")
+        status = json.loads(_read("publication/RELEASE_STATUS.json"))
+        assert "## Historical v1.3.2/v1.3.6 quantities" in text
+        assert "## Current v1.3.7/v1.3.8 corrected quantities" in text
+        counts = status["primary_counts"]
+        assert (
+            counts["current_v137_v138_gross_exact_blocks"],
+            counts["current_v137_v138_corrected_batch_interruptions"],
+            counts["current_v137_v138_trusted_total_interruptions"],
+            counts["current_v137_v138_exact_overlap"],
+            counts["current_v137_v138_net_additional"],
+            counts["current_v137_v138_net_additional_basis_points"],
+        ) == (85, 576, 617, 44, 41, 342)
+
+    def test_label_headline_formatting_is_unambiguous(self) -> None:
+        macros = _macros()
+        assert macros["AlignedLabelMaterialDen"] == "2,700"
+        assert macros["AlignedLabelUnionFires"] == "1,183"
+        assert macros["AlignedLabelSeparableDen"] == "2,836"
+        assert macros["AlignedLabelSeparableUnionFires"] == "1,204"
+        corpus = "\n".join(_read(rel) for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"))
+        for pattern in (r"11\s*(?:--|–)\s*43", r"343\s*(?:--|–)\s*1,?183", r"AlignedLabelFamilyFires\{\}\s*--"):
+            assert not re.search(pattern, corpus)
+
+    def test_executed_design_does_not_validate_exchangeability_guarantee(self) -> None:
+        corpus = re.sub(
+            r"\s+", " ",
+            "\n".join(_read(rel).lower() for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex")),
+        )
+        for forbidden in ("validated 5% guarantee", "validates the exchangeability guarantee", "validation of the theorem"):
+            assert forbidden not in corpus
+        assert "executed rates are descriptive" in corpus or "executed false-action rates are descriptive" in corpus
+
+    def test_no_stale_public_release_identity(self) -> None:
+        assert _read("VERSION").strip() == "1.3.8"
+        assert _read("publication/tdsc/VERSION").strip() == "1.3.8-tdsc"
+        readme = _read("README.md")
+        assert "Current release | [Version 1.3.8]" in readme
+        assert "Immutable predecessor | [Zenodo version 1.3.7]" in readme
+
+
 class TestClaimWording:
     def test_minimum_evidence_is_declared_reference_relative(self) -> None:
         text = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
-        relevant = [
-            sentence
-            for sentence in _sentences(text)
-            if re.search(r"minimum (?:evidence|external root|granularity)|root's minimum|the minimum is relative", sentence, re.I)
-        ]
-        assert relevant
-        for sentence in relevant:
-            assert re.search(r"declared reference (?:lattice|model)|relative to the declared reference", sentence, re.I), sentence
+        assert "claim-relative minimum evidence granularity" not in text
+        assert "minimum number of bytes" not in text
+        assert "minimum commitment size" not in text
+        assert "minimum over every possible audit architecture" in text
+
+    def test_claim_headline_uses_sufficiency_and_necessity(self) -> None:
+        main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
+        assert "Evidence sufficiency and necessity are claim-relative within the declared reference lattice" in main
+        assert "claim-relative minimum evidence granularity" not in main
 
     def test_internal_paper_numbering_is_absent_from_submission_manuscript(self) -> None:
         corpus = "\n".join(_read(rel) for rel in ("publication/tdsc/main.tex", "publication/tdsc/supplement.tex"))
@@ -250,7 +365,7 @@ class TestClaimWording:
         abstract = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", text, re.S)
         assert abstract
         body = abstract.group(1)
-        assert "geometry-aligned sensitivity" in body
+        assert "geometry-aligned construction" in body
         assert "AdvDetCtrl" not in body and "AdvDetAdapt" not in body
 
     def test_identity_and_clean_resample_estimands_are_separate(self) -> None:
@@ -354,8 +469,8 @@ class TestV136FormalEditorialGuards:
 
     def test_minimum_claims_remain_bounded_to_the_declared_lattice(self) -> None:
         main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
-        assert "claim-relative minimum evidence granularity within the declared reference lattice" in main
-        assert "minimum levels within the declared reference lattice" in main
+        assert "counterexample necessity are claim-relative within the declared reference lattice" in main
+        assert "minimality statement is not over every encoding or audit architecture" in main
         assert "minimum over every possible audit architecture" in main
         assert "neither a deployed protocol nor" in main
 
@@ -373,8 +488,9 @@ class TestV136FormalEditorialGuards:
     def test_batch_size_and_structural_statistical_scope_is_explicit(self) -> None:
         main = re.sub(r"\s+", " ", _read("publication/tdsc/main.tex"))
         assert "Structural blind regions are independent of the number of rows" in main
-        assert "original 11--43/2,617" in main
-        assert "are fixed-geometry outcomes, not power bounds" in main
+        assert r"\BatchFamilyLabelFires{}/\NMaterialLabel{} conformal" in main
+        assert r"\BatchUnionLabelFires{}/\NMaterialLabel{} union" in main
+        assert "finite-design results, not power bounds" in main
         assert "batch size is confounded with environment and null behavior" in main
 
     def test_quantum_heading_and_scope_are_unambiguous(self) -> None:
@@ -509,12 +625,12 @@ class TestBibliographicIntegrity:
         assert "stronger here on QPU/hardware and runtime/provider evidence" in main
         assert "Our orthogonal contribution" in main
 
-    def test_release_identity_is_v137_with_immutable_v136_predecessor(self) -> None:
-        assert _read("VERSION").strip() == "1.3.7"
+    def test_release_identity_is_v138_with_immutable_v137_predecessor(self) -> None:
+        assert _read("VERSION").strip() == "1.3.8"
         citation = _read("CITATION.cff")
-        for value in ("1.3.7", "10.5281/zenodo.22550852"):
+        for value in ("1.3.8", "10.5281/zenodo.22550852"):
             assert value in citation
-        assert "10.5281/zenodo.22694063" in citation
+        assert "10.5281/zenodo.22698329" in citation
 
     def test_bibtex_has_no_duplicate_keys_or_dois(self) -> None:
         bib = _read("publication/tdsc/references.bib")

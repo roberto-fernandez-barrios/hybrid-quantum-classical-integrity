@@ -86,7 +86,7 @@ def table_false_alarm(ev: Path) -> str:
     n = int(fpr.n.iloc[0])
     return "\n".join([
         "\\begin{table}[!t]",
-        "\\caption{Gate N: empirical false-alarm rate of the null-calibrated sensors and batch-level regimes on " + f"{n:,}" + " disjoint clean evaluation draws (all eight environments pooled; nominal $\\alpha=0.05$ per sensor). Intervals are descriptive Clopper--Pearson 95\\% intervals: draws within a cell share a pool half and are not independent. Regime rows are unions without correction.}",
+        "\\caption{Gate N: empirical false-action rate of the null-calibrated sensors and batch-level regimes on " + f"{n:,}" + " clean draws from evaluation pools disjoint from the calibration pools (all eight environments pooled; nominal $\\alpha=0.05$ per sensor). Resampled draws within a pool may overlap. Intervals are descriptive Clopper--Pearson 95\\% intervals: draws within a cell share a pool half and are not independent. Regime rows are unions without correction.}",
         "\\label{tab:s-fpr}", "\\centering", "\\footnotesize", "\\setlength{\\tabcolsep}{4pt}",
         "\\begin{tabular}{@{}lrrl@{}}", "\\toprule",
         "Sensor / regime & Fires & Rate & 95\\% CI \\\\", "\\midrule",

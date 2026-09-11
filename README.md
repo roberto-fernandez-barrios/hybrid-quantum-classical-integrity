@@ -1,6 +1,6 @@
 # Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22698329.svg)](https://doi.org/10.5281/zenodo.22698329)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22706167.svg)](https://doi.org/10.5281/zenodo.22706167)
 [![CI](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/actions/workflows/tests.yml/badge.svg)](https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/actions/workflows/tests.yml)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31016/)
 [![License: Apache-2.0](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](LICENSE)
@@ -19,8 +19,8 @@ to the auditor remains internally consistent.
 
 This work formalizes auditability relative to an intervention class, an
 information set, and explicitly trusted references. It characterizes
-structural blind regions, identifies claim-relative minimum evidence
-granularity within the declared reference lattice, and evaluates those
+structural blind regions, establishes claim-relative evidence sufficiency and
+necessity within the declared reference lattice, and evaluates those
 boundaries across simulated
 quantum-kernel workflows, multiple network-security datasets, calibrated
 decision rules, and an adaptive stress test.
@@ -43,9 +43,10 @@ needed for quick verification or full replay from public benchmark datasets.
 - A preregistered geometry-aligned sensitivity separates the clean-resample
   calibration geometry from same-item editing and preserves the matched
   control/adaptive ordering while retaining materiality.
-- The v1.3.7 corrective release repairs the shared-support JSD histogram and
-  closes the aligned label-side statistical response without changing the
-  structural theory or frozen design.
+- The v1.3.8 editorial and traceability release promotes the published aligned
+  label response to the primary statistical interpretation, exposes the
+  existing without-KS ablation and recomputes presentation values from
+  manifested evidence without changing the structural theory or frozen design.
 - The quantum path is a bounded simulator-based instantiation that separates
   semantic, estimated, and observed kernels without making a hardware claim.
 
@@ -55,19 +56,21 @@ needed for quick verification or full replay from public benchmark datasets.
 |---|---|
 | Paper | [PDF](output/pdf/paper15_tdsc_submission.pdf) |
 | Supplement | [PDF](output/pdf/paper15_tdsc_supplement.pdf) |
-| Current release | [Version 1.3.7](https://doi.org/10.5281/zenodo.22698329) |
-| Immutable predecessor | [Zenodo version 1.3.6](https://doi.org/10.5281/zenodo.22694063) |
+| Current release | [Version 1.3.8](https://doi.org/10.5281/zenodo.22706167) |
+| Immutable predecessor | [Zenodo version 1.3.7](https://doi.org/10.5281/zenodo.22698329) |
 | Version history | [Zenodo concept record](https://doi.org/10.5281/zenodo.22550852) |
-| Immutable release tag | `paper15-q1-v1.3.7` |
+| Immutable release tag | `paper15-q1-v1.3.8` |
 | Manuscript source | [`publication/tdsc/`](publication/tdsc/) |
 | Reproducibility guide | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) |
 
-Version `1.3.7` is the sensor-correction and label-geometry closure release. It
-corrects the histogram-support defect in the two continuous JSD paths and
-adds the preregistered aligned label-side sensitivity. Datasets, models,
-splits, seeds, attacks, strengths, policies and structural propositions are
-unchanged. Version `1.3.6`, its tag, DOI and every earlier release remain
-immutable.
+Version `1.3.8` is a final editorial and traceability release. It promotes the
+already published geometry-aligned label response to the primary statistical
+interpretation, clarifies claim-relative evidence sufficiency, exposes the
+existing without-KS ablation, corrects release-status and draw-independence
+wording, and removes hard-coded presentation values in favor of manifested
+recomputation. No scientific observation, dataset, model, split, attack,
+calibration draw, theorem or prior evidence file is changed. Version `1.3.7`,
+its tag, DOI and every earlier release remain immutable.
 
 ## Quick verification
 
@@ -132,9 +135,9 @@ measurements from a QPU or calibrated backend.
 
 Citation metadata is provided in [CITATION.cff](CITATION.cff).
 
-- Version: `1.3.7`
-- Version DOI: [10.5281/zenodo.22698329](https://doi.org/10.5281/zenodo.22698329)
-- Immutable predecessor DOI: [10.5281/zenodo.22694063](https://doi.org/10.5281/zenodo.22694063)
+- Version: `1.3.8`
+- Version DOI: [10.5281/zenodo.22706167](https://doi.org/10.5281/zenodo.22706167)
+- Immutable predecessor DOI: [10.5281/zenodo.22698329](https://doi.org/10.5281/zenodo.22698329)
 - Concept DOI: [10.5281/zenodo.22550852](https://doi.org/10.5281/zenodo.22550852)
 
 Use the version DOI when citing the exact published artifact. The concept DOI

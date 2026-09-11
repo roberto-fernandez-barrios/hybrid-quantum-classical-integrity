@@ -549,7 +549,7 @@ def build_gate_d(scored: dict[str, pd.DataFrame], envelopes: list[dict[str, obje
                 for tau in TAUS:
                     rec = {
                         "family_rule": variant, "regime": regime, "policy": policy, "policy_class": POLICY_CLASS[policy], "tau": tau, "trusted_reference": trusted,
-                        "clean_denominator": "1,200 exact-zero rows (frozen clean rows and identity shams)" if trusted else "12,000 disjoint clean evaluation draws",
+                        "clean_denominator": "1,200 exact-zero rows (frozen clean rows and identity shams)" if trusted else "12,000 clean draws from evaluation pools disjoint from calibration pools; draws within a pool may overlap",
                         **decision_metrics(a_int, a_clean, a_ben, delta_int, blind_mask, tau),
                     }
                     metric_records.append(rec)
@@ -730,7 +730,7 @@ def build(repo: Path, out_dir: Path) -> None:
             "policy_classes": POLICY_CLASS,
             "regimes": {name: {"trusted_reference": spec.trusted_reference, "coverage": spec.coverage} for name, spec in POLICY_REGIMES.items()},
             "materiality": {"primary": "|delta balanced accuracy| > 1e-12", "sensitivity": [0.02, 0.05]},
-            "observation_classes": {"clean": "12,000 disjoint clean evaluation draws (1,200 exact-zero rows for the trusted regime)", "benign": "1,200 near-null in-place shams", "intervened": "10,800 frozen paper_core observations of the eight Gate N environments"},
+            "observation_classes": {"clean": "12,000 clean draws from evaluation pools disjoint from calibration pools; draws within a pool may overlap (1,200 exact-zero rows for the trusted regime)", "benign": "1,200 near-null in-place shams", "intervened": "10,800 frozen paper_core observations of the eight Gate N environments"},
             "evaluation_mode": "offline, on frozen outputs; not a deployed runtime service",
             "composition": "max in the lattice allow < hold < block over the six frozen HSaaS envelopes",
         },

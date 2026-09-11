@@ -1,10 +1,10 @@
-# Claim-to-evidence traceability (release 1.3.7; corrective evidence separated)
+# Claim-to-evidence traceability (release 1.3.8; evidence unchanged)
 
 This map links the manuscript claims to the published evidence. "Exact"
 denotes a consequence of the declared view and construction; "empirical"
 denotes a result within the frozen finite design. Every number printed in
 the article about the frozen gates enters through
-`publication/tdsc/tables/policy_macros.tex` followed by the v1.3.7 corrective
+`publication/tdsc/tables/policy_macros.tex` followed by the v1.3.7 evidence-derived
 override, generated from the manifested
 tables; `tests/test_manuscript_consistency.py` fails if a superseded
 hand-typed headline number, a conformal-level claim without its premise, a
@@ -14,7 +14,10 @@ dependency omission in the proof of Corollary 1(a), and claim-relative
 reference wording. It changes no theorem beyond that interpretation and no
 scientific evidence. Release 1.3.7 changes no structural theorem; it corrects
 JSD-dependent statistical evidence and adds the label-geometry sensitivity in
-separate manifested directories. A clean-performance table is a presentation-only summary
+separate manifested directories. Release 1.3.8 changes only narrative,
+presentation and traceability: aligned label response is the primary
+statistical interpretation, while every evidence tree remains unchanged. A
+clean-performance table is a presentation-only summary
 derived from frozen rows. The reference audit and permanent guards cover all
 bibliography keys.
 
@@ -33,7 +36,8 @@ bibliography keys.
 | In the executed design, which violates exchangeability (overlapping draws, different pool halves, E1), the corrected observed decision false-action rates are 0.056 / 0.059 / 0.048 / 0.055 for the conformal rule, against 0.063 / 0.074 / 0.048 / 0.080 (asymmetric comparison) and 0.123 / 0.201 / 0.048 / 0.257 (union); the article never claims that the executed design attains the level of the premise | Empirical, fixed design, simulator | `evidence/jsd_correction/jsd_gate_f_summary.csv` | v1.3.7 verifier checks endpoints and finite JSD; conditional-level wording guards remain active |
 | Under the same 30 exchangeable re-splits, the asymmetric rule fires at 0.052 / 0.058 / 0.040 / 0.059 and the conformal rule at 0.045 / 0.042 / 0.040 / 0.035 after JSD correction | Empirical (frozen re-split transformation) | `evidence/jsd_correction/jsd_corrected_resplit_pooled.csv`, `jsd_resplit_delta.csv` | Corrective manifest; conformal rates checked within the declared tolerance |
 | E1 remains in the primary aggregate and is reported alone (0.113 / 0.130 / 0.045 / 0.135) and excluded (0.050 / 0.051 / 0.048 / 0.046); split construction S1 is rederived on the same fixed rows | Empirical | corrective observations and `jsd_corrected_split_construction_sensitivity.csv` | Manifest hashes |
-| The original geometry reproduces 11 conformal and 43 union fires among 2,617 material label rows; aligned `s(E,T_y(B))` produces 343/2,700 and 1,183/2,700, while every one of 764 aggregate-blind rows has zero attack-only increment beyond paired clean. Trusted R0/M0/item-aligned conclusions remain exact | Formal claim-relative granularity + descriptive finite-batch sensitivity | `evidence/label_geometry_sensitivity/*`; `headline_delta.csv`; formal core | v1.3.7 verifier checks original endpoints, aligned counts and structural-blind equality |
+| Under the primary statistical interpretation, aligned `s(E,T_y(B))` produces 343/2,700 conformal and 1,183/2,700 union responses. The original frozen `s(E,T_y(E))` geometry is retained for reproduction/comparison and produces 11/2,617 conformal and 43/2,617 union. Every one of 764 aggregate-blind aligned rows has zero attack-only increment beyond paired clean; trusted R0/M0/item-aligned conclusions remain exact | Formal claim-relative sufficiency/necessity + descriptive finite-batch sensitivity | `evidence/label_geometry_sensitivity/*`; `headline_delta.csv`; formal core | Verifier checks original endpoints, aligned counts and structural-blind equality |
+| Frozen-only removal of KS retains 3,521/4,361, 4,008/4,462 and 3,959/4,419 core fires in I_X/I_XF/I_XFY, versus 10/650, 62/603 and 62/576 near-null fires; KS remains prespecified and the ablation does not replace the primary family | Descriptive sensor-dependence ablation; no new experiment | `evidence/jsd_correction/jsd_without_ks_ablation.csv` | Embedded manifest and v1.3.8 manuscript regression guard |
 | Class-A selected sensors are statistical aggregate comparisons against a benchmark-protected clean same-item-set oracle without item pairing or demonstrated deployed authentication; B/C are trusted aggregate/item-aligned exact invariants. Gate D consumes only union/family/exact flags, although upstream scoring needs the audited references | Implementation audit; no experimental result changed | `evidence/amendment_v132/sensor_reference_audit.csv`; `manuscript/METHODOLOGICAL_AMENDMENT_1.3.2.md`; runner/builders; `src/hsaas/policy.py` | Amendment checks M1–M3; verifier checks all 14 mappings; manuscript consistency guards |
 | Materially altered audit results served under corrected P2: 4,496 / 4,368 / 7,008 / 4,394 of 7,008 for I_X / I_XF / I_Ym / I_XFY; 0 for the trusted regime. These summarize the prespecified equal-weight grid, not deployment prevalence | Offline end-to-end evaluation on frozen outputs | `evidence/jsd_correction/jsd_primary_policy_effect.csv` | Corrective verifier freezes every P2 endpoint; terminology guards remain active |
 | The 85 gross exact-reference blocks are unchanged; 44 overlap the corrected 576 batch I_XFY/P2 interruptions, so the increment is 41/1,200 (3.42 pp) and trusted total is 617/1,200 | Formal containment + corrected frozen-output stress-control decomposition | `headline_delta.csv`; corrected policy table | Verifier checks the fixed endpoints; controls remain non-operational |

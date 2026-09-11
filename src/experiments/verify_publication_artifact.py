@@ -249,9 +249,9 @@ def verify_policy_claims(root: Path) -> dict[str, int]:
         "policy_regimes": int(primary["regime"].nunique()),
         "policy_policies": int(primary["policy"].nunique()),
         "policy_conformal_level_x10000": int(round(level * 10000)),
-        "policy_trusted_benign_holds": holds,
-        "policy_trusted_benign_blocks": blocks,
-        "policy_trusted_benign_interruptions": holds + blocks,
+        "historical_v132_v136_trusted_statistical_holds": holds,
+        "historical_v132_v136_gross_exact_blocks": blocks,
+        "historical_v132_v136_trusted_total_interruptions": holds + blocks,
         "policy_trusted_feature_coverage_calibrated": 1,
     }
 
@@ -335,9 +335,15 @@ def verify_v132_amendment(root: Path) -> dict[str, int]:
             raise ValueError(f"adaptive served-rate profile changed: {key}")
     return {
         "v132_sensor_audit_rows": len(audit),
-        "v132_trusted_gross_exact_blocks": 85,
-        "v132_trusted_exact_overlap": 46,
-        "v132_trusted_net_additional": 39,
+        "historical_v132_v136_batch_interruptions": int(cost.loc["batch_statistical_interruptions", "n"]),
+        "historical_v132_v136_trusted_statistical_holds": int(cost.loc["trusted_statistical_holds", "n"]),
+        "historical_v132_v136_gross_exact_blocks": int(cost.loc["gross_exact_reference_blocks", "n"]),
+        "historical_v132_v136_trusted_total_interruptions": int(cost.loc["trusted_total_interruptions", "n"]),
+        "historical_v132_v136_exact_overlap": int(cost.loc["exact_blocks_overlapping_batch_interruptions", "n"]),
+        "historical_v132_v136_net_additional": int(cost.loc["net_additional_interruptions_vs_batch_I_XFY_P2", "n"]),
+        "historical_v132_v136_net_additional_basis_points": int(
+            round(10000 * float(cost.loc["net_additional_interruptions_vs_batch_I_XFY_P2", "rate"]))
+        ),
         "v132_adaptive_strength_cells": len(profile),
     }
 
@@ -569,6 +575,44 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
         for regime, value in expected.items():
             if int(p2.loc[(geometry, regime), "unsafe_allow"]) != value:
                 raise ValueError(f"unexpected v1.3.7 Gate-D P2 result for {geometry}/{regime}")
+
+    current_p2 = policy[
+        (policy["geometry"] == "primary_v137_corrected_jsd")
+        & (policy["family_rule"] == "conformal")
+        & (policy["policy"] == "family_calibrated")
+    ].set_index("regime")
+    batch = current_p2.loc["I_XFY"]
+    trusted = current_p2.loc["I_XFY_trusted"]
+    if int(batch["n_benign"]) != int(trusted["n_benign"]):
+        raise ValueError("corrected batch/trusted near-null denominators differ")
+    trusted_denominator = int(trusted["n_benign"])
+    corrected_batch_interruptions = int(batch["benign_hold"]) + int(batch["benign_block"])
+    gross_exact_blocks = int(trusted["benign_block"])
+    trusted_total_interruptions = int(trusted["benign_hold"]) + gross_exact_blocks
+    exact_overlap = corrected_batch_interruptions + gross_exact_blocks - trusted_total_interruptions
+    net_additional = trusted_total_interruptions - corrected_batch_interruptions
+    net_additional_basis_points = int(round(10000 * net_additional / trusted_denominator))
+    if not (
+        exact_overlap == gross_exact_blocks - net_additional
+        and int(trusted["benign_hold"]) == corrected_batch_interruptions - exact_overlap
+        and abs(
+            float(trusted["benign_interruption_rate"])
+            - trusted_total_interruptions / trusted_denominator
+        )
+        <= TOL
+    ):
+        raise ValueError("corrected trusted-reference decomposition is inconsistent")
+
+    headline = pd.read_csv(jsd / "headline_delta.csv").set_index("claim")
+    expected_headline = {
+        "Trusted-reference gross exact blocks on near-null controls": f"{gross_exact_blocks}/{trusted_denominator}",
+        "Trusted/batch near-null overlap": f"{exact_overlap}/{trusted_denominator}",
+        "Trusted-reference net additional near-null interruptions": f"{net_additional}/{trusted_denominator}",
+        "Trusted-reference net near-null increment": f"{net_additional_basis_points / 100:.2f} pp",
+    }
+    for claim, expected in expected_headline.items():
+        if str(headline.loc[claim, "v1.3.7"]) != expected:
+            raise ValueError(f"headline_delta current value disagrees with policy evidence: {claim}")
     resplit = pd.read_csv(jsd / "jsd_corrected_resplit_pooled.csv")
     split = pd.read_csv(jsd / "jsd_corrected_split_construction_sensitivity.csv")
     if len(resplit) != 4 or len(split) != 4:
@@ -618,6 +662,13 @@ def verify_v137_correction(root: Path) -> dict[str, int]:
         "v137_label_aggregate_blind_rows": len(blind),
         "v137_label_aligned_family_material_fires": int(summary.loc["Q1", "v137"]),
         "v137_label_aligned_union_material_fires": int(summary.loc["Q2", "v137"]),
+        "current_v137_v138_corrected_batch_interruptions": corrected_batch_interruptions,
+        "current_v137_v138_trusted_statistical_holds": int(trusted["benign_hold"]),
+        "current_v137_v138_gross_exact_blocks": gross_exact_blocks,
+        "current_v137_v138_trusted_total_interruptions": trusted_total_interruptions,
+        "current_v137_v138_exact_overlap": exact_overlap,
+        "current_v137_v138_net_additional": net_additional,
+        "current_v137_v138_net_additional_basis_points": net_additional_basis_points,
     }
 
 

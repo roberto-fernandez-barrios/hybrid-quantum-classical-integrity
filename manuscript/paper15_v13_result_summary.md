@@ -33,7 +33,7 @@ exchangeability is exactly `floor(alpha (n+1))/(n+1) = 10/201 = 0.0498`
 with ties counted against firing (Proposition 5(b), version 1.2; exhaustive
 tests). No kernel, model or draw was re-executed for Gates F and D.
 
-## Gate F — decision-level false-alarm rate (12,000 disjoint evaluation draws, nominal 0.05)
+## Gate F — decision-level false-action rate (12,000 clean draws from evaluation pools disjoint from calibration pools; within-pool draws may overlap; nominal 0.05)
 
 | Regime | Union (1.1.0) | 1.2.0 rule (superseded) | Conformal (adopted) | Conformal, env. cluster means | Excluding E1 | E1 only |
 |---|---|---|---|---|---|---|

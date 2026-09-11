@@ -1,4 +1,4 @@
-# Supplementary material README (release 1.3.7; corrective evidence separated)
+# Supplementary material README (release 1.3.8; evidence unchanged)
 
 ## Description
 
@@ -24,8 +24,9 @@ decision counts with the interruption summary over the prespecified near-null
 stress controls), the preregistered
 frozen adversarial Gate A in full, the preregistered v1.3.5 feature-side
 geometry-aligned sensitivity, the v1.3.7 JSD correction and label-side aligned
-geometry sensitivity, the sensor decomposition and frozen-only without-KS
-ablation, the secondary model-impact profile, and the
+geometry sensitivity (promoted in v1.3.8 to the primary label-path statistical
+interpretation), the sensor decomposition and frozen-only without-KS ablation,
+the secondary model-impact profile, and the
 claims-supported/claims-excluded boundary.
 
 The supplement adds audit and reproduction detail; it does not add evidence

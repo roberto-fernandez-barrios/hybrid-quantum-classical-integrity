@@ -2,7 +2,7 @@
 
 This directory contains the publication sources for *Observational
 Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical
-Workflows*, version `1.3.7`.
+Workflows*, version `1.3.8`.
 
 ## Contents
 

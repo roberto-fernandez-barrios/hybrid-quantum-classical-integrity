@@ -60,12 +60,13 @@ def _doi_fields(repo: Path) -> dict[str, str]:
     concept = re.search(r'value:\s*"(10\.5281/zenodo\.\d+)"\s*\n\s*description:\s*"Concept DOI', text)
     version = version_doi.group(1) if version_doi else ""
     concept_value = concept.group(1) if concept else ""
-    # Before the release pipeline mints the version DOI, CITATION.cff carries the
-    # concept DOI; report that state explicitly instead of showing it twice.
+    # This local generator records identifiers but does not infer their external
+    # publication state. Before DOI reservation, CITATION.cff carries the concept
+    # DOI; after reservation it carries the version DOI.
     return {
         "version_doi": "" if version == concept_value else version,
         "concept_doi": concept_value,
-        "version_doi_state": "minted" if version and version != concept_value else "not yet minted (CITATION.cff carries the concept DOI)",
+        "version_doi_state": "version DOI recorded in CITATION.cff" if version and version != concept_value else "not yet reserved (CITATION.cff carries the concept DOI)",
     }
 
 
@@ -116,12 +117,56 @@ def render(status: dict[str, object]) -> str:
         f"| Version DOI (`CITATION.cff`) | {status['version_doi'] or status['version_doi_state']} |",
         f"| Concept DOI | {status['concept_doi']} |",
         "",
-        "## Primary counts recomputed by the verifier",
+        "## Historical v1.3.2/v1.3.6 quantities",
         "",
-        "| Claim | Value |",
+        "Retained only for tagged-release reproduction and historical comparison.",
+        "",
+        "| Historical quantity | Value |",
         "|---|---|",
     ]
-    for key in sorted(counts):
+    historical = {
+        "historical_v132_v136_batch_interruptions": "Batch-level P2 interruptions (historical JSD definition)",
+        "historical_v132_v136_trusted_statistical_holds": "Trusted statistical holds",
+        "historical_v132_v136_gross_exact_blocks": "Gross exact blocks",
+        "historical_v132_v136_trusted_total_interruptions": "Trusted total interruptions",
+        "historical_v132_v136_exact_overlap": "Exact overlap with batch interruptions",
+        "historical_v132_v136_net_additional": "Net additional interruptions",
+        "historical_v132_v136_net_additional_basis_points": "Net additional interruption increment",
+    }
+    current = {
+        "current_v137_v138_gross_exact_blocks": "Gross exact blocks",
+        "current_v137_v138_corrected_batch_interruptions": "Corrected batch interruptions",
+        "current_v137_v138_trusted_statistical_holds": "Trusted statistical holds",
+        "current_v137_v138_trusted_total_interruptions": "Trusted total interruptions",
+        "current_v137_v138_exact_overlap": "Exact overlap with corrected batch interruptions",
+        "current_v137_v138_net_additional": "Net additional interruptions",
+        "current_v137_v138_net_additional_basis_points": "Net additional interruption increment",
+    }
+
+    def rendered(key: str) -> str:
+        value = counts[key]
+        if key.endswith("_basis_points"):
+            return f"{float(value) / 100:.2f} pp"
+        return str(value)
+
+    for key, label in historical.items():
+        lines.append(f"| {label} | {rendered(key)} |")
+    lines.extend(
+        [
+            "",
+            "## Current v1.3.7/v1.3.8 corrected quantities",
+            "",
+            "Derived from the manifested corrected-policy evidence and validated against `headline_delta.csv`.",
+            "",
+            "| Current corrected quantity | Value |",
+            "|---|---|",
+        ]
+    )
+    for key, label in current.items():
+        lines.append(f"| {label} | {rendered(key)} |")
+    lines.extend(["", "## Other independently recomputed quantities", "", "| Claim | Value |", "|---|---|"])
+    separated = set(historical) | set(current)
+    for key in sorted(set(counts) - separated):
         lines.append(f"| `{key}` | {counts[key]} |")
     lines.append("")
     return "\n".join(lines)

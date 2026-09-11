@@ -5,8 +5,8 @@ $pdfDir = Join-Path $repoRoot 'output\pdf'
 $previousSourceDateEpoch = $env:SOURCE_DATE_EPOCH
 $previousForceSourceDate = $env:FORCE_SOURCE_DATE
 if ([string]::IsNullOrWhiteSpace($env:SOURCE_DATE_EPOCH)) {
-    # Fixed corrective-release epoch: 2026-09-10T00:00:00Z.
-    $env:SOURCE_DATE_EPOCH = '1788998400'
+    # Fixed final editorial-release epoch: 2026-09-11T00:00:00Z.
+    $env:SOURCE_DATE_EPOCH = '1789084800'
 }
 $env:FORCE_SOURCE_DATE = '1'
 

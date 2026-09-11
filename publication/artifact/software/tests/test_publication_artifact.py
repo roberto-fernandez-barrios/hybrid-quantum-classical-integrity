@@ -25,14 +25,18 @@ def test_local_evidence_manifests_and_primary_claims() -> None:
     assert summary["policy_material_observations"] == 7008
     assert summary["policy_regimes"] == 5
     assert summary["policy_conformal_level_x10000"] == 498
-    assert (summary["policy_trusted_benign_holds"], summary["policy_trusted_benign_blocks"]) == (544, 85)
-    assert summary["policy_trusted_benign_interruptions"] == 629
+    assert (
+        summary["historical_v132_v136_trusted_statistical_holds"],
+        summary["historical_v132_v136_gross_exact_blocks"],
+        summary["historical_v132_v136_trusted_total_interruptions"],
+    ) == (544, 85, 629)
     assert summary["adversarial_conditions"] == 16
     assert summary["v132_sensor_audit_rows"] == 14
     assert summary["v132_adaptive_strength_cells"] == 10
-    assert summary["v132_trusted_gross_exact_blocks"] == 85
-    assert summary["v132_trusted_exact_overlap"] == 46
-    assert summary["v132_trusted_net_additional"] == 39
+    assert summary["historical_v132_v136_batch_interruptions"] == 590
+    assert summary["historical_v132_v136_exact_overlap"] == 46
+    assert summary["historical_v132_v136_net_additional"] == 39
+    assert summary["historical_v132_v136_net_additional_basis_points"] == 325
     assert summary["geometry_observations"] == 13200
     assert summary["geometry_environments"] == 8
     assert summary["geometry_interventions"] == 22
@@ -42,6 +46,14 @@ def test_local_evidence_manifests_and_primary_claims() -> None:
     assert summary["v137_label_geometry_rows"] == 3600
     assert summary["v137_label_aligned_family_material_fires"] == 343
     assert summary["v137_label_aligned_union_material_fires"] == 1183
+    assert (
+        summary["current_v137_v138_gross_exact_blocks"],
+        summary["current_v137_v138_corrected_batch_interruptions"],
+        summary["current_v137_v138_trusted_total_interruptions"],
+        summary["current_v137_v138_exact_overlap"],
+        summary["current_v137_v138_net_additional"],
+        summary["current_v137_v138_net_additional_basis_points"],
+    ) == (85, 576, 617, 44, 41, 342)
 
 
 def test_compact_publication_artifact_when_present() -> None:

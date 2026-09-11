@@ -1,20 +1,23 @@
 cff-version: 1.2.0
-message: "Cite version 1.3.7 using DOI 10.5281/zenodo.22698329. This sensor-correction and label-geometry closure release keeps all previous releases immutable; code is Apache-2.0 and derived evidence/documentation are CC BY 4.0. See LICENSING.md."
+message: "Version 1.3.8 is the final editorial and traceability release. Cite version DOI 10.5281/zenodo.22706167 for this immutable release; all prior releases remain immutable. Code is Apache-2.0 and derived evidence/documentation are CC BY 4.0. See LICENSING.md."
 type: software
 title: "Observational Indistinguishability and Integrity Blind Regions in Hybrid Quantum-Classical Workflows"
-version: 1.3.7
+version: 1.3.8
 date-released: 2026-09-11
-doi: "10.5281/zenodo.22698329"
+doi: "10.5281/zenodo.22706167"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.22698329"
-    description: "Version 1.3.7 (sensor-correction and label-geometry closure release)"
+    value: "10.5281/zenodo.22706167"
+    description: "Version 1.3.8 (final editorial and traceability release)"
   - type: doi
     value: "10.5281/zenodo.22550852"
     description: "Concept DOI (resolves to the latest archived version)"
   - type: url
-    value: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/releases/tag/paper15-q1-v1.3.7"
+    value: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/releases/tag/paper15-q1-v1.3.8"
     description: "GitHub release of the tagged source"
+  - type: doi
+    value: "10.5281/zenodo.22698329"
+    description: "Version 1.3.7 (immutable predecessor; sensor-correction and label-geometry closure release)"
   - type: doi
     value: "10.5281/zenodo.22694063"
     description: "Version 1.3.6 (immutable predecessor; formal and editorial corrective release)"
@@ -47,7 +50,7 @@ identifiers:
     description: "Version 1.1.0 (identical evidence to 1.1.1; funding acknowledgement wording differs)"
 repository-code: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity"
 license: Apache-2.0
-license-url: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/blob/paper15-q1-v1.3.7/LICENSING.md"
+license-url: "https://github.com/roberto-fernandez-barrios/hybrid-quantum-classical-integrity/blob/paper15-q1-v1.3.8/LICENSING.md"
 authors:
   - family-names: "Fernández-Barrios"
     given-names: "Roberto"

@@ -23,7 +23,7 @@
   }
 \fi
 
-% Supplement layout (release v1.3.7): dense full-width result tables use top
+% Supplement layout (release v1.3.8): dense full-width result tables use top
 % placement so that explanatory text can continue below them instead of
 % producing sparse float-only pages. The main article remains unchanged.
 \renewcommand{\topfraction}{0.92}
@@ -582,7 +582,7 @@ Regime & Evidence & Implemented sensor family & Structural blind region & Calibr
 $\IX$ & Features & Feature JSD, MMD, KS rejection & Every label-only change & Conformal decision FPR \FprFamilyIX; label path 0/3,600; evaded by cluster-preserving drift at matched strengths \\
 $\IXF$ & Features, scores, predictions & $\IX$ plus score JSD, prediction-rate shift, prediction JSD & Every label-only change for a fixed predictor & Conformal FPR \FprFamilyIXF; label path 0/3,600; partially evaded by cluster-preserving drift \\
 $\IYm$ & Label class counts & Prior delta and label JSD & Prior-preserving relabeling; every feature-side change & FPR \FprFamilyIYm; zero containment; \ResidualBlindFamilyIYm{} residual-blind material cases at $\tau\to0^{+}$ \\
-$\IXFY$ (batch) & Item triples; Class-A statistical comparison & Confusion-profile statistics added & None for material label changes (Proposition~3), but finite-batch misses under the frozen rules: \BatchFamilyLabelFires{}--\BatchUnionLabelFires{} of \NMaterialLabel & Conformal FPR \FprFamilyIXFY \\
+$\IXFY$ (batch) & Item triples; Class-A statistical comparison & Confusion-profile statistics added & None for material label changes (Proposition~3), but finite-batch misses: aligned \AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} conformal and \AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} union; original frozen \BatchFamilyLabelFires{}/\NMaterialLabel{} conformal and \BatchUnionLabelFires{}/\NMaterialLabel{} union & Conformal FPR \FprFamilyIXFY \\
 $\IXFYs$ & Deployed-trusted same-batch references (B aggregate; C item-aligned) & Aggregate confusion-profile deltas; item-aligned prediction disagreement and label mismatch (exact-zero null) & None & Exact: \NMaterialLabel/\NMaterialLabel{} material label rows and every material adaptive row; 0 material corruptions served; 0 invariant violations on 1,200 exact-zero rows; \TrustedGrossExactBlocks{} gross exact blocks and \TrustedNetAdditional{} net additional near-null interruptions versus batch $\IXFY$/P2 \\
 $\IQ$ & Circuit, parameters, kernel, estimation evidence & Hashes, semantic probes, algebra, repeated estimation, output changes & Composition-dependent: hashes overreact to equivalence; algebra misses PSD-preserving substitution; outputs miss sub-decision changes (Proposition~7) & 165/165 cells; nine acceptance checks \\
 \bottomrule
@@ -818,7 +818,8 @@ unchanged. Exact label-path invariance holds in every configuration.
   \includegraphics[width=\textwidth]{fig_q1_calibrated_coverage.pdf}
   \caption{Prespecified frozen gates. (a) Descriptive finite-batch
   detection rate of each information regime on the frozen interventions with
-  the empirical false-alarm rate of disjoint clean evaluation draws in the
+  the empirical false-action rate of clean draws from evaluation pools
+  disjoint from the calibration pools in the
   first row; the first four columns are batch-level unions of per-sensor
   calibrated rules, the last column is exact item-aligned detection (undefined
   on clean draws). (b) Secondary within-split ZZ-minus-SVC conclusion-impact
@@ -877,12 +878,18 @@ the union, superseded asymmetric and conformal rules, the range over the eight
 environments, the near-null controls, the same exchangeable re-splits and the
 same split construction. The conformal $\IX$ and $\IXF$
 rules fire on none of the 3,600 label observations and the $\IYm$ rule on
-none of the 1,800 prior-preserving ones (F3); the batch-level $\IXFY$
-conformal rule fires on \BatchFamilyLabelFires{} of the \NMaterialLabel{}
-material label rows (1.2.0 rule \BatchLegacyLabelFires{}, union
-\BatchUnionLabelFires{}). Because these material rows change the confusion
-view, the 11--43 detections among 2,617 rows measure finite-batch statistical
-power rather than structural blindness. Structural blind regions are
+none of the 1,800 prior-preserving ones (F3). This table retains the original
+frozen $s(E,T_y(E))$ geometry for release reproduction and comparison: the
+batch $\IXFY$ rule responds to \BatchFamilyLabelFires{}/\NMaterialLabel{}
+material rows with the conformal rule and \BatchUnionLabelFires{}/\NMaterialLabel{}
+with the union (asymmetric comparison: \BatchLegacyLabelFires{}). It is
+structurally valid for the invariance checks but is not the preferred estimate
+of statistical response under clean-resample geometry; the primary aligned
+counts are \AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} conformal and
+\AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} union
+(Section~\ref{sec:v137-closure}). Because the aggregate-separable material
+rows change the confusion view, their nonresponses measure finite-batch
+statistical misses rather than structural blindness. Structural blind regions are
 independent of row count, but for interventions that change the observed
 statistic, power can rise with $n$ as sampling variability often decreases
 (approximately as $n^{-1/2}$ for proportion-like statistics under regular
@@ -1040,7 +1047,7 @@ and generalization beyond this fingerprint and structure remains open.
 
 \FloatBarrier
 
-\section{Version 1.3.7 Sensor Correction and Label-Geometry Closure}
+\section{Frozen Sensor Correction and Label-Geometry Evidence}
 \label{sec:v137-closure}
 
 The historical JSD defect is reproducible. Each sample was clipped by its own
@@ -1073,22 +1080,28 @@ coordinates (1,254 rows). The detailed ledger retains old/new sensor values,
 fires and all four regime decisions.
 
 Table~\ref{tab:v137-label-geometry} closes the label-side statistical
-geometry question without changing any structural theorem. The original
-$s(E,T_y(E))$ geometry reproduces 11/2,617 conformal and 43/2,617 union fires;
-correcting JSD alone leaves both counts unchanged. Under $s(E,T_y(B))$ with
-clean comparator $s(E,B)$, the existing interventions produce 2,700 material
-rows and response rises to 343/2,700 conformal and 1,183/2,700 union. The
+geometry question without changing any structural theorem. The primary
+finite-batch interpretation uses $s(E,T_y(B))$, calibration $s(E,C)$ and clean
+comparator $s(E,B)$: the existing interventions produce 2,700 material rows,
+with 343/2,700 conformal and 1,183/2,700 union responses. The
 denominator changes because materiality is recomputed on the preregistered
 fresh batch $B$, not because rows were selected. Among all 2,836
 aggregate-separable interventions, the aligned responses are 352 (12.41\%)
 and 1,204 (42.45\%). All 764 aggregate-blind rows retain the exact paired-clean
 sensor vector: their attack-only conformal and union increments are both zero.
-Thus the label-only blind region, Propositions~1--7, the $R_0/M_0/C$
-hierarchy and exact C1 results are unchanged.
+This is the structural result; nonresponse among aggregate-separable rows is a
+finite-batch statistical miss. The original frozen benchmark geometry
+$s(E,T_y(E))$ is retained for release reproduction and comparison: it yields
+11/2,617 conformal and 43/2,617 union responses, unchanged by the JSD
+correction. It remains structurally valid for blind-region invariance but is
+not the preferred statistical-response estimate under clean-resample geometry.
+Thus the label-only blind region, Propositions~1--7, the $R_0/M_0/C$ hierarchy
+and exact C1 results are unchanged.
 
-The policy consequence in Table~\ref{tab:v137-label-policy} is
-sensitivity-specific, not a retroactive replacement
-of the original primary grid. For aligned label rows, P2 serves 2,506, 2,509,
+The policy consequence in Table~\ref{tab:v137-label-policy} is specific to the
+aligned label sensitivity and does not replace the frozen all-mechanism policy
+grid. It is nevertheless the primary statistical-response interpretation for
+the label path. For aligned label rows, P2 serves 2,506, 2,509,
 2,391 and 2,357 of the 2,700 material rows in $\IX$, $\IXF$, $\IYm$ and
 $\IXFY$, respectively; the trusted regime serves zero. The corresponding
 union counts served are 2,201, 1,983, 2,391 and 1,517. The corrected-original
@@ -1194,19 +1207,19 @@ The artifact omits raw benchmark datasets; it documents their official
 sources, expected SHA-256 hashes, deterministic staging and a cross-platform
 hash verifier, and includes source code, locked dependencies, compact derived
 evidence, figures, figure-source tables, tests, manifests, preregistrations
-and expected outputs. Every v1.3.5 and v1.3.6 evidence file remains
-byte-identical to its tagged release. Version 1.3.7 adds only the separate
+and expected outputs. Every v1.3.5, v1.3.6 and v1.3.7 evidence file remains
+byte-identical to its tagged release. Version 1.3.7 added only the separate
 \path{evidence/jsd_correction} and
 \path{evidence/label_geometry_sensitivity} trees under version DOI
-10.5281/zenodo.22698329 and concept DOI 10.5281/zenodo.22550852; v1.3.6 remains at version DOI
-10.5281/zenodo.22694063. The clean
+10.5281/zenodo.22698329. Version 1.3.8 is presentation/traceability-only and
+has DOI 10.5281/zenodo.22706167 under concept DOI 10.5281/zenodo.22550852. The clean
 balanced-accuracy table is a presentation-only
 summary derived from frozen evidence. Source code is licensed under
 Apache-2.0, derived evidence, figures and
 documentation under CC~BY~4.0, and the manuscript files are author preprints
 excluded from both licenses.
 
-\balance
+\clearpage
 \section{Claims-Supported / Claims-Excluded Matrix}
 
 {\sloppy
@@ -1216,10 +1229,12 @@ monotone under refinement and closed exactly by added evidence that separates
 the class; feature/prediction sensors are exactly blind to label-only changes
 and label marginals to prior-preserving relabeling; every material label-path
 change alters the confusion matrix and is separable in the joint view, but
-batch-level Class-A auditors with a benchmark-protected, non-authenticated
-same-item-set statistical oracle detect 11--43 of 2,617 material rows under
-the original geometry and \AlignedLabelFamilyFires{}--\AlignedLabelUnionFires{}
-of \AlignedLabelMaterialDen{} under the aligned geometry, whereas a trusted aggregate reference of the same batch detects
+batch-level Class-A auditors under the primary geometry-aligned construction
+respond to \AlignedLabelFamilyFires{}/\AlignedLabelMaterialDen{} with the
+conformal rule and \AlignedLabelUnionFires{}/\AlignedLabelMaterialDen{} with
+the union; the benchmark-protected original frozen same-item geometry is
+retained for reproduction and yields \BatchFamilyLabelFires{}/\NMaterialLabel{}
+conformal and \BatchUnionLabelFires{}/\NMaterialLabel{} union, whereas a trusted aggregate reference of the same batch detects
 all of them and an item-aligned reference additionally exposes the 808
 aggregate-preserving relabelings; the executed rules reproduce the
 structural blind regions (a consistency check of Proposition~4(i), not a
@@ -1227,9 +1242,8 @@ finding); the union of per-sensor rules at $\alpha=0.05$ yields decision
 false-action rates of 0.123--0.257 that the conformal family rule brings to
 \FprFamilyIYm--\FprFamilyIXF{} in the executed design, whose finite-sample
 level of $10/201$ holds under exchangeability, a premise the executed design
-violates by a measured, small margin concentrated in E1; the rule of
-artifact 1.2.0 had no valid guarantee and most of its published excess was
-rule bias; on the prespecified equal-weight intervention grid, batch-level
+violates by a measured, small margin concentrated in E1; on the prespecified
+equal-weight intervention grid, batch-level
 regimes with feature evidence serve
 \UnsafeFamilyIXF--\UnsafeFamilyIX{} of \NMaterial{} materially changed
 results under the conformal-rule risk-tolerant policy, the label-marginal regime
@@ -1237,7 +1251,9 @@ serves all of them, and the trusted item-aligned regime serves none while
 interrupting \BenignInterruptFamilyIXFYtrusted{} of 1,200 near-null
 synthetic controls (\TrustedGrossExactBlocks{} gross exact-reference blocks,
 but only \TrustedNetAdditional{} net additional interruptions versus batch
-$\IXFY$/P2); an adaptive
+$\IXFY$/P2);\par
+\newpage
+\noindent an adaptive
 attacker who preserves the tight feature clusters cuts detection in $\IX$ and
 $\IXF$ from \AdvDetCtrlHeadlineMin--\AdvDetCtrlHeadlineMax{} to
 \AdvDetAdaptHeadlineMin--\AdvDetAdaptHeadlineMax{} at matched strengths while
