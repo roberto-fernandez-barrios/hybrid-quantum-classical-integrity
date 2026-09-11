@@ -323,6 +323,7 @@ class TestV138EditorialClosure:
     def test_no_stale_public_release_identity(self) -> None:
         assert _read("VERSION").strip() == "1.3.8"
         assert _read("publication/tdsc/VERSION").strip() == "1.3.8-tdsc"
+        assert 'version = "1.3.8"' in _read("pyproject.toml")
         readme = _read("README.md")
         assert "Current release | [Version 1.3.8]" in readme
         assert "Immutable predecessor | [Zenodo version 1.3.7]" in readme
